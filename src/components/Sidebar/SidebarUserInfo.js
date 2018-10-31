@@ -1,5 +1,5 @@
 import React from 'react';
-import WalrusImage from '../../assets/walrus.jpeg';
+import WalrusImage from 'assets/walrus.jpeg';
 
 const SidebarUserInfo = () => {
   return (
@@ -7,6 +7,7 @@ const SidebarUserInfo = () => {
       <img src={WalrusImage} alt="avatar"/>
       <div>
         <span>Hingle McCringleberry</span>
+        <i className="icon fas fa-cog"></i>
       </div>
     </div>
   );
