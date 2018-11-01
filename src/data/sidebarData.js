@@ -35,7 +35,7 @@ export const activeAlerts = [
   {
     header: '',
     secondaryHeader: 'Performance against target is 6.1',
-    icon: 'fas fa-plane icon',
+    icon: 'fas fa-bed icon',
     alert: true,
   },
   {

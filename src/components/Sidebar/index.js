@@ -4,7 +4,7 @@ import SidebarEvents from './SidebarEvents';
 import SidebarUserInfo from './SidebarUserInfo';
 
 //TODO: eventually delete
-import { activeAlerts, upcomingActions } from 'data/sidebar';
+import { activeAlerts, upcomingActions } from 'data/sidebarData';
 
 const SideBar = () => {
   return (
