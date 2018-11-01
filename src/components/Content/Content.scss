@@ -1,4 +1,44 @@
+@import '~styles/variables';
+
 .content-container {
   flex: 3;
-  background: yellow;
+  padding: 3em 5em;
+  .header {
+    display: flex;
+    .logo-container {
+      flex: 1;
+      img {
+        width: 100%;
+      }
+    }
+    .time-support-container {
+      flex: 2;
+      display: flex;
+      justify-content: flex-end;
+      .time-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 1em;
+        .time {
+          font-size: 170%;
+        }
+        .location {
+          border-top: 1px solid;
+        }
+      }
+      .icon-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 1em;
+        color: $tradewind;
+        cursor: pointer;
+        .icon {
+          font-size: 250%;
+          margin-bottom: .1em;
+        }
+      }
+    }
+  }
 }

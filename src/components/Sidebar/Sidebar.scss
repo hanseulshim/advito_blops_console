@@ -4,7 +4,7 @@
   flex: 1;
   background: $alabaster;
   border: 1px solid $pumice;
-  padding-top: 4em;
+  padding: 4em 2em;
 
   .sidebar-user-info {
     font-size: 140%;
@@ -20,7 +20,7 @@
   }
 
   .sidebar-events {
-    margin: 5em 0 5em 2em;
+    margin: 5em 0;
     .title-container {
       margin: 1.5em 0;
       display: flex;

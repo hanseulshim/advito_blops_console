@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Content.scss';
+import Header from './Header';
 
-class Content extends Component {
-  state = {  }
-  render() {
-    return (
+const Content = () => {
+  return (
     <div className="content-container">
-      I am a content
-    </div>);
-  }
+      <Header />
+    </div>
+  );
 }
 
 export default Content;
