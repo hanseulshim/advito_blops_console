@@ -1,8 +1,13 @@
 import React from 'react';
-import Content from './Content';
+import './Content.scss';
+import Header from './Header';
 
-const ContentContainer = () => {
-  return (<Content />);
+const Content = () => {
+  return (
+    <div className="content-container">
+      <Header />
+    </div>
+  );
 }
 
-export default ContentContainer;
+export default Content;
