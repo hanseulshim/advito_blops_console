@@ -1,4 +1,12 @@
+//import packages
 import React, { Component } from 'react';
+import {
+  Route,
+  Switch,
+  Redirect,
+  withRouter,
+} from 'react-router-dom';
+
 import './App.scss';
 import Content from './components/Content';
 import Sidebar from './components/Sidebar';
