@@ -1,4 +1,12 @@
+//import packages
 import React, { Component } from 'react';
+import {
+  Route,
+  Switch,
+  Redirect,
+  withRouter,
+} from 'react-router-dom';
+
 import './App.scss';
 import Login from './components/Login';
 import Portal from './components/Portal';
@@ -16,9 +24,11 @@ class App extends Component {
     const passwordValid = this.state.passwordValid;
     return (
       <div id="app">
-        {passwordValid ? <Portal /> : <Login authenticateUser={this.authenticateUser} />}
-        {/* <Portal /> */}
-        {/* <Dashboard /> */}
+        <Switch>
+          <Route path="/" exact component={Portal} />
+          <Route path="/login" component={Login}/>
+          <Route path="/dashboard" component={Dashboard}/>
+        </Switch>
       </div>
     );
   }
