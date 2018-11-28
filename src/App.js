@@ -24,9 +24,11 @@ class App extends Component {
     const passwordValid = this.state.passwordValid;
     return (
       <div id="app">
-        {passwordValid ? <Portal /> : <Login authenticateUser={this.authenticateUser} />}
-        {/* <Portal /> */}
-        {/* <Dashboard /> */}
+        <Switch>
+          <Route path="/" exact component={Portal} />
+          <Route path="/login" component={Login}/>
+          <Route path="/dashboard" component={Dashboard}/>
+        </Switch>
       </div>
     );
   }
