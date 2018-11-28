@@ -10,10 +10,10 @@ const SideBar = () => {
   return (
     <div className="sidebar-container">
       <SidebarUserInfo />
-      <SidebarEvents title="upcoming actions" data={upcomingActions}/>
-      <SidebarEvents title="active alerts" data={activeAlerts}/>
+      {/* <SidebarEvents title="upcoming actions" data={upcomingActions}/> */}
+      {/* <SidebarEvents title="active alerts" data={activeAlerts}/> */}
     </div>
   );
-}
+};
 
 export default SideBar;
