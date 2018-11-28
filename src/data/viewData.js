@@ -6,10 +6,12 @@ export const viewData = [
       {
         title: 'Travel Manager 360 View',
         icon: 'fas fa-chart-bar list-icon',
+        link: '/dashboard'
       },
       {
         title: 'Executive 360 View',
         icon: 'fas fa-chart-bar list-icon',
+        link: '/dashboard'
       },
     ]
   },
@@ -20,6 +22,7 @@ export const viewData = [
       {
         title: 'Air program analytics',
         icon: 'fas fa-chart-bar list-icon',
+        link: '#'
       },
     ]
   },
@@ -30,10 +33,12 @@ export const viewData = [
       {
         title: 'Hotel program analytics',
         icon: 'fas fa-chart-bar list-icon',
+        link: '#'
       },
       {
         title: 'Air program analytics',
         icon: 'fas fa-chart-line list-icon',
+        link: '#'
       },
     ]
   },

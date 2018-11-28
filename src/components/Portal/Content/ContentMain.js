@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from 'components/common/Button';
+import { Link } from 'react-router-dom';
 
 const generateViews = (data) => data.map((view, index) => (
   <div className="view" key={index}>
@@ -15,7 +16,7 @@ const generateViews = (data) => data.map((view, index) => (
 
 const generateList = (list) => list.map((view, index) => (
   <div className="list" key={index}>
-    <i className={view.icon} />
+    <Link to={`${view.link}`}><i className={view.icon} /></Link>
     <span>{view.title}</span>
   </div>
 ));
