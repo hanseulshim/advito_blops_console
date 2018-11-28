@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { ThemeProvider } from 'styled-components';
+import theme from 'styles/variables';
 import './App.scss';
 import Login from './components/Login';
 import Portal from './components/Portal';
@@ -15,11 +17,13 @@ class App extends Component {
   render() {
     const passwordValid = this.state.passwordValid;
     return (
-      <div id="app">
-        {passwordValid ? <Portal /> : <Login authenticateUser={this.authenticateUser} />}
-        {/* <Portal /> */}
-        {/* <Dashboard /> */}
-      </div>
+      <ThemeProvider theme={theme}>
+        <div id="app">
+          {/* {passwordValid ? <Portal /> : <Login authenticateUser={this.authenticateUser} />} */}
+          <Portal />
+          {/* <Dashboard /> */}
+        </div>
+      </ThemeProvider>
     );
   }
 }
