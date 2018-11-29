@@ -1,6 +1,17 @@
 import React from 'react';
-import Dashboard from './Dashboard';
+import styled from 'styled-components';
+import Header from './Header';
 
-const DashboardContainer = () => <Dashboard />;
+const Container = styled.div`
+  background: #fff;
+  flex: 1;
+  padding: 5em 0;
+`;
 
-export default DashboardContainer;
+export default () => {
+  return (
+    <Container>
+      <Header />
+    </Container>
+  );
+};

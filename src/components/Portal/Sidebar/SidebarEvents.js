@@ -43,8 +43,8 @@ const Header = styled.span`
   color: ${props => props.secondary && props.theme.boulder};
 `;
 
-const createIconRows = data => {
-  return data.map((obj, index) => (
+const createIconRows = data =>
+  data.map((obj, index) => (
     <EventConainer key={index}>
       <EventIcon round={!obj.alert} className={obj.icon} />
       <HeaderContainer>
@@ -53,18 +53,13 @@ const createIconRows = data => {
       </HeaderContainer>
     </EventConainer>
   ));
-};
 
-const SidebarEvents = ({ data, title }) => {
-  return (
-    <Container>
-      <TitleContainer>
-        <Title>{title}</Title>
-        <Button spaceLeft text="view all" />
-      </TitleContainer>
-      {createIconRows(data)}
-    </Container>
-  );
-};
-
-export default SidebarEvents;
+export default ({ data, title }) => (
+  <Container>
+    <TitleContainer>
+      <Title>{title}</Title>
+      <Button spaceLeft text="view all" />
+    </TitleContainer>
+    {createIconRows(data)}
+  </Container>
+);
