@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const BackButton = styled.i`
-  border: 2px solid $tradewind;
+  border: 2px solid ${props => props.theme.tradewind};
   border-radius: 50%;
   padding: 0.5em;
-  color: $tradewind;
+  color: ${props => props.theme.tradewind};
   display: flex;
   justify-content: center;
   width: 1em;
