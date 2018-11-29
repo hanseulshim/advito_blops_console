@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Icon from 'components/common/Icon';
 
 const Container = styled.div`
@@ -59,7 +60,9 @@ const ListIcon = styled(Icon)`
 
 const generateList = (view, index) => (
   <List key={index}>
-    <ListIcon className={view.icon} />
+    <Link to={`${view.link}`}>
+      <ListIcon className={view.icon} />
+    </Link>
     <span>{view.title}</span>
   </List>
 );

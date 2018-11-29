@@ -1,7 +1,9 @@
+//import packages
 import React, { Component } from 'react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 import theme from 'styles/variables';
+import { Route, Switch } from 'react-router-dom';
 import Login from './components/Login';
 import Portal from './components/Portal';
 import Dashboard from './components/Dashboard';
@@ -16,6 +18,9 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: 'Rubik', sans-serif;
       background: ${props => props.theme.grayNurse};
+  }
+  a {
+    text-decoration: none;
   }
 `;
 
@@ -39,9 +44,14 @@ class App extends Component {
       <ThemeProvider theme={theme}>
         <Container>
           <GlobalStyle />
+          <Switch>
+            <Route path="/" exact component={Portal} />
+            <Route path="/login" component={Login} />
+            <Route path="/dashboard" component={Dashboard} />
+          </Switch>
           {/* {passwordValid ? <Portal /> : <Login authenticateUser={this.authenticateUser} />} */}
           {/* <Portal /> */}
-          <Dashboard />
+          {/* <Dashboard /> */}
         </Container>
       </ThemeProvider>
     );
