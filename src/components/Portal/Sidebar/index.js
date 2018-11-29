@@ -8,19 +8,15 @@ import { activeAlerts, upcomingActions } from 'data/sidebarData';
 
 const Container = styled.div`
   flex: 1;
-  background: $alabaster;
-  border: 1px solid $pumice;
+  background: ${props => props.theme.alabaster};
+  border: 1px solid ${props => props.theme.pumice};
   padding: 4em 2em;
 `;
 
-const SideBar = () => {
-  return (
-    <Container>
-      <SidebarUserInfo />
-      <SidebarEvents title="upcoming actions" data={upcomingActions} />
-      <SidebarEvents title="active alerts" data={activeAlerts} />
-    </Container>
-  );
-};
-
-export default SideBar;
+export default () => (
+  <Container>
+    <SidebarUserInfo />
+    <SidebarEvents title="upcoming actions" data={upcomingActions} />
+    <SidebarEvents title="active alerts" data={activeAlerts} />
+  </Container>
+);

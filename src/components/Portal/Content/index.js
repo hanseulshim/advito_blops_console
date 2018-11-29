@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import './Content.scss';
 import Header from './Header';
 import ContentMain from './ContentMain';
 
@@ -8,19 +7,12 @@ import ContentMain from './ContentMain';
 import { viewData, infoData } from 'data/viewData';
 
 const Container = styled.div`
-  flex: 1;
-  background: $alabaster;
-  border: 1px solid $pumice;
-  padding: 4em 2em;
+  flex: 3;
+  padding: 3em 5em;
 `;
-
-const Content = () => {
-  return (
-    <Container className="content-container">
-      <Header />
-      <ContentMain viewData={viewData} infoData={infoData} />
-    </Container>
-  );
-};
-
-export default Content;
+export default () => (
+  <Container>
+    <Header />
+    <ContentMain viewData={viewData} infoData={infoData} />
+  </Container>
+);
