@@ -1,19 +1,22 @@
 import React from 'react';
-import './Sidebar.scss';
+import styled from 'styled-components';
 import SidebarEvents from './SidebarEvents';
 import SidebarUserInfo from './SidebarUserInfo';
 
 //TODO: eventually delete
 import { activeAlerts, upcomingActions } from 'data/sidebarData';
 
-const SideBar = () => {
-  return (
-    <div className="sidebar-container">
-      <SidebarUserInfo />
-      <SidebarEvents title="upcoming actions" data={upcomingActions}/>
-      <SidebarEvents title="active alerts" data={activeAlerts}/>
-    </div>
-  );
-}
+const Container = styled.div`
+  flex: 1;
+  background: ${props => props.theme.alabaster};
+  border: 1px solid ${props => props.theme.pumice};
+  padding: 4em 2em;
+`;
 
-export default SideBar;
+export default () => (
+  <Container>
+    <SidebarUserInfo />
+    <SidebarEvents title="upcoming actions" data={upcomingActions} />
+    <SidebarEvents title="active alerts" data={activeAlerts} />
+  </Container>
+);
