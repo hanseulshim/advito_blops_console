@@ -1,22 +1,5 @@
 @import '~styles/variables';
 
-.button {
-  border: 1px solid $rajah;
-  background: $alabaster;
-  color: $rajah;
-  text-transform: uppercase;
-  font-weight: 700;
-  border-radius: 50px;
-  padding: 0.5em 2em;
-  font-size: 75%;
-  cursor: pointer;
-
-  &:hover {
-    background: $rajah;
-    color: $alabaster;
-  }
-}
-
 .back-button {
   border: 2px solid $tradewind;
   border-radius: 50%;
