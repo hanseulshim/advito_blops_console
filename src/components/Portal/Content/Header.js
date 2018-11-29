@@ -1,37 +1,85 @@
 import React from 'react';
 import moment from 'moment-timezone';
+import styled from 'styled-components';
+import Icon from 'components/common/Icon';
 import advito_logo from 'assets/advito_logo.png';
 
+const Container = styled.div`
+  display: flex;
+`;
+
+const LogoContainer = styled.div`
+  flex: 1;
+  img {
+    width: 100%;
+  }
+`;
+
+const TimeSupportContainer = styled.div`
+  flex: 2;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const TimeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 1em;
+`;
+
+const Time = styled.span`
+  font-size: 1.7em;
+`;
+
+const Location = styled.span`
+  border-top: 1px solid;
+`;
+
+const IconContainer = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 1em;
+  color: ${props => props.theme.tradewind};
+  cursor: pointer;
+`;
+
+const AddyIcon = styled(Icon)`
+  font-size: 250%;
+  margin-bottom: 0.1em;
+`;
+
 const Header = () => {
-  const newYork = moment().tz("America/New_York");
-  const london = moment().tz("Europe/London");
+  const newYork = moment().tz('America/New_York');
+  const london = moment().tz('Europe/London');
   return (
-    <div className="header">
-      <div className="logo-container">
+    <Container>
+      <LogoContainer>
         <img src={advito_logo} alt="advito logo" />
-      </div>
-      <div className="time-support-container">
-        <div className="time-container">
+      </LogoContainer>
+      <TimeSupportContainer>
+        <TimeContainer>
           <div>
-            <span className="time">{newYork.format('h:m')}</span>
-            <span className="hour">{newYork.format('A')}</span>
+            <Time>{newYork.format('h:m')}</Time>
+            <span>{newYork.format('A')}</span>
           </div>
-          <span className="location">Washington, DC</span>
-        </div>
-        <div className="time-container">
+          <Location>Washington, DC</Location>
+        </TimeContainer>
+        <TimeContainer>
           <div>
-            <span className="time">{london.format('h:m')}</span>
-            <span className="hour">{london.format('A')}</span>
+            <Time>{london.format('h:m')}</Time>
+            <span>{london.format('A')}</span>
           </div>
-          <span className="location">London, UK</span>
-        </div>
-        <div className="icon-container">
-          <i className="far fa-comment-alt icon"/>
+          <Location>London, UK</Location>
+        </TimeContainer>
+        <IconContainer>
+          <AddyIcon className="far fa-comment-alt" />
           <span>Ask Addy</span>
-        </div>
-      </div>
-    </div>
+        </IconContainer>
+      </TimeSupportContainer>
+    </Container>
   );
-}
+};
 
 export default Header;
