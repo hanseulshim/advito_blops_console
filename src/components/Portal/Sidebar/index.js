@@ -1,18 +1,25 @@
 import React from 'react';
-import './Sidebar.scss';
+import styled from 'styled-components';
 import SidebarEvents from './SidebarEvents';
 import SidebarUserInfo from './SidebarUserInfo';
 
 //TODO: eventually delete
 import { activeAlerts, upcomingActions } from 'data/sidebarData';
 
+const Container = styled.div`
+  flex: 1;
+  background: $alabaster;
+  border: 1px solid $pumice;
+  padding: 4em 2em;
+`;
+
 const SideBar = () => {
   return (
-    <div className="sidebar-container">
+    <Container>
       <SidebarUserInfo />
-      {/* <SidebarEvents title="upcoming actions" data={upcomingActions}/> */}
-      {/* <SidebarEvents title="active alerts" data={activeAlerts}/> */}
-    </div>
+      <SidebarEvents title="upcoming actions" data={upcomingActions} />
+      <SidebarEvents title="active alerts" data={activeAlerts} />
+    </Container>
   );
 };
 
