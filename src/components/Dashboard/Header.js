@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import BackButton from 'components/common/BackButton';
 import advito_analytics from 'assets/advito_analytics.png';
+import { Link } from 'react-router-dom';
 
 const Header = styled.div`
   display: flex;
@@ -14,7 +15,9 @@ const Header = styled.div`
 
 export default () => (
   <Header>
-    <BackButton />
+    <Link to="/">
+      <BackButton />
+    </Link>
     <img src={advito_analytics} alt="advito analytics" />
   </Header>
 );
