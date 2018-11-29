@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 import theme from 'styles/variables';
-import './App.scss';
 import Login from './components/Login';
 import Portal from './components/Portal';
 import Dashboard from './components/Dashboard';
+
+const Container = styled.div`
+  max-width: 1600px;
+  margin: auto;
+  display: flex;
+`;
 
 class App extends Component {
   state = {
@@ -18,11 +24,11 @@ class App extends Component {
     const passwordValid = this.state.passwordValid;
     return (
       <ThemeProvider theme={theme}>
-        <div id="app">
+        <Container>
           {/* {passwordValid ? <Portal /> : <Login authenticateUser={this.authenticateUser} />} */}
           <Portal />
           {/* <Dashboard /> */}
-        </div>
+        </Container>
       </ThemeProvider>
     );
   }
