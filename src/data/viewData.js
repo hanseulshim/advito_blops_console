@@ -5,15 +5,21 @@ export const viewData = [
     list: [
       {
         title: 'Travel Manager 360 View',
-        icon: 'fas fa-chart-bar list-icon',
-        link: '/dashboard'
+        icon: 'fas fa-chart-bar',
+        link: '/dashboard',
       },
       {
         title: 'Executive 360 View',
-        icon: 'fas fa-chart-bar list-icon',
-        link: '/dashboard'
+        icon: 'fas fa-chart-bar',
+        link: '/dashboard',
       },
-    ]
+      {
+        title: 'Card Deck',
+        icon: 'fas fa-link',
+        domo: true,
+        link: 'https://www.domo.com/',
+      },
+    ],
   },
   {
     title: 'air',
@@ -21,10 +27,10 @@ export const viewData = [
     list: [
       {
         title: 'Air program analytics',
-        icon: 'fas fa-chart-bar list-icon',
-        link: '#'
+        icon: 'fas fa-chart-bar',
+        link: '#',
       },
-    ]
+    ],
   },
   {
     title: 'hotel',
@@ -32,27 +38,27 @@ export const viewData = [
     list: [
       {
         title: 'Hotel program analytics',
-        icon: 'fas fa-chart-bar list-icon',
-        link: '#'
+        icon: 'fas fa-chart-bar',
+        link: '#',
       },
       {
         title: 'Air program analytics',
-        icon: 'fas fa-chart-line list-icon',
-        link: '#'
+        icon: 'fas fa-chart-line',
+        link: '#',
       },
-    ]
+    ],
   },
 ];
 
 export const infoData = [
   {
     title: 'Upcoming Webinar',
-    icon: 'fab fa-google-drive info-icon',
+    icon: 'fab fa-google-drive',
     button: 'register',
   },
   {
     title: 'Podcast',
-    icon: 'fas fa-podcast info-icon',
+    icon: 'fas fa-podcast',
     button: 'download',
   },
 ];
