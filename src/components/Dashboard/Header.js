@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import BackButton from 'components/common/BackButton';
-import advito_analytics from 'assets/advito_analytics.png';
+import advito_logo from 'assets/advito_logo.png';
 import { Link } from 'react-router-dom';
 
 const Header = styled.div`
@@ -18,6 +18,6 @@ export default () => (
     <Link to="/">
       <BackButton />
     </Link>
-    <img src={advito_analytics} alt="advito analytics" />
+    <img src={advito_logo} alt="advito analytics" />
   </Header>
 );
