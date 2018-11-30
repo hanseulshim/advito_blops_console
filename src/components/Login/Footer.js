@@ -15,11 +15,11 @@ const Link = styled.a`
 
 export default () => (
   <Container>
-    <Link href="https://www.advito.com" target="_blank">
+    <Link href="https://www.advito.com/legal/" target="_blank">
       Terms of Services
     </Link>
     {' and '}
-    <Link href="https://www.advito.com" target="_blank">
+    <Link href="https://www.advito.com/privacy-policy/" target="_blank">
       Private Policy
     </Link>
   </Container>
