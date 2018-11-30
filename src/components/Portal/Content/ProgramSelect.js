@@ -60,9 +60,15 @@ const ListIcon = styled(Icon)`
 
 const generateList = (view, index) => (
   <List key={index}>
-    <Link to={`${view.link}`}>
-      <ListIcon className={view.icon} />
-    </Link>
+    {view.domo ? (
+      <a href={view.link} target="blank">
+        <ListIcon className={view.icon} />
+      </a>
+    ) : (
+      <Link to={`${view.link}`}>
+        <ListIcon className={view.icon} />
+      </Link>
+    )}
     <span>{view.title}</span>
   </List>
 );
