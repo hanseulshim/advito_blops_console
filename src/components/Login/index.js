@@ -1,67 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import advito_logo from 'assets/advito_logo.png';
+import LoginForm from './LoginForm';
+import Footer from './Footer';
 
 const Container = styled.div`
-  margin: auto;
-  margin-top: 200px;
-  background: ${props => props.theme.tradewind};
-  padding: 3em 4em;
-  width: 300px;
-  border-radius: 5px;
-`;
-
-const FormText = styled.input`
-  padding: 1em;
-  margin: 0.75em 0;
-  border: none;
-  border-radius: 5px;
-  box-sizing: border-box;
+  background: ${props => props.theme.jungleMist};
   width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
-const Submit = styled.input`
-  background-color: ${props => props.theme.rajah};
-  color: white;
-  padding: 1em;
-  margin-top: 2em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100%;
+const Logo = styled.img`
+  margin: 2em 0 0 3em;
+  width: 15%;
+  align-self: flex-start;
 `;
 
-class Login extends Component {
-  state = {
-    email: '',
-    password: '',
-  };
-  updateEmail = event => {
-    this.setState({ email: event.target.value });
-  };
-  updatePassword = event => {
-    this.setState({ password: event.target.value });
-  };
-  authenticateUser = event => {
-    this.props.authenticateUser(this.state.password);
-    event.preventDefault();
-  };
-  render() {
-    const { email, password } = this.state;
-    return (
-      <Container>
-        <form onSubmit={this.authenticateUser}>
-          <FormText placeholder="Email" type="text" value={email} onChange={this.updateEmail} />
-          <FormText
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={this.updatePassword}
-          />
-          <Submit type="submit" value="Login" />
-        </form>
-      </Container>
-    );
-  }
-}
+const Title = styled.div`
+  font-size: 3em;
+  width: 50%;
+  text-align: center;
+  margin-top: 2.5em;
+  color: ${props => props.theme.alabaster};
+  font-weight: 100;
+`;
 
-export default Login;
+export default () => (
+  <Container>
+    <Logo src={advito_logo} alt="advito logo" />
+    <Title>Welcome to the Advito Console</Title>
+    <LoginForm />
+    <Footer />
+  </Container>
+);

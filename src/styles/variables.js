@@ -7,4 +7,6 @@ export default {
   rajah: '#f5b45b',
   driftwood: '#b38443',
   tradewind: '#4baaa3',
+  jungleMist: '#B0D6D4',
+  jaffa: '#F3A13F',
 };
