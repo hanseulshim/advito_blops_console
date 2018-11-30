@@ -4,10 +4,19 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { HashRouter } from 'react-router-dom';
 
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+
+const client = new ApolloClient({
+  uri: 'https://x6o5gygua9.execute-api.us-east-1.amazonaws.com/dev/graphql',
+});
+
 ReactDOM.render(
-  <HashRouter>
-    <App />
-  </HashRouter>,
+  <ApolloProvider client={client}>
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </ApolloProvider>,
   document.getElementById('root')
 );
 
