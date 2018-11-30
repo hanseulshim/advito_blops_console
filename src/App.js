@@ -1,12 +1,12 @@
-//import packages
 import React, { Component } from 'react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 import theme from 'styles/variables';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Login from './components/Login';
 import Portal from './components/Portal';
 import Dashboard from './components/Dashboard';
+import UserContext from 'components/context/UserContext';
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -30,30 +30,41 @@ const Container = styled.div`
   display: flex;
 `;
 
+const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={props => (authenticated ? <Component {...props} /> : <Redirect to="/login" />)}
+    />
+  );
+};
+
 class App extends Component {
-  state = {
-    passwordValid: false,
-  };
-  authenticateUser = password => {
-    const passwordValid = password === 'blops2018';
-    this.setState({ passwordValid });
+  state = { authenticated: false };
+  authenticateUser = event => {
+    this.setState({ authenticated: event.target.password.value === 'blops2018' });
+    event.preventDefault();
   };
   render() {
-    const passwordValid = this.state.passwordValid;
+    const authenticated = this.state.authenticated;
     return (
-      <ThemeProvider theme={theme}>
-        <Container>
-          <GlobalStyle />
-          <Switch>
-            <Route path="/" exact component={Portal} />
-            <Route path="/login" component={Login} />
-            <Route path="/dashboard" component={Dashboard} />
-          </Switch>
-          {/* {passwordValid ? <Portal /> : <Login authenticateUser={this.authenticateUser} />} */}
-          {/* <Portal /> */}
-          {/* <Dashboard /> */}
-        </Container>
-      </ThemeProvider>
+      <UserContext.Provider value={{ authenticateUser: this.authenticateUser, authenticated }}>
+        <ThemeProvider theme={theme}>
+          <Container>
+            <GlobalStyle />
+            <Switch>
+              <PrivateRoute path="/" exact component={Portal} authenticated={authenticated} />
+              <PrivateRoute
+                path="/dashboard"
+                exact
+                component={Dashboard}
+                authenticated={authenticated}
+              />
+              <Route path="/login" component={Login} />
+            </Switch>
+          </Container>
+        </ThemeProvider>
+      </UserContext.Provider>
     );
   }
 }
