@@ -15,7 +15,7 @@ export const viewData = [
       },
       {
         title: 'Card Deck',
-        icon: 'fas fa-link',
+        icon: 'fas fa-external-link-alt',
         domo: true,
         link: 'https://www.domo.com/',
       },
