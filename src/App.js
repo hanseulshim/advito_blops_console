@@ -17,7 +17,23 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'Rubik', sans-serif;
-      background: ${props => props.theme.grayNurse};
+    background: ${props => props.theme.grayNurse};
+    font-size: 16px;
+    @media (max-width : 1500px){
+      font-size: 15px;
+    }
+    @media (max-width : 1400px){
+      font-size: 14px;
+    }
+    @media (max-width : 1336px){
+      font-size: 13px;
+    }
+    @media (max-width : 1200px){
+      font-size: 12px;
+    }
+    @media (max-width : 1024px){
+      font-size: 11px;
+    }
   }
   a {
     text-decoration: none;
