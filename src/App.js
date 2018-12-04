@@ -3,10 +3,12 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 import theme from 'styles/variables';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import UserContext from 'components/context/UserContext';
 import Login from './components/Login';
+import Sidebar from './components/Sidebar';
+import Main from './components/Main';
 import Portal from './components/Portal';
 import Dashboard from './components/Dashboard';
-import UserContext from 'components/context/UserContext';
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -50,13 +52,15 @@ const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props => (authenticated ? <Component {...props} /> : <Redirect to="/login" />)}
+      render={props =>
+        authenticated ? <Main component={Component} {...props} /> : <Redirect to="/login" />
+      }
     />
   );
 };
 
 class App extends Component {
-  state = { authenticated: false };
+  state = { authenticated: true };
   authenticateUser = event => {
     this.setState({ authenticated: event.target.password.value === 'blops2018' });
     event.preventDefault();
@@ -68,6 +72,7 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <Container>
             <GlobalStyle />
+            <Sidebar />
             <Switch>
               <PrivateRoute path="/" exact component={Portal} authenticated={authenticated} />
               <PrivateRoute

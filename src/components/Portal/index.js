@@ -1,10 +1,21 @@
 import React from 'react';
-import Content from './Content';
-import Sidebar from './Sidebar';
+import styled from 'styled-components';
+import ProgramPerformance from './ProgramPerformance';
+import ProgramSelect from './ProgramSelect';
+import BottomInfo from './BottomInfo';
+
+//TODO: eventually delete
+import { viewData, infoData } from 'data/viewData';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export default () => (
-  <>
-    <Sidebar />
-    <Content />
-  </>
+  <Container>
+    <ProgramPerformance />
+    <ProgramSelect data={viewData} />
+    <BottomInfo data={infoData} />
+  </Container>
 );
