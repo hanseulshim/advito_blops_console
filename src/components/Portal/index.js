@@ -4,9 +4,6 @@ import ProgramPerformance from './ProgramPerformance';
 import ProgramSelect from './ProgramSelect';
 import BottomInfo from './BottomInfo';
 
-//TODO: eventually delete
-import { viewData, infoData } from 'data/viewData';
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,7 +12,7 @@ const Container = styled.div`
 export default () => (
   <Container>
     <ProgramPerformance />
-    <ProgramSelect data={viewData} />
-    <BottomInfo data={infoData} />
+    <ProgramSelect />
+    <BottomInfo />
   </Container>
 );
