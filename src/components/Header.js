@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment-timezone';
 import styled from 'styled-components';
 import Icon from 'components/common/Icon';
@@ -6,6 +7,7 @@ import advito_logo from 'assets/advito_logo.png';
 
 const Container = styled.div`
   display: flex;
+  margin-bottom: 5em;
 `;
 
 const LogoContainer = styled.div`
@@ -56,7 +58,9 @@ export default () => {
   return (
     <Container>
       <LogoContainer>
-        <img src={advito_logo} alt="advito logo" />
+        <Link to={`/`}>
+          <img src={advito_logo} alt="advito logo" />
+        </Link>
       </LogoContainer>
       <TimeSupportContainer>
         <TimeContainer>
