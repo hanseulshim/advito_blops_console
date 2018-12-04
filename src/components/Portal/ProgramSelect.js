@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 import { Link } from 'react-router-dom';
 import Icon from 'components/common/Icon';
 
@@ -73,14 +75,37 @@ const generateList = (view, index) => (
   </List>
 );
 
-const generateView = (view, index) => (
-  <View key={index}>
-    <IconContainer>
-      <ViewIcon className={view.icon} />
-      <Title>{view.title}</Title>
-    </IconContainer>
-    <ListContainer>{view.list.map(generateList)}</ListContainer>
-  </View>
+export default () => (
+  <Container>
+    <Query
+      query={gql`
+        {
+          viewList {
+            title
+            icon
+            list {
+              title
+              icon
+              domo
+              link
+            }
+          }
+        }
+      `}
+    >
+      {({ loading, error, data }) => {
+        if (loading) return <p>Loading...</p>;
+        if (error) return <p>Error :(</p>;
+        return data.viewList.map((view, index) => (
+          <View key={index}>
+            <IconContainer>
+              <ViewIcon className={view.icon} />
+              <Title>{view.title}</Title>
+            </IconContainer>
+            <ListContainer>{view.list.map(generateList)}</ListContainer>
+          </View>
+        ));
+      }}
+    </Query>
+  </Container>
 );
-
-export default ({ data }) => <Container>{data.map(generateView)}</Container>;
