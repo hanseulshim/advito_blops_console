@@ -10,12 +10,12 @@ const Container = styled.div`
   }
 `;
 
-export default () => {
-  return (
-    <Container>
-      <div>program performance</div>
-      <img src={chart} alt="chart" />
-      <div>opportunities</div>
-    </Container>
-  );
-};
+const Dashboard = () => (
+  <Container>
+    <div>program performance</div>
+    <img src={chart} alt="chart" />
+    <div>opportunities</div>
+  </Container>
+);
+
+export default Dashboard;

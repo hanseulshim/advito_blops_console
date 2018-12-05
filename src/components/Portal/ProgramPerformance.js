@@ -6,7 +6,7 @@ const Container = styled.div`
   display: flex;
 `;
 
-const ProgramPerformance = styled.div`
+const ProgramPerformanceComponent = styled.div`
   padding: 0.5em 1em;
   background: ${props => props.theme.rajah};
   color: ${props => props.theme.alabaster};
@@ -22,12 +22,14 @@ const Info = styled.div`
   background: ${props => props.theme.alabaster};
 `;
 
-export default () => (
+const ProgramPerformance = () => (
   <Container>
-    <ProgramPerformance>
+    <ProgramPerformanceComponent>
       <InfoIcon className="fab fa-envira" />
       <span>Program Performance</span>
-    </ProgramPerformance>
+    </ProgramPerformanceComponent>
     <Info>Total program Performance is 7.1 out of 8.7 with no change since July 30, 2018</Info>
   </Container>
 );
+
+export default ProgramPerformance;

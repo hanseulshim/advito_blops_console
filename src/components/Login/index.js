@@ -30,7 +30,7 @@ const Title = styled.div`
   font-weight: 100;
 `;
 
-export default () => (
+const Login = () => (
   <Container>
     <Logo src={advito_logo} alt="advito logo" />
     <Title>Welcome to the Advito Console</Title>
@@ -38,3 +38,5 @@ export default () => (
     <Footer />
   </Container>
 );
+
+export default Login;
