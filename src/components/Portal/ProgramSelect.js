@@ -75,7 +75,7 @@ const generateList = (view, index) => (
   </List>
 );
 
-export default () => (
+const ProgramSelect = () => (
   <Container>
     <Query
       query={gql`
@@ -109,3 +109,5 @@ export default () => (
     </Query>
   </Container>
 );
+
+export default ProgramSelect;

@@ -31,7 +31,7 @@ const Title = styled.span`
   margin-bottom: 0.75em;
 `;
 
-export default () => (
+const BottomInfo = () => (
   <Container>
     <Query
       query={gql`
@@ -60,3 +60,5 @@ export default () => (
     </Query>
   </Container>
 );
+
+export default BottomInfo;

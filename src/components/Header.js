@@ -52,7 +52,7 @@ const AddyIcon = styled(Icon)`
   margin-bottom: 0.1em;
 `;
 
-export default () => {
+const Header = () => {
   const newYork = moment().tz('America/New_York');
   const london = moment().tz('Europe/London');
   return (
@@ -85,3 +85,4 @@ export default () => {
     </Container>
   );
 };
+export default Header;

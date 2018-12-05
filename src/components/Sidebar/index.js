@@ -12,7 +12,7 @@ const Container = styled.div`
   padding: 4em 2em;
 `;
 
-export default () => (
+const Sidebar = () => (
   <Container>
     <SidebarUserInfo />
     <Query
@@ -46,3 +46,5 @@ export default () => (
     </Query>
   </Container>
 );
+
+export default Sidebar;
