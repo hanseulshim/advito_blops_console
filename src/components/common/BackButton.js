@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const BackButtonComponent = styled.i`
+const BackButtonStyled = styled.i`
   border: 2px solid ${props => props.theme.tradewind};
   border-radius: 50%;
   padding: 0.5em;
@@ -13,6 +13,6 @@ const BackButtonComponent = styled.i`
   cursor: pointer;
 `;
 
-const BackButton = () => <BackButtonComponent className="fas fa-chevron-left" />;
+const BackButton = () => <BackButtonStyled className="fas fa-chevron-left" />;
 
 export default BackButton;

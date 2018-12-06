@@ -54,7 +54,7 @@ const createIconRows = data =>
     </EventConainer>
   ));
 
-export default ({ data, title }) => (
+const SidebarEvents = ({ data, title }) => (
   <Container>
     <TitleContainer>
       <Title>{title}</Title>
@@ -63,3 +63,5 @@ export default ({ data, title }) => (
     {createIconRows(data)}
   </Container>
 );
+
+export default SidebarEvents;
