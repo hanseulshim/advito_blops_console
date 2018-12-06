@@ -7,9 +7,11 @@ const Container = styled.div`
   padding: 3em 5em;
 `;
 
-export default ({ component: Component, ...rest }) => (
+const Main = ({ component: Component, ...rest }) => (
   <Container>
     <Header />
     <Component {...rest} />
   </Container>
 );
+
+export default Main;
