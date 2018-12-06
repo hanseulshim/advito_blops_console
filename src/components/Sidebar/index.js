@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import GraphQL from 'components/graphql';
 import SidebarEvents from './SidebarEvents';
 import SidebarUserInfo from './SidebarUserInfo';
 
@@ -12,38 +11,34 @@ const Container = styled.div`
   padding: 4em 2em;
 `;
 
+const query = `
+{
+  upcomingActions {
+    header
+    secondaryHeader
+    icon
+    alert
+  }
+  activeAlerts {
+    header
+    secondaryHeader
+    icon
+    alert
+  }
+}
+`;
+
 const Sidebar = () => (
   <Container>
     <SidebarUserInfo />
-    <Query
-      query={gql`
-        {
-          upcomingActions {
-            header
-            secondaryHeader
-            icon
-            alert
-          }
-          activeAlerts {
-            header
-            secondaryHeader
-            icon
-            alert
-          }
-        }
-      `}
-    >
-      {({ loading, error, data }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) return <p>Error :(</p>;
-        return (
-          <>
-            <SidebarEvents title="upcoming actions" data={data.upcomingActions} />
-            <SidebarEvents title="active alerts" data={data.activeAlerts} />
-          </>
-        );
-      }}
-    </Query>
+    <GraphQL query={query}>
+      {data => (
+        <>
+          <SidebarEvents title="upcoming actions" data={data.upcomingActions} />
+          <SidebarEvents title="active alerts" data={data.activeAlerts} />
+        </>
+      )}
+    </GraphQL>
   </Container>
 );
 
