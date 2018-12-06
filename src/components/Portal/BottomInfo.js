@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import GraphQL from 'components/graphql';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
 
@@ -31,23 +30,21 @@ const Title = styled.span`
   margin-bottom: 0.75em;
 `;
 
+const query = `
+{
+  infoList {
+    title
+    icon
+    button
+  }
+}
+`;
+
 const BottomInfo = () => (
   <Container>
-    <Query
-      query={gql`
-        {
-          infoList {
-            title
-            icon
-            button
-          }
-        }
-      `}
-    >
-      {({ loading, error, data }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) return <p>Error :(</p>;
-        return data.infoList.map((view, index) => (
+    <GraphQL query={query}>
+      {data =>
+        data.infoList.map((view, index) => (
           <Info key={index}>
             <InfoIcon className={view.icon} />
             <Text>
@@ -55,9 +52,9 @@ const BottomInfo = () => (
               <Button text={view.button} />
             </Text>
           </Info>
-        ));
-      }}
-    </Query>
+        ))
+      }
+    </GraphQL>
   </Container>
 );
 

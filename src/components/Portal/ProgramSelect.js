@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import GraphQL from 'components/graphql';
 import { Link } from 'react-router-dom';
 import Icon from 'components/common/Icon';
 
@@ -60,6 +59,21 @@ const ListIcon = styled(Icon)`
   margin-right: 0.5em;
 `;
 
+const query = `
+{
+  viewList {
+    title
+    icon
+    list {
+      title
+      icon
+      domo
+      link
+    }
+  }
+}
+`;
+
 const generateList = (view, index) => (
   <List key={index}>
     {view.domo ? (
@@ -77,26 +91,9 @@ const generateList = (view, index) => (
 
 const ProgramSelect = () => (
   <Container>
-    <Query
-      query={gql`
-        {
-          viewList {
-            title
-            icon
-            list {
-              title
-              icon
-              domo
-              link
-            }
-          }
-        }
-      `}
-    >
-      {({ loading, error, data }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) return <p>Error :(</p>;
-        return data.viewList.map((view, index) => (
+    <GraphQL query={query}>
+      {data =>
+        data.viewList.map((view, index) => (
           <View key={index}>
             <IconContainer>
               <ViewIcon className={view.icon} />
@@ -104,9 +101,9 @@ const ProgramSelect = () => (
             </IconContainer>
             <ListContainer>{view.list.map(generateList)}</ListContainer>
           </View>
-        ));
-      }}
-    </Query>
+        ))
+      }
+    </GraphQL>
   </Container>
 );
 
