@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import Icon from 'components/common/Icon';
-import program_performance from 'assets/program_performance.png';
-import net_spend from 'assets/net_spend.png';
 
 const Container = styled.div`
   flex: 1;

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ProgramPerformance from './ProgramPerformance';
+import NetSpendAnalysis from './NetSpendAnalysis';
 import chart from 'assets/chart.png';
 
 const Container = styled.div`
@@ -20,7 +21,7 @@ const TravelManager = () => (
   <Container>
     <TopRow>
       <ProgramPerformance />
-      <div style={{ flex: 1, paddingLeft: '1.5em' }}>fsoidjfsodfijsd</div>
+      <NetSpendAnalysis />
     </TopRow>
     <Image src={chart} alt="chart" />
     <div>opportunities</div>
