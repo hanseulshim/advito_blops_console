@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Icon from 'components/common/Icon';
+import LineChart from './LineChart';
 
 const Container = styled.div`
   flex: 1;
@@ -37,6 +38,7 @@ const NetSpendAnalysis = () => {
           Year to date
         </YearToDate>
       </SectionTitle>
+      <LineChart />
     </Container>
   );
 };
