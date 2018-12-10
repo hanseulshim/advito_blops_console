@@ -3,23 +3,29 @@ import styled from 'styled-components';
 import ProgramPerformance from './ProgramPerformance';
 import NetSpendAnalysis from './NetSpendAnalysis';
 import Personas from './Personas';
+import Opportunities from './Opportunities';
+import RiskAreas from './RiskAreas';
 
 const Container = styled.div`
   flex: 1;
 `;
 
-const TopRow = styled.div`
+const Row = styled.div`
   display: flex;
+  margin-top: 2em;
 `;
 
 const TravelManager = () => (
   <Container>
-    <TopRow>
+    <Row>
       <ProgramPerformance />
       <NetSpendAnalysis />
-    </TopRow>
+    </Row>
     <Personas />
-    <div>opportunities</div>
+    <Row>
+      <Opportunities />
+      <RiskAreas />
+    </Row>
   </Container>
 );
 

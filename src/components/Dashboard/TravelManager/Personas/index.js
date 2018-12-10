@@ -5,6 +5,7 @@ import CircleChart from './CircleChart';
 
 const PersonaContainer = styled.div`
   display: flex;
+  margin-top: 2em;
 `;
 const Persona = styled.div`
   background: ${props => props.color};
