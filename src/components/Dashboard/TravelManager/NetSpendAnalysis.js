@@ -27,20 +27,18 @@ const YearToDate = styled.label`
   }
 `;
 
-const NetSpendAnalysis = () => {
-  return (
-    <Container>
-      <SectionTitle>
-        <span>Net Spend Analysis</span>
-        <Icon className="fas fa-info" info />
-        <YearToDate>
-          <input type="checkbox" />
-          Year to date
-        </YearToDate>
-      </SectionTitle>
-      <LineChart />
-    </Container>
-  );
-};
+const NetSpendAnalysis = () => (
+  <Container>
+    <SectionTitle>
+      <span>Net Spend Analysis</span>
+      <Icon className="fas fa-info" info />
+      <YearToDate>
+        <input type="checkbox" />
+        Year to date
+      </YearToDate>
+    </SectionTitle>
+    <LineChart />
+  </Container>
+);
 
 export default NetSpendAnalysis;
