@@ -9,4 +9,5 @@ export default {
   tradewind: '#4baaa3',
   jungleMist: '#B0D6D4',
   jaffa: '#F3A13F',
+  hippieBlue: '#638FBB',
 };
