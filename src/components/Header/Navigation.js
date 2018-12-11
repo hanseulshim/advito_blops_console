@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Icon from 'components/common/Icon';
 
 const Container = styled.div`
@@ -19,16 +19,16 @@ const Text = styled.div`
   color: ${props => props.theme.boulder};
 `;
 
-const Navigation = () => (
+const Navigation = ({ location }) => (
   <Container>
     <Link to={'/'}>
       <Text>Console</Text>
     </Link>
     <NavIcon className="fas fa-angle-right" />
-    <Link to={'/dashboard'}>
+    <Link to={location.pathname}>
       <Text>Travel Manager Dashboard</Text>
     </Link>
   </Container>
 );
 
-export default Navigation;
+export default withRouter(Navigation);
