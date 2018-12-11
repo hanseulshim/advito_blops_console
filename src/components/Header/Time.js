@@ -19,7 +19,7 @@ const Time = ({ timeZone, zone }) => {
   return (
     <Container>
       <div>
-        <TimeStyled>{timeZone.format('h:m')}</TimeStyled>
+        <TimeStyled>{timeZone.format('h:mm')}</TimeStyled>
         <span>{timeZone.format('A')}</span>
       </div>
       <Location>{zone}</Location>
