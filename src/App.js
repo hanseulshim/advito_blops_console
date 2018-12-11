@@ -8,7 +8,7 @@ import Login from './components/Login';
 import Sidebar from './components/Sidebar';
 import Main from './components/Main';
 import Portal from './components/Portal';
-import Dashboard from './components/Dashboard';
+import TravelManager from './components/TravelManager';
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -76,9 +76,9 @@ class App extends Component {
             <Switch>
               <PrivateRoute path="/" exact component={Portal} authenticated={authenticated} />
               <PrivateRoute
-                path="/dashboard"
+                path="/travel"
                 exact
-                component={Dashboard}
+                component={TravelManager}
                 authenticated={authenticated}
               />
               <Route path="/login" component={Login} />
