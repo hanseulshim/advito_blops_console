@@ -20,9 +20,10 @@ const Title = styled.div`
   text-transform: uppercase;
 `;
 
-const Opportunity = styled.div`
+const RiskArea = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Number = styled.div`
@@ -46,6 +47,9 @@ const RowTitle = styled.div`
   color: ${props => props.theme.boulder};
   font-size: 1.2em;
   margin-bottom: 0.5em;
+  height: 2em;
+  display: flex;
+  align-items: center;
 `;
 
 const RowValue = styled.div`
@@ -55,29 +59,29 @@ const RowValue = styled.div`
 
 const query = `
 {
-  opportunities {
+  riskAreas {
   title
   value
   }
 }
 `;
 
-const RiskAreas = () => (
+const RiskAreas = ({ changeView }) => (
   <Container>
     <TitleContainer>
-      <Title>top 3 savings opportunities</Title>
+      <Title>risk areas</Title>
       <Button spaceLeft text="view all" />
     </TitleContainer>
     <GraphQL query={query}>
       {data =>
-        data.opportunities.map((opportunity, index) => (
-          <Opportunity key={index}>
+        data.riskAreas.map((riskArea, index) => (
+          <RiskArea key={index} onClick={() => changeView('Risk Areas')}>
             <Number>{index + 1}</Number>
             <Row first={index === 0}>
-              <RowTitle>{opportunity.title}</RowTitle>
-              <RowValue>{opportunity.value}</RowValue>
+              <RowTitle>{riskArea.title}</RowTitle>
+              <RowValue>{riskArea.value}</RowValue>
             </Row>
-          </Opportunity>
+          </RiskArea>
         ))
       }
     </GraphQL>

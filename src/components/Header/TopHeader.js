@@ -12,9 +12,6 @@ const Container = styled.div`
 
 const LogoContainer = styled.div`
   flex: 1;
-  img {
-    width: 100%;
-  }
 `;
 
 const TimeSupportContainer = styled.div`

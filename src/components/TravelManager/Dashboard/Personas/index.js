@@ -6,6 +6,7 @@ import CircleChart from './CircleChart';
 const PersonaContainer = styled.div`
   display: flex;
   margin-top: 2em;
+  cursor: pointer;
 `;
 const Persona = styled.div`
   background: ${props => props.color};
@@ -52,10 +53,10 @@ const query = `
 }
 `;
 
-const Personas = () => (
+const Personas = ({ changeView }) => (
   <GraphQL query={query}>
     {data => (
-      <PersonaContainer>
+      <PersonaContainer onClick={() => changeView('Personas')}>
         {data.personaList.map((persona, index) => (
           <Persona
             color={persona.color}
