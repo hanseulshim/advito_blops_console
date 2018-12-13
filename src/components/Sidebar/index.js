@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import GraphQL from 'components/graphql';
 import ViewContext from 'components/context/ViewContext';
-import SidebarEvents from './SidebarEvents';
+import UpcomingActions from './UpcomingActions';
+import ActiveAlerts from './ActiveAlerts';
 import SidebarUserInfo from './SidebarUserInfo';
 
 const Container = styled.div`
@@ -13,37 +13,14 @@ const Container = styled.div`
   transition: all 500ms ease;
 `;
 
-const query = `
-{
-  upcomingActions {
-    header
-    secondaryHeader
-    icon
-    alert
-  }
-  activeAlerts {
-    header
-    secondaryHeader
-    icon
-    alert
-  }
-}
-`;
-
 const Sidebar = () => (
   <ViewContext.Consumer>
     {({ view }) =>
       view === 'dashboard' && (
         <Container>
           <SidebarUserInfo />
-          <GraphQL query={query}>
-            {data => (
-              <>
-                <SidebarEvents title="upcoming actions" data={data.upcomingActions} />
-                <SidebarEvents title="active alerts" data={data.activeAlerts} />
-              </>
-            )}
-          </GraphQL>
+          <UpcomingActions />
+          <ActiveAlerts />
         </Container>
       )
     }
