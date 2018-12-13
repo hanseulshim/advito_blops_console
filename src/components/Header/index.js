@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import TopHeader from './TopHeader';
-import Navigation from './Navigation';
+import BreadCrumbs from './BreadCrumbs';
 
 const Container = styled.div`
   margin-bottom: 4em;
@@ -11,7 +11,7 @@ const Container = styled.div`
 const Header = ({ location }) => (
   <Container>
     <TopHeader />
-    {location.pathname !== '/' && <Navigation />}
+    {location.pathname !== '/' && <BreadCrumbs />}
   </Container>
 );
 

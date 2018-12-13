@@ -22,6 +22,7 @@ const Title = styled.div`
 
 const Opportunity = styled.div`
   display: flex;
+  cursor: pointer;
   align-items: center;
 `;
 
@@ -46,6 +47,9 @@ const RowTitle = styled.div`
   color: ${props => props.theme.boulder};
   font-size: 1.2em;
   margin-bottom: 0.5em;
+  height: 2em;
+  display: flex;
+  align-items: center;
 `;
 
 const RowValue = styled.div`
@@ -62,7 +66,7 @@ const query = `
 }
 `;
 
-const Opportunities = () => (
+const SavingsOpportunities = ({ changeView }) => (
   <Container>
     <TitleContainer>
       <Title>top 3 savings opportunities</Title>
@@ -71,7 +75,7 @@ const Opportunities = () => (
     <GraphQL query={query}>
       {data =>
         data.opportunities.map((opportunity, index) => (
-          <Opportunity key={index}>
+          <Opportunity key={index} onClick={() => changeView('Savings Opportunities')}>
             <Number>{index + 1}</Number>
             <Row first={index === 0}>
               <RowTitle>{opportunity.title}</RowTitle>
@@ -84,4 +88,4 @@ const Opportunities = () => (
   </Container>
 );
 
-export default Opportunities;
+export default SavingsOpportunities;

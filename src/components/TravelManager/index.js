@@ -1,31 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProgramPerformance from './ProgramPerformance';
-import NetSpendAnalysis from './NetSpendAnalysis';
-import Personas from './Personas';
-import Opportunities from './Opportunities';
-import RiskAreas from './RiskAreas';
+import ViewContext from 'components/context/ViewContext';
+import Dashboard from './Dashboard';
+import Category from './Category';
 
 const Container = styled.div`
   flex: 1;
 `;
 
-const Row = styled.div`
-  display: flex;
-  margin-top: 2em;
-`;
-
 const TravelManager = () => (
   <Container>
-    <Row>
-      <ProgramPerformance />
-      <NetSpendAnalysis />
-    </Row>
-    <Personas />
-    <Row>
-      <Opportunities />
-      <RiskAreas />
-    </Row>
+    <ViewContext.Consumer>
+      {({ view, changeView }) => (view === 'dashboard' ? <Dashboard /> : <Category />)}
+    </ViewContext.Consumer>
   </Container>
 );
 

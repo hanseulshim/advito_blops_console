@@ -17,6 +17,10 @@ const SectionTitle = styled.div`
   margin-bottom: 0.5em;
 `;
 
+const Title = styled.div`
+  cursor: pointer;
+`;
+
 const YearToDate = styled.label`
   font-size: 0.75em;
   text-transform: initial;
@@ -27,11 +31,13 @@ const YearToDate = styled.label`
   }
 `;
 
-const NetSpendAnalysis = () => (
+const NetSpendAnalysis = ({ changeView }) => (
   <Container>
     <SectionTitle>
-      <span>Net Spend Analysis</span>
-      <Icon className="fas fa-info" info />
+      <Title onClick={() => changeView('Net Spend Analysis')}>
+        <span>Net Spend Analysis</span>
+        <Icon className="fas fa-info" info />
+      </Title>
       <YearToDate>
         <input type="checkbox" />
         Year to date

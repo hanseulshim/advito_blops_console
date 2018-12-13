@@ -16,6 +16,7 @@ const SectionTitle = styled.div`
   font-size: 1.3em;
   text-transform: uppercase;
   margin-bottom: 0.5em;
+  cursor: pointer;
 `;
 
 const Performance = styled.div`
@@ -55,9 +56,9 @@ const query = `
 }
 `;
 
-const ProgramPerformance = () => (
+const ProgramPerformance = ({ changeView }) => (
   <Container>
-    <SectionTitle>
+    <SectionTitle onClick={() => changeView('Program Performance')}>
       <span>program performance</span>
       <Icon className="fas fa-info" info />
     </SectionTitle>
