@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import { Link } from 'react-router-dom';
 import Icon from 'components/common/Icon';
+import analytics_active from 'assets/analytics_active.png';
+import air_active from 'assets/air_active.png';
+import hotel_active from 'assets/hotel_active.png';
 
 const Container = styled.div`
   display: flex;
@@ -14,6 +17,9 @@ const View = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin: 0 1em;
+  margin-left: ${props => props.first && 0};
+  margin-right: ${props => props.last && 0};
 `;
 
 const IconContainer = styled.div`
@@ -22,12 +28,8 @@ const IconContainer = styled.div`
   align-items: center;
 `;
 
-const ViewIcon = styled(Icon)`
-  color: ${props => props.theme.alabaster};
-  background: ${props => props.theme.tradewind};
-  padding: 0.5em 0.75em;
-  font-size: 750%;
-  border-radius: 20px;
+const ViewIcon = styled.img`
+  width: 100%;
 `;
 
 const Title = styled.span`
@@ -94,9 +96,18 @@ const ProgramSelect = () => (
     <GraphQL query={query}>
       {data =>
         data.viewList.map((view, index) => (
-          <View key={index}>
+          <View key={index} first={index === 0} last={index === data.viewList.length - 1}>
             <IconContainer>
-              <ViewIcon className={view.icon} />
+              <ViewIcon
+                src={
+                  view.icon === 'analytics'
+                    ? analytics_active
+                    : view.icon === 'air'
+                    ? air_active
+                    : hotel_active
+                }
+                alt="view"
+              />
               <Title>{view.title}</Title>
             </IconContainer>
             <ListContainer>{view.list.map(generateList)}</ListContainer>
