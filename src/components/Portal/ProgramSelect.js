@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import GraphQL from 'components/graphql';
 import { Link } from 'react-router-dom';
 import Icon from 'components/common/Icon';
+import analytics_active from 'assets/analytics_active.png';
+import air_active from 'assets/air_active.png';
+import air_disabled from 'assets/air_disabled.png';
+import hotel_active from 'assets/hotel_active.png';
+import hotel_disabled from 'assets/hotel_disabled.png';
 
 const Container = styled.div`
   display: flex;
@@ -15,6 +19,9 @@ const View = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin: 0 1em;
+  margin-left: ${props => props.first && 0};
+  margin-right: ${props => props.last && 0};
 `;
 
 const IconContainer = styled.div`
@@ -23,12 +30,8 @@ const IconContainer = styled.div`
   align-items: center;
 `;
 
-const ViewIcon = styled(Icon)`
-  color: ${props => props.theme.alabaster};
-  background: ${props => props.theme.tradewind};
-  padding: 0.5em 0.75em;
-  font-size: 750%;
-  border-radius: 20px;
+const ViewIcon = styled.img`
+  width: 100%;
 `;
 
 const Title = styled.span`
@@ -54,58 +57,76 @@ const ListIcon = styled(Icon)`
   padding: 0.5em;
   font-size: 200%;
   background: ${props => props.theme.alabaster};
-  border: 1px solid ${props => props.theme.tradewind};
+  border: 1px solid ${props => (props.disabled ? props.theme.pumice : props.theme.tradewind)};
   border-radius: 15px;
-  color: ${props => props.theme.tradewind};
+  color: ${props => (props.disabled ? props.theme.pumice : props.theme.tradewind)};
   margin-right: 0.5em;
 `;
 
-const generateList = (view, index) => (
-  <List key={index}>
-    {view.domo ? (
-      <a href={view.link} target="blank">
-        <ListIcon className={view.icon} />
-      </a>
-    ) : (
-      <Link to={`${view.link}`}>
-        <ListIcon className={view.icon} />
-      </Link>
-    )}
-    <span>{view.title}</span>
-  </List>
-);
+const query = `
+{
+  viewList {
+    title
+    icon
+    disabled
+    list {
+      title
+      icon
+      domo
+      link
+    }
+  }
+}
+`;
 
-export default () => (
+const getIcon = (icon, disabled) => {
+  if (icon === 'air') {
+    return disabled ? air_disabled : air_active;
+  } else if (icon === 'hotel') {
+    return disabled ? hotel_disabled : hotel_active;
+  }
+  return analytics_active;
+};
+
+const getLink = subView =>
+  subView.domo ? (
+    <a href={subView.link} target="blank">
+      <ListIcon className={subView.icon} />
+    </a>
+  ) : (
+    <Link to={`${subView.link}`}>
+      <ListIcon className={subView.icon} />
+    </Link>
+  );
+
+const generateList = view =>
+  view.list.map((subView, index) => (
+    <List key={index}>
+      {view.disabled ? (
+        <ListIcon className={subView.icon} disabled={view.disabled} />
+      ) : (
+        getLink(subView)
+      )}
+      <span>{subView.title}</span>
+    </List>
+  ));
+
+const ProgramSelect = () => (
   <Container>
-    <Query
-      query={gql`
-        {
-          viewList {
-            title
-            icon
-            list {
-              title
-              icon
-              domo
-              link
-            }
-          }
-        }
-      `}
-    >
-      {({ loading, error, data }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) return <p>Error :(</p>;
-        return data.viewList.map((view, index) => (
-          <View key={index}>
+    <GraphQL query={query}>
+      {data =>
+        data.viewList.map((view, index) => (
+          <View key={index} first={index === 0} last={index === data.viewList.length - 1}>
             <IconContainer>
-              <ViewIcon className={view.icon} />
+              <ViewIcon src={getIcon(view.icon, view.disabled)} alt="view" />
               <Title>{view.title}</Title>
             </IconContainer>
-            <ListContainer>{view.list.map(generateList)}</ListContainer>
+            <ListContainer>{generateList(view)}</ListContainer>
           </View>
-        ));
-      }}
-    </Query>
+        ))
+      }
+    </GraphQL>
   </Container>
 );
+
+export default ProgramSelect;

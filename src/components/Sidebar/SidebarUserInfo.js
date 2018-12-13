@@ -17,7 +17,7 @@ const CogIcon = styled(Icon)`
   margin-left: 0.25em;
 `;
 
-export default () => (
+const SidebarUserInfo = () => (
   <Container>
     <img src={Shayan} alt="avatar" />
     <div>
@@ -26,3 +26,5 @@ export default () => (
     </div>
   </Container>
 );
+
+export default SidebarUserInfo;

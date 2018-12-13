@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
-import SidebarEvents from './SidebarEvents';
+import ViewContext from 'components/context/ViewContext';
+import UpcomingActions from './UpcomingActions';
+import ActiveAlerts from './ActiveAlerts';
 import SidebarUserInfo from './SidebarUserInfo';
 
 const Container = styled.div`
@@ -10,39 +10,21 @@ const Container = styled.div`
   background: ${props => props.theme.alabaster};
   border: 1px solid ${props => props.theme.pumice};
   padding: 4em 2em;
+  transition: all 500ms ease;
 `;
 
-export default () => (
-  <Container>
-    <SidebarUserInfo />
-    <Query
-      query={gql`
-        {
-          upcomingActions {
-            header
-            secondaryHeader
-            icon
-            alert
-          }
-          activeAlerts {
-            header
-            secondaryHeader
-            icon
-            alert
-          }
-        }
-      `}
-    >
-      {({ loading, error, data }) => {
-        if (loading) return <p>Loading...</p>;
-        if (error) return <p>Error :(</p>;
-        return (
-          <>
-            <SidebarEvents title="upcoming actions" data={data.upcomingActions} />
-            <SidebarEvents title="active alerts" data={data.activeAlerts} />
-          </>
-        );
-      }}
-    </Query>
-  </Container>
+const Sidebar = () => (
+  <ViewContext.Consumer>
+    {({ view }) =>
+      view === 'dashboard' && (
+        <Container>
+          <SidebarUserInfo />
+          <UpcomingActions />
+          <ActiveAlerts />
+        </Container>
+      )
+    }
+  </ViewContext.Consumer>
 );
+
+export default Sidebar;

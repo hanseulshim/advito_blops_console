@@ -13,7 +13,7 @@ const Link = styled.a`
   text-decoration: underline;
 `;
 
-export default () => (
+const Footer = () => (
   <Container>
     <Link href="https://www.advito.com/legal/" target="_blank">
       Terms of Services
@@ -24,3 +24,5 @@ export default () => (
     </Link>
   </Container>
 );
+
+export default Footer;
