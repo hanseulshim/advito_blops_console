@@ -43,8 +43,8 @@ const Navigation = () => {
       {({ view, changeView }) => (
         <Container>
           <HomeIcon className="fas fa-home" onClick={() => changeView('dashboard')} />
-          {NavItems.map(nav => (
-            <NavItem onClick={() => changeView(nav)} active={view === nav}>
+          {NavItems.map((nav, index) => (
+            <NavItem key={index} onClick={() => changeView(nav)} active={view === nav}>
               {nav}
             </NavItem>
           ))}
