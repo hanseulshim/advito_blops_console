@@ -26,13 +26,18 @@ const EventConainer = styled.div`
   align-items: center;
 `;
 
-const EventIcon = styled.img`
+const EventIcon = styled.div`
   margin: 0.75em 1em 0.75em 0;
+  flex: 1;
+  img {
+    width: 100%;
+  }
 `;
 
 const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 5;
 `;
 
 const Header = styled.span`
@@ -44,7 +49,10 @@ const Header = styled.span`
 const createIconRows = data =>
   data.map((action, index) => (
     <EventConainer key={index}>
-      <EventIcon src={action.icon === 'air' ? airAlert : hotelAlert} alt="icon" />
+      <EventIcon>
+        <img src={action.icon === 'air' ? airAlert : hotelAlert} alt="icon" />
+      </EventIcon>
+
       <HeaderContainer>
         {action.header && <Header>{action.header}</Header>}
         {action.secondaryHeader && <Header secondary>{action.secondaryHeader}</Header>}
