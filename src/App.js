@@ -4,11 +4,12 @@ import styled from 'styled-components';
 import theme from 'styles/variables';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import UserContext from 'components/context/UserContext';
+import ViewContext from 'components/context/ViewContext';
 import Login from './components/Login';
 import Sidebar from './components/Sidebar';
 import Main from './components/Main';
 import Portal from './components/Portal';
-import Dashboard from './components/Dashboard';
+import TravelManager from './components/TravelManager';
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -60,31 +61,36 @@ const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
 };
 
 class App extends Component {
-  state = { authenticated: true };
+  state = { authenticated: true, view: 'dashboard' };
   authenticateUser = event => {
     this.setState({ authenticated: event.target.password.value === 'blops2018' });
     event.preventDefault();
   };
+  changeView = view => {
+    this.setState({ view });
+  };
   render() {
-    const authenticated = this.state.authenticated;
+    const { authenticated, view } = this.state;
     return (
       <UserContext.Provider value={{ authenticateUser: this.authenticateUser, authenticated }}>
-        <ThemeProvider theme={theme}>
-          <Container>
-            <GlobalStyle />
-            <Sidebar />
-            <Switch>
-              <PrivateRoute path="/" exact component={Portal} authenticated={authenticated} />
-              <PrivateRoute
-                path="/dashboard"
-                exact
-                component={Dashboard}
-                authenticated={authenticated}
-              />
-              <Route path="/login" component={Login} />
-            </Switch>
-          </Container>
-        </ThemeProvider>
+        <ViewContext.Provider value={{ changeView: this.changeView, view }}>
+          <ThemeProvider theme={theme}>
+            <Container>
+              <GlobalStyle />
+              <Sidebar />
+              <Switch>
+                <PrivateRoute path="/" exact component={Portal} authenticated={authenticated} />
+                <PrivateRoute
+                  path="/travel"
+                  exact
+                  component={TravelManager}
+                  authenticated={authenticated}
+                />
+                <Route path="/login" component={Login} />
+              </Switch>
+            </Container>
+          </ThemeProvider>
+        </ViewContext.Provider>
       </UserContext.Provider>
     );
   }

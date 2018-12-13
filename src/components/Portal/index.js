@@ -9,10 +9,12 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-export default () => (
+const Portal = () => (
   <Container>
     <ProgramPerformance />
     <ProgramSelect />
     <BottomInfo />
   </Container>
 );
+
+export default Portal;

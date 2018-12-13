@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = styled.button`
+const ButtonStyled = styled.button`
   border: 1px solid ${props => props.theme.rajah};
   background: ${props => props.theme.alabaster};
   color: ${props => props.theme.rajah};
@@ -19,7 +19,9 @@ const Button = styled.button`
   }
 `;
 
-export default props => {
+const Button = props => {
   const { text, ...style } = props;
-  return <Button {...style}>{text}</Button>;
+  return <ButtonStyled {...style}>{text}</ButtonStyled>;
 };
+
+export default Button;

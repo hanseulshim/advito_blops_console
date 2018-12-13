@@ -2,40 +2,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment-timezone';
 import styled from 'styled-components';
+import Time from './Time';
 import Icon from 'components/common/Icon';
 import advito_logo from 'assets/advito_logo.png';
 
 const Container = styled.div`
   display: flex;
-  margin-bottom: 5em;
 `;
 
 const LogoContainer = styled.div`
   flex: 1;
-  img {
-    width: 100%;
-  }
 `;
 
 const TimeSupportContainer = styled.div`
   flex: 2;
   display: flex;
   justify-content: flex-end;
-`;
-
-const TimeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 1em;
-`;
-
-const Time = styled.span`
-  font-size: 1.7em;
-`;
-
-const Location = styled.span`
-  border-top: 1px solid;
 `;
 
 const IconContainer = styled.span`
@@ -52,7 +34,7 @@ const AddyIcon = styled(Icon)`
   margin-bottom: 0.1em;
 `;
 
-export default () => {
+const TopHeader = () => {
   const newYork = moment().tz('America/New_York');
   const london = moment().tz('Europe/London');
   return (
@@ -63,20 +45,8 @@ export default () => {
         </Link>
       </LogoContainer>
       <TimeSupportContainer>
-        <TimeContainer>
-          <div>
-            <Time>{newYork.format('h:m')}</Time>
-            <span>{newYork.format('A')}</span>
-          </div>
-          <Location>Washington, DC</Location>
-        </TimeContainer>
-        <TimeContainer>
-          <div>
-            <Time>{london.format('h:m')}</Time>
-            <span>{london.format('A')}</span>
-          </div>
-          <Location>London, UK</Location>
-        </TimeContainer>
+        <Time timeZone={newYork} zone="Washington, DC" />
+        <Time timeZone={london} zone="London, UK" />
         <IconContainer>
           <AddyIcon className="far fa-comment-alt" />
           <span>Ask Addy</span>
@@ -85,3 +55,4 @@ export default () => {
     </Container>
   );
 };
+export default TopHeader;
