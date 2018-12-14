@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import ViewContext from 'components/context/ViewContext';
 import ProgramPerformance from './ProgramPerformance';
 import NetSpendAnalysis from './NetSpendAnalysis';
 import Personas from './Personas';
@@ -12,22 +11,18 @@ const Row = styled.div`
   margin-top: 2em;
 `;
 
-const Dashboard = () => (
-  <ViewContext.Consumer>
-    {({ changeView }) => (
-      <>
-        <Row>
-          <ProgramPerformance changeView={changeView} />
-          <NetSpendAnalysis changeView={changeView} />
-        </Row>
-        <Personas changeView={changeView} />
-        <Row>
-          <SavingsOpportunities changeView={changeView} />
-          <RiskAreas changeView={changeView} />
-        </Row>
-      </>
-    )}
-  </ViewContext.Consumer>
+const Dashboard = ({ changeView }) => (
+  <>
+    <Row>
+      <ProgramPerformance changeView={changeView} />
+      <NetSpendAnalysis changeView={changeView} />
+    </Row>
+    <Personas changeView={changeView} />
+    <Row>
+      <SavingsOpportunities changeView={changeView} />
+      <RiskAreas changeView={changeView} />
+    </Row>
+  </>
 );
 
 export default Dashboard;

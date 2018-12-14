@@ -11,7 +11,9 @@ const Container = styled.div`
 const TravelManager = () => (
   <Container>
     <ViewContext.Consumer>
-      {({ view }) => (view === 'dashboard' ? <Dashboard /> : <Category />)}
+      {({ view, changeView }) =>
+        view === 'dashboard' ? <Dashboard changeView={changeView} /> : <Category view={view} />
+      }
     </ViewContext.Consumer>
   </Container>
 );
