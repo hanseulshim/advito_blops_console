@@ -15,10 +15,10 @@ const NavItem = styled.div`
   font-weight: bold;
   text-transform: uppercase;
   padding: 1em;
-  border-bottom: ${props => (!props.active ? `2px solid ${props.theme.alto}` : '')};
-  border-top: ${props => (props.active ? `2px solid ${props.theme.alto}` : '')};
-  border-left: ${props => (props.active ? `2px solid ${props.theme.alto}` : '')};
-  border-right: ${props => (props.active ? `2px solid ${props.theme.alto}` : '')};
+  border-bottom: ${props => (!props.active ? `2px solid ${props.theme.pumice}` : '')};
+  border-top: ${props => (props.active ? `2px solid ${props.theme.pumice}` : '')};
+  border-left: ${props => (props.active ? `2px solid ${props.theme.pumice}` : '')};
+  border-right: ${props => (props.active ? `2px solid ${props.theme.pumice}` : '')};
   margin: ${props => props.active && '2px'};
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
@@ -29,7 +29,7 @@ const HomeIcon = styled(Icon)`
   font-size: 1.2em;
   color: ${props => props.theme.westSide};
   padding: 1em;
-  border-bottom: 2px solid ${props => props.theme.alto};
+  border-bottom: 2px solid ${props => props.theme.pumice};
   cursor: pointer;
 `;
 

@@ -17,7 +17,7 @@ const InfoIcon = styled(Icon)`
   font-size: 400%;
   padding: 0.5em 0.75em;
   color: ${props => props.theme.alabaster};
-  background: ${props => props.theme.alto};
+  background: ${props => props.theme.pumice};
   border-radius: 15px;
   margin-right: 0.25em;
 `;
