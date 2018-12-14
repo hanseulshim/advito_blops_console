@@ -5,7 +5,6 @@ import UserContext from 'components/context/UserContext';
 
 const FormContainer = styled.div`
   margin-top: 1em;
-  background: ${props => props.theme.jungleMist};
   padding: 3em 4em;
   width: 15em;
   border-radius: 5px;
@@ -31,7 +30,7 @@ const SubmitContainer = styled.div`
 `;
 
 const Submit = styled.input`
-  background-color: ${props => props.theme.jaffa};
+  background-color: ${props => props.theme.westSide};
   color: white;
   padding: 1em;
   border: none;
@@ -42,7 +41,7 @@ const Submit = styled.input`
 
 const Forgot = styled.span`
   font-size: 0.75em;
-  color: ${props => props.theme.grayNurse};
+  color: ${props => props.theme.alabaster};
   margin-left: 1.5em;
 `;
 

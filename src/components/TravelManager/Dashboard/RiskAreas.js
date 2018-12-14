@@ -44,7 +44,6 @@ const Row = styled.div`
 `;
 
 const RowTitle = styled.div`
-  color: ${props => props.theme.boulder};
   font-size: 1.2em;
   margin-bottom: 0.5em;
   height: 2em;

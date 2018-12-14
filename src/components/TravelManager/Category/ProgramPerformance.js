@@ -12,10 +12,6 @@ const SectionTitle = styled.div`
   margin-bottom: 0.5em;
 `;
 
-const SectionDescription = styled.div`
-  color: ${props => props.theme.boulder};
-`;
-
 const PerformanceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -51,7 +47,7 @@ const LeafIcon = styled(Icon)`
   margin-right: 1em;
 `;
 
-const StoryDescription = styled(SectionDescription)`
+const StoryDescription = styled.div`
   margin-top: 6em;
 `;
 
@@ -88,29 +84,30 @@ const query = `
 const ProgramPerformance = ({ changeView }) => (
   <>
     <SectionTitle>Program Performance</SectionTitle>
-    <SectionDescription>
+    <div>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
       non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </SectionDescription>
+    </div>
     <GraphQL query={query}>
       {data => (
         <PerformanceContainer>
-          {data.performanceList.map(performance => (
-            <Performance key={performance.title}>
+          {data.performanceList.map((performance, index) => (
+            <Performance key={index} first={index === 0}>
               <div>
                 <Title>{performance.title}</Title>
                 <Value>{performance.value}</Value>
+                {index === 0 && (
+                  <NoChangeSince>
+                    <LeafIcon className="fas fa-leaf" />
+                    <span>No change since {data.noChangeSince}</span>
+                  </NoChangeSince>
+                )}
               </div>
             </Performance>
           ))}
-
-          <NoChangeSince>
-            <LeafIcon className="fas fa-leaf" />
-            <span>No change since {data.noChangeSince}</span>
-          </NoChangeSince>
         </PerformanceContainer>
       )}
     </GraphQL>

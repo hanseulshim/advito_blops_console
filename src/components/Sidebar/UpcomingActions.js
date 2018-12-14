@@ -46,7 +46,6 @@ const HeaderContainer = styled.div`
 const Header = styled.span`
   margin-bottom: ${props => !props.secondary && '0.5em'};
   font-size: ${props => !props.secondary && '1.2em'};
-  color: ${props => props.secondary && props.theme.boulder};
 `;
 
 const createIconRows = data =>

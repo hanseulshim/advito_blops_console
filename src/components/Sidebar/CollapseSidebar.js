@@ -21,7 +21,7 @@ const PersonIcon = styled(Icon)`
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   top: 2em;
-  color: ${props => props.theme.jaffa};
+  color: ${props => props.theme.westSide};
   cursor: pointer;
 `;
 

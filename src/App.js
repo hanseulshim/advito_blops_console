@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 import theme from 'styles/variables';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import UserContext from 'components/context/UserContext';
 import ViewContext from 'components/context/ViewContext';
 import Login from './components/Login';
@@ -20,7 +20,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'Rubik', sans-serif;
-    background: ${props => props.theme.grayNurse};
+    background: ${props => props.theme.alabaster};
+    font-weight: lighter;
     font-size: 16px;
     @media (max-width : 1500px){
       font-size: 15px;
@@ -47,7 +48,7 @@ const Container = styled.div`
   max-width: 1600px;
   margin: auto;
   display: flex;
-  position: relative;
+  position: ${props => !props.login && 'relative'};
 `;
 
 const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
@@ -72,14 +73,16 @@ class App extends Component {
   };
   render() {
     const { authenticated, view } = this.state;
+    const { location } = this.props;
     return (
       <UserContext.Provider value={{ authenticateUser: this.authenticateUser, authenticated }}>
         <ViewContext.Provider value={{ changeView: this.changeView, view }}>
           <ThemeProvider theme={theme}>
-            <Container>
-              <GlobalStyle />
-              <Sidebar />
-              <Switch>
+            <Switch>
+              <Container login={location.pathname === '/login'}>
+                <GlobalStyle />
+                <Route path="/login" component={Login} />
+                <Sidebar />
                 <PrivateRoute path="/" exact component={Portal} authenticated={authenticated} />
                 <PrivateRoute
                   path="/travel"
@@ -87,9 +90,8 @@ class App extends Component {
                   component={TravelManager}
                   authenticated={authenticated}
                 />
-                <Route path="/login" component={Login} />
-              </Switch>
-            </Container>
+              </Container>
+            </Switch>
           </ThemeProvider>
         </ViewContext.Provider>
       </UserContext.Provider>
@@ -97,4 +99,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
