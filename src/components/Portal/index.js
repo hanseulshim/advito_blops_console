@@ -7,6 +7,7 @@ import BottomInfo from './BottomInfo';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 4em;
 `;
 
 const Portal = () => (

@@ -5,7 +5,7 @@ import TopHeader from './TopHeader';
 import BreadCrumbs from './BreadCrumbs';
 
 const Container = styled.div`
-  margin-bottom: 4em;
+  margin-bottom: 2em;
 `;
 
 const Header = ({ location }) => (
