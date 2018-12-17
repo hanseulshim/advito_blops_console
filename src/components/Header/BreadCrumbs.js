@@ -16,6 +16,7 @@ const NavIcon = styled(Icon)`
 
 const Text = styled.div`
   margin-right: 0.5em;
+  color: initial;
   cursor: pointer;
 `;
 

@@ -9,7 +9,7 @@ const Container = styled.div`
 const ProgramPerformanceStyled = styled.div`
   padding: 0.5em 1em;
   background: ${props => props.theme.westSide};
-  color: ${props => props.theme.alabaster};
+  color: ${props => props.theme.white};
 `;
 
 const InfoIcon = styled(Icon)`
@@ -19,7 +19,7 @@ const InfoIcon = styled(Icon)`
 const Info = styled.div`
   padding: 0.5em 1.5em;
   flex: 1;
-  background: ${props => props.theme.alabaster};
+  background: ${props => props.theme.white};
 `;
 
 const ProgramPerformance = () => (

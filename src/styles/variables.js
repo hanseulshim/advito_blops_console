@@ -1,5 +1,6 @@
 export default {
   alabaster: '#f7f7f7',
+  white: '#ffffff',
   pumice: '#c9ceca',
   tradewind: '#4baaa3',
   jungleMist: '#B0D6D4',
