@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
+import { SectionHeader, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
 
 const Container = styled.div`
@@ -12,12 +13,6 @@ const TitleContainer = styled.div`
   margin: 1.5em 0;
   display: flex;
   align-items: center;
-`;
-
-const Title = styled.div`
-  font-size: 1.2em;
-  font-weight: 700;
-  text-transform: uppercase;
 `;
 
 const RiskArea = styled.div`
@@ -44,16 +39,10 @@ const Row = styled.div`
 `;
 
 const RowTitle = styled.div`
-  font-size: 1.2em;
   margin-bottom: 0.5em;
   height: 2em;
   display: flex;
   align-items: center;
-`;
-
-const RowValue = styled.div`
-  font-size: 1.4em;
-  font-weight: 700;
 `;
 
 const query = `
@@ -68,7 +57,7 @@ const query = `
 const RiskAreas = ({ changeView }) => (
   <Container>
     <TitleContainer>
-      <Title>risk areas</Title>
+      <SectionHeader>risk areas</SectionHeader>
       <Button spaceLeft text="view all" />
     </TitleContainer>
     <GraphQL query={query}>
@@ -78,7 +67,7 @@ const RiskAreas = ({ changeView }) => (
             <Number>{index + 1}</Number>
             <Row first={index === 0}>
               <RowTitle>{riskArea.title}</RowTitle>
-              <RowValue>{riskArea.value}</RowValue>
+              <Value>{riskArea.value}</Value>
             </Row>
           </RiskArea>
         ))

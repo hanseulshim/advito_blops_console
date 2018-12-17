@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
+import { SectionHeader, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
 
 const Container = styled.div`
@@ -12,12 +13,6 @@ const TitleContainer = styled.div`
   margin: 1.5em 0;
   display: flex;
   align-items: center;
-`;
-
-const Title = styled.div`
-  font-size: 1.2em;
-  font-weight: 700;
-  text-transform: uppercase;
 `;
 
 const Opportunity = styled.div`
@@ -44,16 +39,10 @@ const Row = styled.div`
 `;
 
 const RowTitle = styled.div`
-  font-size: 1.2em;
   margin-bottom: 0.5em;
   height: 2em;
   display: flex;
   align-items: center;
-`;
-
-const RowValue = styled.div`
-  font-size: 1.4em;
-  font-weight: 700;
 `;
 
 const query = `
@@ -68,7 +57,7 @@ const query = `
 const SavingsOpportunities = ({ changeView }) => (
   <Container>
     <TitleContainer>
-      <Title>top 3 savings opportunities</Title>
+      <SectionHeader>top 3 savings opportunities</SectionHeader>
       <Button spaceLeft text="view all" />
     </TitleContainer>
     <GraphQL query={query}>
@@ -78,7 +67,7 @@ const SavingsOpportunities = ({ changeView }) => (
             <Number>{index + 1}</Number>
             <Row first={index === 0}>
               <RowTitle>{opportunity.title}</RowTitle>
-              <RowValue>{opportunity.value}</RowValue>
+              <Value>{opportunity.value}</Value>
             </Row>
           </Opportunity>
         ))

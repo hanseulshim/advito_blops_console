@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import Icon from 'components/common/Icon';
+import { SectionHeader, Value } from 'components/common/Typography';
 
 const Container = styled.div`
   flex: 1;
@@ -9,35 +10,23 @@ const Container = styled.div`
   border-right: 1px solid ${props => props.theme.pumice};
 `;
 
-const SectionTitle = styled.div`
-  display: flex;
-  font-weight: bold;
-  align-items: center;
-  font-size: 1.3em;
-  text-transform: uppercase;
-  margin-bottom: 0.5em;
-  cursor: pointer;
-`;
-
 const Performance = styled.div`
   display: flex;
   padding: 0.75em 0;
+  margin-top: 0.5em;
 `;
 
 const Title = styled.div`
   flex: 1;
-  font-size: 1.25em;
   margin-right: 1em;
 `;
 
-const Value = styled.div`
+const ValueFlex = styled(Value)`
   flex: 2;
-  font-size: 1.75em;
 `;
 
 const NoChangeSince = styled.div`
   display: flex;
-  font-size: 1.2em;
   justify-content: center;
 `;
 
@@ -58,17 +47,17 @@ const query = `
 
 const ProgramPerformance = ({ changeView }) => (
   <Container>
-    <SectionTitle onClick={() => changeView('Program Performance')}>
-      <span>program performance</span>
+    <SectionHeader onClick={() => changeView('Program Performance')}>
+      program performance
       <Icon className="fas fa-info" info />
-    </SectionTitle>
+    </SectionHeader>
     <GraphQL query={query}>
       {data => (
         <>
           {data.performanceList.map(performance => (
             <Performance key={performance.title}>
               <Title>{performance.title}</Title>
-              <Value>{performance.value}</Value>
+              <ValueFlex>{performance.value}</ValueFlex>
             </Performance>
           ))}
           <NoChangeSince>
