@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
+import { SectionHeader, Title, Value } from 'components/common/Typography';
 import airAlert from 'assets/airAlert.png';
 import hotelAlert from 'assets/hotelAlert.png';
 
-const SectionTitle = styled.div`
-  font-weight: bold;
-  font-size: 1.3em;
+const SectionHeaderSpaced = styled(SectionHeader)`
   margin-bottom: 0.5em;
 `;
 
@@ -24,21 +23,18 @@ const Performance = styled.div`
   flex: 1;
 `;
 
-const Title = styled.div`
+const TitleSpaced = styled(Title)`
   flex: 1;
-  font-size: 1.25em;
   margin-bottom: 0.5em;
 `;
 
-const Value = styled.div`
+const ValueSpaced = styled(Value)`
   flex: 2;
-  font-size: 2em;
 `;
 
 const NoChangeSince = styled.div`
   display: flex;
   width: 100%;
-  font-size: 1.2em;
   margin-top: 2em;
 `;
 
@@ -83,7 +79,7 @@ const query = `
 
 const ProgramPerformance = ({ changeView }) => (
   <>
-    <SectionTitle>Program Performance</SectionTitle>
+    <SectionHeaderSpaced>Program Performance</SectionHeaderSpaced>
     <div>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -97,8 +93,8 @@ const ProgramPerformance = ({ changeView }) => (
           {data.performanceList.map((performance, index) => (
             <Performance key={index} first={index === 0}>
               <div>
-                <Title>{performance.title}</Title>
-                <Value>{performance.value}</Value>
+                <TitleSpaced>{performance.title}</TitleSpaced>
+                <ValueSpaced>{performance.value}</ValueSpaced>
                 {index === 0 && (
                   <NoChangeSince>
                     <LeafIcon className="fas fa-leaf" />

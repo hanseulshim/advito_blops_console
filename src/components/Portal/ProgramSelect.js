@@ -51,7 +51,7 @@ const List = styled.div`
 const ListIcon = styled(Icon)`
   padding: 0.5em;
   font-size: 200%;
-  background: ${props => props.theme.alabaster};
+  background: ${props => props.theme.white};
   border: 1px solid ${props => (props.disabled ? props.theme.pumice : props.theme.tradewind)};
   border-radius: 15px;
   color: ${props => (props.disabled ? props.theme.pumice : props.theme.tradewind)};

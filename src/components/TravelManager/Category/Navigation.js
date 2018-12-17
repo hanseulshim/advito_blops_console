@@ -12,7 +12,7 @@ const Container = styled.div`
 const NavItem = styled.div`
   flex: 1;
   text-align: center;
-  font-weight: bold;
+  font-weight: 700;
   text-transform: uppercase;
   padding: 1em;
   border-bottom: ${props => (!props.active ? `2px solid ${props.theme.pumice}` : '')};
