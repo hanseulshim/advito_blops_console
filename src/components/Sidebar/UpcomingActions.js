@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SectionHeader, Title } from 'components/common/Typography';
+import { SectionTitle, Title } from 'components/common/Typography';
 import Button from 'components/common/Button';
 import GraphQL from 'components/graphql';
 
@@ -71,7 +71,7 @@ const UpcomingActions = () => (
     {data => (
       <Container>
         <TitleContainer>
-          <SectionHeader>Upcoming Actions</SectionHeader>
+          <SectionTitle>Upcoming Actions</SectionTitle>
           <Button spaceLeft text="view all" />
         </TitleContainer>
         {createIconRows(data.upcomingActions)}

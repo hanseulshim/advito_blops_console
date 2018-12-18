@@ -7,13 +7,12 @@ const Container = styled.div`
   max-width: 1600px;
   margin: auto;
   display: flex;
-  position: ${props => !props.login && 'relative'};
 `;
 
 const MainContainer = styled.div`
   flex: 3;
-  padding: 3em 5em;
-  border: 1px solid ${props => props.theme.pumice};
+  padding: 2em 2.5em;
+  border: 1px solid ${props => props.theme.grayNurse};
   margin-left: -1px;
 `;
 

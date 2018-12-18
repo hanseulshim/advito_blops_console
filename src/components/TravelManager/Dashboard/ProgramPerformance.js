@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
-import { SectionHeader, Value } from 'components/common/Typography';
+import { SectionTitle, Value } from 'components/common/Typography';
 
 const Container = styled.div`
   flex: 1;
@@ -55,7 +55,7 @@ const query = `
 const ProgramPerformance = ({ changeView }) => (
   <Container>
     <SectionContainer>
-      <SectionHeader>program performance</SectionHeader>
+      <SectionTitle>program performance</SectionTitle>
       <Button spaceLeft text="view more" onClick={() => changeView('Program Performance')} />
     </SectionContainer>
     <GraphQL query={query}>

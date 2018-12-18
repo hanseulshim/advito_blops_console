@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
-import { SectionHeader, Title, Value } from 'components/common/Typography';
+import { SectionTitle, Title, Value } from 'components/common/Typography';
 import airAlert from 'assets/airAlert.png';
 import hotelAlert from 'assets/hotelAlert.png';
 
-const SectionHeaderSpaced = styled(SectionHeader)`
+const SectionTitleSpaced = styled(SectionTitle)`
   margin-bottom: 0.5em;
 `;
 
@@ -79,7 +79,7 @@ const query = `
 
 const Home = ({ changeView }) => (
   <>
-    <SectionHeaderSpaced>Program Performance</SectionHeaderSpaced>
+    <SectionTitleSpaced>Program Performance</SectionTitleSpaced>
     <div>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco

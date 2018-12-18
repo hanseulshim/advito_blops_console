@@ -10,8 +10,10 @@ export default createGlobalStyle`
     padding: 0;
     font-family: 'Rubik', sans-serif;
     background: ${props => props.theme.alabaster};
-    font-weight: 400;
+    color: ${props => props.theme.silver};
+    font-weight: 300;
     font-size: 16px;
+    line-height: 1em;
     @media (max-width : 1500px){
       font-size: 15px;
     }

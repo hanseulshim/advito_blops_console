@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import Icon from 'components/common/Icon';
 
 const Container = styled.div`
+  position: absolute;
   flex: 1;
   background: ${props => props.theme.white};
-  border: 1px solid ${props => props.theme.pumice};
-  padding: 4em 2em;
-  position: absolute;
-  opacity: 0.95;
+  border: 1px solid ${props => props.theme.grayNurse};
+  padding: 3.5em 2.5em;
+  opacity: 0.8;
 `;
 
 const PersonIcon = styled(Icon)`
@@ -16,7 +16,7 @@ const PersonIcon = styled(Icon)`
   font-size: 1.3em;
   padding: 0.5em;
   background: ${props => props.theme.white};
-  border: 1px solid ${props => props.theme.pumice};
+  border: 1px solid ${props => props.theme.grayNurse};
   border-left: none;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;

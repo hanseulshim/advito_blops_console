@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import { Link } from 'react-router-dom';
 import Icon from 'components/common/Icon';
-import { SectionHeader } from 'components/common/Typography';
+import { SectionTitle } from 'components/common/Typography';
 import analytics_active from 'assets/analytics_active.png';
 import air_active from 'assets/air_active.png';
 import air_disabled from 'assets/air_disabled.png';
@@ -114,7 +114,7 @@ const ProgramSelect = () => (
           <View key={index} first={index === 0} last={index === data.viewList.length - 1}>
             <IconContainer>
               <ViewIcon src={getIcon(view.icon, view.disabled)} alt="view" />
-              <SectionHeader>{view.title}</SectionHeader>
+              <SectionTitle>{view.title}</SectionTitle>
             </IconContainer>
             <ListContainer>{generateList(view)}</ListContainer>
           </View>

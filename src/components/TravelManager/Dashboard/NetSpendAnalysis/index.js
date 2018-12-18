@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
-import { SectionHeader } from 'components/common/Typography';
+import { SectionTitle } from 'components/common/Typography';
 import LineChart from './LineChart';
 
 const Container = styled.div`
@@ -34,7 +34,7 @@ const NetSpendAnalysis = ({ changeView }) => (
   <Container>
     <TitleContainer>
       <SectionContainer>
-        <SectionHeader>Net Spend Analysis</SectionHeader>
+        <SectionTitle>Net Spend Analysis</SectionTitle>
         <Button spaceLeft text="view more" onClick={() => changeView('Net Spend Analysis')} />
       </SectionContainer>
       <YearToDate>

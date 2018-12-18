@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
-import { SectionHeader } from 'components/common/Typography';
+import { SectionTitle } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
 
 import airAlert from 'assets/airAlert.png';
@@ -61,7 +61,7 @@ const ActiveAlerts = () => (
     {data => (
       <Container>
         <TitleContainer>
-          <SectionHeader>Active Alerts</SectionHeader>
+          <SectionTitle>Active Alerts</SectionTitle>
           <Button spaceLeft text="view all" />
         </TitleContainer>
         {createIconRows(data.activeAlerts)}

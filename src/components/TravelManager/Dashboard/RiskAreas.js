@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Icon from 'components/common/Icon';
-import { SectionHeader, Value } from 'components/common/Typography';
+import { SectionTitle, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
 
 const Container = styled.div`
@@ -62,7 +62,7 @@ const query = `
 const RiskAreas = ({ changeView }) => (
   <Container>
     <TitleContainer>
-      <SectionHeader>top 3 risk areas</SectionHeader>
+      <SectionTitle>top 3 risk areas</SectionTitle>
     </TitleContainer>
     <GraphQL query={query}>
       {data =>
