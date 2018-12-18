@@ -3,17 +3,12 @@ import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
+import { SectionHeader, Title, Value } from 'components/common/Typography';
 import airAlert from 'assets/airAlert.png';
 import hotelAlert from 'assets/hotelAlert.png';
 
-const SectionTitle = styled.div`
-  font-weight: bold;
-  font-size: 1.3em;
+const SectionHeaderSpaced = styled(SectionHeader)`
   margin-bottom: 0.5em;
-`;
-
-const SectionDescription = styled.div`
-  color: ${props => props.theme.boulder};
 `;
 
 const PerformanceContainer = styled.div`
@@ -28,21 +23,18 @@ const Performance = styled.div`
   flex: 1;
 `;
 
-const Title = styled.div`
+const TitleSpaced = styled(Title)`
   flex: 1;
-  font-size: 1.25em;
   margin-bottom: 0.5em;
 `;
 
-const Value = styled.div`
+const ValueSpaced = styled(Value)`
   flex: 2;
-  font-size: 2em;
 `;
 
 const NoChangeSince = styled.div`
   display: flex;
   width: 100%;
-  font-size: 1.2em;
   margin-top: 2em;
 `;
 
@@ -51,7 +43,7 @@ const LeafIcon = styled(Icon)`
   margin-right: 1em;
 `;
 
-const StoryDescription = styled(SectionDescription)`
+const StoryDescription = styled.div`
   margin-top: 6em;
 `;
 
@@ -85,32 +77,33 @@ const query = `
 }
 `;
 
-const ProgramPerformance = ({ changeView }) => (
+const Home = ({ changeView }) => (
   <>
-    <SectionTitle>Program Performance</SectionTitle>
-    <SectionDescription>
+    <SectionHeaderSpaced>Program Performance</SectionHeaderSpaced>
+    <div>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
       non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </SectionDescription>
+    </div>
     <GraphQL query={query}>
       {data => (
         <PerformanceContainer>
-          {data.performanceList.map(performance => (
-            <Performance key={performance.title}>
+          {data.performanceList.map((performance, index) => (
+            <Performance key={index} first={index === 0}>
               <div>
-                <Title>{performance.title}</Title>
-                <Value>{performance.value}</Value>
+                <TitleSpaced>{performance.title}</TitleSpaced>
+                <ValueSpaced>{performance.value}</ValueSpaced>
+                {index === 0 && (
+                  <NoChangeSince>
+                    <LeafIcon className="fas fa-leaf" />
+                    <span>No change since {data.noChangeSince}</span>
+                  </NoChangeSince>
+                )}
               </div>
             </Performance>
           ))}
-
-          <NoChangeSince>
-            <LeafIcon className="fas fa-leaf" />
-            <span>No change since {data.noChangeSince}</span>
-          </NoChangeSince>
         </PerformanceContainer>
       )}
     </GraphQL>
@@ -127,19 +120,17 @@ const ProgramPerformance = ({ changeView }) => (
           <img src={airAlert} alt="air" />
         </div>
         <StoryTitle>Air Data Story</StoryTitle>
-        <a href="https://s3.amazonaws.com/beta.boostlabs/BlackOps/story/index.html" target="blank">
-          <Button text="View" />
-        </a>
+        <Button text="View" onClick={() => changeView('air')} />
       </Story>
       <Story>
         <div>
           <img src={hotelAlert} alt="hotel" />
         </div>
         <StoryTitle>Hotel Data Story</StoryTitle>
-        <Button text="View" />
+        <Button text="View" onClick={() => changeView('hotel')} />
       </Story>
     </StoryContainer>
   </>
 );
 
-export default ProgramPerformance;
+export default Home;

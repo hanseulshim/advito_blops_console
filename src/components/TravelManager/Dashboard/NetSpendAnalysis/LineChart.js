@@ -21,11 +21,11 @@ class LineChart extends Component {
     chart.data = data;
 
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-    dateAxis.renderer.grid.template.location = 0;
+    dateAxis.renderer.grid.template.strokeOpacity = 0;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.tooltip.disabled = true;
-    valueAxis.renderer.minWidth = 35;
+    valueAxis.renderer.disabled = true;
 
     let series = chart.series.push(new am4charts.LineSeries());
     series.dataFields.dateX = 'date';
@@ -33,10 +33,6 @@ class LineChart extends Component {
 
     series.tooltipText = '{valueY.value}';
     chart.cursor = new am4charts.XYCursor();
-
-    let scrollbarX = new am4charts.XYChartScrollbar();
-    scrollbarX.series.push(series);
-    chart.scrollbarX = scrollbarX;
 
     this.chart = chart;
   }

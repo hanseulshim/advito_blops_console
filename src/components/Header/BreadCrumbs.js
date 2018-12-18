@@ -12,12 +12,11 @@ const Container = styled.div`
 
 const NavIcon = styled(Icon)`
   margin-right: 0.5em;
-  color: ${props => props.theme.boulder};
 `;
 
 const Text = styled.div`
   margin-right: 0.5em;
-  color: ${props => props.theme.boulder};
+  color: initial;
   cursor: pointer;
 `;
 

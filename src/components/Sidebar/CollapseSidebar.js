@@ -4,7 +4,7 @@ import Icon from 'components/common/Icon';
 
 const Container = styled.div`
   flex: 1;
-  background: ${props => props.theme.alabaster};
+  background: ${props => props.theme.white};
   border: 1px solid ${props => props.theme.pumice};
   padding: 4em 2em;
   position: absolute;
@@ -15,13 +15,13 @@ const PersonIcon = styled(Icon)`
   position: absolute;
   font-size: 1.3em;
   padding: 0.5em;
-  background: ${props => props.theme.alabaster};
+  background: ${props => props.theme.white};
   border: 1px solid ${props => props.theme.pumice};
   border-left: none;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   top: 2em;
-  color: ${props => props.theme.jaffa};
+  color: ${props => props.theme.westSide};
   cursor: pointer;
 `;
 

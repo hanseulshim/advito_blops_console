@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from 'components/common/Button';
+import Icon from 'components/common/Icon';
+import { SectionHeader, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
 
 const Container = styled.div`
@@ -12,12 +13,6 @@ const TitleContainer = styled.div`
   margin: 1.5em 0;
   display: flex;
   align-items: center;
-`;
-
-const Title = styled.div`
-  font-size: 1.2em;
-  font-weight: 700;
-  text-transform: uppercase;
 `;
 
 const Opportunity = styled.div`
@@ -44,17 +39,15 @@ const Row = styled.div`
 `;
 
 const RowTitle = styled.div`
-  color: ${props => props.theme.boulder};
-  font-size: 1.2em;
   margin-bottom: 0.5em;
   height: 2em;
   display: flex;
   align-items: center;
 `;
 
-const RowValue = styled.div`
-  font-size: 1.4em;
-  font-weight: 700;
+const RightIcon = styled(Icon)`
+  color: ${props => props.theme.westSide};
+  font-size: 2em;
 `;
 
 const query = `
@@ -69,8 +62,7 @@ const query = `
 const SavingsOpportunities = ({ changeView }) => (
   <Container>
     <TitleContainer>
-      <Title>top 3 savings opportunities</Title>
-      <Button spaceLeft text="view all" />
+      <SectionHeader>top 3 savings opportunities</SectionHeader>
     </TitleContainer>
     <GraphQL query={query}>
       {data =>
@@ -79,8 +71,9 @@ const SavingsOpportunities = ({ changeView }) => (
             <Number>{index + 1}</Number>
             <Row first={index === 0}>
               <RowTitle>{opportunity.title}</RowTitle>
-              <RowValue>{opportunity.value}</RowValue>
+              <Value>{opportunity.value}</Value>
             </Row>
+            <RightIcon className="fas fa-angle-right" />
           </Opportunity>
         ))
       }

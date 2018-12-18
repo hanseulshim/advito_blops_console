@@ -8,7 +8,7 @@ import SidebarUserInfo from './SidebarUserInfo';
 
 const Container = styled.div`
   flex: 1;
-  background: ${props => props.theme.alabaster};
+  background: ${props => props.theme.white};
   border: 1px solid ${props => props.theme.pumice};
   padding: 4em 2em;
 `;

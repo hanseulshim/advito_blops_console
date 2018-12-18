@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Icon from 'components/common/Icon';
+import Button from 'components/common/Button';
+import { SectionHeader } from 'components/common/Typography';
 import LineChart from './LineChart';
 
 const Container = styled.div`
@@ -8,17 +9,15 @@ const Container = styled.div`
   padding-left: 2em;
 `;
 
-const SectionTitle = styled.div`
+const SectionContainer = styled.div`
   display: flex;
-  font-weight: bold;
   align-items: center;
-  font-size: 1.3em;
-  text-transform: uppercase;
-  margin-bottom: 0.5em;
 `;
 
-const Title = styled.div`
-  cursor: pointer;
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
 `;
 
 const YearToDate = styled.label`
@@ -33,16 +32,16 @@ const YearToDate = styled.label`
 
 const NetSpendAnalysis = ({ changeView }) => (
   <Container>
-    <SectionTitle>
-      <Title onClick={() => changeView('Net Spend Analysis')}>
-        <span>Net Spend Analysis</span>
-        <Icon className="fas fa-info" info />
-      </Title>
+    <TitleContainer>
+      <SectionContainer>
+        <SectionHeader>Net Spend Analysis</SectionHeader>
+        <Button spaceLeft text="view more" onClick={() => changeView('Net Spend Analysis')} />
+      </SectionContainer>
       <YearToDate>
         <input type="checkbox" />
         Year to date
       </YearToDate>
-    </SectionTitle>
+    </TitleContainer>
     <LineChart />
   </Container>
 );

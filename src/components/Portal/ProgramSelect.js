@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import { Link } from 'react-router-dom';
 import Icon from 'components/common/Icon';
+import { SectionHeader } from 'components/common/Typography';
 import analytics_active from 'assets/analytics_active.png';
 import air_active from 'assets/air_active.png';
 import air_disabled from 'assets/air_disabled.png';
@@ -32,13 +33,7 @@ const IconContainer = styled.div`
 
 const ViewIcon = styled.img`
   width: 100%;
-`;
-
-const Title = styled.span`
-  font-size: 125%;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 `;
 
 const ListContainer = styled.div`
@@ -56,7 +51,7 @@ const List = styled.div`
 const ListIcon = styled(Icon)`
   padding: 0.5em;
   font-size: 200%;
-  background: ${props => props.theme.alabaster};
+  background: ${props => props.theme.white};
   border: 1px solid ${props => (props.disabled ? props.theme.pumice : props.theme.tradewind)};
   border-radius: 15px;
   color: ${props => (props.disabled ? props.theme.pumice : props.theme.tradewind)};
@@ -119,7 +114,7 @@ const ProgramSelect = () => (
           <View key={index} first={index === 0} last={index === data.viewList.length - 1}>
             <IconContainer>
               <ViewIcon src={getIcon(view.icon, view.disabled)} alt="view" />
-              <Title>{view.title}</Title>
+              <SectionHeader>{view.title}</SectionHeader>
             </IconContainer>
             <ListContainer>{generateList(view)}</ListContainer>
           </View>

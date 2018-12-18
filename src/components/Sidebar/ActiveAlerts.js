@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
+import { SectionHeader } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
 
 import airAlert from 'assets/airAlert.png';
@@ -15,13 +16,8 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: center;
 `;
-const Title = styled.div`
-  font-size: 1.2em;
-  font-weight: 700;
-  text-transform: uppercase;
-`;
 
-const EventConainer = styled.div`
+const EventContainer = styled.div`
   display: flex;
   align-items: center;
 `;
@@ -34,36 +30,25 @@ const EventIcon = styled.div`
   }
 `;
 
-const HeaderContainer = styled.div`
+const Header = styled.div`
   display: flex;
   flex-direction: column;
   flex: 5;
 `;
 
-const Header = styled.span`
-  margin-bottom: ${props => !props.secondary && '0.5em'};
-  font-size: ${props => !props.secondary && '1.2em'};
-  color: ${props => props.secondary && props.theme.boulder};
-`;
-
 const createIconRows = data =>
   data.map((action, index) => (
-    <EventConainer key={index}>
+    <EventContainer key={index}>
       <EventIcon>
         <img src={action.icon === 'air' ? airAlert : hotelAlert} alt="icon" />
       </EventIcon>
-
-      <HeaderContainer>
-        {action.header && <Header>{action.header}</Header>}
-        {action.secondaryHeader && <Header secondary>{action.secondaryHeader}</Header>}
-      </HeaderContainer>
-    </EventConainer>
+      <Header>{action.secondaryHeader}</Header>
+    </EventContainer>
   ));
 
 const query = `
   {
     activeAlerts {
-      header
       secondaryHeader
       icon
       alert
@@ -76,7 +61,7 @@ const ActiveAlerts = () => (
     {data => (
       <Container>
         <TitleContainer>
-          <Title>Active Alerts</Title>
+          <SectionHeader>Active Alerts</SectionHeader>
           <Button spaceLeft text="view all" />
         </TitleContainer>
         {createIconRows(data.activeAlerts)}
