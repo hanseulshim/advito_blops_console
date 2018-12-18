@@ -77,7 +77,7 @@ const query = `
 }
 `;
 
-const Home = () => (
+const Home = ({ changeView }) => (
   <>
     <SectionHeaderSpaced>Program Performance</SectionHeaderSpaced>
     <div>
@@ -120,16 +120,14 @@ const Home = () => (
           <img src={airAlert} alt="air" />
         </div>
         <StoryTitle>Air Data Story</StoryTitle>
-        <a href="https://s3.amazonaws.com/beta.boostlabs/BlackOps/story/index.html" target="blank">
-          <Button text="View" />
-        </a>
+        <Button text="View" onClick={() => changeView('air')} />
       </Story>
       <Story>
         <div>
           <img src={hotelAlert} alt="hotel" />
         </div>
         <StoryTitle>Hotel Data Story</StoryTitle>
-        <Button text="View" />
+        <Button text="View" onClick={() => changeView('hotel')} />
       </Story>
     </StoryContainer>
   </>
