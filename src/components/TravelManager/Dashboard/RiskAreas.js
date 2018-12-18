@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from 'components/common/Button';
 import { SectionHeader, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
 
@@ -58,7 +57,6 @@ const RiskAreas = ({ changeView }) => (
   <Container>
     <TitleContainer>
       <SectionHeader>risk areas</SectionHeader>
-      <Button spaceLeft text="view all" />
     </TitleContainer>
     <GraphQL query={query}>
       {data =>

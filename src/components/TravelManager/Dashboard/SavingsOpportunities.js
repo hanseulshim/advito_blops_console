@@ -58,7 +58,6 @@ const SavingsOpportunities = ({ changeView }) => (
   <Container>
     <TitleContainer>
       <SectionHeader>top 3 savings opportunities</SectionHeader>
-      <Button spaceLeft text="view all" />
     </TitleContainer>
     <GraphQL query={query}>
       {data =>

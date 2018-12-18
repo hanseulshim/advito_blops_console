@@ -2,12 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import Icon from 'components/common/Icon';
+import Button from 'components/common/Button';
 import { SectionHeader, Value } from 'components/common/Typography';
 
 const Container = styled.div`
   flex: 1;
   padding-right: 1.5em;
   border-right: 1px solid ${props => props.theme.pumice};
+`;
+
+const SectionContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Performance = styled.div`
@@ -47,10 +53,10 @@ const query = `
 
 const ProgramPerformance = ({ changeView }) => (
   <Container>
-    <SectionHeader onClick={() => changeView('Program Performance')}>
-      program performance
-      <Icon className="fas fa-info" info />
-    </SectionHeader>
+    <SectionContainer>
+      <SectionHeader>program performance</SectionHeader>
+      <Button spaceLeft text="view more" onClick={() => changeView('Program Performance')} />
+    </SectionContainer>
     <GraphQL query={query}>
       {data => (
         <>
