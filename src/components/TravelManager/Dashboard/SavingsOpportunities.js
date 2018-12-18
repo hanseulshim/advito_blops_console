@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from 'components/common/Button';
+import Icon from 'components/common/Icon';
 import { SectionHeader, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
 
@@ -45,6 +45,11 @@ const RowTitle = styled.div`
   align-items: center;
 `;
 
+const RightIcon = styled(Icon)`
+  color: ${props => props.theme.westSide};
+  font-size: 2em;
+`;
+
 const query = `
 {
   opportunities {
@@ -68,6 +73,7 @@ const SavingsOpportunities = ({ changeView }) => (
               <RowTitle>{opportunity.title}</RowTitle>
               <Value>{opportunity.value}</Value>
             </Row>
+            <RightIcon className="fas fa-angle-right" />
           </Opportunity>
         ))
       }

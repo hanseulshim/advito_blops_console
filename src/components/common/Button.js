@@ -11,7 +11,7 @@ const ButtonStyled = styled.button`
   padding: 0.5em 2em;
   font-size: 75%;
   cursor: pointer;
-  margin-left: ${props => (props.spaceLeft ? '0.5em' : '')};
+  margin-left: ${props => (props.spaceLeft ? '0.75em' : '')};
   margin-top: ${props => (props.spaceTop ? '0.5em' : '')};
 
   &:hover {

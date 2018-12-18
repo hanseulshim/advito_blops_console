@@ -34,6 +34,7 @@ const ValueFlex = styled(Value)`
 const NoChangeSince = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 1em;
 `;
 
 const LeafIcon = styled(Icon)`

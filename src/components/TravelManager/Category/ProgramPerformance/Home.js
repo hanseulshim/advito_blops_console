@@ -77,7 +77,7 @@ const query = `
 }
 `;
 
-const ProgramPerformance = ({ changeView }) => (
+const Home = () => (
   <>
     <SectionHeaderSpaced>Program Performance</SectionHeaderSpaced>
     <div>
@@ -135,4 +135,4 @@ const ProgramPerformance = ({ changeView }) => (
   </>
 );
 
-export default ProgramPerformance;
+export default Home;

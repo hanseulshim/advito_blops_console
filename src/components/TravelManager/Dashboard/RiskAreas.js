@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Icon from 'components/common/Icon';
 import { SectionHeader, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
 
@@ -44,6 +45,11 @@ const RowTitle = styled.div`
   align-items: center;
 `;
 
+const RightIcon = styled(Icon)`
+  color: ${props => props.theme.westSide};
+  font-size: 2em;
+`;
+
 const query = `
 {
   riskAreas {
@@ -56,7 +62,7 @@ const query = `
 const RiskAreas = ({ changeView }) => (
   <Container>
     <TitleContainer>
-      <SectionHeader>risk areas</SectionHeader>
+      <SectionHeader>top 3 risk areas</SectionHeader>
     </TitleContainer>
     <GraphQL query={query}>
       {data =>
@@ -67,6 +73,7 @@ const RiskAreas = ({ changeView }) => (
               <RowTitle>{riskArea.title}</RowTitle>
               <Value>{riskArea.value}</Value>
             </Row>
+            <RightIcon className="fas fa-angle-right" />
           </RiskArea>
         ))
       }
