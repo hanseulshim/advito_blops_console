@@ -2,20 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ButtonStyled = styled.button`
-  border: 1px solid ${props => props.theme.westSide};
-  background: ${props => props.theme.white};
-  color: ${props => props.theme.westSide};
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 300;
+  font-size: 0.7em;
+  text-align: center;
+  border: 1px solid ${props => props.theme.treePoppy};
+  background: ${props => props.theme.white};
+  color: ${props => props.theme.treePoppy};
   border-radius: 50px;
-  padding: 0.5em 2em;
-  font-size: 75%;
+  padding: 0.5em 0.8em;
+  width: 10em;
   cursor: pointer;
   margin-left: ${props => (props.spaceLeft ? '0.75em' : '')};
   margin-top: ${props => (props.spaceTop ? '0.5em' : '')};
 
   &:hover {
-    background: ${props => props.theme.westSide};
+    background: ${props => props.theme.treePoppy};
     color: ${props => props.theme.white};
   }
 `;

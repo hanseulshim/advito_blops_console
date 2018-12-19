@@ -8,7 +8,7 @@ const Container = styled.div`
 
 const ProgramPerformanceStyled = styled.div`
   padding: 0.5em 1em;
-  background: ${props => props.theme.westSide};
+  background: ${props => props.theme.treePoppy};
   color: ${props => props.theme.white};
 `;
 

@@ -27,7 +27,7 @@ const NavItem = styled.div`
 
 const HomeIcon = styled(Icon)`
   font-size: 1.2em;
-  color: ${props => props.theme.westSide};
+  color: ${props => props.theme.treePoppy};
   padding: 1em;
   border-bottom: 2px solid ${props => props.theme.pumice};
   cursor: pointer;

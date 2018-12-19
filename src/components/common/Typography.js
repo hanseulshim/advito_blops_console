@@ -9,8 +9,8 @@ const SectionTitleStyled = styled.div`
 `;
 
 const TitleStyled = styled.div`
-  font-size: 1.1em;
-  font-weight: 500;
+  font-weight: 400;
+  color: ${props => props.theme.black};
 `;
 
 const ValueStyled = styled.div`

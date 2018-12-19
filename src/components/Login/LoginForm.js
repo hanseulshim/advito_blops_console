@@ -30,7 +30,7 @@ const SubmitContainer = styled.div`
 `;
 
 const Submit = styled.input`
-  background-color: ${props => props.theme.westSide};
+  background-color: ${props => props.theme.treePoppy};
   color: white;
   padding: 1em;
   border: none;

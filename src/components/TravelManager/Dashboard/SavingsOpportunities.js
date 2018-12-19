@@ -46,7 +46,7 @@ const RowTitle = styled.div`
 `;
 
 const RightIcon = styled(Icon)`
-  color: ${props => props.theme.westSide};
+  color: ${props => props.theme.treePoppy};
   font-size: 2em;
 `;
 

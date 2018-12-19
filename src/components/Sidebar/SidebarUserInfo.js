@@ -1,15 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import Icon from 'components/common/Icon';
+import { Title } from 'components/common/Typography';
 import Shayan from 'assets/shayan.jpeg';
 
 const Container = styled.div`
-  font-size: 1.4em;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   img {
     border-radius: 50%;
     width: 25%;
   }
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  margin-top: 1em;
 `;
 
 const CogIcon = styled(Icon)`
@@ -20,10 +27,10 @@ const CogIcon = styled(Icon)`
 const SidebarUserInfo = () => (
   <Container>
     <img src={Shayan} alt="avatar" />
-    <div>
-      <span>Shayan Kheradmand</span>
+    <TitleContainer>
+      <Title>Shayan Kheradmand</Title>
       <CogIcon className="fas fa-cog" />
-    </div>
+    </TitleContainer>
   </Container>
 );
 

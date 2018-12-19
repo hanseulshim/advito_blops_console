@@ -10,7 +10,7 @@ export default createGlobalStyle`
     padding: 0;
     font-family: 'Rubik', sans-serif;
     background: ${props => props.theme.alabaster};
-    color: ${props => props.theme.silver};
+    color: ${props => props.theme.doveGray};
     font-weight: 300;
     font-size: 16px;
     line-height: 1em;

@@ -4,9 +4,9 @@ export default {
   black: '#000000',
   pumice: '#c9ceca',
   grayNurse: '#dee1df',
-  silver: '#cccccc',
+  doveGray: '#666666',
   tradewind: '#4baaa3',
   jungleMist: '#B0D6D4',
-  westSide: '#FF9316',
+  treePoppy: '#FF9E16',
   hippieBlue: '#638FBB',
 };
