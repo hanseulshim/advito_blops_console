@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SectionTitleStyled = styled.div`
-  font-size: 1.1em;
+  font-size: 1.1rem;
   font-weight: 500;
   color: ${props => props.theme.black};
   text-transform: uppercase;
@@ -14,7 +14,15 @@ const TitleStyled = styled.div`
 `;
 
 const ValueStyled = styled.div`
-  font-size: 1.6em;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: ${props => props.theme.black};
+`;
+
+const UnitStyled = styled.span`
+  font-size: 1rem;
+  font-weight: 400;
+  color: ${props => props.theme.black};
 `;
 
 export const SectionTitle = ({ children, ...rest }) => (
@@ -22,3 +30,4 @@ export const SectionTitle = ({ children, ...rest }) => (
 );
 export const Title = ({ children, ...rest }) => <TitleStyled {...rest}>{children}</TitleStyled>;
 export const Value = ({ children, ...rest }) => <ValueStyled {...rest}>{children}</ValueStyled>;
+export const Unit = ({ children, ...rest }) => <UnitStyled {...rest}>{children}</UnitStyled>;

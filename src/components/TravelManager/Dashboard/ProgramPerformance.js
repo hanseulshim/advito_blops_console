@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
-import { SectionTitle, Value } from 'components/common/Typography';
+import { SectionTitle } from 'components/common/Typography';
 
 const Container = styled.div`
   flex: 1;
@@ -27,8 +27,14 @@ const Title = styled.div`
   margin-right: 1em;
 `;
 
-const ValueFlex = styled(Value)`
+const Value = styled.div`
   flex: 2;
+  color: ${props => props.theme.black};
+  font-size: 1.7em;
+`;
+
+const Unit = styled.span`
+  font-size: 1rem;
 `;
 
 const NoChangeSince = styled.div`
@@ -47,6 +53,7 @@ const query = `
   performanceList {
     title
     value
+    unit
   }
   noChangeSince
 }
@@ -64,7 +71,9 @@ const ProgramPerformance = ({ changeView }) => (
           {data.performanceList.map(performance => (
             <Performance key={performance.title}>
               <Title>{performance.title}</Title>
-              <ValueFlex>{performance.value}</ValueFlex>
+              <Value>
+                {performance.value} <Unit>{performance.unit}</Unit>
+              </Value>
             </Performance>
           ))}
           <NoChangeSince>

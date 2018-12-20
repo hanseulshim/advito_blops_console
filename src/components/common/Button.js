@@ -14,7 +14,7 @@ const ButtonStyled = styled.button`
   width: 10em;
   cursor: pointer;
   margin-left: ${props => (props.spaceLeft ? '0.75em' : '')};
-  margin-top: ${props => (props.spaceTop ? '0.5em' : '')};
+  margin-top: ${props => (props.spaceTop ? '1em' : '')};
 
   &:hover {
     background: ${props => props.theme.treePoppy};

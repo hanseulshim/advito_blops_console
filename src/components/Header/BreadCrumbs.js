@@ -18,6 +18,11 @@ const Text = styled.div`
   margin-right: 0.5em;
   color: initial;
   cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+    color: ${props => props.theme.treePoppy};
+  }
 `;
 
 const BreadCrumbs = ({ location }) => (

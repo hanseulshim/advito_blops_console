@@ -24,14 +24,15 @@ const IconContainer = styled.span`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   margin: 0 1em;
   color: ${props => props.theme.tradewind};
   cursor: pointer;
+  font-size: 0.75em;
 `;
 
 const AddyIcon = styled(Icon)`
-  font-size: 250%;
-  margin-bottom: 0.1em;
+  font-size: 2.75em;
 `;
 
 const TopHeader = () => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/common/Button';
+import Checkbox from 'components/common/Checkbox';
 import { SectionTitle } from 'components/common/Typography';
 import LineChart from './LineChart';
 
@@ -24,7 +25,6 @@ const YearToDate = styled.label`
   font-size: 0.75em;
   text-transform: initial;
   font-weight: normal;
-  margin-left: 1em;
   input {
     margin-right: 0.5em;
   }
@@ -37,11 +37,8 @@ const NetSpendAnalysis = ({ changeView }) => (
         <SectionTitle>Net Spend Analysis</SectionTitle>
         <Button spaceLeft text="view more" onClick={() => changeView('Net Spend Analysis')} />
       </SectionContainer>
-      <YearToDate>
-        <input type="checkbox" />
-        Year to date
-      </YearToDate>
     </TitleContainer>
+    <Checkbox>Year to date</Checkbox>
     <LineChart />
   </Container>
 );
