@@ -7,7 +7,9 @@ import LineChart from './LineChart';
 
 const Container = styled.div`
   flex: 1;
-  padding-left: 2em;
+  padding: 1em 2em;
+  display: flex;
+  flex-direction: column;
 `;
 
 const SectionContainer = styled.div`
@@ -19,15 +21,6 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 0.5em;
-`;
-
-const YearToDate = styled.label`
-  font-size: 0.75em;
-  text-transform: initial;
-  font-weight: normal;
-  input {
-    margin-right: 0.5em;
-  }
 `;
 
 const NetSpendAnalysis = ({ changeView }) => (

@@ -44,7 +44,7 @@ class LineChart extends Component {
   }
 
   render() {
-    return <div id="chartdiv" style={{ width: '100%', height: '300px' }} />;
+    return <div id="chartdiv" style={{ width: '100%', flex: 1 }} />;
   }
 }
 

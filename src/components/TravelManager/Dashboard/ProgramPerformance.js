@@ -1,19 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
-import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
 import { SectionTitle } from 'components/common/Typography';
 
 const Container = styled.div`
   flex: 1;
-  padding-right: 1.5em;
-  border-right: 1px solid ${props => props.theme.pumice};
+  padding: 1em 2em;
+  background: ${props => props.theme.white};
+  border: 1px solid ${props => props.theme.concrete};
+  border-radius: 0.8em;
 `;
 
 const SectionContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1em;
 `;
 
 const Performance = styled.div`
@@ -37,17 +40,6 @@ const Unit = styled.span`
   font-size: 1rem;
 `;
 
-const NoChangeSince = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 1em;
-`;
-
-const LeafIcon = styled(Icon)`
-  color: ${props => props.theme.tradewind};
-  margin-right: 1em;
-`;
-
 const query = `
 {
   performanceList {
@@ -55,7 +47,6 @@ const query = `
     value
     unit
   }
-  noChangeSince
 }
 `;
 
@@ -76,10 +67,6 @@ const ProgramPerformance = ({ changeView }) => (
               </Value>
             </Performance>
           ))}
-          <NoChangeSince>
-            <LeafIcon className="fas fa-leaf" />
-            <span>No change since {data.noChangeSince}</span>
-          </NoChangeSince>
         </>
       )}
     </GraphQL>

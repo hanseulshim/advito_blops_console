@@ -17,7 +17,7 @@ import contracts from 'assets/contracts.png';
 const createIconRows = data =>
   data.map((action, index) => (
     <EventContainer key={index}>
-      <EventIcon round>
+      <EventIcon>
         <img src={action.icon === 'flag' ? flag : contracts} alt="icon" />
       </EventIcon>
       <HeaderContainer>

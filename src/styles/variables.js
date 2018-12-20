@@ -4,6 +4,7 @@ export default {
   black: '#000000',
   pumice: '#c9ceca',
   grayNurse: '#dee1df',
+  concrete: '#f4f2f2',
   doveGray: '#666666',
   silver: '#cccccc',
   tradewind: '#4baaa3',

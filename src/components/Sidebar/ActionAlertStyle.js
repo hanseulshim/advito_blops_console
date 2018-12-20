@@ -16,10 +16,10 @@ export const EventContainer = styled.div`
 `;
 
 export const EventIcon = styled.div`
-  padding: 0.5em;
+  padding: 0.75em;
   margin: 0.5em 1em 0.5em 0;
-  flex: 1;
-  border: ${props => props.round && `1px solid ${props.theme.tradewind}`};
+  flex: 0.5;
+  border: 1px solid ${props => props.theme.tradewind};
   border-radius: 50%;
   img {
     width: 100%;
@@ -29,7 +29,7 @@ export const EventIcon = styled.div`
 export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 7;
+  flex: 4;
 `;
 
 export const Header = styled.span`

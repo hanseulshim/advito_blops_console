@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ViewContext from 'components/context/ViewContext';
+import { withRouter } from 'react-router-dom';
 import CollapseSidebar from './CollapseSidebar';
 import UpcomingActions from './UpcomingActions';
 import ActiveAlerts from './ActiveAlerts';
@@ -13,24 +13,19 @@ const Container = styled.div`
   padding: 3.5em 2.5em;
 `;
 
-const Sidebar = () => (
-  <ViewContext.Consumer>
-    {({ view }) =>
-      view === 'dashboard' ? (
-        <Container>
-          <SidebarUserInfo />
-          <UpcomingActions />
-          <ActiveAlerts />
-        </Container>
-      ) : (
-        <CollapseSidebar>
-          <SidebarUserInfo />
-          <UpcomingActions />
-          <ActiveAlerts />
-        </CollapseSidebar>
-      )
-    }
-  </ViewContext.Consumer>
-);
+const Sidebar = ({ location }) =>
+  location.pathname === '/' ? (
+    <Container>
+      <SidebarUserInfo />
+      <UpcomingActions />
+      <ActiveAlerts />
+    </Container>
+  ) : (
+    <CollapseSidebar>
+      <SidebarUserInfo />
+      <UpcomingActions />
+      <ActiveAlerts />
+    </CollapseSidebar>
+  );
 
-export default Sidebar;
+export default withRouter(Sidebar);
