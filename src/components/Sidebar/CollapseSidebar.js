@@ -8,7 +8,7 @@ const Container = styled.div`
   background: ${props => props.theme.white};
   border: 1px solid ${props => props.theme.grayNurse};
   padding: 3.5em 2.5em;
-  opacity: 0.8;
+  opacity: 0.95;
 `;
 
 const PersonIcon = styled(Icon)`

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import ViewContext from 'components/context/ViewContext';
-import Icon from 'components/common/Icon';
 
 const Container = styled.div`
   display: flex;
@@ -10,36 +9,42 @@ const Container = styled.div`
   margin-top: 1em;
 `;
 
-const NavIcon = styled(Icon)`
-  margin-right: 0.5em;
+const Spacer = styled.div`
+  margin: 0 0.5em;
 `;
 
 const Text = styled.div`
-  margin-right: 0.5em;
   color: initial;
-  cursor: pointer;
+`;
 
+const BackTo = styled(Text)`
+  color: ${props => props.theme.treePoppy};
+  cursor: pointer;
   &:hover {
     text-decoration: underline;
     color: ${props => props.theme.treePoppy};
   }
 `;
 
+const getPrevious = (path, view) => {
+  if (path === '/travel') {
+    return view === 'dashboard' ? 'Console' : 'Travel Manager Dashboard';
+  } else {
+    return view === 'dashboard' ? 'Console' : 'Executive Dashboard';
+  }
+};
+
 const BreadCrumbs = ({ location }) => (
   <ViewContext.Consumer>
     {({ view, changeView }) => (
       <Container>
-        <Link to={'/'}>
-          <Text onClick={() => changeView('dashboard')}>Console</Text>
+        <Link replace to={view === 'dashboard' ? '/' : location.pathname}>
+          <BackTo onClick={() => changeView('dashboard')}>
+            {'<<'} Back to {getPrevious(location.pathname, view)}
+          </BackTo>
         </Link>
-        <NavIcon className="fas fa-angle-right" />
-        <Text onClick={() => changeView('dashboard')}>Travel Manager Dashboard</Text>
-        {view !== 'dashboard' && (
-          <>
-            <NavIcon className="fas fa-angle-right" />
-            <Text onClick={() => changeView(view)}>{view}</Text>
-          </>
-        )}
+        <Spacer>|</Spacer>
+        <Text>{view === 'dashboard' ? 'Travel Manager Dashboard' : view}</Text>
       </Container>
     )}
   </ViewContext.Consumer>

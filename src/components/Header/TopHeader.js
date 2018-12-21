@@ -41,7 +41,7 @@ const TopHeader = () => {
   return (
     <Container>
       <LogoContainer>
-        <Link to={`/`}>
+        <Link to={`/`} replace>
           <img src={advito_logo} alt="advito logo" />
         </Link>
       </LogoContainer>
