@@ -12,7 +12,7 @@ import hotel_disabled from 'assets/hotel_disabled.png';
 
 const Container = styled.div`
   display: flex;
-  margin-top: 2em;
+  margin-top: 1.5em;
   justify-content: space-between;
 `;
 
@@ -23,6 +23,7 @@ const View = styled.div`
   margin: 0 1em;
   margin-left: ${props => props.first && 0};
   margin-right: ${props => props.last && 0};
+  background: ${props => props.theme.white};
 `;
 
 const IconContainer = styled.div`

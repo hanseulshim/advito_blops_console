@@ -24,6 +24,7 @@ const Persona = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  border-left: ${props => !props.first && `1px solid ${props.theme.silver}`};
 `;
 
 const TitleTransform = styled(Title)`
@@ -70,7 +71,7 @@ const Personas = ({ changeView }) => (
           </ChartRow>
         </Description>
         {data.personaList.map((persona, index) => (
-          <Persona key={index} first={index === 0} last={index === data.personaList.length - 1}>
+          <Persona key={index} first={index === 0}>
             <TitleRow>
               <TitleTransform>{persona.title}</TitleTransform>
             </TitleRow>
