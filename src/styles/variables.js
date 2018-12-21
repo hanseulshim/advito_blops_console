@@ -11,5 +11,6 @@ export default {
   easternWind: '#20ABA3',
   jungleMist: '#B0D6D4',
   treePoppy: '#FF9E16',
-  hippieBlue: '#638FBB',
+  steelBlue: '#5890bf',
+  tropicalBlue: '#cae4f9',
 };
