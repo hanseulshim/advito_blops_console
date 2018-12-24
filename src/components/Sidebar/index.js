@@ -10,7 +10,7 @@ const Container = styled.div`
   flex: 1;
   background: ${props => props.theme.white};
   border: 1px solid ${props => props.theme.grayNurse};
-  padding: 3.5em 2.5em;
+  padding: 2em 2.5em;
 `;
 
 const Sidebar = ({ location }) =>

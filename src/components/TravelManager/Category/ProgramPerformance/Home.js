@@ -4,8 +4,8 @@ import GraphQL from 'components/graphql';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
 import { SectionTitle, Title, Value } from 'components/common/Typography';
-import airAlert from 'assets/airAlert.png';
-import hotelAlert from 'assets/hotelAlert.png';
+import airAlert from 'assets/sidebar/air.png';
+import hotelAlert from 'assets/sidebar/hotel.png';
 
 const SectionTitleSpaced = styled(SectionTitle)`
   margin-bottom: 0.5em;

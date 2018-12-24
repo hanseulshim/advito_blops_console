@@ -8,6 +8,7 @@ export const TitleContainer = styled.div`
   margin: 1.5em 0;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const EventContainer = styled.div`

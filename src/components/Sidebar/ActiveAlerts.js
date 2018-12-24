@@ -10,9 +10,6 @@ import {
   HeaderContainer,
 } from './ActionAlertStyle';
 
-import airAlert from 'assets/airAlert.png';
-import hotelAlert from 'assets/hotelAlert.png';
-
 const query = `
   {
     activeAlerts {
@@ -27,7 +24,7 @@ const createIconRows = data =>
   data.map((action, index) => (
     <EventContainer key={index}>
       <EventIcon>
-        <img src={action.icon === 'air' ? airAlert : hotelAlert} alt="icon" />
+        <img src={require(`assets/sidebar/${action.icon}`)} alt="icon" />
       </EventIcon>
       <HeaderContainer>{action.secondaryHeader}</HeaderContainer>
     </EventContainer>
@@ -39,7 +36,7 @@ const ActiveAlerts = () => (
       <Container>
         <TitleContainer>
           <SectionTitle>Active Alerts</SectionTitle>
-          <Button spaceLeft text="view all" />
+          <Button text="view all" />
         </TitleContainer>
         {createIconRows(data.activeAlerts)}
       </Container>

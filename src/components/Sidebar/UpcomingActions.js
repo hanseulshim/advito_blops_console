@@ -11,14 +11,11 @@ import {
   Header,
 } from './ActionAlertStyle';
 
-import flag from 'assets/flag.png';
-import contracts from 'assets/contracts.png';
-
 const createIconRows = data =>
   data.map((action, index) => (
     <EventContainer key={index}>
       <EventIcon>
-        <img src={action.icon === 'flag' ? flag : contracts} alt="icon" />
+        <img src={require(`assets/sidebar/${action.icon}`)} alt="icon" />
       </EventIcon>
       <HeaderContainer>
         <Title>{action.header}</Title>
@@ -43,7 +40,7 @@ const UpcomingActions = () => (
       <Container>
         <TitleContainer>
           <SectionTitle>Upcoming Actions</SectionTitle>
-          <Button spaceLeft text="view all" />
+          <Button text="view all" />
         </TitleContainer>
         {createIconRows(data.upcomingActions)}
       </Container>

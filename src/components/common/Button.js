@@ -11,10 +11,10 @@ const ButtonStyled = styled.button`
   color: ${props => props.theme.treePoppy};
   border-radius: 50px;
   padding: 0.5em 0.8em;
-  width: 10em;
+  width: 8em;
   cursor: pointer;
-  margin-left: ${props => (props.spaceLeft ? '0.75em' : '')};
-  margin-top: ${props => (props.spaceTop ? '1em' : '')};
+  margin-left: ${props => (props.spaceLeft ? '0.5em' : '')};
+  margin-top: ${props => (props.spaceTop ? '0.5em' : '')};
 
   &:hover {
     background: ${props => props.theme.treePoppy};
