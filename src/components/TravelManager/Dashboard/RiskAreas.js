@@ -14,8 +14,10 @@ import {
 const query = `
 {
   riskAreas(limit: 3) {
-    title
-    value
+    riskAreas{
+      title
+      value
+    }
   }
 }
 `;
@@ -27,7 +29,7 @@ const RiskAreas = ({ changeView }) => (
     </TitleContainer>
     <GraphQL query={query}>
       {data =>
-        data.riskAreas.map((riskArea, index) => (
+        data.riskAreas.riskAreas.map((riskArea, index) => (
           <RowContainer key={index} onClick={() => changeView('Risk Areas')}>
             <Rank>{index + 1}</Rank>
             <Row first={index === 0}>

@@ -14,9 +14,11 @@ import {
 const query = `
 {
   opportunities(limit: 3) {
-    title
-    value
-    unit
+    opportunities {
+      title
+      value
+      unit
+    }
   }
 }
 `;
@@ -28,7 +30,7 @@ const SavingsOpportunities = ({ changeView }) => (
     </TitleContainer>
     <GraphQL query={query}>
       {data =>
-        data.opportunities.map((opportunity, index) => (
+        data.opportunities.opportunities.map((opportunity, index) => (
           <RowContainer key={index} onClick={() => changeView('Savings Opportunities')}>
             <Rank>{index + 1}</Rank>
             <Row first={index === 0}>
