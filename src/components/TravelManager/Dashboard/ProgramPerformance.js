@@ -57,7 +57,7 @@ const ProgramPerformance = ({ changeView }) => (
       <Button spaceLeft text="view more" onClick={() => changeView('Program Performance')} />
     </SectionContainer>
     <GraphQL query={query}>
-      {data => (
+      {({ data }) => (
         <>
           {data.performanceList.map(performance => (
             <Performance key={performance.title}>

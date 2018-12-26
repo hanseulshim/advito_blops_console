@@ -4,17 +4,18 @@ import gql from 'graphql-tag';
 import Loader from 'components/common/Loader';
 import Error from 'components/common/Error';
 
-const GraphQL = ({ query, children }) => {
+const GraphQL = ({ query, variables, children }) => {
   return (
     <Query
       query={gql`
         ${query}
       `}
+      variables={variables}
     >
-      {({ loading, error, data }) => {
+      {({ loading, error, data, fetchMore }) => {
         if (loading) return <Loader />;
         if (error) return <Error />;
-        return children(data);
+        return children({ data, fetchMore });
       }}
     </Query>
   );

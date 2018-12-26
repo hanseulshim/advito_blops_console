@@ -14,12 +14,14 @@ const NavItem = styled.div`
   text-align: center;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 1em;
   border-bottom: ${props => (!props.active ? `2px solid ${props.theme.pumice}` : '')};
   border-top: ${props => (props.active ? `2px solid ${props.theme.pumice}` : '')};
   border-left: ${props => (props.active ? `2px solid ${props.theme.pumice}` : '')};
   border-right: ${props => (props.active ? `2px solid ${props.theme.pumice}` : '')};
-  margin: ${props => props.active && '2px'};
+  padding-bottom: ${props => (props.active ? 'calc(1em + 2px)' : '1em')};
+  padding-right: ${props => (props.active ? 'calc(1em - 2px)' : '1em')};
+  padding-left: ${props => (props.active ? 'calc(1em - 2px)' : '1em')};
+  padding-top: 1em;
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
   cursor: pointer;

@@ -36,7 +36,7 @@ const query = `
 
 const UpcomingActions = () => (
   <GraphQL query={query}>
-    {data => (
+    {({ data }) => (
       <Container>
         <TitleContainer>
           <SectionTitle>Upcoming Actions</SectionTitle>

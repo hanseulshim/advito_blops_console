@@ -46,7 +46,7 @@ const query = `
 const BottomInfo = () => (
   <Container>
     <GraphQL query={query}>
-      {data =>
+      {({ data }) =>
         data.infoList.map((view, index) => (
           <Info key={index}>
             <Image

@@ -4,7 +4,7 @@ import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
 
 const Container = styled.div`
-  max-width: ${props => (props.collapse ? '1200px' : '1600px')};
+  max-width: ${props => (props.collapse ? '1400px' : '1600px')};
   margin: auto;
   display: flex;
 `;

@@ -57,7 +57,7 @@ const query = `
 
 const Personas = ({ changeView }) => (
   <GraphQL query={query}>
-    {data => (
+    {({ data }) => (
       <PersonaContainer onClick={() => changeView('Personas')}>
         <Description>
           <TitleRow>

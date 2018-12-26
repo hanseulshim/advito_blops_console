@@ -28,7 +28,7 @@ const RiskAreas = ({ changeView }) => (
       <SectionTitle>top 3 risk areas</SectionTitle>
     </TitleContainer>
     <GraphQL query={query}>
-      {data =>
+      {({ data }) =>
         data.riskAreas.riskAreas.map((riskArea, index) => (
           <RowContainer key={index} onClick={() => changeView('Risk Areas')}>
             <Rank>{index + 1}</Rank>

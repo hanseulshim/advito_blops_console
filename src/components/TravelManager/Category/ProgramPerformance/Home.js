@@ -88,7 +88,7 @@ const Home = ({ changeView }) => (
       non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </div>
     <GraphQL query={query}>
-      {data => (
+      {({ data }) => (
         <PerformanceContainer>
           {data.performanceList.map((performance, index) => (
             <Performance key={index} first={index === 0}>

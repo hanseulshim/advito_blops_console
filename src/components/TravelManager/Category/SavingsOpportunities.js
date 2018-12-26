@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import GraphQL from 'components/graphql';
 
 const Container = styled.div`
   display: flex;
@@ -9,24 +10,61 @@ const Item = styled.div`
   width: 25%;
 `;
 
-const data = [
-  {
-    title: 'Expenses approved above rate caps / per diems',
-    value: '27% / $375K impact',
-  },
-  { title: 'ABR higher than ANR', value: '30% / $500K impact' },
-  { title: 'NRT Utilization/Loss', value: '83% / $23K expired' },
-  { title: 'ANR higher than ABR', value: '25% / $100K expired' },
-  { title: 'New item', value: 'XX% / $XX expired' },
-];
+const query = `
+  query($cursor: Int) {
+    opportunities(limit: 4, cursor: $cursor) {
+      hasNext
+      cursor
+      opportunities {
+        title
+        value
+        unit
+      }
+    }
+  }
+`;
 
 const SavingsOpportunities = () => {
   return (
-    <Container>
-      {data.map(item => (
-        <Item>item</Item>
-      ))}
-    </Container>
+    <GraphQL query={query}>
+      {({ data, fetchMore }) => (
+        <Container>
+          <button
+            onClick={() =>
+              fetchMore({
+                variables: {
+                  cursor: data.opportunities.prevCursor,
+                },
+                updateQuery: (prev, { fetchMoreResult }) => {
+                  if (!fetchMoreResult) return prev;
+                  return fetchMoreResult;
+                },
+              })
+            }
+          >
+            less
+          </button>
+          {data.opportunities.opportunities.map((opportunity, index) => (
+            <Item key={index}>{opportunity.value}</Item>
+          ))}
+          <button
+            onClick={() =>
+              fetchMore({
+                variables: {
+                  cursor: data.opportunities.cursor,
+                },
+                updateQuery: (prev, { fetchMoreResult }) => {
+                  if (!fetchMoreResult) return prev;
+                  return fetchMoreResult;
+                },
+              })
+            }
+          >
+            more
+          </button>
+        </Container>
+      )}
+    </GraphQL>
   );
 };
 

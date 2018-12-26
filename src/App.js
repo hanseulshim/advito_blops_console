@@ -22,7 +22,7 @@ const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
 };
 
 class App extends Component {
-  state = { authenticated: true, view: 'dashboard' };
+  state = { authenticated: true, view: 'Savings Opportunities' };
   authenticateUser = event => {
     this.setState({ authenticated: event.target.password.value === 'blops2018' });
     event.preventDefault();

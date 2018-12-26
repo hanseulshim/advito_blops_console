@@ -99,7 +99,7 @@ const generateList = view =>
 const ProgramSelect = () => (
   <Container>
     <GraphQL query={query}>
-      {data =>
+      {({ data }) =>
         data.viewList.map((view, index) => (
           <View key={index} first={index === 0} last={index === data.viewList.length - 1}>
             <IconContainer disabled={view.disabled}>
