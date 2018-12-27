@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin-top: 3em;
+  margin-top: ${props => props.theme.verticalSpace};
 `;
 
 export const TitleContainer = styled.div`
-  margin: 1.5em 0;
+  margin-bottom: 1em;
   display: flex;
   align-items: center;
   justify-content: space-between;

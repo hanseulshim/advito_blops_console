@@ -4,12 +4,12 @@ import styled from 'styled-components';
 const ButtonStyled = styled.button`
   text-transform: uppercase;
   font-weight: 300;
-  font-size: 0.7em;
+  font-size: 0.8em;
   text-align: center;
   border: 1px solid ${props => props.theme.treePoppy};
-  background: ${props => props.theme.white};
+  background: none;
   color: ${props => props.theme.treePoppy};
-  border-radius: 50px;
+  border-radius: 10px;
   padding: 0.5em 0.8em;
   width: 8em;
   cursor: pointer;

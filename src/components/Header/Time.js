@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const HourZoneContainer = styled.div`
   display: flex;
-  margin-bottom: 0.25em;
+  padding: 0 0.3em 0.45em 0;
   align-items: baseline;
 `;
 
@@ -21,13 +21,13 @@ const Hours = styled.div`
 `;
 
 const TimeZone = styled.div`
-  font-size: 0.75em;
+  font-size: 1.7em;
 `;
 
 const Location = styled.div`
-  padding-top: 0.25em;
+  padding-top: 0.45em;
   border-top: 1px solid ${props => props.theme.silver};
-  font-size: 0.75em;
+  font-size: 0.9em;
   text-align: center;
 `;
 

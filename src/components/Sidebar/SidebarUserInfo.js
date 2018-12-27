@@ -8,6 +8,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 3em;
   img {
     border-radius: 50%;
     width: 25%;
@@ -16,7 +17,9 @@ const Container = styled.div`
 
 const TitleContainer = styled.div`
   display: flex;
-  margin-top: 1em;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 0.5em;
 `;
 
 const CogIcon = styled(Icon)`
@@ -26,11 +29,11 @@ const CogIcon = styled(Icon)`
 
 const SidebarUserInfo = () => (
   <Container>
-    <img src={Shayan} alt="avatar" />
     <TitleContainer>
-      <Title>Shayan Kheradmand</Title>
+      <img src={Shayan} alt="avatar" />
       <CogIcon className="fas fa-cog" />
     </TitleContainer>
+    <Title>Shayan Kheradmand</Title>
   </Container>
 );
 

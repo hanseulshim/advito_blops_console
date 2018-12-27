@@ -7,19 +7,18 @@ const Container = styled.div`
   max-width: ${props => (props.collapse ? '1400px' : '1600px')};
   margin: auto;
   display: flex;
+  height: 100%;
 `;
 
 const MainContainer = styled.div`
   flex: 3;
-  padding: ${props => (props.collapse ? '2em 2.5em 2em 5em' : '2em 2.5em')};
-  border: 1px solid ${props => props.theme.grayNurse};
-  margin-left: -1px;
+  padding: 0em 4em;
 `;
 
 const Main = ({ component: Component, location, ...rest }) => (
   <Container collapse={location.pathname !== '/'}>
     <Sidebar />
-    <MainContainer collapse={location.pathname !== '/'}>
+    <MainContainer>
       <Header />
       <Component {...rest} />
     </MainContainer>

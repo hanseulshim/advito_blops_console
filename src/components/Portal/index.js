@@ -8,7 +8,7 @@ import BottomInfo from './BottomInfo';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 3em;
+  margin-top: ${props => props.theme.verticalSpace};
 `;
 
 class PortalContext extends Component {

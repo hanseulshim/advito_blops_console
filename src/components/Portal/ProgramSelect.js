@@ -12,11 +12,11 @@ const Container = styled.div`
 
 const View = styled.div`
   margin: 0 1em;
-  margin-left: ${props => props.first && 0};
-  margin-right: ${props => props.last && 0};
+  margin-left: ${props => (props.first || props.last) && 0};
+  margin-right: ${props => (props.first || props.last) && 0};
   background: ${props => props.theme.white};
   border: 1px solid ${props => props.theme.grayNurse};
-  border-radius: 0.8em;
+  border-radius: 10px;
   flex: 1;
   overflow: hidden;
 `;
@@ -24,7 +24,7 @@ const View = styled.div`
 const IconContainer = styled.div`
   display: flex;
   align-items: center;
-  padding-top: 0.5em;
+  padding: 0.5em 2em;
   background: ${props => (props.disabled ? props.theme.pumice : props.theme.tradewind)};
 `;
 
@@ -36,15 +36,15 @@ const ViewIcon = styled.div`
 `;
 
 const SectionTitleFlex = styled(SectionTitle)`
-  flex: 3;
-  margin-left: 1.5em;
+  flex: 2;
+  margin-left: 0.5em;
   color: ${props => props.theme.white};
 `;
 
 const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1em;
+  margin: 1.5em 2em;
 `;
 
 const List = styled.div`

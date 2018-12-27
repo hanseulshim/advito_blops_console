@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SectionTitleStyled = styled.div`
-  font-size: 1.1rem;
+  font-size: 1.25em;
   font-weight: 500;
   color: ${props => props.theme.black};
   text-transform: uppercase;

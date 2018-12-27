@@ -5,16 +5,17 @@ import { Title } from 'components/common/Typography';
 import Button from 'components/common/Button';
 
 const Container = styled.div`
-  padding: 1em;
+  padding: 0 2em;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 const Info = styled.div`
+  margin-top: ${props => props.theme.verticalSpace};
   display: flex;
-  flex: 0 50%;
+  flex: 0 45%;
   align-items: flex-start;
-  margin-top: 3em;
 `;
 
 const Image = styled.img`

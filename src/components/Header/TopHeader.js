@@ -8,14 +8,19 @@ import advito_logo from 'assets/advito_logo.png';
 
 const Container = styled.div`
   display: flex;
+  align-items: flex-end;
+  margin-top: 6.25em;
 `;
 
 const LogoContainer = styled.div`
   flex: 1;
+  img {
+    width: 100%;
+  }
 `;
 
 const TimeSupportContainer = styled.div`
-  flex: 2;
+  flex: 1.75;
   display: flex;
   justify-content: flex-end;
 `;
@@ -28,11 +33,11 @@ const IconContainer = styled.span`
   margin: 0 1em;
   color: ${props => props.theme.tradewind};
   cursor: pointer;
-  font-size: 0.75em;
+  font-size: 0.9em;
 `;
 
 const AddyIcon = styled(Icon)`
-  font-size: 2.75em;
+  font-size: 2.5em;
 `;
 
 const TopHeader = () => {

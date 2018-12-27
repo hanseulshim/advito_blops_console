@@ -7,10 +7,11 @@ import ActiveAlerts from './ActiveAlerts';
 import SidebarUserInfo from './SidebarUserInfo';
 
 const Container = styled.div`
-  flex: 1;
+  flex: 1.25;
   background: ${props => props.theme.white};
   border: 1px solid ${props => props.theme.grayNurse};
-  padding: 2em 2.5em;
+  padding: 0 2.5em;
+  height: 100%;
 `;
 
 const Sidebar = ({ location }) =>
