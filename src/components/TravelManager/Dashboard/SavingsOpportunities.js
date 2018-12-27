@@ -24,7 +24,7 @@ const query = `
 `;
 
 const SavingsOpportunities = ({ changeView }) => (
-  <Container right>
+  <Container>
     <TitleContainer>
       <SectionTitle>top 3 savings opportunities</SectionTitle>
     </TitleContainer>

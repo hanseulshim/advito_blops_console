@@ -7,6 +7,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   margin-top: 1em;
+  margin-bottom: ${props => props.theme.verticalSpace};
 `;
 
 const Spacer = styled.div`

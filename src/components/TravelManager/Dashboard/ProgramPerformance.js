@@ -6,7 +6,7 @@ import { SectionTitle } from 'components/common/Typography';
 
 const Container = styled.div`
   flex: 1;
-  padding: 1em 2em;
+  padding: 2em;
   background: ${props => props.theme.white};
   border: 1px solid ${props => props.theme.concrete};
   border-radius: 0.8em;
@@ -26,7 +26,7 @@ const Performance = styled.div`
 `;
 
 const Title = styled.div`
-  flex: 1;
+  flex: 1 1 12%;
   margin-right: 1em;
 `;
 

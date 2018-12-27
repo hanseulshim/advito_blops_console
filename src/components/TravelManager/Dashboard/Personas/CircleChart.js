@@ -9,7 +9,7 @@ const Container = styled.div`
 const Chart = styled.svg`
   display: block;
   margin: auto;
-  max-width: 50px;
+  max-width: 65px;
   max-height: 250px;
 `;
 
@@ -30,7 +30,7 @@ const Circle = styled.path`
 const Percentage = styled.text`
   fill: ${props => props.theme.steelBlue};
   font-family: sans-serif;
-  font-size: 0.6em;
+  font-size: 0.7em;
   font-weight: 500;
   text-anchor: middle;
 `;

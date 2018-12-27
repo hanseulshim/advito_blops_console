@@ -5,7 +5,7 @@ import BreadCrumbs from './BreadCrumbs';
 
 const Header = ({ location }) => (
   <>
-    <TopHeader />
+    <TopHeader dashboard={location.pathname !== '/'} />
     {location.pathname !== '/' && <BreadCrumbs />}
   </>
 );

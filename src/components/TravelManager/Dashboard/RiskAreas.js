@@ -23,7 +23,7 @@ const query = `
 `;
 
 const RiskAreas = ({ changeView }) => (
-  <Container left>
+  <Container>
     <TitleContainer>
       <SectionTitle>top 3 risk areas</SectionTitle>
     </TitleContainer>

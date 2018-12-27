@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
-import { SectionTitle, Title, Value } from 'components/common/Typography';
+import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
 
 const PersonaContainer = styled.div`
   display: flex;
-  margin-top: 2em;
+  margin-top: ${props => props.theme.verticalSpace};
   background: ${props => props.theme.white};
   border: 1px solid ${props => props.theme.concrete};
   border-radius: 0.8em;
-  padding: 1em 2em;
+  padding: 2em;
   justify-content: space-between;
 `;
 
@@ -31,7 +31,7 @@ const TitleTransform = styled(Title)`
   text-transform: uppercase;
 `;
 
-const ValueSized = styled(Value)`
+const ValueSized = styled.div`
   font-size: 1.7em;
 `;
 
@@ -40,9 +40,10 @@ const TitleRow = styled.div`
 `;
 const ValueRow = styled.div`
   line-height: 1.7em;
+  margin-bottom: 1em;
 `;
 const ChartRow = styled.div`
-  line-height: 4em;
+  line-height: 6em;
 `;
 
 const query = `

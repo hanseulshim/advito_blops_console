@@ -21,7 +21,7 @@ const PersonIcon = styled(Icon)`
   border-left: none;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
-  top: 2em;
+  top: 1em;
   color: ${props => props.theme.treePoppy};
   cursor: pointer;
 `;

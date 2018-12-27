@@ -3,8 +3,8 @@ import Icon from 'components/common/Icon';
 
 export const Container = styled.div`
   flex: 1;
-  padding-right: ${props => props.right && '1.5em'};
-  padding-left: ${props => props.left && '1.5em'};
+  padding-left: 2em;
+  margin-top: ${props => props.theme.verticalSpace};
 `;
 
 export const TitleContainer = styled.div`

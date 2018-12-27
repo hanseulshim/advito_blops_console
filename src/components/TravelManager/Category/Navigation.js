@@ -6,7 +6,6 @@ import Icon from 'components/common/Icon';
 const Container = styled.div`
   display: flex;
   align-items: flex-end;
-  margin-bottom: 2em;
 `;
 
 const NavItem = styled.div`
