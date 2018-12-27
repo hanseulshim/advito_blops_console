@@ -17,14 +17,8 @@ export const EventContainer = styled.div`
 `;
 
 export const EventIcon = styled.div`
-  padding: 0.75em;
-  margin: 0.5em 1em 0.5em 0;
-  flex: 0.5;
-  border: 1px solid ${props => props.theme.tradewind};
-  border-radius: 50%;
-  img {
-    width: 100%;
-  }
+  margin: 0.5em 0.5em 0.5em 0;
+  flex: 0.75;
 `;
 
 export const HeaderContainer = styled.div`

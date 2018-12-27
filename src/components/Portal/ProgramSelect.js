@@ -30,9 +30,6 @@ const IconContainer = styled.div`
 
 const ViewIcon = styled.div`
   display: flex;
-  img {
-    width: 100%;
-  }
 `;
 
 const SectionTitleFlex = styled(SectionTitle)`
