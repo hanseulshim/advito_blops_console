@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+import GraphQL from 'components/graphql';
 import UserContext from 'components/context/UserContext';
 
 const FormContainer = styled.div`
@@ -45,6 +46,28 @@ const Forgot = styled.span`
   margin-left: 1.5em;
 `;
 
+const query = `
+{
+  login(username: "treyottaway", password: "Password1")
+  {
+    statusCode
+    body
+    {
+      success
+      apicode
+      apimessage
+      apidataset
+      {
+        displayName
+        clientId
+        profilePicturePath
+        sessionToken
+      }
+    }
+  }
+}
+`;
+
 class LoginForm extends Component {
   state = {
     email: '',
@@ -62,28 +85,32 @@ class LoginForm extends Component {
       <UserContext.Consumer>
         {({ authenticated, authenticateUser }) =>
           !authenticated ? (
-            <FormContainer>
-              <Form onSubmit={authenticateUser}>
-                <FormText
-                  placeholder="Login"
-                  type="text"
-                  value={email}
-                  name="email"
-                  onChange={this.updateEmail}
-                />
-                <FormText
-                  placeholder="Password"
-                  type="password"
-                  value={password}
-                  name="password"
-                  onChange={this.updatePassword}
-                />
-                <SubmitContainer>
-                  <Submit type="submit" value="Login" />
-                  <Forgot>Forgot Password?</Forgot>
-                </SubmitContainer>
-              </Form>
-            </FormContainer>
+            <GraphQL query={query}>
+              {({ data }) => (
+                <FormContainer>
+                  <Form onSubmit={authenticateUser}>
+                    <FormText
+                      placeholder="Login"
+                      type="text"
+                      value={email}
+                      name="email"
+                      onChange={this.updateEmail}
+                    />
+                    <FormText
+                      placeholder="Password"
+                      type="password"
+                      value={password}
+                      name="password"
+                      onChange={this.updatePassword}
+                    />
+                    <SubmitContainer>
+                      <Submit type="submit" value="Login" />
+                      <Forgot>Forgot Password?</Forgot>
+                    </SubmitContainer>
+                  </Form>
+                </FormContainer>
+              )}
+            </GraphQL>
           ) : (
             <Redirect to={'/'} />
           )
