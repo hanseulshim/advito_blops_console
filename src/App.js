@@ -9,6 +9,7 @@ import Login from './components/Login';
 import Main from './components/Main';
 import Portal from './components/Portal';
 import TravelManager from './components/TravelManager';
+import { setUser, validateUser } from './components/graphql/helper';
 
 const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
   return (
@@ -22,18 +23,22 @@ const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
 };
 
 class App extends Component {
-  state = { authenticated: false, view: 'dashboard' };
+  state = { authenticated: false, view: 'dashboard', user: {} };
+  componentDidMount() {
+    const userCheck = validateUser();
+    this.setState({ authenticated: userCheck.authenticated, user: userCheck.user });
+  }
   setUser = user => {
-    this.setState({ authenticated: true });
-    console.log('user', user);
+    this.setState({ authenticated: true, user });
+    setUser(user);
   };
   changeView = view => {
     this.setState({ view });
   };
   render() {
-    const { authenticated, view } = this.state;
+    const { authenticated, view, user } = this.state;
     return (
-      <UserContext.Provider value={{ setUser: this.setUser, authenticated }}>
+      <UserContext.Provider value={{ setUser: this.setUser, authenticated, user }}>
         <ViewContext.Provider value={{ changeView: this.changeView, view }}>
           <ThemeProvider theme={theme}>
             <Switch>

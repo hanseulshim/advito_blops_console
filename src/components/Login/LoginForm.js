@@ -71,15 +71,13 @@ class LoginForm extends Component {
                     <Form
                       onSubmit={async event => {
                         event.preventDefault();
-                        const { data, error } = await client.query({
+                        const { data } = await client.query({
                           query: LOGIN,
                           variables: { username, password },
                         });
                         if (data.login.statusCode === 200) {
                           const user = data.login.body.apidataset;
                           setUser(user);
-                        } else {
-                          console.log('error!!');
                         }
                       }}
                     >

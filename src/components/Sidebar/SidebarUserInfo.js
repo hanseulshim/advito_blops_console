@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Icon from 'components/common/Icon';
 import { Title } from 'components/common/Typography';
+import UserContext from 'components/context/UserContext';
 import Shayan from 'assets/shayan.jpeg';
 
 const Container = styled.div`
@@ -28,13 +29,17 @@ const CogIcon = styled(Icon)`
 `;
 
 const SidebarUserInfo = () => (
-  <Container>
-    <TitleContainer>
-      <img src={Shayan} alt="avatar" />
-      <CogIcon className="fas fa-cog" />
-    </TitleContainer>
-    <Title>Shayan Kheradmand</Title>
-  </Container>
+  <UserContext.Consumer>
+    {({ user }) => (
+      <Container>
+        <TitleContainer>
+          <img src={Shayan} alt="avatar" />
+          <CogIcon className="fas fa-cog" />
+        </TitleContainer>
+        <Title>{user.displayName}</Title>
+      </Container>
+    )}
+  </UserContext.Consumer>
 );
 
 export default SidebarUserInfo;
