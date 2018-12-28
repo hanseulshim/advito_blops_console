@@ -23,9 +23,9 @@ const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
 
 class App extends Component {
   state = { authenticated: false, view: 'dashboard' };
-  authenticateUser = event => {
-    this.setState({ authenticated: event.target.password.value === 'blops2018' });
-    event.preventDefault();
+  setUser = user => {
+    this.setState({ authenticated: true });
+    console.log('user', user);
   };
   changeView = view => {
     this.setState({ view });
@@ -33,7 +33,7 @@ class App extends Component {
   render() {
     const { authenticated, view } = this.state;
     return (
-      <UserContext.Provider value={{ authenticateUser: this.authenticateUser, authenticated }}>
+      <UserContext.Provider value={{ setUser: this.setUser, authenticated }}>
         <ViewContext.Provider value={{ changeView: this.changeView, view }}>
           <ThemeProvider theme={theme}>
             <Switch>

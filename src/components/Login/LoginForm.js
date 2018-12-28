@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { ApolloConsumer } from 'react-apollo';
+import { LOGIN } from 'components/graphql/query';
 import styled from 'styled-components';
-import GraphQL from 'components/graphql';
 import UserContext from 'components/context/UserContext';
 
 const FormContainer = styled.div`
@@ -46,28 +47,6 @@ const Forgot = styled.span`
   margin-left: 1.5em;
 `;
 
-const query = `
-{
-  login(username: "treyottaway", password: "Password1")
-  {
-    statusCode
-    body
-    {
-      success
-      apicode
-      apimessage
-      apidataset
-      {
-        displayName
-        clientId
-        profilePicturePath
-        sessionToken
-      }
-    }
-  }
-}
-`;
-
 class LoginForm extends Component {
   state = {
     email: '',
@@ -83,34 +62,46 @@ class LoginForm extends Component {
     const { email, password } = this.state;
     return (
       <UserContext.Consumer>
-        {({ authenticated, authenticateUser }) =>
+        {({ authenticated, setUser }) =>
           !authenticated ? (
-            <GraphQL query={query}>
-              {({ data }) => (
-                <FormContainer>
-                  <Form onSubmit={authenticateUser}>
-                    <FormText
-                      placeholder="Login"
-                      type="text"
-                      value={email}
-                      name="email"
-                      onChange={this.updateEmail}
-                    />
-                    <FormText
-                      placeholder="Password"
-                      type="password"
-                      value={password}
-                      name="password"
-                      onChange={this.updatePassword}
-                    />
-                    <SubmitContainer>
-                      <Submit type="submit" value="Login" />
-                      <Forgot>Forgot Password?</Forgot>
-                    </SubmitContainer>
-                  </Form>
-                </FormContainer>
+            <ApolloConsumer>
+              {client => (
+                <div>
+                  <FormContainer>
+                    <Form
+                      onSubmit={async event => {
+                        event.preventDefault();
+                        const { data } = await client.query({
+                          query: LOGIN,
+                          variables: { breed: 'bulldog' },
+                        });
+                        const user = data.login.body.apidataset;
+                        setUser(user);
+                      }}
+                    >
+                      <FormText
+                        placeholder="Login"
+                        type="text"
+                        value={email}
+                        name="email"
+                        onChange={this.updateEmail}
+                      />
+                      <FormText
+                        placeholder="Password"
+                        type="password"
+                        value={password}
+                        name="password"
+                        onChange={this.updatePassword}
+                      />
+                      <SubmitContainer>
+                        <Submit type="submit" value="Login" />
+                        <Forgot>Forgot Password?</Forgot>
+                      </SubmitContainer>
+                    </Form>
+                  </FormContainer>
+                </div>
               )}
-            </GraphQL>
+            </ApolloConsumer>
           ) : (
             <Redirect to={'/'} />
           )

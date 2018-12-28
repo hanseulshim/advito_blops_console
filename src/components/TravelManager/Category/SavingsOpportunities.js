@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
+import { SAVINGS_OPPORTUNITIES } from 'components/graphql/query';
 
 const Container = styled.div`
   display: flex;
@@ -10,23 +11,9 @@ const Item = styled.div`
   width: 25%;
 `;
 
-const query = `
-  query($cursor: Int) {
-    opportunities(limit: 4, cursor: $cursor) {
-      hasNext
-      cursor
-      opportunities {
-        title
-        value
-        unit
-      }
-    }
-  }
-`;
-
 const SavingsOpportunities = () => {
   return (
-    <GraphQL query={query}>
+    <GraphQL query={SAVINGS_OPPORTUNITIES}>
       {({ data, fetchMore }) => (
         <Container>
           <button

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
+import { PERSONAS } from 'components/graphql/query';
 import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
 
@@ -46,18 +47,8 @@ const ChartRow = styled.div`
   line-height: 6em;
 `;
 
-const query = `
-{
-  personaList {
-  title
-  value
-  programShare
-  }
-}
-`;
-
 const Personas = ({ changeView }) => (
-  <GraphQL query={query}>
+  <GraphQL query={PERSONAS}>
     {({ data }) => (
       <PersonaContainer onClick={() => changeView('Personas')}>
         <Description>
