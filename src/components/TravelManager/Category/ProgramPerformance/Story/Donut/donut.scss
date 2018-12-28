@@ -1,0 +1,24 @@
+.donut {
+  flex: 0.75;
+  position: relative;
+}
+
+.fullview {
+  width: 100%;
+  height: 100vh;
+  margin-bottom: 5%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.mainChart {
+  height: 80%;
+}
+
+.crumbs{
+  position: absolute;
+  top: 0;
+  left:0;
+  z-index:5;
+}

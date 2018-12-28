@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Home from './Home';
-import HotelStory from './HotelStory';
-import AirStory from './AirStory';
+import HotelStory from './Story/HotelStory';
+import AirStory from './Story/AirStory';
 
 class ProgramPerformance extends Component {
   state = { view: 'home' };

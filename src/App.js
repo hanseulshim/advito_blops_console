@@ -23,7 +23,7 @@ const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
 };
 
 class App extends Component {
-  state = { authenticated: false, view: 'dashboard', user: {} };
+  state = { authenticated: false, view: 'Program Performance', user: {} };
   componentDidMount() {
     const userCheck = validateUser();
     this.setState({ authenticated: userCheck.authenticated, user: userCheck.user });

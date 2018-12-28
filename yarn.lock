@@ -2,10 +2,15 @@
 # yarn lockfile v1
 
 
-"@amcharts/amcharts4@^4.0.7":
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/@amcharts/amcharts4/-/amcharts4-4.0.7.tgz#62b476010ce3a270aa0b68b953caaac8324b8d35"
-  integrity sha512-23YBpV1Q2Amyl7mROSg78XJsZTMvIgdA3eN/FcM1FATi9I4NgQHO0Iw8v3wClRaF/dc3IJajhZkpEa1/3Ci+yg==
+"@amcharts/amcharts4-geodata@^4.0.26":
+  version "4.0.26"
+  resolved "https://registry.yarnpkg.com/@amcharts/amcharts4-geodata/-/amcharts4-geodata-4.0.26.tgz#8e32020d8620dcd3119e7f8b27ca0f0c60044906"
+  integrity sha512-3f0WXmO3vQ0mKefvdJ0xv7v6ZRuVkl0S45WEKs7+oo4ajR+avL5D8PXnPEicZhaTmrsVPGxrbSP+xscWSUMB2Q==
+
+"@amcharts/amcharts4@^4.0.13":
+  version "4.0.13"
+  resolved "https://registry.yarnpkg.com/@amcharts/amcharts4/-/amcharts4-4.0.13.tgz#50e5b05cc1fe3cd875d19af555f2a8bc65fadaa5"
+  integrity sha512-LIf6hRNEIrQNzw/grngUnvYcet1JTdRubAZo5PRnFVvHXinnipa+w7CLCqL05RI5eQt9FzMLn3XtVdTPgH6Kxw==
   dependencies:
     canvg "^1.5.3"
     css-element-queries "^1.0.5"
@@ -2406,6 +2411,11 @@ circular-json@^0.3.1:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.3.tgz#815c99ea84f6809529d2f45791bdf82711352d66"
   integrity sha512-UZK3NBx2Mca+b5LsG7bY183pHWt5Y1xts4P3Pz7ENTwGVnJOUWbRb3ocjvX7hx9tq/yTAdclXm9sZ38gNuem4A==
+
+cities.json@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/cities.json/-/cities.json-1.1.5.tgz#bd82fd19f67e8f7a9735b0e9c1c45d050c2bfe73"
+  integrity sha512-BKge3FmYfYOtN3tBaLfN9QvB7M5dDyjen3aFOn6XwgNASvLDhWTJazAtCvbpDWlpM6YWZXh4TUTsgxOn/n6MbA==
 
 class-utils@^0.3.5:
   version "0.3.6"
