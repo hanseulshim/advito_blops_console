@@ -50,7 +50,7 @@ const ProgramPerformance = ({ changeView }) => (
     <GraphQL query={PROGRAM_PERFORMANCE}>
       {({ data }) => (
         <>
-          {data.performanceList.map(performance => (
+          {data.programPerformance.map(performance => (
             <Performance key={performance.title}>
               <Title>{performance.title}</Title>
               <Value>

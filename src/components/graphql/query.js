@@ -63,7 +63,7 @@ export const PERSONAS = gql`
 
 export const PROGRAM_PERFORMANCE = gql`
   {
-    performanceList {
+    programPerformance {
       title
       value
       unit
