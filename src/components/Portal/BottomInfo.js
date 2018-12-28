@@ -1,28 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
-import Icon from 'components/common/Icon';
 import { Title } from 'components/common/Typography';
 import Button from 'components/common/Button';
 
 const Container = styled.div`
-  margin-top: 7em;
+  padding: 0 2em;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 const Info = styled.div`
+  margin-top: ${props => props.theme.verticalSpace};
   display: flex;
-  align-items: center;
-  margin-right: 4em;
+  flex: 0 45%;
+  align-items: flex-start;
 `;
 
-const InfoIcon = styled(Icon)`
-  font-size: 400%;
-  padding: 0.5em 0.75em;
-  color: ${props => props.theme.alabaster};
-  background: ${props => props.theme.pumice};
-  border-radius: 15px;
-  margin-right: 0.25em;
+const Image = styled.img`
+  margin-right: 0.5em;
+  cursor: ${props => !props.disabled && 'pointer'};
 `;
 
 const TextContainer = styled.div`
@@ -30,11 +28,17 @@ const TextContainer = styled.div`
   flex-direction: column;
 `;
 
+const Description = styled.span`
+  margin-top: 0.25em;
+`;
+
 const query = `
 {
   infoList {
     title
     icon
+    description
+    disabled
     button
   }
 }
@@ -43,13 +47,18 @@ const query = `
 const BottomInfo = () => (
   <Container>
     <GraphQL query={query}>
-      {data =>
+      {({ data }) =>
         data.infoList.map((view, index) => (
           <Info key={index}>
-            <InfoIcon className={view.icon} />
+            <Image
+              src={require(`assets/icons/${view.icon}`)}
+              alt="bottom-icon"
+              disabled={view.disabled}
+            />
             <TextContainer>
               <Title>{view.title}</Title>
-              <Button spaceTop text={view.button} />
+              <Description>{view.description}</Description>
+              {view.button && <Button spaceTop text={view.button} />}
             </TextContainer>
           </Info>
         ))

@@ -2,19 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
+  padding-top: 0.5em;
   flex: 1;
 `;
 
 const Chart = styled.svg`
   display: block;
-  margin: 10px auto;
-  max-width: 80%;
+  margin: auto;
+  max-width: 65px;
   max-height: 250px;
 `;
 
 const CircleBG = styled.path`
   fill: none;
-  stroke: ${props => props.theme.hippieBlue};
+  stroke: ${props => props.theme.tropicalBlue};
   stroke-width: 3.8;
 `;
 
@@ -23,13 +24,14 @@ const Circle = styled.path`
   stroke-width: 2.8;
   stroke-linecap: round;
   animation: progress 1s ease-out forwards;
-  stroke: ${props => props.theme.alabaster};
+  stroke: ${props => props.theme.steelBlue};
 `;
 
 const Percentage = styled.text`
-  fill: ${props => props.theme.alabaster};
+  fill: ${props => props.theme.steelBlue};
   font-family: sans-serif;
-  font-size: 0.5em;
+  font-size: 0.7em;
+  font-weight: 500;
   text-anchor: middle;
 `;
 

@@ -1,45 +1,49 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
+import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
 
 const PersonaContainer = styled.div`
   display: flex;
-  margin-top: 2em;
-  cursor: pointer;
+  margin-top: ${props => props.theme.verticalSpace};
+  background: ${props => props.theme.white};
+  border: 1px solid ${props => props.theme.concrete};
+  border-radius: 0.8em;
+  padding: 2em;
+  justify-content: space-between;
 `;
+
+const Description = styled.div`
+  flex: 1;
+`;
+
 const Persona = styled.div`
-  background: ${props => props.color};
-  padding: 1em 2em;
-  color: ${props => props.theme.alabaster};
+  cursor: pointer;
   text-align: center;
   display: flex;
   flex-direction: column;
   flex: 1;
-  border-top-left-radius: ${props => props.first && '15px'};
-  border-bottom-left-radius: ${props => props.first && '15px'};
-  border-top-right-radius: ${props => props.last && '15px'};
-  border-bottom-right-radius: ${props => props.last && '15px'};
+  border-left: ${props => !props.first && `1px solid ${props.theme.silver}`};
 `;
 
-const Title = styled.div`
-  font-weight: bold;
+const TitleTransform = styled(Title)`
   text-transform: uppercase;
-  font-size: 0.8em;
 `;
 
-const Value = styled.div`
-  font-size: 2.5em;
-  font-weight: lighter;
-  margin: 0.25em 0;
+const ValueSized = styled.div`
+  font-size: 1.7em;
 `;
 
-const ProgramShare = styled.div`
-  display: flex;
-  align-items: center;
-  span {
-    font-size: 0.9em;
-  }
+const TitleRow = styled.div`
+  margin-bottom: 1em;
+`;
+const ValueRow = styled.div`
+  line-height: 1.7em;
+  margin-bottom: 1em;
+`;
+const ChartRow = styled.div`
+  line-height: 6em;
 `;
 
 const query = `
@@ -48,29 +52,36 @@ const query = `
   title
   value
   programShare
-  color
   }
 }
 `;
 
 const Personas = ({ changeView }) => (
   <GraphQL query={query}>
-    {data => (
+    {({ data }) => (
       <PersonaContainer onClick={() => changeView('Personas')}>
+        <Description>
+          <TitleRow>
+            <SectionTitle>Personas</SectionTitle>
+          </TitleRow>
+          <ValueRow>
+            <div>Average Total Trip Cost</div>
+          </ValueRow>
+          <ChartRow>
+            <div>Program share</div>
+          </ChartRow>
+        </Description>
         {data.personaList.map((persona, index) => (
-          <Persona
-            color={persona.color}
-            key={index}
-            first={index === 0}
-            last={index === data.personaList.length - 1}
-          >
-            <Title>{persona.title}</Title>
-            <Value>{persona.value}</Value>
-            <span>Average Total Trip Cost</span>
-            <ProgramShare>
+          <Persona key={index} first={index === 0}>
+            <TitleRow>
+              <TitleTransform>{persona.title}</TitleTransform>
+            </TitleRow>
+            <ValueRow>
+              <ValueSized>{persona.value}</ValueSized>
+            </ValueRow>
+            <ChartRow>
               <CircleChart percent={persona.programShare} />
-              <span>Program Share</span>
-            </ProgramShare>
+            </ChartRow>
           </Persona>
         ))}
       </PersonaContainer>

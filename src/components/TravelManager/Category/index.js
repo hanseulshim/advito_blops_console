@@ -11,9 +11,10 @@ const Container = styled.div`
 const showCategory = view => {
   if (view === 'Program Performance') {
     return <ProgramPerformance view={view} />;
-  } else if (view === 'Savings Opportunities') {
-    return <SavingsOpportunities />;
   }
+  // } else if (view === 'Savings Opportunities') {
+  //   return <SavingsOpportunities />;
+  // }
 };
 
 const Category = ({ view }) => {

@@ -4,21 +4,19 @@ import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
 
 const Container = styled.div`
-  max-width: 1600px;
+  max-width: ${props => (props.collapse ? '1400px' : '1600px')};
   margin: auto;
   display: flex;
-  position: ${props => !props.login && 'relative'};
+  height: 100%;
 `;
 
 const MainContainer = styled.div`
   flex: 3;
-  padding: 3em 5em;
-  border: 1px solid ${props => props.theme.pumice};
-  margin-left: -1px;
+  padding: 0em 4em;
 `;
 
-const Main = ({ component: Component, ...rest }) => (
-  <Container>
+const Main = ({ component: Component, location, ...rest }) => (
+  <Container collapse={location.pathname !== '/'}>
     <Sidebar />
     <MainContainer>
       <Header />

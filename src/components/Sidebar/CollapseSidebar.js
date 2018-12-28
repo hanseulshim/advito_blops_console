@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import Icon from 'components/common/Icon';
 
 const Container = styled.div`
-  flex: 1;
+  flex: 1.25;
   background: ${props => props.theme.white};
-  border: 1px solid ${props => props.theme.pumice};
-  padding: 4em 2em;
+  border: 1px solid ${props => props.theme.grayNurse};
+  padding: 0 2.5em;
+  height: 100%;
   position: absolute;
   opacity: 0.95;
 `;
@@ -16,12 +17,12 @@ const PersonIcon = styled(Icon)`
   font-size: 1.3em;
   padding: 0.5em;
   background: ${props => props.theme.white};
-  border: 1px solid ${props => props.theme.pumice};
+  border: 1px solid ${props => props.theme.grayNurse};
   border-left: none;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
-  top: 2em;
-  color: ${props => props.theme.westSide};
+  top: 1em;
+  color: ${props => props.theme.treePoppy};
   cursor: pointer;
 `;
 

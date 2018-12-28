@@ -1,60 +1,24 @@
 import React from 'react';
-import styled from 'styled-components';
-import Icon from 'components/common/Icon';
-import { SectionHeader, Value } from 'components/common/Typography';
+import { SectionTitle, Value, Unit } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
-
-const Container = styled.div`
-  flex: 1;
-  padding-right: 1.5em;
-`;
-
-const TitleContainer = styled.div`
-  margin: 1.5em 0;
-  display: flex;
-  align-items: center;
-`;
-
-const Opportunity = styled.div`
-  display: flex;
-  cursor: pointer;
-  align-items: center;
-`;
-
-const Number = styled.div`
-  color: ${props => props.theme.tradewind};
-  border: 1px solid ${props => props.theme.tradewind};
-  border-radius: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0.5em 0.75em;
-  margin-right: 0.5em;
-  font-size: 1.2em;
-`;
-
-const Row = styled.div`
-  border-top: ${props => !props.first && `1px solid ${props.theme.pumice}`};
-  padding: 1em 0;
-  flex: 1;
-`;
-
-const RowTitle = styled.div`
-  margin-bottom: 0.5em;
-  height: 2em;
-  display: flex;
-  align-items: center;
-`;
-
-const RightIcon = styled(Icon)`
-  color: ${props => props.theme.westSide};
-  font-size: 2em;
-`;
+import {
+  Container,
+  TitleContainer,
+  RowContainer,
+  Rank,
+  Row,
+  RowTitle,
+  RightIcon,
+} from './SavingsRiskStyle';
 
 const query = `
 {
-  opportunities {
-  title
-  value
+  opportunities(limit: 3) {
+    opportunities {
+      title
+      value
+      unit
+    }
   }
 }
 `;
@@ -62,19 +26,21 @@ const query = `
 const SavingsOpportunities = ({ changeView }) => (
   <Container>
     <TitleContainer>
-      <SectionHeader>top 3 savings opportunities</SectionHeader>
+      <SectionTitle>top 3 savings opportunities</SectionTitle>
     </TitleContainer>
     <GraphQL query={query}>
-      {data =>
-        data.opportunities.map((opportunity, index) => (
-          <Opportunity key={index} onClick={() => changeView('Savings Opportunities')}>
-            <Number>{index + 1}</Number>
+      {({ data }) =>
+        data.opportunities.opportunities.map((opportunity, index) => (
+          <RowContainer key={index} onClick={() => changeView('Savings Opportunities')}>
+            <Rank>{index + 1}</Rank>
             <Row first={index === 0}>
               <RowTitle>{opportunity.title}</RowTitle>
-              <Value>{opportunity.value}</Value>
+              <Value>
+                {opportunity.value} <Unit>{opportunity.unit}</Unit>
+              </Value>
             </Row>
             <RightIcon className="fas fa-angle-right" />
-          </Opportunity>
+          </RowContainer>
         ))
       }
     </GraphQL>

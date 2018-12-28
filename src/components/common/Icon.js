@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const IconStyled = styled.i`
-  color: ${props => props.info && props.theme.westSide};
-  border: ${props => props.info && `2px solid ${props.theme.westSide}`};
+  color: ${props => props.info && props.theme.treePoppy};
+  border: ${props => props.info && `2px solid ${props.theme.treePoppy}`};
   padding: ${props => props.info && '0.25em .6em'};
   border-radius: ${props => props.info && '100%'};
   font-size: ${props => props.info && '80%'};

@@ -8,7 +8,6 @@ import RiskAreas from './RiskAreas';
 
 const Row = styled.div`
   display: flex;
-  margin-top: 2em;
 `;
 
 const Dashboard = ({ changeView }) => (

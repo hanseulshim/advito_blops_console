@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
   html,
-  body {
+  body, #root {
     height: 100%;
   }
   body {
@@ -10,8 +10,10 @@ export default createGlobalStyle`
     padding: 0;
     font-family: 'Rubik', sans-serif;
     background: ${props => props.theme.alabaster};
-    font-weight: 400;
+    color: ${props => props.theme.doveGray};
+    font-weight: 300;
     font-size: 16px;
+    line-height: 17px;
     @media (max-width : 1500px){
       font-size: 15px;
     }
@@ -20,12 +22,6 @@ export default createGlobalStyle`
     }
     @media (max-width : 1336px){
       font-size: 13px;
-    }
-    @media (max-width : 1200px){
-      font-size: 12px;
-    }
-    @media (max-width : 1024px){
-      font-size: 11px;
     }
   }
   a {
