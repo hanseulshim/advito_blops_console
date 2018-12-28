@@ -33,8 +33,8 @@ export const HOME = gql`
 `;
 
 export const LOGIN = gql`
-  {
-    login(username: "treyottaway", password: "Password1") {
+  query($username: String, $password: String) {
+    login(username: $username, password: $password) {
       statusCode
       body {
         success

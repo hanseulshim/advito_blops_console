@@ -49,17 +49,17 @@ const Forgot = styled.span`
 
 class LoginForm extends Component {
   state = {
-    email: '',
+    username: '',
     password: '',
   };
-  updateEmail = event => {
-    this.setState({ email: event.target.value });
+  updateUsername = event => {
+    this.setState({ username: event.target.value });
   };
   updatePassword = event => {
     this.setState({ password: event.target.value });
   };
   render() {
-    const { email, password } = this.state;
+    const { username, password } = this.state;
     return (
       <UserContext.Consumer>
         {({ authenticated, setUser }) =>
@@ -71,20 +71,24 @@ class LoginForm extends Component {
                     <Form
                       onSubmit={async event => {
                         event.preventDefault();
-                        const { data } = await client.query({
+                        const { data, error } = await client.query({
                           query: LOGIN,
-                          variables: { breed: 'bulldog' },
+                          variables: { username, password },
                         });
-                        const user = data.login.body.apidataset;
-                        setUser(user);
+                        if (data.login.statusCode === 200) {
+                          const user = data.login.body.apidataset;
+                          setUser(user);
+                        } else {
+                          console.log('error!!');
+                        }
                       }}
                     >
                       <FormText
                         placeholder="Login"
                         type="text"
-                        value={email}
-                        name="email"
-                        onChange={this.updateEmail}
+                        value={username}
+                        name="username"
+                        onChange={this.updateUsername}
                       />
                       <FormText
                         placeholder="Password"
