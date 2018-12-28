@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'components/common/Button';
 import GraphQL from 'components/graphql';
+import { ACTIVE_ALERTS } from 'components/graphql/query';
 import { SectionTitle } from 'components/common/Typography';
 import {
   Container,
@@ -9,16 +10,6 @@ import {
   EventIcon,
   HeaderContainer,
 } from './ActionAlertStyle';
-
-const query = `
-  {
-    activeAlerts {
-      secondaryHeader
-      icon
-      alert
-    }
-  }
-  `;
 
 const createIconRows = data =>
   data.map((action, index) => (
@@ -31,7 +22,7 @@ const createIconRows = data =>
   ));
 
 const ActiveAlerts = () => (
-  <GraphQL query={query}>
+  <GraphQL query={ACTIVE_ALERTS}>
     {({ data }) => (
       <Container>
         <TitleContainer>

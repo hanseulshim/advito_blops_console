@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { ApolloConsumer } from 'react-apollo';
+import { LOGIN } from 'components/graphql/query';
 import styled from 'styled-components';
 import UserContext from 'components/context/UserContext';
 
@@ -47,43 +49,61 @@ const Forgot = styled.span`
 
 class LoginForm extends Component {
   state = {
-    email: '',
+    username: '',
     password: '',
   };
-  updateEmail = event => {
-    this.setState({ email: event.target.value });
+  updateUsername = event => {
+    this.setState({ username: event.target.value });
   };
   updatePassword = event => {
     this.setState({ password: event.target.value });
   };
   render() {
-    const { email, password } = this.state;
+    const { username, password } = this.state;
     return (
       <UserContext.Consumer>
-        {({ authenticated, authenticateUser }) =>
+        {({ authenticated, setUser }) =>
           !authenticated ? (
-            <FormContainer>
-              <Form onSubmit={authenticateUser}>
-                <FormText
-                  placeholder="Login"
-                  type="text"
-                  value={email}
-                  name="email"
-                  onChange={this.updateEmail}
-                />
-                <FormText
-                  placeholder="Password"
-                  type="password"
-                  value={password}
-                  name="password"
-                  onChange={this.updatePassword}
-                />
-                <SubmitContainer>
-                  <Submit type="submit" value="Login" />
-                  <Forgot>Forgot Password?</Forgot>
-                </SubmitContainer>
-              </Form>
-            </FormContainer>
+            <ApolloConsumer>
+              {client => (
+                <div>
+                  <FormContainer>
+                    <Form
+                      onSubmit={async event => {
+                        event.preventDefault();
+                        const { data } = await client.query({
+                          query: LOGIN,
+                          variables: { username, password },
+                        });
+                        if (data.login.statusCode === 200) {
+                          const user = data.login.body.apidataset;
+                          setUser(user);
+                        }
+                      }}
+                    >
+                      <FormText
+                        placeholder="Login"
+                        type="text"
+                        value={username}
+                        name="username"
+                        onChange={this.updateUsername}
+                      />
+                      <FormText
+                        placeholder="Password"
+                        type="password"
+                        value={password}
+                        name="password"
+                        onChange={this.updatePassword}
+                      />
+                      <SubmitContainer>
+                        <Submit type="submit" value="Login" />
+                        <Forgot>Forgot Password?</Forgot>
+                      </SubmitContainer>
+                    </Form>
+                  </FormContainer>
+                </div>
+              )}
+            </ApolloConsumer>
           ) : (
             <Redirect to={'/'} />
           )

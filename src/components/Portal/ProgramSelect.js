@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
+import { PROGRAM_SELECT } from 'components/graphql/query';
 import { Link } from 'react-router-dom';
 import { SectionTitle } from 'components/common/Typography';
 
@@ -54,22 +55,6 @@ const Image = styled.img`
   margin-right: 0.5em;
 `;
 
-const query = `
-{
-  viewList {
-    title
-    icon
-    disabled
-    list {
-      title
-      icon
-      domo
-      link
-    }
-  }
-}
-`;
-
 const getLink = subView =>
   subView.domo ? (
     <a href={subView.link} target="blank">
@@ -95,10 +80,10 @@ const generateList = view =>
 
 const ProgramSelect = () => (
   <Container>
-    <GraphQL query={query}>
+    <GraphQL query={PROGRAM_SELECT}>
       {({ data }) =>
-        data.viewList.map((view, index) => (
-          <View key={index} first={index === 0} last={index === data.viewList.length - 1}>
+        data.viewData.map((view, index) => (
+          <View key={index} first={index === 0} last={index === data.viewData.length - 1}>
             <IconContainer disabled={view.disabled}>
               <ViewIcon>
                 <Image src={require(`assets/products/${view.icon}`)} alt="icon" />

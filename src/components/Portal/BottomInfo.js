@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
+import { BOTTOM_INFO } from 'components/graphql/query';
 import { Title } from 'components/common/Typography';
 import Button from 'components/common/Button';
 
@@ -32,33 +33,21 @@ const Description = styled.span`
   margin-top: 0.25em;
 `;
 
-const query = `
-{
-  infoList {
-    title
-    icon
-    description
-    disabled
-    button
-  }
-}
-`;
-
 const BottomInfo = () => (
   <Container>
-    <GraphQL query={query}>
+    <GraphQL query={BOTTOM_INFO}>
       {({ data }) =>
-        data.infoList.map((view, index) => (
+        data.infoData.map((info, index) => (
           <Info key={index}>
             <Image
-              src={require(`assets/icons/${view.icon}`)}
+              src={require(`assets/icons/${info.icon}`)}
               alt="bottom-icon"
-              disabled={view.disabled}
+              disabled={info.disabled}
             />
             <TextContainer>
-              <Title>{view.title}</Title>
-              <Description>{view.description}</Description>
-              {view.button && <Button spaceTop text={view.button} />}
+              <Title>{info.title}</Title>
+              <Description>{info.description}</Description>
+              {info.button && <Button spaceTop text={info.button} />}
             </TextContainer>
           </Info>
         ))

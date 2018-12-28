@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'components/common/Button';
 import GraphQL from 'components/graphql';
+import { UPCOMING_ACTIONS } from 'components/graphql/query';
 import { SectionTitle, Title } from 'components/common/Typography';
 import {
   Container,
@@ -24,18 +25,8 @@ const createIconRows = data =>
     </EventContainer>
   ));
 
-const query = `
-  {
-    upcomingActions {
-      header
-      secondaryHeader
-      icon
-    }
-  }
-  `;
-
 const UpcomingActions = () => (
-  <GraphQL query={query}>
+  <GraphQL query={UPCOMING_ACTIONS}>
     {({ data }) => (
       <Container>
         <TitleContainer>

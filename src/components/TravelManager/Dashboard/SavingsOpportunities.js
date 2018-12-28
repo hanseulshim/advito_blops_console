@@ -1,6 +1,7 @@
 import React from 'react';
 import { SectionTitle, Value, Unit } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
+import { SAVINGS_OPPORTUNITIES_DASHBOARD } from 'components/graphql/query';
 import {
   Container,
   TitleContainer,
@@ -11,24 +12,12 @@ import {
   RightIcon,
 } from './SavingsRiskStyle';
 
-const query = `
-{
-  opportunities(limit: 3) {
-    opportunities {
-      title
-      value
-      unit
-    }
-  }
-}
-`;
-
 const SavingsOpportunities = ({ changeView }) => (
   <Container>
     <TitleContainer>
       <SectionTitle>top 3 savings opportunities</SectionTitle>
     </TitleContainer>
-    <GraphQL query={query}>
+    <GraphQL query={SAVINGS_OPPORTUNITIES_DASHBOARD}>
       {({ data }) =>
         data.opportunities.opportunities.map((opportunity, index) => (
           <RowContainer key={index} onClick={() => changeView('Savings Opportunities')}>

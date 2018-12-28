@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
+import { PROGRAM_PERFORMANCE } from 'components/graphql/query';
 import Button from 'components/common/Button';
 import { SectionTitle } from 'components/common/Typography';
 
@@ -40,26 +41,16 @@ const Unit = styled.span`
   font-size: 1rem;
 `;
 
-const query = `
-{
-  performanceList {
-    title
-    value
-    unit
-  }
-}
-`;
-
 const ProgramPerformance = ({ changeView }) => (
   <Container>
     <SectionContainer>
       <SectionTitle>program performance</SectionTitle>
       <Button spaceLeft text="view more" onClick={() => changeView('Program Performance')} />
     </SectionContainer>
-    <GraphQL query={query}>
+    <GraphQL query={PROGRAM_PERFORMANCE}>
       {({ data }) => (
         <>
-          {data.performanceList.map(performance => (
+          {data.programPerformance.map(performance => (
             <Performance key={performance.title}>
               <Title>{performance.title}</Title>
               <Value>

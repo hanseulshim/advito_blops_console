@@ -1,6 +1,7 @@
 import React from 'react';
 import { SectionTitle, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
+import { RISK_AREAS } from 'components/graphql/query';
 import {
   Container,
   TitleContainer,
@@ -11,23 +12,12 @@ import {
   RightIcon,
 } from './SavingsRiskStyle';
 
-const query = `
-{
-  riskAreas(limit: 3) {
-    riskAreas{
-      title
-      value
-    }
-  }
-}
-`;
-
 const RiskAreas = ({ changeView }) => (
   <Container>
     <TitleContainer>
       <SectionTitle>top 3 risk areas</SectionTitle>
     </TitleContainer>
-    <GraphQL query={query}>
+    <GraphQL query={RISK_AREAS}>
       {({ data }) =>
         data.riskAreas.riskAreas.map((riskArea, index) => (
           <RowContainer key={index} onClick={() => changeView('Risk Areas')}>
