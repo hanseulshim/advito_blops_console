@@ -58,8 +58,12 @@ class AirStory extends Component {
     return (
       <Container>
         <ChartContainer className="fullview" data={data[viewIndex]} />
-        <ArrowButton onClick={this.togglePrev} previous className={'fas fa-chevron-left'} />
-        <ArrowButton onClick={this.toggleNext} next className={'fas fa-chevron-right'} />
+        {viewIndex !== 0 && (
+          <ArrowButton onClick={this.togglePrev} previous className={'fas fa-chevron-left'} />
+        )}
+        {viewIndex !== data.length - 1 && (
+          <ArrowButton onClick={this.toggleNext} next className={'fas fa-chevron-right'} />
+        )}
       </Container>
     );
   }

@@ -9,7 +9,10 @@ import advito_logo from 'assets/advito_logo.png';
 const Container = styled.div`
   display: flex;
   align-items: flex-end;
-  margin-top: ${props => (props.dashboard ? '1em' : '6.25em')};
+  margin-top: ${props => (props.dashboard ? '1em' : '5.25em')};
+  @media (max-width: 1336px) {
+    margin-top: ${props => (props.dashboard ? '1em' : '6.25em')};
+  }
 `;
 
 const LogoContainer = styled.div`

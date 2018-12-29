@@ -5,7 +5,6 @@ const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: row;
-  /* padding: 1rem 5rem; */
   align-items: center;
   position: relative;
   justify-content: space-between;
