@@ -81,7 +81,7 @@ const Home = ({ changeView }) => (
     <GraphQL query={HOME}>
       {({ data }) => (
         <PerformanceContainer>
-          {data.performanceList.map((performance, index) => (
+          {data.programPerformance.map((performance, index) => (
             <Performance key={index} first={index === 0}>
               <div>
                 <TitleSpaced>{performance.title}</TitleSpaced>

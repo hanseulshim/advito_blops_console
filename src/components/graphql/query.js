@@ -24,7 +24,7 @@ export const BOTTOM_INFO = gql`
 
 export const HOME = gql`
   {
-    performanceList {
+    programPerformance {
       title
       value
     }
