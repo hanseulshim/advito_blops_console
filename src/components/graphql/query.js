@@ -1,5 +1,94 @@
 import gql from 'graphql-tag';
 
+export const AIR_MAP = gql`
+  query($title: String!) {
+    airMap(title: $title) {
+      title
+      summary
+      kpis {
+        title
+        value
+        delta
+        change
+        type
+        icon
+      }
+      barchart {
+        title
+        type
+        data {
+          category
+          value
+          change
+        }
+      }
+      locations {
+        thickness
+        height
+        opacity
+        coords {
+          latitude
+          longitude
+        }
+        from
+        to
+      }
+    }
+  }
+`;
+
+export const AIR_PLANE = gql`
+  query($title: String!) {
+    airPlane(title: $title) {
+      title
+      summary
+      categories {
+        title
+        total
+        icon
+        subCategories {
+          name
+          value
+          delta
+          color
+        }
+      }
+      barchart {
+        title
+        type
+        data {
+          category
+          change
+          value
+        }
+      }
+    }
+  }
+`;
+
+export const AIR_STORY_QUERIES = [
+  {
+    query: AIR_MAP,
+    variables: { title: 'airSummary' },
+    returnVariable: 'airMap',
+  },
+  {
+    query: AIR_MAP,
+    variables: { title: 'trafficLaneOverview' },
+    returnVariable: 'airMap',
+  },
+  {
+    query: AIR_PLANE,
+    variables: { title: 'topAirlines' },
+    returnVariable: 'airPlane',
+  },
+  {
+    query: AIR_PLANE,
+    variables: { title: 'cabinUse' },
+    returnVariable: 'airPlane',
+  },
+];
+
 export const ACTIVE_ALERTS = gql`
   {
     activeAlerts {
@@ -19,16 +108,6 @@ export const BOTTOM_INFO = gql`
       disabled
       button
     }
-  }
-`;
-
-export const HOME = gql`
-  {
-    programPerformance {
-      title
-      value
-    }
-    noChangeSince
   }
 `;
 
@@ -68,6 +147,16 @@ export const PROGRAM_PERFORMANCE = gql`
       value
       unit
     }
+  }
+`;
+
+export const PROGRAM_PERFORMANCE_HOME = gql`
+  {
+    programPerformance {
+      title
+      value
+    }
+    noChangeSince
   }
 `;
 

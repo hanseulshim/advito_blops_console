@@ -4,12 +4,12 @@ import HotelStory from './Story/HotelStory';
 import AirStory from './Story/AirStory';
 
 class ProgramPerformance extends Component {
-  state = { view: 'home' };
+  state = { view: 'air' };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.view !== 'home' && this.state.view !== 'home') {
-      this.setState({ view: 'home' });
-    }
+    // if (prevState.view !== 'home' && this.state.view !== 'home') {
+    //   this.setState({ view: 'home' });
+    // }
   }
 
   changeView = view => {

@@ -1,13 +1,12 @@
 import React from 'react';
-import './ChartContainer.scss';
 import styled from 'styled-components';
+import { Title } from 'components/common/Typography';
 
 //import charts
 
 //import secondary components
 import SummaryMetric from '../Shared/SummaryMetric';
 import GraphSummary from '../Shared/GraphSummary';
-import ChartTitle from '../Shared/Title';
 import WorldMapContainer from '../WorldMap';
 import AirplaneContainer from '../Airplane';
 import DonutContainer from '../Donut';
@@ -22,6 +21,12 @@ const VizContainer = styled.div`
   position: relative;
 `;
 
+const TitleSpaced = styled(Title)`
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-bottom: 0.5em;
+`;
+
 const getChart = data => {
   if (data.locations) {
     return <WorldMapContainer data={data} />;
@@ -33,15 +38,14 @@ const getChart = data => {
   return <DonutContainer data={data} />;
 };
 
-const ChartContainer = props => {
-  const { data } = props;
-
+const ChartContainer = ({ data }) => {
   return (
     <VizContainer>
-      <ChartTitle title={data.title} summary={data.summary} />
-      {data.kpis && <SummaryMetric {...props} />}
-      {getChart(data)}
-      {data.barcharts && <GraphSummary {...props} />}
+      <TitleSpaced>{data.title}</TitleSpaced>
+      <div>{data.summary}</div>
+      {data.kpis && <SummaryMetric kpis={data.kpis} />}
+      {/* {getChart(data)} */}
+      {/* {data.barcharts && <GraphSummary {...props} />} */}
     </VizContainer>
   );
 };

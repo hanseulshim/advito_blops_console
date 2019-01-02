@@ -1,77 +1,59 @@
 import React from 'react';
 import styled from 'styled-components';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-around;
-  text-align: left;
-  z-index: 5;
-`;
+import { Title, Value } from 'components/common/Typography';
+import { metricFormat } from 'components/common/helper';
 
 const MetricRow = styled.div`
+  margin-top: 2em;
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: space-between;
-  width: 100%;
-  margin-top: 2%;
 `;
 
 const Metric = styled.div`
   display: flex;
-  flex-direction: row;
-  font-size: 1.25em;
-  align-items: center;
 `;
 
 const Label = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 0.75em;
-  align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-end;
 `;
 
-const Delta = styled.p`
+const Delta = styled.div`
   color: ${props => props.theme.tradewind};
-  font-size: 1.25em;
-  margin: 0;
 `;
 
-const Value = styled.p`
-  font-size: 2em;
-  margin: 0;
+const Unit = styled.span`
+  font-size: 0.7em;
+  line-height: 0.7em;
 `;
 
 const Icon = styled.div`
-  margin-right: 10px;
-  color: ${props => props.theme.tradewind};
+  margin-top: 1em;
+  margin-right: 0.5em;
+  display: flex;
 `;
 
-const createMetric = data =>
-  data.map((obj, index) => (
-    <Metric key={index}>
-      <Icon>
-        <img src={require(`assets/story/${obj.icon}.png`)} alt="icon" />
-      </Icon>
-      <Label>
-        <span>{obj.title}</span>
-        <Value>
-          <b>{obj.value}</b>
-        </Value>
-        <Delta>{obj.delta}</Delta>
-      </Label>
-    </Metric>
-  ));
+const createMetric = (metric, index) => (
+  <Metric key={index}>
+    <Icon>
+      <img src={require(`assets/story/${metric.icon}`)} alt="icon" />
+    </Icon>
+    <Label>
+      <Title>{metric.title}</Title>
+      <Value>
+        {metricFormat(metric.value, metric.type)}
+        {metric.type === 'emissions' && (
+          <Unit>
+            g/km C0<sub>2</sub>
+          </Unit>
+        )}
+      </Value>
+      <Delta>{`(${metric.change}${metricFormat(metric.delta, metric.type)})`}</Delta>
+    </Label>
+  </Metric>
+);
 
-const SummaryMetric = props => {
-  return (
-    <Container>
-      <MetricRow>{createMetric(props.data.kpis)}</MetricRow>
-    </Container>
-  );
-};
+const SummaryMetric = ({ kpis }) => <MetricRow>{kpis.map(createMetric)}</MetricRow>;
 
 export default SummaryMetric;

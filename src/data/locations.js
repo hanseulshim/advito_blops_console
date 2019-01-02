@@ -1,14 +1,12 @@
 import cities from 'cities.json';
 
-
-
 const findCity = (cityName, countryCode) => {
   const city = cities.find(
     location => location.name === cityName && location.country === countryCode
   );
   return {
     latitude: city.lat,
-    longitude: city.lng
+    longitude: city.lng,
   };
 };
 
@@ -60,21 +58,17 @@ export const locations = [
     coords: [findCity('Brasília', 'BR'), findCity('Beijing', 'CN')],
     from: 'BSB',
     to: 'PEK',
-  }
+  },
 ];
 
 const GetRandomCities = () => {
   const randoms = [];
   let i;
   for (i = 0; i < 10; i++) {
-    randoms.push(cities[Math.floor(Math.random() * cities.length)])
+    randoms.push(cities[Math.floor(Math.random() * cities.length)]);
   }
 
   return randoms;
-
-}
+};
 
 export const moreLocations = GetRandomCities();
-
-
-
