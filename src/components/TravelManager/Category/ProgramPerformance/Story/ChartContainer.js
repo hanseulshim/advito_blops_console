@@ -43,7 +43,7 @@ const ChartContainer = ({ data }) => (
     <TitleSpaced>{data.title}</TitleSpaced>
     <div>{data.summary}</div>
     {data.kpis && <SummaryMetric data={data.kpis} />}
-    {/* {getChart(data)} */}
+    {getChart(data)}
     {data.barchart && <Barchart data={data.barchart} />}
   </VizContainer>
 );

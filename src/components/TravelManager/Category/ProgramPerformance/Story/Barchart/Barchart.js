@@ -13,10 +13,11 @@ class BarChart extends Component {
     const { title, data, type, first } = this.props;
     const chart = am4core.create(this.refs.chartDiv, am4charts.XYChart);
     chart.data = data;
+
     if (type === 'money') {
-      chart.numberFormatter.numberFormat = '$#.#a';
+      chart.numberFormatter.numberFormat = '$#.##a';
     } else {
-      chart.numberFormatter.numberFormat = '#.#a';
+      chart.numberFormatter.numberFormat = '#.##a';
     }
 
     const chartTitle = chart.titles.create();
@@ -31,7 +32,7 @@ class BarChart extends Component {
     // Create axes
     const categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = 'category';
-    categoryAxis.renderer.minGridDistance = 10;
+    categoryAxis.renderer.minGridDistance = 5;
     categoryAxis.renderer.inversed = true;
     categoryAxis.renderer.grid.template.disabled = true;
     if (!first) {
@@ -43,6 +44,8 @@ class BarChart extends Component {
     valueAxis.renderer.labels.template.disabled = true;
     valueAxis.renderer.baseGrid.disabled = true;
     valueAxis.min = 0;
+    const max = Math.max(...data.map(v => v.value));
+    valueAxis.max = max * 1.2;
 
     // Create series
     const series = chart.series.push(new am4charts.ColumnSeries());

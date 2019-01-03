@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4maps from '@amcharts/amcharts4/maps';
 import am4geodataWorldLow from '@amcharts/amcharts4-geodata/worldLow';
+
+const Container = styled.div`
+  flex: 1;
+`;
 
 class AirSummary extends Component {
   componentDidMount() {
@@ -23,7 +28,8 @@ class AirSummary extends Component {
       mapArcSeries.mapLines.template.line.controlPointDistance = location.height;
       mapArcSeries.mapLines.template.tooltipText = 'From: {from}\nTo: {to}';
       mapArcSeries.mapLines.template.tooltipPosition = 'pointer';
-      mapArcSeries.mapLines.template.strokeWidth = 2.5;
+      mapArcSeries.mapLines.template.strokeWidth = location.thickness;
+      mapArcSeries.mapLines.template.height = location.height;
       mapArcSeries.mapLines.template.opacity = location.opacity;
       mapArcSeries.data = [
         {
@@ -36,7 +42,7 @@ class AirSummary extends Component {
   }
 
   render() {
-    return <div ref="mapContainer" style={{ height: '80%' }} />;
+    return <Container ref="mapContainer" />;
   }
 }
 

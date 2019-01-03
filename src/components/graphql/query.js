@@ -61,6 +61,7 @@ export const AIR_PLANE = gql`
           category
           change
           value
+          delta
         }
       }
     }

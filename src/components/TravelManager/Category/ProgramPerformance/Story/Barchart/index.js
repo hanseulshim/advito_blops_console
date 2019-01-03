@@ -7,22 +7,21 @@ const Container = styled.div`
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: 200px;
   background: rgba(255, 255, 255, 0.7);
 `;
 
 const ChartContainer = ({ data }) => (
   <Container>
-    {data.map((chart, index) => {
-      return (
-        <Barchart
-          title={chart.title}
-          data={chart.data}
-          type={chart.type}
-          first={index === 0}
-          key={index}
-        />
-      );
-    })}
+    {data.map((chart, index) => (
+      <Barchart
+        title={chart.title}
+        data={chart.data}
+        type={chart.type}
+        first={index === 0}
+        key={index + Math.random()}
+      />
+    ))}
   </Container>
 );
 
