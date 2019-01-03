@@ -5,12 +5,12 @@ import { Title } from 'components/common/Typography';
 //import charts
 
 //import secondary components
-import SummaryMetric from '../Shared/SummaryMetric';
-import GraphSummary from '../Shared/GraphSummary';
-import WorldMapContainer from '../WorldMap';
-import AirplaneContainer from '../Airplane';
-import DonutContainer from '../Donut';
-import HotelContainer from '../Hotel';
+import SummaryMetric from './SummaryMetric';
+import Barchart from './Barchart';
+import WorldMapContainer from './WorldMap';
+import AirplaneContainer from './Airplane';
+import DonutContainer from './Donut';
+import HotelContainer from './Hotel';
 
 const VizContainer = styled.div`
   width: 100%;
@@ -38,16 +38,14 @@ const getChart = data => {
   return <DonutContainer data={data} />;
 };
 
-const ChartContainer = ({ data }) => {
-  return (
-    <VizContainer>
-      <TitleSpaced>{data.title}</TitleSpaced>
-      <div>{data.summary}</div>
-      {data.kpis && <SummaryMetric kpis={data.kpis} />}
-      {/* {getChart(data)} */}
-      {/* {data.barcharts && <GraphSummary {...props} />} */}
-    </VizContainer>
-  );
-};
+const ChartContainer = ({ data }) => (
+  <VizContainer>
+    <TitleSpaced>{data.title}</TitleSpaced>
+    <div>{data.summary}</div>
+    {data.kpis && <SummaryMetric data={data.kpis} />}
+    {/* {getChart(data)} */}
+    {data.barchart && <Barchart data={data.barchart} />}
+  </VizContainer>
+);
 
 export default ChartContainer;

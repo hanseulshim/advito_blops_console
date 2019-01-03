@@ -54,6 +54,6 @@ const createMetric = (metric, index) => (
   </Metric>
 );
 
-const SummaryMetric = ({ kpis }) => <MetricRow>{kpis.map(createMetric)}</MetricRow>;
+const SummaryMetric = ({ data }) => <MetricRow>{data.map(createMetric)}</MetricRow>;
 
 export default SummaryMetric;

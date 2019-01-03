@@ -20,6 +20,7 @@ export const AIR_MAP = gql`
           category
           value
           change
+          delta
         }
       }
       locations {
