@@ -5,6 +5,7 @@ import Loader from 'components/common/Loader';
 import { AIR_STORY_QUERIES, HOTEL_STORY_QUERIES } from 'components/graphql/query';
 import ChartContainer from './ChartContainer';
 import Donut from './Donut';
+import DataToggle from './DataToggle';
 
 const Container = styled.div`
   position: relative;
@@ -25,6 +26,7 @@ class Story extends Component {
     super(props);
     this.state = {
       viewIndex: 0,
+      dataView: 'value',
       data: [],
     };
   }
@@ -42,6 +44,14 @@ class Story extends Component {
     this.setState({ data });
   }
 
+  toggleDataView = () => {
+    if (this.state.dataView === 'value') {
+      this.setState({ dataView: 'percent' });
+    } else {
+      this.setState({ dataView: 'value' });
+    }
+  };
+
   toggleNext = () => {
     if (this.state.viewIndex !== this.state.data.length - 1) {
       this.setState(prevState => ({
@@ -58,17 +68,18 @@ class Story extends Component {
     }
   };
   render() {
-    const { data, viewIndex } = this.state;
+    const { data, viewIndex, dataView } = this.state;
     const { view } = this.props;
 
     return (
       <Container>
+        <DataToggle dataView={dataView} toggleDataView={this.toggleDataView} />
         {data.length === 0 ? (
           <Loader />
         ) : data[viewIndex].donutData ? (
           <Donut data={data[viewIndex]} view={view} />
         ) : (
-          <ChartContainer data={data[viewIndex]} view={view} />
+          <ChartContainer data={data[viewIndex]} dataView={dataView} view={view} />
         )}
         {viewIndex !== 0 && (
           <ArrowButton onClick={this.togglePrev} previous className={'fas fa-chevron-left'} />

@@ -10,7 +10,7 @@ const GraphContainer = styled.div`
 
 class BarChart extends Component {
   componentDidMount() {
-    const { title, data, type, first } = this.props;
+    const { title, data, type, first, dataView } = this.props;
     const chart = am4core.create(this.refs.chartDiv, am4charts.XYChart);
     chart.data = data;
 
@@ -65,7 +65,11 @@ class BarChart extends Component {
     valueLabel.locationX = 1;
 
     const deltaLabel = series.bullets.push(new am4charts.LabelBullet());
-    deltaLabel.label.text = '({change}{delta})';
+    if (dataView === 'value') {
+      deltaLabel.label.text = '({change}{delta})';
+    } else {
+      deltaLabel.label.text = '({change}{percent.formatNumber("#.##%")})';
+    }
     deltaLabel.label.horizontalCenter = 'left';
     deltaLabel.label.dx = 3;
     deltaLabel.label.hideOversized = false;

@@ -90,7 +90,14 @@ class Hotel extends Component {
 
     return (
       <Container>
-        <Legend hotel subCategories={subCategories} icon={icon} title={title} type={type} />
+        <Legend
+          hotel
+          subCategories={subCategories}
+          icon={icon}
+          title={title}
+          type={type}
+          dataView={this.props.dataView}
+        />
         <HotelWrapper>
           <svg viewBox={`0 0 ${outerWidth} ${outerHeight}`} preserveAspectRatio="xMidYMid meet">
             <g style={stageStyle}>

@@ -11,7 +11,7 @@ const Container = styled.div`
   background: rgba(255, 255, 255, 0.7);
 `;
 
-const ChartContainer = ({ data }) => (
+const ChartContainer = ({ data, dataView }) => (
   <Container>
     {data.map((chart, index) => (
       <Barchart
@@ -19,6 +19,7 @@ const ChartContainer = ({ data }) => (
         data={chart.data}
         type={chart.type}
         first={index === 0}
+        dataView={dataView}
         key={index + Math.random()}
       />
     ))}

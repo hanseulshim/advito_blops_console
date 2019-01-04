@@ -37,8 +37,8 @@ class WorldMap extends Component {
         mapArcSeries.data = [
           {
             multiGeoLine: [location.coords],
-            from: location.from,
-            to: location.to,
+            origin: location.origin,
+            destination: location.destination,
           },
         ];
       });

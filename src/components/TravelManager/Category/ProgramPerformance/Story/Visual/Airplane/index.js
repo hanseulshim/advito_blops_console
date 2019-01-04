@@ -80,7 +80,13 @@ class Airplane extends Component {
     const outerHeight = this.layout.height + this.layout.margin.top + this.layout.margin.bottom;
     return (
       <Container>
-        <Legend subCategories={subCategories} icon={icon} title={title} type={type} />
+        <Legend
+          subCategories={subCategories}
+          icon={icon}
+          title={title}
+          type={type}
+          dataView={this.props.dataView}
+        />
         <Plane>
           <svg viewBox={`0 0 ${outerWidth} ${outerHeight}`} preserveAspectRatio="xMidYMid meet">
             <g>{this.createPlane()}</g>

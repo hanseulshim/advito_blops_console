@@ -34,26 +34,32 @@ const Icon = styled.div`
   display: flex;
 `;
 
-const createMetric = (metric, index) => (
-  <Metric key={index}>
-    <Icon>
-      <img src={require(`assets/story/${metric.icon}`)} alt="icon" />
-    </Icon>
-    <Label>
-      <Title>{metric.title}</Title>
-      <Value>
-        {metricFormat(metric.value, metric.type)}
-        {metric.type === 'emissions' && (
-          <Unit>
-            g/km C0<sub>2</sub>
-          </Unit>
-        )}
-      </Value>
-      <Delta>{`(${metric.change}${metricFormat(metric.delta, metric.type)})`}</Delta>
-    </Label>
-  </Metric>
+const SummaryMetric = ({ data, dataView }) => (
+  <MetricRow>
+    {data.map((metric, index) => (
+      <Metric key={index}>
+        <Icon>
+          <img src={require(`assets/story/${metric.icon}`)} alt="icon" />
+        </Icon>
+        <Label>
+          <Title>{metric.title}</Title>
+          <Value>
+            {metricFormat(metric.value, metric.type)}
+            {metric.type === 'emissions' && (
+              <Unit>
+                g/km C0<sub>2</sub>
+              </Unit>
+            )}
+          </Value>
+          <Delta>{`(${metric.change}${
+            dataView === 'value'
+              ? metricFormat(metric.delta, metric.type)
+              : metricFormat(metric.percent, 'percent')
+          })`}</Delta>
+        </Label>
+      </Metric>
+    ))}
+  </MetricRow>
 );
-
-const SummaryMetric = ({ data }) => <MetricRow>{data.map(createMetric)}</MetricRow>;
 
 export default SummaryMetric;

@@ -24,14 +24,14 @@ const Square = styled.div`
   margin-right: 5px;
 `;
 
-const VisualContainer = ({ data, view }) => (
+const VisualContainer = ({ data, view, dataView }) => (
   <>
     <VisualRow>
       {data.map((visual, index) =>
         view === 'air' ? (
-          <Airplane data={visual} key={index} />
+          <Airplane data={visual} key={index} dataView={dataView} />
         ) : (
-          <Hotel data={visual} key={index} />
+          <Hotel data={visual} key={index} dataView={dataView} />
         )
       )}
     </VisualRow>

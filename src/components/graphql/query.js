@@ -9,6 +9,7 @@ export const AIR_MAP = gql`
         title
         value
         delta
+        percent
         change
         type
         icon
@@ -21,6 +22,7 @@ export const AIR_MAP = gql`
           value
           change
           delta
+          percent
         }
       }
       locations {
@@ -47,6 +49,7 @@ export const HOTEL_MAP = gql`
         title
         value
         delta
+        percent
         change
         type
         icon
@@ -59,6 +62,7 @@ export const HOTEL_MAP = gql`
           value
           change
           delta
+          percent
         }
       }
       locations {
@@ -85,6 +89,7 @@ export const VISUAL = gql`
           name
           value
           delta
+          percent
           color
         }
       }
@@ -96,6 +101,7 @@ export const VISUAL = gql`
           change
           value
           delta
+          percent
         }
       }
     }

@@ -22,14 +22,16 @@ const TitleSpaced = styled(Title)`
   margin-bottom: 0.5em;
 `;
 
-const ChartContainer = ({ data, view }) => (
+const ChartContainer = ({ data, view, dataView }) => (
   <VizContainer>
     <TitleSpaced>{data.title}</TitleSpaced>
     <div>{data.summary}</div>
-    {data.kpis && <SummaryMetric data={data.kpis} />}
+    {data.kpis && <SummaryMetric data={data.kpis} dataView={dataView} />}
     {data.locations && <WorldMapContainer key={data.title} data={data.locations} view={view} />}
-    {data.categories && <Visual key={data.title} data={data.categories} view={view} />}
-    {data.barchart && <Barchart data={data.barchart} />}
+    {data.categories && (
+      <Visual key={data.title} data={data.categories} view={view} dataView={dataView} />
+    )}
+    {data.barchart && <Barchart data={data.barchart} dataView={dataView} />}
   </VizContainer>
 );
 

@@ -50,7 +50,7 @@ const Delta = styled.span`
   margin-left: 5px;
 `;
 
-const Legend = ({ subCategories, icon, title, type, hotel }) => {
+const Legend = ({ subCategories, icon, title, type, hotel, dataView }) => {
   return (
     <Container>
       <Icon>
@@ -65,7 +65,15 @@ const Legend = ({ subCategories, icon, title, type, hotel }) => {
               <div>{subCategory.name}</div>
               <Value>
                 {metricFormat(subCategory.value, type)}
-                {subCategory.delta && <Delta>({metricFormat(subCategory.delta, type)})</Delta>}
+                {subCategory.delta && (
+                  <Delta>
+                    (
+                    {dataView === 'value'
+                      ? metricFormat(subCategory.delta, type)
+                      : metricFormat(subCategory.percent, 'percent')}
+                    )
+                  </Delta>
+                )}
               </Value>
             </Key>
           </Tag>
