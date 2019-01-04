@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const SectionTitleStyled = styled.div`
   font-size: 1.25em;
+  line-height: 1.25em;
   font-weight: 500;
   color: ${props => props.theme.black};
   text-transform: uppercase;
@@ -14,13 +15,15 @@ const TitleStyled = styled.div`
 `;
 
 const ValueStyled = styled.div`
-  font-size: 1.3rem;
+  font-size: 1.3em;
+  line-height: 1.3em;
   font-weight: 400;
   color: ${props => props.theme.black};
 `;
 
 const UnitStyled = styled.span`
-  font-size: 1rem;
+  font-size: 1em;
+  line-height: 1em;
   font-weight: 400;
   color: ${props => props.theme.black};
 `;

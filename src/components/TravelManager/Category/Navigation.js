@@ -6,6 +6,7 @@ import Icon from 'components/common/Icon';
 const Container = styled.div`
   display: flex;
   align-items: flex-end;
+  margin-bottom: ${props => props.theme.verticalSpace};
 `;
 
 const NavItem = styled.div`

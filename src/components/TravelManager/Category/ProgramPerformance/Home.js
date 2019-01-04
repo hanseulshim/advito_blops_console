@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
-import { HOME } from 'components/graphql/query';
+import { PROGRAM_PERFORMANCE_HOME } from 'components/graphql/query';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
 import { SectionTitle, Title, Value } from 'components/common/Typography';
@@ -78,10 +78,10 @@ const Home = ({ changeView }) => (
       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
       non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </div>
-    <GraphQL query={HOME}>
+    <GraphQL query={PROGRAM_PERFORMANCE_HOME}>
       {({ data }) => (
         <PerformanceContainer>
-          {data.performanceList.map((performance, index) => (
+          {data.programPerformance.map((performance, index) => (
             <Performance key={index} first={index === 0}>
               <div>
                 <TitleSpaced>{performance.title}</TitleSpaced>

@@ -18,7 +18,10 @@ export const EventContainer = styled.div`
 
 export const EventIcon = styled.div`
   margin: 0.5em 0.5em 0.5em 0;
-  flex: 0.75;
+  flex: 0.5;
+  img {
+    width: 100%;
+  }
 `;
 
 export const HeaderContainer = styled.div`

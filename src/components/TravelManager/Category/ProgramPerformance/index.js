@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Home from './Home';
-import HotelStory from './HotelStory';
-import AirStory from './AirStory';
+import Story from './Story';
 
 class ProgramPerformance extends Component {
   state = { view: 'home' };
@@ -18,11 +17,7 @@ class ProgramPerformance extends Component {
 
   render() {
     const { view } = this.state;
-    return (
-      (view === 'home' && <Home changeView={this.changeView} />) ||
-      (view === 'hotel' && <HotelStory />) ||
-      (view === 'air' && <AirStory />)
-    );
+    return (view === 'home' && <Home changeView={this.changeView} />) || <Story view={view} />;
   }
 }
 
