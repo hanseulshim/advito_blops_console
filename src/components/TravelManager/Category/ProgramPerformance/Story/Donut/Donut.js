@@ -132,7 +132,7 @@ class Donut extends Component {
         <div>{crumb.label}</div>
         <div>{metricFormat(crumb.total)}</div>
       </Crumb>
-      {index !== this.state.chartLevel.length - 1 && <Spacer>></Spacer>}
+      {index !== this.state.chartLevel.length - 1 && <Spacer key={index}>></Spacer>}
     </>
   );
 

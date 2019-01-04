@@ -10,6 +10,7 @@ const Container = styled.div`
   height: 100%;
   position: absolute;
   opacity: 0.95;
+  z-index: 5;
 `;
 
 const PersonIcon = styled(Icon)`

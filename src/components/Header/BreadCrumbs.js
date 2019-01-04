@@ -41,7 +41,7 @@ const BreadCrumbs = ({ location }) => (
       <Container>
         <Link replace to={view === 'dashboard' ? '/' : location.pathname}>
           <BackTo onClick={() => changeView('dashboard')}>
-            {'<<'} Back to {getPrevious(location.pathname, view)}
+            {'«'} Back to {getPrevious(location.pathname, view)}
           </BackTo>
         </Link>
         <Spacer>|</Spacer>

@@ -15,8 +15,8 @@ const ArrowButton = styled.i`
   font-size: 2.5em;
   cursor: pointer;
   position: absolute;
-  left: ${props => (props.previous ? 0 : null)};
-  right: ${props => (props.next ? 0 : null)};
+  left: ${props => (props.previous ? '-1em' : null)};
+  right: ${props => (props.next ? '-1em' : null)};
   top: 50%;
 `;
 

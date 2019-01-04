@@ -20,7 +20,7 @@ const TitleContainer = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.75em;
 `;
 
 const CogIcon = styled(Icon)`
