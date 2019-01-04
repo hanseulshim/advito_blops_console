@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { ApolloConsumer } from 'react-apollo';
 import styled from 'styled-components';
 import Loader from 'components/common/Loader';
-import { AIR_STORY_QUERIES } from 'components/graphql/query';
-import ChartContainer from '../ChartContainer';
+import { AIR_STORY_QUERIES, HOTEL_STORY_QUERIES } from 'components/graphql/query';
+import ChartContainer from './ChartContainer';
+import Donut from './Donut';
 
 const Container = styled.div`
   position: relative;
@@ -20,7 +21,7 @@ const ArrowButton = styled.i`
 `;
 
 //COMPONENT
-class AirStory extends Component {
+class Story extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,8 +32,9 @@ class AirStory extends Component {
 
   async componentDidMount() {
     const client = this.props.client;
+    const queryArray = this.props.view === 'air' ? AIR_STORY_QUERIES : HOTEL_STORY_QUERIES;
     const dataArray = await Promise.all(
-      AIR_STORY_QUERIES.map(async v => ({
+      queryArray.map(async v => ({
         data: await client.query({ query: v.query, variables: v.variables }),
         returnVariable: v.returnVariable,
       }))
@@ -58,9 +60,17 @@ class AirStory extends Component {
   };
   render() {
     const { data, viewIndex } = this.state;
+    const { view } = this.props;
+
     return (
       <Container>
-        {data.length === 0 ? <Loader /> : <ChartContainer data={data[viewIndex]} />}
+        {data.length === 0 ? (
+          <Loader />
+        ) : data[viewIndex].donutData ? (
+          <Donut data={data[viewIndex]} view={view} />
+        ) : (
+          <ChartContainer data={data[viewIndex]} view={view} />
+        )}
         {viewIndex !== 0 && (
           <ArrowButton onClick={this.togglePrev} previous className={'fas fa-chevron-left'} />
         )}
@@ -72,6 +82,8 @@ class AirStory extends Component {
   }
 }
 
-const AirQueries = () => <ApolloConsumer>{client => <AirStory client={client} />}</ApolloConsumer>;
+const StoryWrapper = ({ view }) => (
+  <ApolloConsumer>{client => <Story client={client} view={view} />}</ApolloConsumer>
+);
 
-export default AirQueries;
+export default StoryWrapper;

@@ -2,15 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Title } from 'components/common/Typography';
 
-//import charts
-
-//import secondary components
 import SummaryMetric from './SummaryMetric';
 import Barchart from './Barchart';
 import WorldMapContainer from './WorldMap';
-import AirplaneContainer from './Airplane';
-import DonutContainer from './Donut';
-import HotelContainer from './Hotel';
+import Visual from './Visual';
 
 const VizContainer = styled.div`
   width: 100%;
@@ -27,23 +22,13 @@ const TitleSpaced = styled(Title)`
   margin-bottom: 0.5em;
 `;
 
-const getChart = data => {
-  if (data.locations) {
-    return <WorldMapContainer data={data} />;
-  } else if (data.airlines) {
-    return <AirplaneContainer data={data} />;
-  } else if (data.hotels) {
-    return <HotelContainer data={data} />;
-  }
-  return <DonutContainer data={data} />;
-};
-
-const ChartContainer = ({ data }) => (
+const ChartContainer = ({ data, view }) => (
   <VizContainer>
     <TitleSpaced>{data.title}</TitleSpaced>
     <div>{data.summary}</div>
     {data.kpis && <SummaryMetric data={data.kpis} />}
-    {getChart(data)}
+    {data.locations && <WorldMapContainer key={data.title} data={data.locations} view={view} />}
+    {data.categories && <Visual key={data.title} data={data.categories} view={view} />}
     {data.barchart && <Barchart data={data.barchart} />}
   </VizContainer>
 );

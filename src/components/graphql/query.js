@@ -31,20 +31,54 @@ export const AIR_MAP = gql`
           latitude
           longitude
         }
-        from
-        to
+        origin
+        destination
       }
     }
   }
 `;
 
-export const AIR_PLANE = gql`
+export const HOTEL_MAP = gql`
   query($title: String!) {
-    airPlane(title: $title) {
+    hotelMap(title: $title) {
+      title
+      summary
+      kpis {
+        title
+        value
+        delta
+        change
+        type
+        icon
+      }
+      barchart {
+        title
+        type
+        data {
+          category
+          value
+          change
+          delta
+        }
+      }
+      locations {
+        title
+        radius
+        latitude
+        longitude
+      }
+    }
+  }
+`;
+
+export const VISUAL = gql`
+  query($title: String!) {
+    visual(title: $title) {
       title
       summary
       categories {
         title
+        type
         total
         icon
         subCategories {
@@ -68,26 +102,77 @@ export const AIR_PLANE = gql`
   }
 `;
 
+export const DONUT = gql`
+  query($title: String!) {
+    donut(title: $title) {
+      title
+      summary
+      label
+      total
+      context
+      colors
+      donutData {
+        category
+        value
+        nextLevel
+      }
+    }
+  }
+`;
+
 export const AIR_STORY_QUERIES = [
+  // {
+  //   query: AIR_MAP,
+  //   variables: { title: 'airSummary' },
+  //   returnVariable: 'airMap',
+  // },
+  // {
+  //   query: AIR_MAP,
+  //   variables: { title: 'trafficLaneOverview' },
+  //   returnVariable: 'airMap',
+  // },
+  // {
+  //   query: VISUAL,
+  //   variables: { title: 'topAirlines' },
+  //   returnVariable: 'visual',
+  // },
+  // {
+  //   query: VISUAL,
+  //   variables: { title: 'cabinUse' },
+  //   returnVariable: 'visual',
+  // },
   {
-    query: AIR_MAP,
-    variables: { title: 'airSummary' },
-    returnVariable: 'airMap',
+    query: DONUT,
+    variables: { title: 'airRoot' },
+    returnVariable: 'donut',
   },
+];
+
+export const HOTEL_STORY_QUERIES = [
+  // {
+  //   query: HOTEL_MAP,
+  //   variables: { title: 'hotelSummary' },
+  //   returnVariable: 'hotelMap',
+  // },
+  // {
+  //   query: HOTEL_MAP,
+  //   variables: { title: 'hotelSpend' },
+  //   returnVariable: 'hotelMap',
+  // },
+  // {
+  //   query: VISUAL,
+  //   variables: { title: 'topHotelChains' },
+  //   returnVariable: 'visual',
+  // },
+  // {
+  //   query: VISUAL,
+  //   variables: { title: 'topHotelTiers' },
+  //   returnVariable: 'visual',
+  // },
   {
-    query: AIR_MAP,
-    variables: { title: 'trafficLaneOverview' },
-    returnVariable: 'airMap',
-  },
-  {
-    query: AIR_PLANE,
-    variables: { title: 'topAirlines' },
-    returnVariable: 'airPlane',
-  },
-  {
-    query: AIR_PLANE,
-    variables: { title: 'cabinUse' },
-    returnVariable: 'airPlane',
+    query: DONUT,
+    variables: { title: 'hotelRoot' },
+    returnVariable: 'donut',
   },
 ];
 

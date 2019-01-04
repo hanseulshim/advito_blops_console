@@ -16,6 +16,8 @@ class BarChart extends Component {
 
     if (type === 'money') {
       chart.numberFormatter.numberFormat = '$#.##a';
+    } else if (type === 'percent') {
+      chart.numberFormatter.numberFormat = '#.##%';
     } else {
       chart.numberFormatter.numberFormat = '#.##a';
     }

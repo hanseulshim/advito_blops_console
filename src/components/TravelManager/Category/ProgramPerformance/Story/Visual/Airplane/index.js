@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
-import './Airplane.scss';
-import { AirplaneArr } from './help';
-import Legend from './Legend';
+import styled from 'styled-components';
+import { AirplaneArr } from './airplaneCoords';
+import Legend from '../Legend';
+
+const Container = styled.div`
+  flex: 0 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Plane = styled.div`
+  width: 100%;
+`;
 
 class Airplane extends Component {
   constructor(props) {
     super(props);
     this.layout = {
-      width: 70,
-      height: 70,
+      width: 65,
+      height: 65,
       margin: {
         top: 10,
         right: 10,
@@ -20,13 +31,9 @@ class Airplane extends Component {
   }
 
   getPixelCount = data =>
-    data.categories.map((airline, index) => ({
-      name: airline.name,
-      key: { index },
-      totalPixels: Math.round(
-        this.layout.totalPixels * (airline.value / data.total),
-      ),
-      ...airline,
+    data.subCategories.map(subCategory => ({
+      totalPixels: Math.round(this.layout.totalPixels * (subCategory.value / data.total)),
+      ...subCategory,
     }));
 
   createPlane = () => {
@@ -57,7 +64,7 @@ class Airplane extends Component {
               strokeOpacity={'0.35'}
               rx={0.25}
               ry={0.25}
-            />,
+            />
           );
           point = airplaneArr.shift();
         }
@@ -68,39 +75,18 @@ class Airplane extends Component {
   };
 
   render() {
-    const outerWidth =
-      this.layout.width + this.layout.margin.left + this.layout.margin.right;
-    const outerHeight =
-      this.layout.height + this.layout.margin.top + this.layout.margin.bottom;
-    const stageStyle = {
-      transform: `translate(${this.layout.margin.left}px, ${
-        this.layout.margin.top
-        }px)`,
-    };
-
-    const { ...props } = this.props;
-
+    const { subCategories, icon, title, type } = this.props.data;
+    const outerWidth = this.layout.width + this.layout.margin.left + this.layout.margin.right;
+    const outerHeight = this.layout.height + this.layout.margin.top + this.layout.margin.bottom;
     return (
-      <div className="airplane-column">
-        <Legend {...props} />
-        <div
-          style={{
-            width: 400,
-            position: 'relative',
-            bottom: '100px',
-            right: '50px',
-          }}
-        >
-          <svg
-            viewBox={`0 0 ${outerWidth} ${outerHeight}`}
-            preserveAspectRatio="xMidYMid meet"
-          >
-            <g style={stageStyle}>
-              <g>{this.createPlane()}</g>
-            </g>
+      <Container>
+        <Legend subCategories={subCategories} icon={icon} title={title} type={type} />
+        <Plane>
+          <svg viewBox={`0 0 ${outerWidth} ${outerHeight}`} preserveAspectRatio="xMidYMid meet">
+            <g>{this.createPlane()}</g>
           </svg>
-        </div>
-      </div>
+        </Plane>
+      </Container>
     );
   }
 }
