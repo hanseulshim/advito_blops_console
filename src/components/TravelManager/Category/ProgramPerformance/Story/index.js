@@ -20,7 +20,6 @@ const ArrowButton = styled.i`
   top: 50%;
 `;
 
-//COMPONENT
 class Story extends Component {
   constructor(props) {
     super(props);

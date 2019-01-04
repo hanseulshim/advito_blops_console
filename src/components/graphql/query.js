@@ -121,26 +121,26 @@ export const DONUT = gql`
 `;
 
 export const AIR_STORY_QUERIES = [
-  // {
-  //   query: AIR_MAP,
-  //   variables: { title: 'airSummary' },
-  //   returnVariable: 'airMap',
-  // },
-  // {
-  //   query: AIR_MAP,
-  //   variables: { title: 'trafficLaneOverview' },
-  //   returnVariable: 'airMap',
-  // },
-  // {
-  //   query: VISUAL,
-  //   variables: { title: 'topAirlines' },
-  //   returnVariable: 'visual',
-  // },
-  // {
-  //   query: VISUAL,
-  //   variables: { title: 'cabinUse' },
-  //   returnVariable: 'visual',
-  // },
+  {
+    query: AIR_MAP,
+    variables: { title: 'airSummary' },
+    returnVariable: 'airMap',
+  },
+  {
+    query: AIR_MAP,
+    variables: { title: 'trafficLaneOverview' },
+    returnVariable: 'airMap',
+  },
+  {
+    query: VISUAL,
+    variables: { title: 'topAirlines' },
+    returnVariable: 'visual',
+  },
+  {
+    query: VISUAL,
+    variables: { title: 'cabinUse' },
+    returnVariable: 'visual',
+  },
   {
     query: DONUT,
     variables: { title: 'airRoot' },
@@ -149,26 +149,26 @@ export const AIR_STORY_QUERIES = [
 ];
 
 export const HOTEL_STORY_QUERIES = [
-  // {
-  //   query: HOTEL_MAP,
-  //   variables: { title: 'hotelSummary' },
-  //   returnVariable: 'hotelMap',
-  // },
-  // {
-  //   query: HOTEL_MAP,
-  //   variables: { title: 'hotelSpend' },
-  //   returnVariable: 'hotelMap',
-  // },
-  // {
-  //   query: VISUAL,
-  //   variables: { title: 'topHotelChains' },
-  //   returnVariable: 'visual',
-  // },
-  // {
-  //   query: VISUAL,
-  //   variables: { title: 'topHotelTiers' },
-  //   returnVariable: 'visual',
-  // },
+  {
+    query: HOTEL_MAP,
+    variables: { title: 'hotelSummary' },
+    returnVariable: 'hotelMap',
+  },
+  {
+    query: HOTEL_MAP,
+    variables: { title: 'hotelSpend' },
+    returnVariable: 'hotelMap',
+  },
+  {
+    query: VISUAL,
+    variables: { title: 'topHotelChains' },
+    returnVariable: 'visual',
+  },
+  {
+    query: VISUAL,
+    variables: { title: 'topHotelTiers' },
+    returnVariable: 'visual',
+  },
   {
     query: DONUT,
     variables: { title: 'hotelRoot' },
