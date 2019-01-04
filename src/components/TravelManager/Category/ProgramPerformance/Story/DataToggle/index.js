@@ -1,16 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import Toggle from 'react-toggle';
-import './style.scss';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+import './toggle.scss';
+import './slider.scss';
 
 const Container = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
 
+const SliderWrapper = styled.div`
+  width: 100px;
+  margin: 0 1em;
+  margin-bottom: 5px;
+`;
+
 const ToggleContainer = styled.div`
   display: flex;
   align-items: flex-end;
+  margin-right: ${props => props.year && '2em'};
 `;
 
 const View = styled.div`
@@ -33,7 +43,19 @@ const Label = styled.span`
 const DataToggle = ({ dataView, toggleDataView }) => {
   return (
     <Container>
-      <div>Year Toggle</div>
+      <ToggleContainer year>
+        <View>YEAR TOGGLE:</View>
+        <SliderWrapper>
+          <Slider
+            min={2016}
+            max={2018}
+            defaultValue={2016}
+            included={false}
+            marks={{ 2016: 2016, 2017: 2017, 2018: 2018 }}
+            step={null}
+          />
+        </SliderWrapper>
+      </ToggleContainer>
       <ToggleContainer>
         <View>DATA VIEW:</View>
         <div>
