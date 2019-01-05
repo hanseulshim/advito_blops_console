@@ -16,7 +16,7 @@ export default createGlobalStyle`
     line-height: 20px;
     @media (max-width : 1336px){
       font-size: 13px;
-      line-height: 14px;
+      line-height: 17px;
     }
   }
   a {

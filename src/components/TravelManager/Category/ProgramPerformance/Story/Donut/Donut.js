@@ -20,7 +20,7 @@ const Chart = styled.div`
 `;
 
 const BreadcrumbRow = styled.div`
-  margin-top: 3.5em;
+  margin-top: 1.5em;
   display: flex;
 `;
 
@@ -64,10 +64,9 @@ class Donut extends Component {
       pieSeries.labels.template.text = '{category}: {value}';
     }
 
-    pieSeries.alignLabels = false;
-    pieSeries.ticks.template.disabled = true;
-    pieSeries.slices.template.innerRadius = am4core.percent(75);
-    pieSeries.labels.template.radius = 30;
+    pieSeries.slices.template.innerRadius = am4core.percent(85);
+    // pieSeries.alignLabels = false;
+    // pieSeries.ticks.template.disabled = true;
     pieSeries.slices.template.tooltipText = '';
     pieSeries.slices.template.togglable = false;
     pieSeries.slices.template.events.on('hit', this.changeSeries);
@@ -76,14 +75,16 @@ class Donut extends Component {
     totalLabel.text = metricFormat(total);
     totalLabel.horizontalCenter = 'middle';
     totalLabel.verticalCenter = 'middle';
-    totalLabel.fontSize = 40;
-    totalLabel.dy = -40;
+    totalLabel.fontWeight = 400;
+    totalLabel.fontSize = 25;
+    totalLabel.dy = -25;
 
     const chartLabel = this.chart.seriesContainer.createChild(am4core.Label);
     chartLabel.text = label;
     chartLabel.horizontalCenter = 'middle';
     chartLabel.verticalCenter = 'middle';
-    chartLabel.fontSize = 40;
+    chartLabel.fontSize = 25;
+    chartLabel.fontWeight = 400;
   }
 
   changeSeries = async e => {

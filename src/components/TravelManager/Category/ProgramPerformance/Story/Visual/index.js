@@ -3,10 +3,12 @@ import Airplane from './Airplane';
 import Hotel from './Hotel';
 import styled from 'styled-components';
 
-// styled layouts
+const Container = styled.div`
+  margin-bottom: 2em;
+`;
+
 const VisualRow = styled.div`
   display: flex;
-  margin-top: 2em;
 `;
 
 const Info = styled.div`
@@ -25,7 +27,7 @@ const Square = styled.div`
 `;
 
 const VisualContainer = ({ data, view, dataView }) => (
-  <>
+  <Container>
     <VisualRow>
       {data.map((visual, index) =>
         view === 'air' ? (
@@ -38,7 +40,7 @@ const VisualContainer = ({ data, view, dataView }) => (
     <Info>
       <Square /> represents approximately 4%
     </Info>
-  </>
+  </Container>
 );
 
 export default VisualContainer;

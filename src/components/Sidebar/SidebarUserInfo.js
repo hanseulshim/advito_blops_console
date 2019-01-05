@@ -25,7 +25,7 @@ const TitleContainer = styled.div`
 
 const CogIcon = styled(Icon)`
   color: ${props => props.theme.tradewind};
-  margin-left: 0.25em;
+  font-size: 20px;
 `;
 
 const SidebarUserInfo = () => (

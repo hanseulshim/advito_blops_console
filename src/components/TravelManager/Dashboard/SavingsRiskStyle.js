@@ -17,16 +17,22 @@ export const RowContainer = styled.div`
   display: flex;
   cursor: pointer;
   align-items: center;
+  margin-right: 40px;
 `;
 
 export const Rank = styled.div`
   color: ${props => props.theme.easternWind};
   border: 2px solid ${props => props.theme.easternWind};
   border-radius: 100%;
-  padding: 0.35em 0.5em;
+  padding: 0.35em;
   margin-right: 0.5em;
   font-size: 1.15em;
   font-weight: 400;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Row = styled.div`

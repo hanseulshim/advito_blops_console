@@ -7,34 +7,104 @@ am4core.useTheme(am4themes_animated);
 
 class LineChart extends Component {
   componentDidMount() {
-    let chart = am4core.create('chartdiv', am4charts.XYChart);
+    am4core.useTheme(am4themes_animated);
+    const chart = am4core.create('chartdiv', am4charts.XYChart);
 
-    chart.paddingRight = 20;
-
-    let data = [];
-    let visits = 10;
-    for (let i = 1; i < 366; i++) {
-      visits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
-      data.push({ date: new Date(2018, 0, i), name: 'name' + i, value: visits });
-    }
-
-    chart.data = data;
-
-    let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-    dateAxis.renderer.grid.template.strokeOpacity = 0;
-
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    // Create axes
+    const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.renderer.grid.template.disabled = true;
+    const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.tooltip.disabled = true;
     valueAxis.renderer.disabled = true;
 
-    let series = chart.series.push(new am4charts.LineSeries());
-    series.dataFields.dateX = 'date';
+    // Create series
+    const series = chart.series.push(new am4charts.LineSeries());
     series.dataFields.valueY = 'value';
+    series.dataFields.dateX = 'date';
+    series.tooltipText = '{value}';
+    series.strokeWidth = 2;
+    series.minBulletDistance = 15;
 
-    series.tooltipText = '{valueY.value}';
-    chart.cursor = new am4charts.XYCursor();
+    // Drop-shaped tooltips
+    series.tooltip.background.cornerRadius = 20;
+    series.tooltip.background.strokeOpacity = 0;
+    series.tooltip.pointerOrientation = 'vertical';
+    series.tooltip.label.minWidth = 40;
+    series.tooltip.label.minHeight = 40;
+    series.tooltip.label.textAlign = 'middle';
+    series.tooltip.label.textValign = 'middle';
 
-    this.chart = chart;
+    // Make bullets grow on hover
+    const bullet = series.bullets.push(new am4charts.CircleBullet());
+    bullet.circle.strokeWidth = 2;
+    bullet.circle.radius = 4;
+    bullet.circle.fill = am4core.color('#fff');
+    chart.data = [
+      {
+        date: '2013-01-15',
+        value: 73,
+      },
+      {
+        date: '2013-01-16',
+        value: 71,
+      },
+      {
+        date: '2013-01-17',
+        value: 74,
+      },
+      {
+        date: '2013-01-18',
+        value: 78,
+      },
+      {
+        date: '2013-01-19',
+        value: 85,
+      },
+      {
+        date: '2013-01-20',
+        value: 82,
+      },
+      {
+        date: '2013-01-21',
+        value: 83,
+      },
+      {
+        date: '2013-01-22',
+        value: 88,
+      },
+      {
+        date: '2013-01-23',
+        value: 85,
+      },
+      {
+        date: '2013-01-24',
+        value: 85,
+      },
+      {
+        date: '2013-01-25',
+        value: 80,
+      },
+      {
+        date: '2013-01-26',
+        value: 87,
+      },
+      {
+        date: '2013-01-27',
+        value: 84,
+      },
+      {
+        date: '2013-01-28',
+        value: 83,
+      },
+      {
+        date: '2013-01-29',
+        value: 84,
+      },
+      {
+        date: '2013-01-30',
+        value: 81,
+      },
+    ];
   }
 
   componentWillUnmount() {

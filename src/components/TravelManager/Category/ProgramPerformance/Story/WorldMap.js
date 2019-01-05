@@ -5,7 +5,11 @@ import * as am4maps from '@amcharts/amcharts4/maps';
 import am4geodataWorldLow from '@amcharts/amcharts4-geodata/worldLow';
 
 const Container = styled.div`
-  flex: 1;
+  height: 500px;
+  @media (max-width: 1336px) {
+    height: 400px;
+  }
+  margin-top: 1em;
 `;
 
 class WorldMap extends Component {

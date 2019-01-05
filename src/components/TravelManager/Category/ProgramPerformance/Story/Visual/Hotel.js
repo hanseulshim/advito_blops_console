@@ -10,7 +10,7 @@ const Container = styled.div`
 `;
 
 const HotelWrapper = styled.div`
-  margin-top: 3.5em;
+  margin-top: 1em;
   width: 80%;
   align-self: flex-start;
 `;

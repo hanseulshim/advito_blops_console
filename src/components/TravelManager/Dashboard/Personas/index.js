@@ -34,6 +34,7 @@ const TitleTransform = styled(Title)`
 
 const ValueSized = styled.div`
   font-size: 1.7em;
+  color: #000;
 `;
 
 const TitleRow = styled.div`

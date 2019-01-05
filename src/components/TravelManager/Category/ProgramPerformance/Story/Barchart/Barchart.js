@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 const GraphContainer = styled.div`
   flex: ${props => (props.first ? 1.3 : 1)};
-  font-size: 0.8em;
 `;
 
 class BarChart extends Component {
@@ -47,7 +46,7 @@ class BarChart extends Component {
     valueAxis.renderer.baseGrid.disabled = true;
     valueAxis.min = 0;
     const max = Math.max(...data.map(v => v.value));
-    valueAxis.max = max * 1.2;
+    valueAxis.max = max * 1.3;
 
     // Create series
     const series = chart.series.push(new am4charts.ColumnSeries());
@@ -55,6 +54,7 @@ class BarChart extends Component {
     series.dataFields.categoryY = 'category';
     series.columns.template.fill = am4core.color('#BBE0DE');
     series.columns.template.strokeWidth = 0;
+    series.columns.template.tooltipText = '{value}';
 
     const valueLabel = series.bullets.push(new am4charts.LabelBullet());
     valueLabel.label.text = '{value}';

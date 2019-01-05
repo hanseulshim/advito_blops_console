@@ -18,7 +18,7 @@ const Container = styled.div`
 const LogoContainer = styled.div`
   flex: ${props => (props.dashboard ? '0.5' : '1')};
   img {
-    width: 100%;
+    width: ${props => (props.dashboard ? '70%' : '100%')};
   }
 `;
 

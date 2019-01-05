@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Value } from 'components/common/Typography';
 import { metricFormat } from 'components/common/helper';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 2em;
 `;
 
 const Icon = styled.div`
@@ -44,6 +44,11 @@ const ColorBadge = styled.div`
 const Key = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const Value = styled.div`
+  font-weight: 400;
+  color: #000;
 `;
 
 const Delta = styled.span`

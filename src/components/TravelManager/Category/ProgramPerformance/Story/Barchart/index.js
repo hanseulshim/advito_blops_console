@@ -4,8 +4,6 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
-  position: absolute;
-  bottom: 0;
   width: 100%;
   height: 200px;
   background: rgba(255, 255, 255, 0.7);

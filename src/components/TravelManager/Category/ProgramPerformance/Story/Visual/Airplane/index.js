@@ -19,7 +19,7 @@ class Airplane extends Component {
     super(props);
     this.layout = {
       width: 65,
-      height: 65,
+      height: 50,
       margin: {
         top: 10,
         right: 10,
@@ -88,7 +88,7 @@ class Airplane extends Component {
           dataView={this.props.dataView}
         />
         <Plane>
-          <svg viewBox={`0 0 ${outerWidth} ${outerHeight}`} preserveAspectRatio="xMidYMid meet">
+          <svg viewBox={`0 15 ${outerWidth} ${outerHeight}`} preserveAspectRatio="xMidYMid meet">
             <g>{this.createPlane()}</g>
           </svg>
         </Plane>

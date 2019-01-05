@@ -9,11 +9,9 @@ import Visual from './Visual';
 
 const VizContainer = styled.div`
   width: 100%;
-  height: 900px;
-  margin-bottom: 5%;
   display: flex;
   flex-direction: column;
-  position: relative;
+  margin-bottom: ${props => props.theme.verticalSpace};
 `;
 
 const TitleSpaced = styled(Title)`

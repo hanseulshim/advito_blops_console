@@ -11,7 +11,6 @@ const Container = styled.div`
   background: ${props => props.theme.white};
   border: 1px solid ${props => props.theme.grayNurse};
   padding: 0 2.5em;
-  height: 100%;
 `;
 
 const Sidebar = ({ location }) =>

@@ -5,11 +5,9 @@ import Donut from './Donut';
 
 const Container = styled.div`
   width: 100%;
-  height: 900px;
-  margin-bottom: 5%;
+  height: 500px;
   display: flex;
   flex-direction: column;
-  position: relative;
 `;
 
 const TitleSpaced = styled(Title)`
