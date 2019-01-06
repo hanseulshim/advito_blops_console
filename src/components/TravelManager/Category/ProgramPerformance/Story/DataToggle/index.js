@@ -49,7 +49,7 @@ const DataToggle = ({ dataView, toggleDataView }) => {
           <Slider
             min={2016}
             max={2018}
-            defaultValue={2016}
+            defaultValue={2018}
             included={false}
             marks={{ 2016: 2016, 2017: 2017, 2018: 2018 }}
             step={null}

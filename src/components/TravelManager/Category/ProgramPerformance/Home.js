@@ -5,7 +5,7 @@ import { PROGRAM_PERFORMANCE_HOME } from 'components/graphql/query';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
 import { SectionTitle, Title, Value } from 'components/common/Typography';
-import CircleChart from './CircleChart';
+import LineChart from './LineChart';
 import airAlert from 'assets/sidebar/air.png';
 import hotelAlert from 'assets/sidebar/hotel.png';
 
@@ -23,6 +23,7 @@ const Performance = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  align-items: center;
 `;
 
 const TitleSpaced = styled(Title)`
@@ -84,7 +85,7 @@ const Home = ({ changeView }) => (
         <PerformanceContainer>
           {data.programPerformance.map((performance, index) => (
             <Performance key={index}>
-              <CircleChart percent={Math.floor(Math.random() * 10)} />
+              <LineChart index={index} />
               <div>
                 <TitleSpaced>{performance.title}</TitleSpaced>
                 <ValueSpaced>{performance.value}</ValueSpaced>

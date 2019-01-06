@@ -129,7 +129,7 @@ class Donut extends Component {
 
   createBreadcrumbs = (crumb, index) => (
     <>
-      <Crumb key={index} onClick={e => this.removeLevel(crumb.context, index)}>
+      <Crumb key={index + crumb.label} onClick={e => this.removeLevel(crumb.context, index)}>
         <div>{crumb.label}</div>
         <div>{metricFormat(crumb.total)}</div>
       </Crumb>
