@@ -3,6 +3,7 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { ApolloConsumer } from 'react-apollo';
+import UserContext from 'components/context/UserContext';
 import styled from 'styled-components';
 import { DONUT } from 'components/graphql/query';
 import { metricFormat } from 'components/common/helper';
@@ -22,10 +23,20 @@ const Chart = styled.div`
 const BreadcrumbRow = styled.div`
   margin-top: 1.5em;
   display: flex;
+  visibility: ${props => props.first && 'hidden'};
 `;
 
 const Crumb = styled.div`
   cursor: pointer;
+`;
+
+const CrumbLabel = styled.div`
+  color: ${props => props.theme.treePoppy};
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    color: ${props => props.theme.treePoppy};
+  }
 `;
 
 const Spacer = styled.span`
@@ -92,19 +103,35 @@ class Donut extends Component {
       const selected = e.target.dataItem.nextLevel;
       const { data } = await this.props.client.query({
         query: DONUT,
-        variables: { title: selected },
+        variables: {
+          clientId: this.props.user.clientId,
+          sessionToken: this.props.user.sessionToken,
+          title: selected,
+        },
       });
-      const { title, summary, donutData, colors, label, context, total } = data.donut;
-      this.props.updateInfo(title, summary);
+      if (data.donut.statusCode !== 200) {
+        this.props.removeUser();
+      } else {
+        const {
+          title,
+          summary,
+          donutData,
+          colors,
+          label,
+          context,
+          total,
+        } = data.donut.body.apidataset;
+        this.props.updateInfo(title, summary);
 
-      this.chart.series.clear();
-      this.chart.seriesContainer.disposeChildren();
-      this.createChart(donutData, colors, label, total);
-      const chartLevel = this.state.chartLevel.slice();
-      chartLevel.push({ label, context, total });
-      this.setState({
-        chartLevel,
-      });
+        this.chart.series.clear();
+        this.chart.seriesContainer.disposeChildren();
+        this.createChart(donutData, colors, label, total);
+        const chartLevel = this.state.chartLevel.slice();
+        chartLevel.push({ label, context, total });
+        this.setState({
+          chartLevel,
+        });
+      }
     }
   };
 
@@ -113,24 +140,32 @@ class Donut extends Component {
     this.chart.seriesContainer.disposeChildren();
     const { data } = await this.props.client.query({
       query: DONUT,
-      variables: { title: context },
+      variables: {
+        clientId: this.props.user.clientId,
+        sessionToken: this.props.user.sessionToken,
+        title: context,
+      },
     });
-    const { title, summary, donutData, colors, label, total } = data.donut;
-    this.props.updateInfo(title, summary);
+    if (data.donut.statusCode !== 200) {
+      this.props.removeUser();
+    } else {
+      const { title, summary, donutData, colors, label, total } = data.donut.body.apidataset;
+      this.props.updateInfo(title, summary);
 
-    this.chart.series.clear();
-    this.chart.seriesContainer.disposeChildren();
-    this.createChart(donutData, colors, label, total);
-    const chartLevel = this.state.chartLevel.slice(0, index + 1);
-    this.setState({
-      chartLevel,
-    });
+      this.chart.series.clear();
+      this.chart.seriesContainer.disposeChildren();
+      this.createChart(donutData, colors, label, total);
+      const chartLevel = this.state.chartLevel.slice(0, index + 1);
+      this.setState({
+        chartLevel,
+      });
+    }
   };
 
   createBreadcrumbs = (crumb, index) => (
     <>
       <Crumb key={index + crumb.label} onClick={e => this.removeLevel(crumb.context, index)}>
-        <div>{crumb.label}</div>
+        <CrumbLabel>{crumb.label}</CrumbLabel>
         <div>{metricFormat(crumb.total)}</div>
       </Crumb>
       {index !== this.state.chartLevel.length - 1 && <Spacer key={index}>></Spacer>}
@@ -141,9 +176,9 @@ class Donut extends Component {
     const { chartLevel } = this.state;
     return (
       <Container>
-        {chartLevel.length > 1 && (
-          <BreadcrumbRow>{chartLevel.map(this.createBreadcrumbs)}</BreadcrumbRow>
-        )}
+        <BreadcrumbRow first={chartLevel.length === 1}>
+          {chartLevel.map(this.createBreadcrumbs)}
+        </BreadcrumbRow>
         <Chart ref="donutContainer" />
       </Container>
     );
@@ -151,7 +186,15 @@ class Donut extends Component {
 }
 
 const DonutWrapper = props => (
-  <ApolloConsumer>{client => <Donut client={client} {...props} />}</ApolloConsumer>
+  <ApolloConsumer>
+    {client => (
+      <UserContext.Consumer>
+        {({ user, removeUser }) => (
+          <Donut client={client} user={user} removeUser={removeUser} {...props} />
+        )}
+      </UserContext.Consumer>
+    )}
+  </ApolloConsumer>
 );
 
 export default DonutWrapper;

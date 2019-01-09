@@ -44,7 +44,7 @@ const DataToggle = ({ dataView, toggleDataView }) => {
   return (
     <Container>
       <ToggleContainer year>
-        <View>YEAR TOGGLE:</View>
+        <View>YEAR:</View>
         <SliderWrapper>
           <Slider
             min={2016}

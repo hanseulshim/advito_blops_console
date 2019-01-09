@@ -13,3 +13,7 @@ export const validateUser = () => {
     return { authenticated: false, user: {} };
   }
 };
+
+export const removeUser = () => {
+  localStorage.clear();
+};

@@ -49,7 +49,7 @@ const ChartRow = styled.div`
 `;
 
 const Personas = ({ changeView }) => (
-  <GraphQL query={PERSONAS}>
+  <GraphQL query={PERSONAS} name="personaList">
     {({ data }) => (
       <PersonaContainer onClick={() => changeView('Personas')}>
         <Description>
@@ -63,7 +63,7 @@ const Personas = ({ changeView }) => (
             <div>Program share</div>
           </ChartRow>
         </Description>
-        {data.personaList.map((persona, index) => (
+        {data.map((persona, index) => (
           <Persona key={index} first={index === 0}>
             <TitleRow>
               <TitleTransform>{persona.title}</TitleTransform>

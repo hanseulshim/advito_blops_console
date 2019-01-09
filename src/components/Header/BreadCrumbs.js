@@ -19,6 +19,7 @@ const Text = styled.div`
 `;
 
 const BackTo = styled(Text)`
+  color: ${props => props.theme.treePoppy};
   cursor: pointer;
   &:hover {
     text-decoration: underline;

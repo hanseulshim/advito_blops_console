@@ -22,14 +22,14 @@ const createIconRows = data =>
   ));
 
 const ActiveAlerts = () => (
-  <GraphQL query={ACTIVE_ALERTS}>
+  <GraphQL query={ACTIVE_ALERTS} name="activeAlerts">
     {({ data }) => (
       <Container>
         <TitleContainer>
           <SectionTitle>Active Alerts</SectionTitle>
           <Button text="view all" />
         </TitleContainer>
-        {createIconRows(data.activeAlerts)}
+        {createIconRows(data)}
       </Container>
     )}
   </GraphQL>

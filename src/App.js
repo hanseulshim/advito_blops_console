@@ -9,7 +9,7 @@ import Login from './components/Login';
 import Main from './components/Main';
 import Portal from './components/Portal';
 import TravelManager from './components/TravelManager';
-import { setUser, validateUser } from './components/graphql/helper';
+import { setUser, validateUser, removeUser } from './components/graphql/helper';
 
 const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
   return (
@@ -23,11 +23,16 @@ const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
 };
 
 class App extends Component {
-  state = { authenticated: true, view: 'Program Performance', user: {} };
+  state = { authenticated: false, view: 'dashboard', user: {} };
   componentDidMount() {
-    // const userCheck = validateUser();
-    // this.setState({ authenticated: userCheck.authenticated, user: userCheck.user });
+    const userCheck = validateUser();
+    this.setState({ authenticated: userCheck.authenticated, user: userCheck.user });
   }
+  removeUser = () => {
+    removeUser();
+    this.setState({ authenticated: false, user: {} });
+    window.location.reload();
+  };
   setUser = user => {
     this.setState({ authenticated: true, user });
     setUser(user);
@@ -38,7 +43,9 @@ class App extends Component {
   render() {
     const { authenticated, view, user } = this.state;
     return (
-      <UserContext.Provider value={{ setUser: this.setUser, authenticated, user }}>
+      <UserContext.Provider
+        value={{ setUser: this.setUser, authenticated, user, removeUser: this.removeUser }}
+      >
         <ViewContext.Provider value={{ changeView: this.changeView, view }}>
           <ThemeProvider theme={theme}>
             <Switch>

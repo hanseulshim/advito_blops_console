@@ -80,10 +80,10 @@ const generateList = view =>
 
 const ProgramSelect = () => (
   <Container>
-    <GraphQL query={PROGRAM_SELECT}>
+    <GraphQL query={PROGRAM_SELECT} name="viewData">
       {({ data }) =>
-        data.viewData.map((view, index) => (
-          <View key={index} first={index === 0} last={index === data.viewData.length - 1}>
+        data.map((view, index) => (
+          <View key={index} first={index === 0} last={index === data.length - 1}>
             <IconContainer disabled={view.disabled}>
               <ViewIcon>
                 <Image src={require(`assets/products/${view.icon}`)} alt="icon" />

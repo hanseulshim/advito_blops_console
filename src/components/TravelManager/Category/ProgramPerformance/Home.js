@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
-import { PROGRAM_PERFORMANCE_HOME } from 'components/graphql/query';
+import { PROGRAM_PERFORMANCE, NO_CHANGE_SINCE } from 'components/graphql/query';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
 import { SectionTitle, Title, Value } from 'components/common/Typography';
@@ -80,20 +80,24 @@ const Home = ({ changeView }) => (
       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
       non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </div>
-    <GraphQL query={PROGRAM_PERFORMANCE_HOME}>
+    <GraphQL query={PROGRAM_PERFORMANCE} name="programPerformance">
       {({ data }) => (
         <PerformanceContainer>
-          {data.programPerformance.map((performance, index) => (
+          {data.map((performance, index) => (
             <Performance key={index}>
               <LineChart index={index} />
               <div>
                 <TitleSpaced>{performance.title}</TitleSpaced>
                 <ValueSpaced>{performance.value}</ValueSpaced>
                 {index === 0 && (
-                  <NoChangeSince>
-                    <LeafIcon className="fas fa-leaf" />
-                    <span>No change since {data.noChangeSince}</span>
-                  </NoChangeSince>
+                  <GraphQL query={NO_CHANGE_SINCE} name="noChangeSince">
+                    {({ data }) => (
+                      <NoChangeSince>
+                        <LeafIcon className="fas fa-leaf" />
+                        <span>No change since {data}</span>
+                      </NoChangeSince>
+                    )}
+                  </GraphQL>
                 )}
               </div>
             </Performance>

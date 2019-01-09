@@ -1,4 +1,12 @@
 import gql from 'graphql-tag';
+import { AIR_SUMMARY, AIR_TRAFFIC, AIR_AIRLINES, AIR_CABINS, AIR_ROUTE } from './airStory';
+import {
+  HOTEL_SUMMARY,
+  ROOM_NIGHTS,
+  HOTEL_SPEND,
+  TOP_HOTEL_CHAINS,
+  TOP_HOTEL_TIERS,
+} from './hotelStory';
 
 export const AIR_MAP = gql`
   query($title: String!) {
@@ -109,18 +117,25 @@ export const VISUAL = gql`
 `;
 
 export const DONUT = gql`
-  query($title: String!) {
-    donut(title: $title) {
-      title
-      summary
-      label
-      total
-      context
-      colors
-      donutData {
-        category
-        value
-        nextLevel
+  query($clientId: Int!, $sessionToken: String!, $title: String!) {
+    donut(clientId: $clientId, sessionToken: $sessionToken, title: $title) {
+      statusCode
+      body {
+        apicode
+        apimessage
+        apidataset {
+          title
+          summary
+          label
+          context
+          total
+          colors
+          donutData {
+            category
+            value
+            nextLevel
+          }
+        }
       }
     }
   }
@@ -128,78 +143,84 @@ export const DONUT = gql`
 
 export const AIR_STORY_QUERIES = [
   {
-    query: AIR_MAP,
-    variables: { title: 'airSummary' },
-    returnVariable: 'airMap',
+    query: AIR_SUMMARY,
+    returnVariable: 'airSummary',
   },
   {
-    query: AIR_MAP,
-    variables: { title: 'trafficLaneOverview' },
-    returnVariable: 'airMap',
+    query: AIR_TRAFFIC,
+    returnVariable: 'airTraffic',
   },
   {
-    query: VISUAL,
-    variables: { title: 'topAirlines' },
-    returnVariable: 'visual',
+    query: AIR_AIRLINES,
+    returnVariable: 'airAirlines',
   },
   {
-    query: VISUAL,
-    variables: { title: 'cabinUse' },
-    returnVariable: 'visual',
+    query: AIR_CABINS,
+    returnVariable: 'airCabins',
   },
   {
     query: DONUT,
-    variables: { title: 'airRoot' },
+    title: 'airRoot',
     returnVariable: 'donut',
   },
 ];
 
 export const HOTEL_STORY_QUERIES = [
   {
-    query: HOTEL_MAP,
-    variables: { title: 'hotelSummary' },
-    returnVariable: 'hotelMap',
+    query: HOTEL_SUMMARY,
+    returnVariable: 'hotelSummary',
   },
   {
-    query: HOTEL_MAP,
-    variables: { title: 'hotelSpend' },
-    returnVariable: 'hotelMap',
+    query: HOTEL_SPEND,
+    returnVariable: 'hotelSpend',
   },
   {
-    query: VISUAL,
-    variables: { title: 'topHotelChains' },
-    returnVariable: 'visual',
+    query: TOP_HOTEL_CHAINS,
+    returnVariable: 'topHotelChains',
   },
   {
-    query: VISUAL,
-    variables: { title: 'topHotelTiers' },
-    returnVariable: 'visual',
+    query: TOP_HOTEL_TIERS,
+    returnVariable: 'topHotelTiers',
   },
   {
     query: DONUT,
-    variables: { title: 'hotelRoot' },
+    title: 'hotelRoot',
     returnVariable: 'donut',
   },
 ];
 
 export const ACTIVE_ALERTS = gql`
-  {
-    activeAlerts {
-      secondaryHeader
-      icon
-      alert
+  query($clientId: Int!, $sessionToken: String!) {
+    activeAlerts(clientId: $clientId, sessionToken: $sessionToken) {
+      statusCode
+      body {
+        apicode
+        apimessage
+        apidataset {
+          secondaryHeader
+          icon
+          alert
+        }
+      }
     }
   }
 `;
 
 export const BOTTOM_INFO = gql`
-  {
-    infoData {
-      title
-      icon
-      description
-      disabled
-      button
+  query($clientId: Int!, $sessionToken: String!) {
+    infoData(clientId: $clientId, sessionToken: $sessionToken) {
+      statusCode
+      body {
+        apicode
+        apimessage
+        apidataset {
+          title
+          icon
+          description
+          disabled
+          button
+        }
+      }
     }
   }
 `;
@@ -224,57 +245,94 @@ export const LOGIN = gql`
 `;
 
 export const PERSONAS = gql`
-  {
-    personaList {
-      title
-      value
-      programShare
+  query($clientId: Int!, $sessionToken: String!) {
+    personaList(clientId: $clientId, sessionToken: $sessionToken) {
+      statusCode
+      body {
+        success
+        apicode
+        apimessage
+        apidataset {
+          title
+          value
+          programShare
+        }
+      }
     }
   }
 `;
 
 export const PROGRAM_PERFORMANCE = gql`
-  {
-    programPerformance {
-      title
-      value
-      unit
+  query($clientId: Int!, $sessionToken: String!) {
+    programPerformance(clientId: $clientId, sessionToken: $sessionToken) {
+      statusCode
+      body {
+        success
+        apicode
+        apimessage
+        apidataset {
+          title
+          value
+          unit
+        }
+      }
     }
   }
 `;
 
-export const PROGRAM_PERFORMANCE_HOME = gql`
-  {
-    programPerformance {
-      title
-      value
+export const NO_CHANGE_SINCE = gql`
+  query($clientId: Int!, $sessionToken: String!) {
+    noChangeSince(clientId: $clientId, sessionToken: $sessionToken) {
+      statusCode
+      body {
+        success
+        apicode
+        apimessage
+        apidataset
+      }
     }
-    noChangeSince
   }
 `;
 
 export const PROGRAM_SELECT = gql`
-  {
-    viewData {
-      title
-      icon
-      disabled
-      list {
-        title
-        icon
-        domo
-        link
+  query($clientId: Int!, $sessionToken: String!) {
+    viewData(clientId: $clientId, sessionToken: $sessionToken) {
+      statusCode
+      body {
+        success
+        apicode
+        apimessage
+        apidataset {
+          title
+          icon
+          disabled
+          list {
+            title
+            icon
+            domo
+            link
+          }
+        }
       }
     }
   }
 `;
 
 export const RISK_AREAS = gql`
-  {
-    riskAreas(limit: 3) {
-      riskAreas {
-        title
-        value
+  query($clientId: Int!, $sessionToken: String!) {
+    riskAreas(clientId: $clientId, sessionToken: $sessionToken, limit: 3) {
+      statusCode
+      body {
+        apidataset {
+          prevCursor
+          cursor
+          totalOpportunities
+          hasNext
+          riskAreas {
+            title
+            value
+          }
+        }
       }
     }
   }
@@ -295,23 +353,33 @@ export const SAVINGS_OPPORTUNITIES = gql`
 `;
 
 export const SAVINGS_OPPORTUNITIES_DASHBOARD = gql`
-  {
-    opportunities(limit: 3) {
-      opportunities {
-        title
-        value
-        unit
+  query($clientId: Int!, $sessionToken: String!) {
+    opportunities(clientId: $clientId, sessionToken: $sessionToken, limit: 3) {
+      statusCode
+      body {
+        apidataset {
+          opportunities {
+            title
+            value
+            unit
+          }
+        }
       }
     }
   }
 `;
 
 export const UPCOMING_ACTIONS = gql`
-  {
-    upcomingActions {
-      header
-      secondaryHeader
-      icon
+  query($clientId: Int!, $sessionToken: String!) {
+    upcomingActions(clientId: $clientId, sessionToken: $sessionToken) {
+      statusCode
+      body {
+        apidataset {
+          header
+          secondaryHeader
+          icon
+        }
+      }
     }
   }
 `;

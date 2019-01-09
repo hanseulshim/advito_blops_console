@@ -5,7 +5,8 @@ import ProgramPerformance from './ProgramPerformance';
 // import SavingsOpportunities from './SavingsOpportunities';
 
 const Container = styled.div`
-  margin: 0 4em;
+  padding: 2em 4em;
+  background: ${props => props.theme.white};
 `;
 
 const showCategory = view => {

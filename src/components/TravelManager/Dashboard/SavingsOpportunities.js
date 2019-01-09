@@ -17,9 +17,9 @@ const SavingsOpportunities = ({ changeView }) => (
     <TitleContainer>
       <SectionTitle>top 3 savings opportunities</SectionTitle>
     </TitleContainer>
-    <GraphQL query={SAVINGS_OPPORTUNITIES_DASHBOARD}>
+    <GraphQL query={SAVINGS_OPPORTUNITIES_DASHBOARD} name="opportunities">
       {({ data }) =>
-        data.opportunities.opportunities.map((opportunity, index) => (
+        data.opportunities.map((opportunity, index) => (
           <RowContainer key={index} onClick={() => changeView('Savings Opportunities')}>
             <Rank>{index + 1}</Rank>
             <Row first={index === 0}>

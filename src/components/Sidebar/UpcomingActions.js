@@ -26,14 +26,14 @@ const createIconRows = data =>
   ));
 
 const UpcomingActions = () => (
-  <GraphQL query={UPCOMING_ACTIONS}>
+  <GraphQL query={UPCOMING_ACTIONS} name="upcomingActions">
     {({ data }) => (
       <Container>
         <TitleContainer>
           <SectionTitle>Upcoming Actions</SectionTitle>
           <Button text="view all" />
         </TitleContainer>
-        {createIconRows(data.upcomingActions)}
+        {createIconRows(data)}
       </Container>
     )}
   </GraphQL>

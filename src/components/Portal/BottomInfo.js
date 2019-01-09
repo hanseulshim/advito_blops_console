@@ -35,9 +35,9 @@ const Description = styled.span`
 
 const BottomInfo = () => (
   <Container>
-    <GraphQL query={BOTTOM_INFO}>
+    <GraphQL query={BOTTOM_INFO} name="infoData">
       {({ data }) =>
-        data.infoData.map((info, index) => (
+        data.map((info, index) => (
           <Info key={index}>
             <Image
               src={require(`assets/icons/${info.icon}`)}

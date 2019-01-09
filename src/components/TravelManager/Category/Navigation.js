@@ -6,7 +6,6 @@ import Icon from 'components/common/Icon';
 const Container = styled.div`
   display: flex;
   align-items: flex-end;
-  margin-bottom: 2em;
 `;
 
 const NavItem = styled.div`
@@ -15,16 +14,10 @@ const NavItem = styled.div`
   font-weight: 500;
   color: #000;
   text-transform: uppercase;
-  border-bottom: ${props => (!props.active ? `2px solid ${props.theme.pumice}` : '')};
-  border-top: ${props => (props.active ? `2px solid ${props.theme.pumice}` : '')};
-  border-left: ${props => (props.active ? `2px solid ${props.theme.pumice}` : '')};
-  border-right: ${props => (props.active ? `2px solid ${props.theme.pumice}` : '')};
-  padding-bottom: ${props => (props.active ? 'calc(1em + 2px)' : '1em')};
-  padding-right: ${props => (props.active ? 'calc(1em - 2px)' : '1em')};
-  padding-left: ${props => (props.active ? 'calc(1em - 2px)' : '1em')};
-  padding-top: 1em;
+  padding: 1em;
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
+  background: ${props => props.active && props.theme.white};
   cursor: pointer;
 `;
 
@@ -32,7 +25,6 @@ const HomeIcon = styled(Icon)`
   font-size: 1.2em;
   color: ${props => props.theme.treePoppy};
   padding: 1em;
-  border-bottom: 2px solid ${props => props.theme.pumice};
   cursor: pointer;
 `;
 
