@@ -31,7 +31,6 @@ class App extends Component {
   removeUser = () => {
     removeUser();
     this.setState({ authenticated: false, user: {} });
-    window.location.reload();
   };
   setUser = user => {
     this.setState({ authenticated: true, user });

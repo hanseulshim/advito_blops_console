@@ -16,4 +16,5 @@ export const validateUser = () => {
 
 export const removeUser = () => {
   localStorage.clear();
+  window.location.reload();
 };
