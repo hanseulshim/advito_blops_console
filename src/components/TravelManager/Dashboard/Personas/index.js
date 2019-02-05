@@ -49,7 +49,7 @@ const ChartRow = styled.div`
   line-height: 6em;
 `;
 
-const Personas = ({ changeView }) => (
+const Personas = () => (
   <GraphQL query={PERSONAS} name="personaList">
     {({ data }) => (
       <Link to="/travel/personas">

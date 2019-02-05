@@ -13,7 +13,7 @@ import {
   RightIcon,
 } from './SavingsRiskStyle';
 
-const SavingsOpportunities = ({ changeView }) => (
+const SavingsOpportunities = () => (
   <Container>
     <TitleContainer>
       <SectionTitle>top 3 savings opportunities</SectionTitle>

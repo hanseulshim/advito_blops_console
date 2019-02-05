@@ -13,7 +13,7 @@ import {
   RightIcon,
 } from './SavingsRiskStyle';
 
-const RiskAreas = ({ changeView }) => (
+const RiskAreas = () => (
   <Container>
     <TitleContainer>
       <SectionTitle>top 3 risk areas</SectionTitle>
