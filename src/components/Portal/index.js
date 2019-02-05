@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import ViewContext from 'components/context/ViewContext';
 import { SectionTitle } from 'components/common/Typography';
 import ProgramSelect from './ProgramSelect';
 import BottomInfo from './BottomInfo';
@@ -11,26 +10,12 @@ const Container = styled.div`
   margin-top: ${props => props.theme.verticalSpace};
 `;
 
-class PortalContext extends Component {
-  componentDidMount() {
-    this.props.changeView('dashboard');
-  }
-  render() {
-    return null;
-  }
-}
-
 const Portal = () => (
-  <ViewContext.Consumer>
-    {({ changeView }) => (
-      <Container>
-        <PortalContext changeView={changeView} />
-        <SectionTitle>products</SectionTitle>
-        <ProgramSelect />
-        <BottomInfo />
-      </Container>
-    )}
-  </ViewContext.Consumer>
+  <Container>
+    <SectionTitle>products</SectionTitle>
+    <ProgramSelect />
+    <BottomInfo />
+  </Container>
 );
 
 export default Portal;
