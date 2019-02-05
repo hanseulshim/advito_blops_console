@@ -1,6 +1,7 @@
 import React from 'react';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import ViewContext from 'components/context/ViewContext';
 import Icon from 'components/common/Icon';
 
 const Container = styled.div`
@@ -8,7 +9,7 @@ const Container = styled.div`
   align-items: flex-end;
 `;
 
-const NavItem = styled.div`
+const NavItem = styled(Link)`
   flex: 1;
   text-align: center;
   font-weight: 500;
@@ -17,7 +18,7 @@ const NavItem = styled.div`
   padding: 1em;
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
-  background: ${props => props.active && props.theme.white};
+  background: ${props => props.replace && props.theme.white};
   cursor: pointer;
 `;
 
@@ -29,28 +30,39 @@ const HomeIcon = styled(Icon)`
 `;
 
 const NavItems = [
-  'Program Performance',
-  'Net Spend Analysis',
-  'Personas',
-  'Savings Opportunities',
-  'Risk Areas',
+  {
+    link: '/travel/program-performance',
+    title: 'Program Performance',
+  },
+  {
+    link: '/travel/net-spend-analysis',
+    title: 'Net Spend Analysis',
+  },
+  {
+    link: '/travel/personas',
+    title: 'Personas',
+  },
+  {
+    link: '/travel/savings-opportunities',
+    title: 'Savings Opportunities',
+  },
+  {
+    link: '/travel/risk-areas',
+    title: 'Risk Areas',
+  },
 ];
 
-const Navigation = () => {
-  return (
-    <ViewContext.Consumer>
-      {({ view, changeView }) => (
-        <Container>
-          <HomeIcon className="fas fa-home" onClick={() => changeView('dashboard')} />
-          {NavItems.map((nav, index) => (
-            <NavItem key={index} onClick={() => changeView(nav)} active={view === nav}>
-              {nav}
-            </NavItem>
-          ))}
-        </Container>
-      )}
-    </ViewContext.Consumer>
-  );
-};
+const Navigation = ({ location }) => (
+  <Container>
+    <Link to="/travel/dashboard">
+      <HomeIcon className="fas fa-home" />
+    </Link>
+    {NavItems.map((nav, index) => (
+      <NavItem key={index} to={nav.link} replace={location.pathname === nav.link}>
+        {nav.title}
+      </NavItem>
+    ))}
+  </Container>
+);
 
-export default Navigation;
+export default withRouter(Navigation);
