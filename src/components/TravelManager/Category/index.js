@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import Navigation from './Navigation';
 import ProgramPerformance from './ProgramPerformance';
@@ -9,20 +10,15 @@ const Container = styled.div`
   background: ${props => props.theme.white};
 `;
 
-const showCategory = view => {
-  if (view === 'Program Performance') {
-    return <ProgramPerformance view={view} />;
-  }
-  // } else if (view === 'Savings Opportunities') {
-  //   return <SavingsOpportunities />;
-  // }
-};
-
-const Category = ({ view }) => {
+const Category = () => {
   return (
     <>
       <Navigation />
-      <Container>{showCategory(view)}</Container>
+      <Container>
+        <Switch>
+          <Route path={`/travel/program-performance`} exact component={ProgramPerformance} />
+        </Switch>
+      </Container>
     </>
   );
 };
