@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import { PROGRAM_PERFORMANCE, NO_CHANGE_SINCE } from 'components/graphql/query';
@@ -70,7 +71,7 @@ const StoryTitle = styled.div`
   margin: 0 0.5em;
 `;
 
-const Home = ({ changeView }) => (
+const Home = () => (
   <>
     <SectionTitleSpaced>Program Performance</SectionTitleSpaced>
     <div>
@@ -118,14 +119,18 @@ const Home = ({ changeView }) => (
           <img src={airAlert} alt="air" />
         </div>
         <StoryTitle>Air Data Story</StoryTitle>
-        <Button text="View" onClick={() => changeView('air')} />
+        <Link to="/travel/program-performance/air-story">
+          <Button text="View" />
+        </Link>
       </Story>
       <Story>
         <div>
           <img src={hotelAlert} alt="hotel" />
         </div>
         <StoryTitle>Hotel Data Story</StoryTitle>
-        <Button text="View" onClick={() => changeView('hotel')} />
+        <Link to="/travel/program-performance/hotel-story">
+          <Button text="View" />
+        </Link>
       </Story>
     </StoryContainer>
   </>
