@@ -16,7 +16,7 @@ const Category = () => {
       <Navigation />
       <Container>
         <Switch>
-          <Route path={`/travel/program-performance`} exact component={ProgramPerformance} />
+          <Route path={`/travel/program-performance`} component={ProgramPerformance} />
         </Switch>
       </Container>
     </>
