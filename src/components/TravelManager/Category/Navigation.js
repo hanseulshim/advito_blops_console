@@ -58,7 +58,7 @@ const Navigation = ({ location }) => (
       <HomeIcon className="fas fa-home" />
     </Link>
     {NavItems.map((nav, index) => (
-      <NavItem key={index} to={nav.link} replace={location.pathname === nav.link}>
+      <NavItem key={index} to={nav.link} replace={location.pathname.includes(nav.link)}>
         {nav.title}
       </NavItem>
     ))}
