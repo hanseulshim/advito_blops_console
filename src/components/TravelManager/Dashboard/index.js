@@ -10,16 +10,16 @@ const Row = styled.div`
   display: flex;
 `;
 
-const Dashboard = ({ changeView }) => (
+const Dashboard = () => (
   <>
     <Row>
-      <ProgramPerformance changeView={changeView} />
-      <NetSpendAnalysis changeView={changeView} />
+      <ProgramPerformance />
+      <NetSpendAnalysis />
     </Row>
-    <Personas changeView={changeView} />
+    <Personas />
     <Row>
-      <SavingsOpportunities changeView={changeView} />
-      <RiskAreas changeView={changeView} />
+      <SavingsOpportunities />
+      <RiskAreas />
     </Row>
   </>
 );

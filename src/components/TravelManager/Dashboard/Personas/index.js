@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import GraphQL from 'components/graphql';
 import { PERSONAS } from 'components/graphql/query';
 import { SectionTitle, Title } from 'components/common/Typography';
@@ -51,32 +52,34 @@ const ChartRow = styled.div`
 const Personas = ({ changeView }) => (
   <GraphQL query={PERSONAS} name="personaList">
     {({ data }) => (
-      <PersonaContainer onClick={() => changeView('Personas')}>
-        <Description>
-          <TitleRow>
-            <SectionTitle>Personas</SectionTitle>
-          </TitleRow>
-          <ValueRow>
-            <div>Average Total Trip Cost</div>
-          </ValueRow>
-          <ChartRow>
-            <div>Program share</div>
-          </ChartRow>
-        </Description>
-        {data.map((persona, index) => (
-          <Persona key={index} first={index === 0}>
+      <Link to="/travel/personas">
+        <PersonaContainer>
+          <Description>
             <TitleRow>
-              <TitleTransform>{persona.title}</TitleTransform>
+              <SectionTitle>Personas</SectionTitle>
             </TitleRow>
             <ValueRow>
-              <ValueSized>{persona.value}</ValueSized>
+              <div>Average Total Trip Cost</div>
             </ValueRow>
             <ChartRow>
-              <CircleChart percent={persona.programShare} />
+              <div>Program share</div>
             </ChartRow>
-          </Persona>
-        ))}
-      </PersonaContainer>
+          </Description>
+          {data.map((persona, index) => (
+            <Persona key={index} first={index === 0}>
+              <TitleRow>
+                <TitleTransform>{persona.title}</TitleTransform>
+              </TitleRow>
+              <ValueRow>
+                <ValueSized>{persona.value}</ValueSized>
+              </ValueRow>
+              <ChartRow>
+                <CircleChart percent={persona.programShare} />
+              </ChartRow>
+            </Persona>
+          ))}
+        </PersonaContainer>
+      </Link>
     )}
   </GraphQL>
 );

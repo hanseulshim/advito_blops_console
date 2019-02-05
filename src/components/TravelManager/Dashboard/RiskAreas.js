@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { SectionTitle, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
 import { RISK_AREAS } from 'components/graphql/query';
@@ -20,14 +21,16 @@ const RiskAreas = ({ changeView }) => (
     <GraphQL query={RISK_AREAS} name="riskAreas">
       {({ data }) =>
         data.riskAreas.map((riskArea, index) => (
-          <RowContainer key={index} onClick={() => changeView('Risk Areas')}>
-            <Rank>{index + 1}</Rank>
-            <Row first={index === 0}>
-              <RowTitle>{riskArea.title}</RowTitle>
-              <Value>{riskArea.value}</Value>
-            </Row>
-            <RightIcon className="fas fa-angle-right" />
-          </RowContainer>
+          <Link to="/travel/risk-areas" key={index}>
+            <RowContainer>
+              <Rank>{index + 1}</Rank>
+              <Row first={index === 0}>
+                <RowTitle>{riskArea.title}</RowTitle>
+                <Value>{riskArea.value}</Value>
+              </Row>
+              <RightIcon className="fas fa-angle-right" />
+            </RowContainer>
+          </Link>
         ))
       }
     </GraphQL>

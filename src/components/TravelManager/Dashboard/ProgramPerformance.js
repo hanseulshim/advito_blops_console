@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import GraphQL from 'components/graphql';
 import { PROGRAM_PERFORMANCE } from 'components/graphql/query';
 import Button from 'components/common/Button';
@@ -41,11 +42,13 @@ const Unit = styled.span`
   font-size: 1rem;
 `;
 
-const ProgramPerformance = ({ changeView }) => (
+const ProgramPerformance = () => (
   <Container>
     <SectionContainer>
       <SectionTitle>program performance</SectionTitle>
-      <Button spaceLeft text="view more" onClick={() => changeView('Program Performance')} />
+      <Link to="/travel/program-performance">
+        <Button spaceLeft text="view more" />
+      </Link>
     </SectionContainer>
     <GraphQL query={PROGRAM_PERFORMANCE} name="programPerformance">
       {({ data }) => (
