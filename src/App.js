@@ -9,7 +9,7 @@ import Login from './components/Login';
 import Main from './components/Main';
 import Portal from './components/Portal';
 import TravelManager from './components/TravelManager';
-import UserProfile from './components/User/UserProfile';
+import UserView from './components/User';
 import { setUser, validateUser, removeUser } from './components/graphql/helper';
 
 const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
@@ -52,13 +52,8 @@ class App extends Component {
               <>
                 <GlobalStyle />
                 <Route path="/login" component={Login} />
-                <PrivateRoute path="/" exact component={Portal} authenticated={authenticated} />
-                {/* <PrivateRoute
-                  path="/"
-                  exact
-                  component={UserProfile}
-                  authenticated={authenticated}
-                /> */}
+                {/* <PrivateRoute path="/" exact component={Portal} authenticated={authenticated} /> */}
+                <PrivateRoute path="/" exact component={UserView} authenticated={authenticated} />
                 <PrivateRoute
                   path="/travel"
                   exact
