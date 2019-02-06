@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import GraphQL from 'components/graphql';
 import { PERSONAS } from 'components/graphql/query';
 import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
+import Select from '../../../common/Select';
 
 const PersonaContainer = styled.div`
   display: flex;
@@ -44,41 +45,69 @@ const TitleRow = styled.div`
 const ValueRow = styled.div`
   line-height: 1.7em;
   margin-bottom: 1em;
+  margin-top:1em;
 `;
 const ChartRow = styled.div`
   line-height: 6em;
 `;
 
-const Markets = () => (
-  <GraphQL query={PERSONAS} name="personaList">
-    {({ data }) => (
-      <Link to="/executive/personas">
-        <PersonaContainer>
-          <Description>
-            <TitleRow>
-              <SectionTitle>Markets</SectionTitle>
-            </TitleRow>
-            <ValueRow>
-              <div>Side by side comparison of business areas providing an overview of their Total Program Performance and their Program Share based on volume.</div>
-            </ValueRow>
-          </Description>
-          {data.map((persona, index) => (
-            <Persona key={index} first={index === 0}>
+let options = [
+  {
+    id: 0,
+    title: 'Sort By Program Performance ',
+  },
+  {
+    id: 1,
+    title: 'Sort By Program Share',
+  },
+];
+
+class Markets extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sort: "Sort by Program Share"
+    }
+  }
+
+  onSelect = (selected) => {
+    this.setState({
+      sort: selected.title
+    })
+  }
+
+  render() {
+    return (
+      <GraphQL query={PERSONAS} name="personaList">
+        {({ data }) => (
+          <PersonaContainer>
+            <Description>
               <TitleRow>
-                <TitleTransform>{persona.title}</TitleTransform>
+                <Link to="/executive/personas"><SectionTitle>Markets</SectionTitle></Link>
               </TitleRow>
+              <Select list={options} onSelect={this.onSelect} value={this.state.sort} />
               <ValueRow>
-                <ValueSized>{persona.value}</ValueSized>
+                <div>Side by side comparison of business areas providing an overview of their Total Program Performance and their Program Share based on volume.</div>
               </ValueRow>
-              <ChartRow>
-                <CircleChart percent={persona.programShare} />
-              </ChartRow>
-            </Persona>
-          ))}
-        </PersonaContainer>
-      </Link>
-    )}
-  </GraphQL>
-);
+            </Description>
+            {data.map((persona, index) => (
+              <Persona key={index} first={index === 0}>
+                <TitleRow>
+                  <TitleTransform>{persona.title}</TitleTransform>
+                </TitleRow>
+                <ValueRow>
+                  <ValueSized>{persona.value}</ValueSized>
+                </ValueRow>
+                <ChartRow>
+                  <CircleChart percent={persona.programShare} />
+                </ChartRow>
+              </Persona>
+            ))}
+          </PersonaContainer>
+        )}
+      </GraphQL>
+    );
+  }
+}
 
 export default Markets;

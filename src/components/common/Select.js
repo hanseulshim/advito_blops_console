@@ -21,7 +21,7 @@ const Header = styled.div`
   padding: 10px 20px;
 `;
 
-const Title = styled.div``;
+const Value = styled.div``;
 
 const List = styled.ul`
   z-index: 10;
@@ -34,6 +34,7 @@ const List = styled.ul`
   padding: 15px 0;
   overflow-y: scroll;
   margin: 0;
+  background-color: ${props => props.theme.white};
 `;
 
 const Item = styled.li`
@@ -58,7 +59,6 @@ class Select extends Component {
     super(props);
     this.state = {
       listOpen: false,
-      header: this.props.title,
     };
   }
 
@@ -69,19 +69,19 @@ class Select extends Component {
   };
 
   render() {
-    const { list, label, toggleItem } = this.props;
-    const { listOpen, header } = this.state;
+    const { list, label, value, onSelect } = this.props;
+    const { listOpen } = this.state;
     return (
       <Wrapper>
         {label && <Label>{label}</Label>}
         <Header onClick={() => this.toggleList()}>
-          <Title>{header}</Title>
+          <Value>{value}</Value>
           {listOpen ? <Icon className="fas fa-caret-up" /> : <Icon className="fas fa-caret-down" />}
         </Header>
         {listOpen && (
           <List>
-            {list.map(item => (
-              <Item key={item.id} onClick={() => toggleItem(item.id, item.key)}>
+            {list.map((item, i) => (
+              <Item key={"Item" + i} onClick={(e) => { onSelect(item); this.toggleList(); }}>
                 {item.title} {item.selected && <Icon className="fas fa-check" />}
               </Item>
             ))}
