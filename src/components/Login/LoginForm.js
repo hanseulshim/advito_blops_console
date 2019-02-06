@@ -50,16 +50,16 @@ const Forgot = styled.span`
 class LoginForm extends Component {
   state = {
     username: '',
-    password: '',
+    pwd: '',
   };
   updateUsername = event => {
     this.setState({ username: event.target.value });
   };
   updatePassword = event => {
-    this.setState({ password: event.target.value });
+    this.setState({ pwd: event.target.value });
   };
   render() {
-    const { username, password } = this.state;
+    const { username, pwd } = this.state;
     return (
       <UserContext.Consumer>
         {({ authenticated, setUser }) =>
@@ -73,7 +73,7 @@ class LoginForm extends Component {
                         event.preventDefault();
                         const { data } = await client.query({
                           query: LOGIN,
-                          variables: { username, password },
+                          variables: { username, pwd },
                         });
                         if (data.login.statusCode === 200) {
                           const user = data.login.body.apidataset;
@@ -91,7 +91,7 @@ class LoginForm extends Component {
                       <FormText
                         placeholder="Password"
                         type="password"
-                        value={password}
+                        value={pwd}
                         name="password"
                         onChange={this.updatePassword}
                       />
