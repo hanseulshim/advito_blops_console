@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ProgramPerformance from './ProgramPerformance';
 import NetSpendAnalysis from './NetSpendAnalysis';
-import Personas from './Personas';
+import Markets from './Markets';
 import SavingsOpportunities from './SavingsOpportunities';
 import RiskAreas from './RiskAreas';
 
@@ -16,9 +16,11 @@ const Dashboard = () => (
       <ProgramPerformance />
       <NetSpendAnalysis />
     </Row>
-    <Personas />
+    <Markets />
     <Row>
       <SavingsOpportunities />
+    </Row>
+    <Row>
       <RiskAreas />
     </Row>
   </>

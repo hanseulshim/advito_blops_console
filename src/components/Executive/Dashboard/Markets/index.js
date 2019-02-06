@@ -49,21 +49,18 @@ const ChartRow = styled.div`
   line-height: 6em;
 `;
 
-const Personas = () => (
+const Markets = () => (
   <GraphQL query={PERSONAS} name="personaList">
     {({ data }) => (
       <Link to="/executive/personas">
         <PersonaContainer>
           <Description>
             <TitleRow>
-              <SectionTitle>Personas</SectionTitle>
+              <SectionTitle>Markets</SectionTitle>
             </TitleRow>
             <ValueRow>
-              <div>Average Total Trip Cost</div>
+              <div>Side by side comparison of business areas providing an overview of their Total Program Performance and their Program Share based on volume.</div>
             </ValueRow>
-            <ChartRow>
-              <div>Program share</div>
-            </ChartRow>
           </Description>
           {data.map((persona, index) => (
             <Persona key={index} first={index === 0}>
@@ -84,4 +81,4 @@ const Personas = () => (
   </GraphQL>
 );
 
-export default Personas;
+export default Markets;
