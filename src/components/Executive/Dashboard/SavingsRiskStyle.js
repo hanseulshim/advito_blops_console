@@ -18,6 +18,7 @@ export const RowContainer = styled.div`
   cursor: pointer;
   align-items: center;
   margin-right: 40px;
+  border-top: ${props => !props.first && `1px solid ${props.theme.silver}`};
 `;
 
 export const Rank = styled.div`
@@ -36,7 +37,6 @@ export const Rank = styled.div`
 `;
 
 export const Row = styled.div`
-  border-top: ${props => !props.first && `1px solid ${props.theme.silver}`};
   padding: 1em 0;
   flex: 1;
 `;
@@ -52,3 +52,11 @@ export const RightIcon = styled(Icon)`
   color: ${props => props.theme.treePoppy};
   font-size: 2em;
 `;
+
+export const Metric = styled.div`
+display:flex;
+flex-direction:column;
+flex:1;
+justify-content:center;
+align-items:center;
+`
