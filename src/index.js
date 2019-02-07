@@ -9,7 +9,6 @@ import { ApolloProvider } from 'react-apollo';
 
 const client = new ApolloClient({
   uri: 'https://x162060eb4.execute-api.us-east-2.amazonaws.com/dev/graphql',
-  // uri: 'https://n3t62ms0i5.execute-api.us-east-2.amazonaws.com/test2/graphql',
   // uri: 'http://localhost:8080/graphql',
 });
 
