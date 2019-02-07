@@ -1,115 +1,131 @@
 import gql from 'graphql-tag';
-import { AIR_SUMMARY, AIR_TRAFFIC, AIR_AIRLINES, AIR_CABINS, AIR_ROUTE } from './airStory';
-import {
-  HOTEL_SUMMARY,
-  ROOM_NIGHTS,
-  HOTEL_SPEND,
-  TOP_HOTEL_CHAINS,
-  TOP_HOTEL_TIERS,
-} from './hotelStory';
+// TODO: DELETE THESE FILES EVENTUALLY
+// import { AIR_SUMMARY, AIR_TRAFFIC, AIR_AIRLINES, AIR_CABINS } from './airStory';
+// import { HOTEL_SUMMARY, HOTEL_SPEND, TOP_HOTEL_CHAINS, TOP_HOTEL_TIERS } from './hotelStory';
 
 export const AIR_MAP = gql`
-  query($title: String!) {
-    airMap(title: $title) {
-      title
-      summary
-      kpis {
-        title
-        value
-        delta
-        percent
-        change
-        type
-        icon
-      }
-      barchart {
-        title
-        type
-        data {
-          category
-          value
-          change
-          delta
-          percent
+  query($clientId: Int!, $sessionToken: String!, $title: String!) {
+    airMap(clientId: $clientId, sessionToken: $sessionToken, title: $title) {
+      statusCode
+      body {
+        apicode
+        apimessage
+        apidataset {
+          title
+          summary
+          kpis {
+            title
+            value
+            delta
+            percent
+            change
+            type
+            icon
+          }
+          barchart {
+            title
+            type
+            data {
+              category
+              value
+              change
+              delta
+              percent
+            }
+          }
+          locations {
+            thickness
+            height
+            opacity
+            coords {
+              latitude
+              longitude
+            }
+            origin
+            destination
+          }
         }
-      }
-      locations {
-        thickness
-        height
-        opacity
-        coords {
-          latitude
-          longitude
-        }
-        origin
-        destination
       }
     }
   }
 `;
 
 export const HOTEL_MAP = gql`
-  query($title: String!) {
-    hotelMap(title: $title) {
-      title
-      summary
-      kpis {
-        title
-        value
-        delta
-        percent
-        change
-        type
-        icon
-      }
-      barchart {
-        title
-        type
-        data {
-          category
-          value
-          change
-          delta
-          percent
+  query($clientId: Int!, $sessionToken: String!, $title: String!) {
+    hotelMap(clientId: $clientId, sessionToken: $sessionToken, title: $title) {
+      statusCode
+      body {
+        apicode
+        apimessage
+        apidataset {
+          title
+          summary
+          kpis {
+            title
+            value
+            delta
+            percent
+            change
+            type
+            icon
+          }
+          barchart {
+            title
+            type
+            data {
+              category
+              value
+              change
+              delta
+              percent
+            }
+          }
+          locations {
+            title
+            radius
+            latitude
+            longitude
+          }
         }
-      }
-      locations {
-        title
-        radius
-        latitude
-        longitude
       }
     }
   }
 `;
 
 export const VISUAL = gql`
-  query($title: String!) {
-    visual(title: $title) {
-      title
-      summary
-      categories {
-        title
-        type
-        total
-        icon
-        subCategories {
-          name
-          value
-          delta
-          percent
-          color
-        }
-      }
-      barchart {
-        title
-        type
-        data {
-          category
-          change
-          value
-          delta
-          percent
+  query($clientId: Int!, $sessionToken: String!, $title: String!) {
+    visual(clientId: $clientId, sessionToken: $sessionToken, title: $title) {
+      statusCode
+      body {
+        apicode
+        apimessage
+        apidataset {
+          title
+          summary
+          categories {
+            title
+            type
+            total
+            icon
+            subCategories {
+              name
+              value
+              delta
+              percent
+              color
+            }
+          }
+          barchart {
+            title
+            type
+            data {
+              category
+              change
+              value
+              delta
+              percent
+            }
+          }
         }
       }
     }
@@ -143,20 +159,24 @@ export const DONUT = gql`
 
 export const AIR_STORY_QUERIES = [
   {
-    query: AIR_SUMMARY,
-    returnVariable: 'airSummary',
+    query: AIR_MAP,
+    title: 'airSummary',
+    returnVariable: 'airMap',
   },
   {
-    query: AIR_TRAFFIC,
-    returnVariable: 'airTraffic',
+    query: AIR_MAP,
+    title: 'trafficLaneOverview',
+    returnVariable: 'airMap',
   },
   {
-    query: AIR_AIRLINES,
-    returnVariable: 'airAirlines',
+    query: VISUAL,
+    title: 'topAirlines',
+    returnVariable: 'visual',
   },
   {
-    query: AIR_CABINS,
-    returnVariable: 'airCabins',
+    query: VISUAL,
+    title: 'cabinUse',
+    returnVariable: 'visual',
   },
   {
     query: DONUT,
@@ -167,20 +187,24 @@ export const AIR_STORY_QUERIES = [
 
 export const HOTEL_STORY_QUERIES = [
   {
-    query: HOTEL_SUMMARY,
-    returnVariable: 'hotelSummary',
+    query: HOTEL_MAP,
+    title: 'hotelSummary',
+    returnVariable: 'hotelMap',
   },
   {
-    query: HOTEL_SPEND,
-    returnVariable: 'hotelSpend',
+    query: HOTEL_MAP,
+    title: 'hotelSpend',
+    returnVariable: 'hotelMap',
   },
   {
-    query: TOP_HOTEL_CHAINS,
-    returnVariable: 'topHotelChains',
+    query: VISUAL,
+    title: 'topHotelChains',
+    returnVariable: 'visual',
   },
   {
-    query: TOP_HOTEL_TIERS,
-    returnVariable: 'topHotelTiers',
+    query: VISUAL,
+    title: 'topHotelTiers',
+    returnVariable: 'visual',
   },
   {
     query: DONUT,
@@ -226,8 +250,8 @@ export const BOTTOM_INFO = gql`
 `;
 
 export const LOGIN = gql`
-  query($username: String, $password: String) {
-    login(username: $username, password: $password) {
+  query($username: String, $pwd: String) {
+    login(username: $username, pwd: $pwd) {
       statusCode
       body {
         success
@@ -326,7 +350,7 @@ export const RISK_AREAS = gql`
         apidataset {
           prevCursor
           cursor
-          totalOpportunities
+          totalRiskAreas
           hasNext
           riskAreas {
             title

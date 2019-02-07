@@ -1,24 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import Story from './Story';
 
-class ProgramPerformance extends Component {
-  state = { view: 'home' };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.view !== 'home' && this.state.view !== 'home') {
-      this.setState({ view: 'home' });
-    }
-  }
-
-  changeView = view => {
-    this.setState({ view });
-  };
-
-  render() {
-    const { view } = this.state;
-    return (view === 'home' && <Home changeView={this.changeView} />) || <Story view={view} />;
-  }
-}
+const ProgramPerformance = () => (
+  <Switch>
+    <Route path={`/travel/program-performance`} exact component={Home} />
+    <Route
+      path={`/travel/program-performance/:story`}
+      render={({ location }) => (
+        <Story
+          view={location.pathname === '/travel/program-performance/air-story' ? 'air' : 'hotel'}
+        />
+      )}
+    />
+  </Switch>
+);
 
 export default ProgramPerformance;

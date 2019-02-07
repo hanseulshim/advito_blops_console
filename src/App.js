@@ -6,21 +6,15 @@ import GlobalStyle from 'styles/GlobalStyle';
 import UserContext from 'components/context/UserContext';
 import ViewContext from 'components/context/ViewContext';
 import Login from './components/Login';
-import Main from './components/Main';
 import Portal from './components/Portal';
 import TravelManager from './components/TravelManager';
+import Executive from './components/Executive';
+import UserView from './components/User';
 import { setUser, validateUser, removeUser } from './components/graphql/helper';
 
-const PrivateRoute = ({ authenticated, component: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        authenticated ? <Main component={Component} {...props} /> : <Redirect to="/login" />
-      }
-    />
-  );
-};
+const PrivateRoute = ({ authenticated, component: Component, collapse, ...rest }) => (
+  <Route {...rest} render={props => (authenticated ? <Component /> : <Redirect to="/login" />)} />
+);
 
 class App extends Component {
   state = { authenticated: false, view: 'dashboard', user: {} };
@@ -52,10 +46,15 @@ class App extends Component {
                 <GlobalStyle />
                 <Route path="/login" component={Login} />
                 <PrivateRoute path="/" exact component={Portal} authenticated={authenticated} />
+                {/* <PrivateRoute path="/" exact component={UserView} authenticated={authenticated} /> */}
                 <PrivateRoute
                   path="/travel"
-                  exact
                   component={TravelManager}
+                  authenticated={authenticated}
+                />
+                <PrivateRoute
+                  path="/executive"
+                  component={Executive}
                   authenticated={authenticated}
                 />
               </>

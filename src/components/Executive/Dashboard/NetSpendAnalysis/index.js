@@ -24,7 +24,7 @@ const NetSpendAnalysis = () => (
   <Container>
     <TitleContainer>
       <SectionTitle>Net Spend Analysis</SectionTitle>
-      <Link to="/travel/net-spend-analysis">
+      <Link to="/executive/net-spend-analysis">
         <Button spaceLeft text="view more" />
       </Link>
     </TitleContainer>

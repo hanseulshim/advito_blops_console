@@ -22,11 +22,11 @@ const MainContainer = styled.div`
   padding: 0em 4em;
 `;
 
-const TravelManagerContainer = styled.div`
+const ExecutiveContainer = styled.div`
   flex: 1;
 `;
 
-const TravelManager = () => (
+const Executive = () => (
   <Container>
     <CollapseSidebar>
       <UpcomingActions />
@@ -34,14 +34,14 @@ const TravelManager = () => (
     </CollapseSidebar>
     <MainContainer>
       <Header />
-      <TravelManagerContainer>
+      <ExecutiveContainer>
         <Switch>
-          <Route path={`/travel/dashboard`} exact component={Dashboard} />
-          <Route path={`/travel/:category`} component={Category} />
+          <Route path={`/executive/dashboard`} exact component={Dashboard} />
+          <Route path={`/executive/:category`} component={Category} />
         </Switch>
-      </TravelManagerContainer>
+      </ExecutiveContainer>
     </MainContainer>
   </Container>
 );
 
-export default TravelManager;
+export default Executive;

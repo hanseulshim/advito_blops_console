@@ -31,30 +31,30 @@ const HomeIcon = styled(Icon)`
 
 const NavItems = [
   {
-    link: '/travel/program-performance',
+    link: '/executive/program-performance',
     title: 'Program Performance',
   },
   {
-    link: '/travel/net-spend-analysis',
+    link: '/executive/net-spend-analysis',
     title: 'Net Spend Analysis',
   },
   {
-    link: '/travel/personas',
-    title: 'Personas',
+    link: '/executive/markets',
+    title: 'Markets',
   },
   {
-    link: '/travel/savings-opportunities',
+    link: '/executive/savings-opportunities',
     title: 'Savings Opportunities',
   },
   {
-    link: '/travel/risk-areas',
+    link: '/executive/risk-areas',
     title: 'Risk Areas',
   },
 ];
 
 const Navigation = ({ location }) => (
   <Container>
-    <Link to="/travel/dashboard">
+    <Link to="/executive/dashboard">
       <HomeIcon className="fas fa-home" />
     </Link>
     {NavItems.map((nav, index) => (

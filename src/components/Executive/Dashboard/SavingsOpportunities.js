@@ -11,6 +11,7 @@ import {
   Row,
   RowTitle,
   RightIcon,
+  Metric,
 } from './SavingsRiskStyle';
 
 const SavingsOpportunities = () => (
@@ -21,7 +22,7 @@ const SavingsOpportunities = () => (
     <GraphQL query={SAVINGS_OPPORTUNITIES_DASHBOARD} name="opportunities">
       {({ data }) =>
         data.opportunities.map((opportunity, index) => (
-          <Link to="/travel/savings-opportunities" key={index}>
+          <Link to="/executive/savings-opportunities" key={index}>
             <RowContainer>
               <Rank>{index + 1}</Rank>
               <Row first={index === 0}>
@@ -31,6 +32,18 @@ const SavingsOpportunities = () => (
                 </Value>
               </Row>
               <RightIcon className="fas fa-angle-right" />
+              <Metric>
+                <Value>$11k</Value>
+                <Unit>IT</Unit>
+              </Metric>
+              <Metric>
+                <Value>$3.1k</Value>
+                <Unit>Recruiting</Unit>
+              </Metric>
+              <Metric>
+                <Value>$2.9k</Value>
+                <Unit>Product</Unit>
+              </Metric>
             </RowContainer>
           </Link>
         ))

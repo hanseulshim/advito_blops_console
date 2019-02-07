@@ -163,13 +163,13 @@ class Donut extends Component {
   };
 
   createBreadcrumbs = (crumb, index) => (
-    <>
-      <Crumb key={index + crumb.label} onClick={e => this.removeLevel(crumb.context, index)}>
+    <React.Fragment key={index + crumb.label}>
+      <Crumb onClick={e => this.removeLevel(crumb.context, index)}>
         <CrumbLabel>{crumb.label}</CrumbLabel>
         <div>{metricFormat(crumb.total)}</div>
       </Crumb>
       {index !== this.state.chartLevel.length - 1 && <Spacer key={index}>></Spacer>}
-    </>
+    </React.Fragment>
   );
 
   render() {

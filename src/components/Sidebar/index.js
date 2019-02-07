@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { withRouter } from 'react-router-dom';
-import CollapseSidebar from './CollapseSidebar';
-import UpcomingActions from './UpcomingActions';
-import ActiveAlerts from './ActiveAlerts';
+
 import SidebarUserInfo from './SidebarUserInfo';
 
 const Container = styled.div`
@@ -13,19 +10,11 @@ const Container = styled.div`
   padding: 0 2.5em;
 `;
 
-const Sidebar = ({ location }) =>
-  location.pathname === '/' ? (
-    <Container>
-      <SidebarUserInfo />
-      <UpcomingActions />
-      <ActiveAlerts />
-    </Container>
-  ) : (
-    <CollapseSidebar>
-      <SidebarUserInfo />
-      <UpcomingActions />
-      <ActiveAlerts />
-    </CollapseSidebar>
-  );
+const Sidebar = ({ children }) => (
+  <Container>
+    <SidebarUserInfo />
+    {children}
+  </Container>
+);
 
-export default withRouter(Sidebar);
+export default Sidebar;

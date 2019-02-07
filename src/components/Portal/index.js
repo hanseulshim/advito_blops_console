@@ -1,36 +1,47 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import ViewContext from 'components/context/ViewContext';
+import Header from 'components/Header';
+import Sidebar from 'components/Sidebar';
+import UpcomingActions from 'components/Sidebar/UpcomingActions';
+import ActiveAlerts from 'components/Sidebar/ActiveAlerts';
 import { SectionTitle } from 'components/common/Typography';
 import ProgramSelect from './ProgramSelect';
 import BottomInfo from './BottomInfo';
 
 const Container = styled.div`
+  max-width: 1600px;
+  margin: auto;
+  display: flex;
+  position: relative;
+  height: 100%;
+`;
+
+const MainContainer = styled.div`
+  flex: 3;
+  padding: 0em 4em;
+`;
+
+const PortalContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: ${props => props.theme.verticalSpace};
 `;
 
-class PortalContext extends Component {
-  componentDidMount() {
-    this.props.changeView('dashboard');
-  }
-  render() {
-    return null;
-  }
-}
-
 const Portal = () => (
-  <ViewContext.Consumer>
-    {({ changeView }) => (
-      <Container>
-        <PortalContext changeView={changeView} />
+  <Container>
+    <Sidebar>
+      <UpcomingActions />
+      <ActiveAlerts />
+    </Sidebar>
+    <MainContainer>
+      <Header />
+      <PortalContainer>
         <SectionTitle>products</SectionTitle>
         <ProgramSelect />
         <BottomInfo />
-      </Container>
-    )}
-  </ViewContext.Consumer>
+      </PortalContainer>
+    </MainContainer>
+  </Container>
 );
 
 export default Portal;

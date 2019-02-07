@@ -5,6 +5,7 @@ import GraphQL from 'components/graphql';
 import { PROGRAM_PERFORMANCE } from 'components/graphql/query';
 import Button from 'components/common/Button';
 import { SectionTitle } from 'components/common/Typography';
+import Icon from 'components/common/Icon';
 
 const Container = styled.div`
   flex: 1;
@@ -23,44 +24,53 @@ const SectionContainer = styled.div`
 
 const Performance = styled.div`
   display: flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  height:100%;
   padding: 0.75em 0;
-  margin-top: 0.5em;
+  margin-top: 0.75em;
 `;
 
-const Title = styled.div`
-  flex: 1 1 12%;
-  margin-right: 1em;
-`;
+const Row = styled.div`
+`
 
-const Value = styled.div`
-  flex: 2;
-  color: ${props => props.theme.black};
-  font-size: 1.7em;
-`;
+const Score = styled.span`
+font-size:7em;
+color: ${props => props.theme.jungleMist};`
 
-const Unit = styled.span`
-  font-size: 1rem;
-`;
+const OutOf = styled.span`
+font-size:4em;
+color:${props => props.theme.grayNurse};`
+
+const Changes = styled.p`
+margin-top:2em;
+`
+
+
+
+
 
 const ProgramPerformance = () => (
   <Container>
     <SectionContainer>
       <SectionTitle>program performance</SectionTitle>
-      <Link to="/travel/program-performance">
+      <Link to="/executive/program-performance">
         <Button spaceLeft text="view more" />
       </Link>
     </SectionContainer>
     <GraphQL query={PROGRAM_PERFORMANCE} name="programPerformance">
       {({ data }) => (
         <>
-          {data.map(performance => (
-            <Performance key={performance.title}>
-              <Title>{performance.title}</Title>
-              <Value>
-                {performance.value} <Unit>{performance.unit}</Unit>
-              </Value>
-            </Performance>
-          ))}
+          <Performance>
+            <Row>
+              <Score>7.1</Score><OutOf>/8.7</OutOf>
+            </Row>
+            <Changes>
+              <Icon className="fas fa-leaf" style={{ marginRight: '5px' }} />
+              <span>No changes since July 30</span>
+            </Changes>
+          </Performance>
         </>
       )}
     </GraphQL>
