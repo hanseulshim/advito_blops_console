@@ -39,8 +39,8 @@ const NavItems = [
     title: 'Net Spend Analysis',
   },
   {
-    link: '/executive/personas',
-    title: 'Personas',
+    link: '/executive/markets',
+    title: 'Markets',
   },
   {
     link: '/executive/savings-opportunities',
