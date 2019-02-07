@@ -250,8 +250,8 @@ export const BOTTOM_INFO = gql`
 `;
 
 export const LOGIN = gql`
-  query($username: String, $password: String) {
-    login(username: $username, password: $password) {
+  query($username: String, $pwd: String) {
+    login(username: $username, pwd: $pwd) {
       statusCode
       body {
         success
