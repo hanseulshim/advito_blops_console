@@ -5,7 +5,7 @@ import GraphQL from 'components/graphql';
 import { PERSONAS } from 'components/graphql/query';
 import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
-import Select from '../../../common/Select';
+import Select from 'react-select';
 
 const PersonaContainer = styled.div`
   display: flex;
@@ -45,7 +45,7 @@ const TitleRow = styled.div`
 const ValueRow = styled.div`
   line-height: 1.7em;
   margin-bottom: 1em;
-  margin-top:1em;
+  margin-top: 1em;
 `;
 const ChartRow = styled.div`
   line-height: 6em;
@@ -53,12 +53,12 @@ const ChartRow = styled.div`
 
 let options = [
   {
-    id: 0,
-    title: 'Sort By Program Performance ',
+    value: 'Performance',
+    label: 'Sort By Program Performance ',
   },
   {
-    id: 1,
-    title: 'Sort By Program Share',
+    value: 'Share',
+    label: 'Sort By Program Share',
   },
 ];
 
@@ -66,28 +66,39 @@ class Markets extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sort: "Sort by Program Share"
-    }
+      sort: 'Sort by Program Share',
+    };
   }
 
-  onSelect = (selected) => {
+  onSelect = selected => {
     this.setState({
-      sort: selected.title
-    })
-  }
+      sort: selected.title,
+    });
+  };
 
   render() {
+    const { sort } = this.state;
     return (
       <GraphQL query={PERSONAS} name="personaList">
         {({ data }) => (
           <PersonaContainer>
             <Description>
               <TitleRow>
-                <Link to="/executive/personas"><SectionTitle>Markets</SectionTitle></Link>
+                <Link to="/executive/personas">
+                  <SectionTitle>Markets</SectionTitle>
+                </Link>
               </TitleRow>
-              <Select list={options} onSelect={this.onSelect} value={this.state.sort} />
+              <Select
+                value={sort}
+                onChange={this.onSelect}
+                options={options}
+                valueKey={options.l}
+              />
               <ValueRow>
-                <div>Side by side comparison of business areas providing an overview of their Total Program Performance and their Program Share based on volume.</div>
+                <div>
+                  Side by side comparison of business areas providing an overview of their Total
+                  Program Performance and their Program Share based on volume.
+                </div>
               </ValueRow>
             </Description>
             {data.map((persona, index) => (

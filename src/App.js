@@ -46,7 +46,7 @@ class App extends Component {
                 <GlobalStyle />
                 <Route path="/login" component={Login} />
                 <PrivateRoute path="/" exact component={Portal} authenticated={authenticated} />
-                {/* <PrivateRoute path="/" exact component={UserView} authenticated={authenticated} /> */}
+                <PrivateRoute path="/user" component={UserView} authenticated={authenticated} />
                 <PrivateRoute
                   path="/travel"
                   component={TravelManager}

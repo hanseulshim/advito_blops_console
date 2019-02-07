@@ -9,16 +9,16 @@ import advito_logo from 'assets/advito_logo.png';
 const Container = styled.div`
   display: flex;
   align-items: flex-end;
-  margin-top: ${props => (props.dashboard ? '1em' : '4.3em')};
+  margin-top: ${props => (props.dashboard ? '4.3em' : '4.3em')};
   @media (max-width: 1336px) {
-    margin-top: ${props => (props.dashboard ? '1em' : '5.3em')};
+    margin-top: ${props => (props.dashboard ? '5.3em' : '5.3em')};
   }
 `;
 
 const LogoContainer = styled.div`
-  flex: ${props => (props.dashboard ? '0.5' : '1')};
+  flex: 1;
   img {
-    width: ${props => (props.dashboard ? '70%' : '100%')};
+    width: 100%;
   }
 `;
 

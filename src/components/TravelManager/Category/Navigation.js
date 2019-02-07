@@ -20,6 +20,10 @@ const NavItem = styled(Link)`
   border-top-right-radius: 1em;
   background: ${props => props.replace && props.theme.white};
   cursor: pointer;
+
+  :hover {
+    color: ${props => props.theme.jungleMist};
+  }
 `;
 
 const HomeIcon = styled(Icon)`
