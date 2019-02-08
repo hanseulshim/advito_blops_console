@@ -158,26 +158,26 @@ export const DONUT = gql`
 `;
 
 export const AIR_STORY_QUERIES = [
-  // {
-  //   query: AIR_MAP,
-  //   title: 'airSummary',
-  //   returnVariable: 'airMap',
-  // },
-  // {
-  //   query: AIR_MAP,
-  //   title: 'trafficLaneOverview',
-  //   returnVariable: 'airMap',
-  // },
-  // {
-  //   query: VISUAL,
-  //   title: 'topAirlines',
-  //   returnVariable: 'visual',
-  // },
-  // {
-  //   query: VISUAL,
-  //   title: 'cabinUse',
-  //   returnVariable: 'visual',
-  // },
+  {
+    query: AIR_MAP,
+    title: 'airSummary',
+    returnVariable: 'airMap',
+  },
+  {
+    query: AIR_MAP,
+    title: 'trafficLaneOverview',
+    returnVariable: 'airMap',
+  },
+  {
+    query: VISUAL,
+    title: 'topAirlines',
+    returnVariable: 'visual',
+  },
+  {
+    query: VISUAL,
+    title: 'cabinUse',
+    returnVariable: 'visual',
+  },
   {
     query: DONUT,
     title: 'airRoot',

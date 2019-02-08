@@ -1,24 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
+import { NavItem } from 'styles/Navigation';
 import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
   align-items: flex-end;
-`;
-
-const NavItem = styled(Link)`
-  flex: 1;
-  text-align: center;
-  font-weight: 500;
-  color: #000;
-  text-transform: uppercase;
-  padding: 1em;
-  border-top-left-radius: 1em;
-  border-top-right-radius: 1em;
-  background: ${props => props.replace && props.theme.white};
-  cursor: pointer;
 `;
 
 const NavItems = [
