@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import GraphQL from 'components/graphql';
-import { PERSONAS } from 'components/graphql/query';
+import { MARKETS } from 'components/graphql/query';
 import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
 import Select from 'react-select';
 
-const PersonaContainer = styled.div`
+const MarketContainer = styled.div`
   display: flex;
   margin-top: ${props => props.theme.verticalSpace};
   background: ${props => props.theme.white};
@@ -21,7 +21,7 @@ const Description = styled.div`
   flex: 1;
 `;
 
-const Persona = styled.div`
+const Market = styled.div`
   cursor: pointer;
   text-align: center;
   display: flex;
@@ -79,21 +79,16 @@ class Markets extends Component {
   render() {
     const { sort } = this.state;
     return (
-      <GraphQL query={PERSONAS} name="personaList">
+      <GraphQL query={MARKETS} name="marketList">
         {({ data }) => (
-          <PersonaContainer>
+          <MarketContainer>
             <Description>
               <TitleRow>
                 <Link to="/executive/personas">
                   <SectionTitle>Markets</SectionTitle>
                 </Link>
               </TitleRow>
-              <Select
-                value={sort}
-                onChange={this.onSelect}
-                options={options}
-                valueKey={options.l}
-              />
+              <Select value={sort} onChange={this.onSelect} options={options} />
               <ValueRow>
                 <div>
                   Side by side comparison of business areas providing an overview of their Total
@@ -101,20 +96,20 @@ class Markets extends Component {
                 </div>
               </ValueRow>
             </Description>
-            {data.map((persona, index) => (
-              <Persona key={index} first={index === 0}>
+            {data.map((market, index) => (
+              <Market key={index} first={index === 0}>
                 <TitleRow>
-                  <TitleTransform>{persona.title}</TitleTransform>
+                  <TitleTransform>{market.title}</TitleTransform>
                 </TitleRow>
                 <ValueRow>
-                  <ValueSized>{persona.value}</ValueSized>
+                  <ValueSized>{market.value}</ValueSized>
                 </ValueRow>
                 <ChartRow>
-                  <CircleChart percent={persona.programShare} />
+                  <CircleChart percent={market.programShare} />
                 </ChartRow>
-              </Persona>
+              </Market>
             ))}
-          </PersonaContainer>
+          </MarketContainer>
         )}
       </GraphQL>
     );

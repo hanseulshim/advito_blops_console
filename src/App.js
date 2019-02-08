@@ -9,7 +9,6 @@ import Portal from './components/Portal';
 import TravelManager from './components/TravelManager';
 import Executive from './components/Executive';
 import User from './components/User';
-// import UserView from './components/User';
 import { setUser, validateUser, removeUser } from './components/graphql/helper';
 
 const PrivateRoute = ({ authenticated, component: Component, collapse, ...rest }) => (

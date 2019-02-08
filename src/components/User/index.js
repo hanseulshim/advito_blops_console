@@ -11,9 +11,6 @@ import ClientSetupSidebar from './ClientSetup/ClientSetupSidebar';
 import UserAcess from './UserAccess';
 import UserAccessSidebar from './UserAccess/UserAccessSidebar';
 
-import AppSettings from './AppSettings';
-import AppSettingsSidebar from './AppSettings/AppSettingsSidebar';
-
 import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
 
