@@ -8,6 +8,9 @@ import ProgramPerformance from './ProgramPerformance';
 const Container = styled.div`
   padding: 2em 4em;
   background: ${props => props.theme.white};
+  border-left: ${props => `1px solid ${props.theme.grayNurse}`};
+  border-right: ${props => `1px solid ${props.theme.grayNurse}`};
+  border-bottom: ${props => `1px solid ${props.theme.grayNurse}`};
 `;
 
 const Category = () => {

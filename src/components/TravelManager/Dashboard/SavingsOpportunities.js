@@ -21,18 +21,18 @@ const SavingsOpportunities = () => (
     <GraphQL query={SAVINGS_OPPORTUNITIES_DASHBOARD} name="opportunities">
       {({ data }) =>
         data.opportunities.map((opportunity, index) => (
-          <Link to="/travel/savings-opportunities" key={index}>
-            <RowContainer>
-              <Rank>{index + 1}</Rank>
-              <Row first={index === 0}>
-                <RowTitle>{opportunity.title}</RowTitle>
-                <Value>
-                  {opportunity.value} <Unit>{opportunity.unit}</Unit>
-                </Value>
-              </Row>
+          <RowContainer key={index}>
+            <Rank>{index + 1}</Rank>
+            <Row first={index === 0}>
+              <RowTitle>{opportunity.title}</RowTitle>
+              <Value>
+                {opportunity.value} <Unit>{opportunity.unit}</Unit>
+              </Value>
+            </Row>
+            <Link to="/travel/savings-opportunities">
               <RightIcon className="fas fa-angle-right" />
-            </RowContainer>
-          </Link>
+            </Link>
+          </RowContainer>
         ))
       }
     </GraphQL>

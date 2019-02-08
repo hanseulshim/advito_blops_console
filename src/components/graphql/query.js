@@ -150,6 +150,13 @@ export const DONUT = gql`
             category
             value
             nextLevel
+            tooltip {
+              title
+              tooltipData {
+                name
+                value
+              }
+            }
           }
         }
       }
@@ -250,7 +257,7 @@ export const BOTTOM_INFO = gql`
 `;
 
 export const LOGIN = gql`
-  query($username: String, $pwd: String) {
+  query($username: String!, $pwd: String!) {
     login(username: $username, pwd: $pwd) {
       statusCode
       body {
@@ -268,9 +275,41 @@ export const LOGIN = gql`
   }
 `;
 
+export const LOGOUT = gql`
+  query($sessionToken: String!) {
+    logout(sessionToken: $sessionToken) {
+      statusCode
+      body {
+        success
+        apicode
+        apimessage
+        apidataset
+      }
+    }
+  }
+`;
+
 export const PERSONAS = gql`
   query($clientId: Int!, $sessionToken: String!) {
     personaList(clientId: $clientId, sessionToken: $sessionToken) {
+      statusCode
+      body {
+        success
+        apicode
+        apimessage
+        apidataset {
+          title
+          value
+          programShare
+        }
+      }
+    }
+  }
+`;
+
+export const MARKETS = gql`
+  query($clientId: Int!, $sessionToken: String!) {
+    marketList(clientId: $clientId, sessionToken: $sessionToken) {
       statusCode
       body {
         success
@@ -402,6 +441,25 @@ export const UPCOMING_ACTIONS = gql`
           header
           secondaryHeader
           icon
+        }
+      }
+    }
+  }
+`;
+
+export const USER_PROFILE = gql`
+  query($clientId: Int!, $sessionToken: String!) {
+    userProfile(clientId: $clientId, sessionToken: $sessionToken) {
+      statusCode
+      body {
+        apidataset {
+          firstName
+          lastName
+          profilePicturePath
+          username
+          timeFormat
+          timeZone
+          emailNotifications
         }
       }
     }

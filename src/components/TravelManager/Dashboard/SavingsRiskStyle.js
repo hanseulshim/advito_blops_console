@@ -15,7 +15,6 @@ export const TitleContainer = styled.div`
 
 export const RowContainer = styled.div`
   display: flex;
-  cursor: pointer;
   align-items: center;
   margin-right: 40px;
 `;

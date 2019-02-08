@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
-import ViewContext from 'components/context/ViewContext';
 
 const Container = styled.div`
   display: flex;
@@ -27,28 +26,55 @@ const BackTo = styled(Text)`
   }
 `;
 
-const getPrevious = (path, view) => {
-  if (path === '/travel') {
-    return view === 'dashboard' ? 'Console' : 'Travel Manager Dashboard';
-  } else {
-    return view === 'dashboard' ? 'Console' : 'Executive Dashboard';
+const getPath = path => {
+  if (path.includes('travel')) return 'Travel Manager Dashboard';
+  else if (path.includes('executive')) return 'Executive Dashboard';
+};
+
+const getSubPath = subpath => {
+  switch (subpath) {
+    case 'program-performance':
+      return 'Program Performance';
+    case 'net-spend-analysis':
+      return 'Net Spend Analysis';
+    case 'personas':
+      return 'Personas';
+    case 'markets':
+      return 'Markets';
+    case 'savings-opportunities':
+      return 'Savings Opportunities';
+    case 'risk-areas':
+      return 'Risk Areas';
+    default:
+      return '';
   }
 };
 
-const BreadCrumbs = ({ location }) => (
-  <ViewContext.Consumer>
-    {({ view, changeView }) => (
-      <Container>
-        <Link replace to={view === 'dashboard' ? '/' : location.pathname}>
-          <BackTo onClick={() => changeView('dashboard')}>
-            {'«'} Back to {getPrevious(location.pathname, view)}
-          </BackTo>
+const BreadCrumbs = ({ location }) => {
+  const { pathname } = location;
+  const subPaths = pathname.split('/');
+  const renderSubPaths = subPaths.length === 3 && subPaths[2] !== 'dashboard';
+  return (
+    <Container>
+      <Link replace to={'/'}>
+        <BackTo>{'«'} Back to Console</BackTo>
+      </Link>
+      <Spacer>|</Spacer>
+      {renderSubPaths ? (
+        <Link to={`/${subPaths[1]}/dashboard`}>
+          <BackTo>{getPath(pathname)}</BackTo>
         </Link>
-        <Spacer>|</Spacer>
-        <Text>{view === 'dashboard' ? 'Travel Manager Dashboard' : view}</Text>
-      </Container>
-    )}
-  </ViewContext.Consumer>
-);
+      ) : (
+        <Text>{getPath(pathname)}</Text>
+      )}
+      {renderSubPaths && (
+        <>
+          <Spacer>|</Spacer>
+          <Text>{getSubPath(subPaths[2])}</Text>
+        </>
+      )}
+    </Container>
+  );
+};
 
 export default withRouter(BreadCrumbs);

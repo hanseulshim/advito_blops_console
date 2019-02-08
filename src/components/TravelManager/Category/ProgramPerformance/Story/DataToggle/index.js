@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Toggle from 'react-toggle';
 import Slider from 'rc-slider';
+import Select from 'react-select';
 import 'rc-slider/assets/index.css';
 import './toggle.scss';
 import './slider.scss';
@@ -30,6 +31,10 @@ const View = styled.div`
   color: #000;
 `;
 
+const SelectContainer = styled.div`
+  width: 200px;
+`;
+
 const ToggleLabel = styled.div`
   display: flex;
   justify-content: space-between;
@@ -40,7 +45,14 @@ const Label = styled.span`
   color: ${props => props.active && '#000'};
 `;
 
-const DataToggle = ({ dataView, toggleDataView }) => {
+const options = [
+  { value: 'percentSpend', label: 'Percent of Spend' },
+  { value: 'percentSavings', label: 'Percent of Savings' },
+  { value: 'amountSpend', label: 'Percent of Spend' },
+  { value: 'amountSavings', label: 'Percent of Savings' },
+];
+
+const DataToggle = ({ dataView, donutDataView, toggleDataView, donutData }) => {
   return (
     <Container>
       <ToggleContainer year>
@@ -58,13 +70,19 @@ const DataToggle = ({ dataView, toggleDataView }) => {
       </ToggleContainer>
       <ToggleContainer>
         <View>DATA VIEW:</View>
-        <div>
-          <ToggleLabel>
-            <Label active={dataView === 'value'}>#</Label>
-            <Label active={dataView === 'percent'}>%</Label>
-          </ToggleLabel>
-          <Toggle checked={dataView === 'percent'} icons={false} onChange={toggleDataView} />
-        </div>
+        {donutData ? (
+          <SelectContainer>
+            <Select value={donutDataView} options={options} onChange={toggleDataView} />
+          </SelectContainer>
+        ) : (
+          <div>
+            <ToggleLabel>
+              <Label active={dataView === 'value'}>#</Label>
+              <Label active={dataView === 'percent'}>%</Label>
+            </ToggleLabel>
+            <Toggle checked={dataView === 'percent'} icons={false} onChange={toggleDataView} />
+          </div>
+        )}
       </ToggleContainer>
     </Container>
   );

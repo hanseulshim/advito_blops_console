@@ -66,7 +66,6 @@ class Donut extends Component {
     pieSeries.data = data;
     pieSeries.colors.list = colors.map(color => am4core.color(color));
     this.chart.numberFormatter.numberFormat = '#.##a';
-
     pieSeries.dataFields.value = 'value';
     pieSeries.dataFields.category = 'category';
     pieSeries.dataFields.nextLevel = 'nextLevel';
@@ -75,10 +74,42 @@ class Donut extends Component {
       pieSeries.labels.template.text = '{category}: {value}';
     }
 
+    pieSeries.tooltip.getFillFromObject = false;
+    pieSeries.tooltip.label.fill = am4core.color('#000');
+    pieSeries.tooltip.background.fill = am4core.color('#FFF');
+    pieSeries.tooltip.background.stroke = am4core.color('#c9ceca');
+    pieSeries.tooltip.background.fillOpacity = 1;
+    pieSeries.tooltip.background.adapter.add('cornerRadius', () => 25);
+    pieSeries.tooltip.background.pointerLength = 0;
+    const dropShadow = new am4core.DropShadowFilter();
+    dropShadow.opacity = 0;
+    pieSeries.tooltip.background.filters.push(dropShadow);
+
+    const lastContext = this.state.chartLevel.slice(-1)[0];
+    if (lastContext && lastContext.context === 'jfk') {
+      pieSeries.slices.template.adapter.add('tooltipHTML', (_, context) => {
+        const tooltip = context.dataItem.dataContext.tooltip;
+        return `
+          <div style="padding: 5px;">
+          <div style="margin-top:5px;"><strong>${tooltip.title}</strong></div>
+          <table>
+          ${tooltip.tooltipData
+            .map(
+              data =>
+                `<tr>
+              <td>${Math.round(data.value * 100)}%</td>
+              <td>${data.name}</td>
+            </tr>`
+            )
+            .join('')}
+          </table></div>
+          `;
+      });
+    } else {
+      pieSeries.slices.template.tooltipText = '';
+    }
+
     pieSeries.slices.template.innerRadius = am4core.percent(85);
-    // pieSeries.alignLabels = false;
-    // pieSeries.ticks.template.disabled = true;
-    pieSeries.slices.template.tooltipText = '';
     pieSeries.slices.template.togglable = false;
     pieSeries.slices.template.events.on('hit', this.changeSeries);
 
@@ -125,12 +156,16 @@ class Donut extends Component {
 
         this.chart.series.clear();
         this.chart.seriesContainer.disposeChildren();
-        this.createChart(donutData, colors, label, total);
         const chartLevel = this.state.chartLevel.slice();
         chartLevel.push({ label, context, total });
-        this.setState({
-          chartLevel,
-        });
+        this.setState(
+          {
+            chartLevel,
+          },
+          () => {
+            this.createChart(donutData, colors, label, total);
+          }
+        );
       }
     }
   };
@@ -154,11 +189,15 @@ class Donut extends Component {
 
       this.chart.series.clear();
       this.chart.seriesContainer.disposeChildren();
-      this.createChart(donutData, colors, label, total);
       const chartLevel = this.state.chartLevel.slice(0, index + 1);
-      this.setState({
-        chartLevel,
-      });
+      this.setState(
+        {
+          chartLevel,
+        },
+        () => {
+          this.createChart(donutData, colors, label, total);
+        }
+      );
     }
   };
 
