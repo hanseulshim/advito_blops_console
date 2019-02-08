@@ -88,7 +88,6 @@ const Home = () => (
                 <ValueSpaced>
                   {performance.value} <Unit>{performance.unit}</Unit>
                 </ValueSpaced>
-                {console.log('data', data)}
               </div>
               <LineChart index={index} />
             </Performance>

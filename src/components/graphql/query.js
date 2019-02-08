@@ -150,6 +150,13 @@ export const DONUT = gql`
             category
             value
             nextLevel
+            tooltip {
+              title
+              tooltipData {
+                name
+                value
+              }
+            }
           }
         }
       }

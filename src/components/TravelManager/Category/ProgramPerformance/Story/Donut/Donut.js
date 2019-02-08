@@ -66,7 +66,6 @@ class Donut extends Component {
     pieSeries.data = data;
     pieSeries.colors.list = colors.map(color => am4core.color(color));
     this.chart.numberFormatter.numberFormat = '#.##a';
-
     pieSeries.dataFields.value = 'value';
     pieSeries.dataFields.category = 'category';
     pieSeries.dataFields.nextLevel = 'nextLevel';
@@ -88,35 +87,24 @@ class Donut extends Component {
 
     const lastContext = this.state.chartLevel.slice(-1)[0];
     if (lastContext && lastContext.context === 'jfk') {
-      pieSeries.slices.template.adapter.add(
-        'tooltipHTML',
-        () => `
-      <div style="padding: 5px;">
-      <div style="margin-top:5px;"><strong>TOP AIRLINES</strong></div>
-      <table>
-      <tr>
-        <td>${Math.floor(Math.random() * 100)}%</td>
-        <td>British Airways</td>
-      </tr>
-      <tr>
-        <td>${Math.floor(Math.random() * 100)}%</td>
-        <td>Lufthansa</td>
-      </tr>
-      <tr>
-        <td>${Math.floor(Math.random() * 100)}%</td>
-        <td>KLM</td>
-      </tr>
-      <tr>
-        <td>${Math.floor(Math.random() * 100)}%</td>
-        <td>Singapore Airlines</td>
-      </tr>
-      <tr>
-        <td>${Math.floor(Math.random() * 100)}%</td>
-        <td>Other</td>
-      </tr>
-      </table></div>
-      `
-      );
+      pieSeries.slices.template.adapter.add('tooltipHTML', (_, context) => {
+        const tooltip = context.dataItem.dataContext.tooltip;
+        return `
+          <div style="padding: 5px;">
+          <div style="margin-top:5px;"><strong>${tooltip.title}</strong></div>
+          <table>
+          ${tooltip.tooltipData
+            .map(
+              data =>
+                `<tr>
+              <td>${Math.round(data.value * 100)}%</td>
+              <td>${data.name}</td>
+            </tr>`
+            )
+            .join('')}
+          </table></div>
+          `;
+      });
     } else {
       pieSeries.slices.template.tooltipText = '';
     }
