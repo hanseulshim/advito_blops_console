@@ -302,7 +302,7 @@ export const PERSONAS = gql`
 
 export const MARKETS = gql`
   query($clientId: Int!, $sessionToken: String!) {
-    personaList(clientId: $clientId, sessionToken: $sessionToken) {
+    marketList(clientId: $clientId, sessionToken: $sessionToken) {
       statusCode
       body {
         success

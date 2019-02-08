@@ -24,32 +24,29 @@ const SectionContainer = styled.div`
 
 const Performance = styled.div`
   display: flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  height:100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
   padding: 0.75em 0;
   margin-top: 0.75em;
 `;
 
-const Row = styled.div`
-`
+const Row = styled.div``;
 
 const Score = styled.span`
-font-size:7em;
-color: ${props => props.theme.jungleMist};`
+  font-size: 7em;
+  color: ${props => props.theme.easternWind};
+`;
 
 const OutOf = styled.span`
-font-size:4em;
-color:${props => props.theme.grayNurse};`
+  font-size: 4em;
+  color: ${props => props.theme.grayNurse};
+`;
 
 const Changes = styled.p`
-margin-top:2em;
-`
-
-
-
-
+  margin-top: 2em;
+`;
 
 const ProgramPerformance = () => (
   <Container>
@@ -64,7 +61,8 @@ const ProgramPerformance = () => (
         <>
           <Performance>
             <Row>
-              <Score>7.1</Score><OutOf>/8.7</OutOf>
+              <Score>7.1</Score>
+              <OutOf>/8.7</OutOf>
             </Row>
             <Changes>
               <Icon className="fas fa-leaf" style={{ marginRight: '5px' }} />

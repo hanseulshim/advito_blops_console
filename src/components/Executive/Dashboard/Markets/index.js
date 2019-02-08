@@ -50,6 +50,11 @@ const ValueRow = styled.div`
 const ChartRow = styled.div`
   line-height: 6em;
 `;
+const ChartLabel = styled.span`
+  position: relative;
+  bottom: 25px;
+  color: ${props => props.theme.steelBlue};
+`;
 
 let options = [
   {
@@ -66,25 +71,26 @@ class Markets extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sort: 'Sort by Program Share',
+      sort: options[0],
     };
   }
 
   onSelect = selected => {
     this.setState({
-      sort: selected.title,
+      sort: selected,
     });
   };
 
   render() {
     const { sort } = this.state;
+    let sortVar = sort.value === 'Performance' ? 'value' : 'programShare';
     return (
       <GraphQL query={MARKETS} name="marketList">
         {({ data }) => (
           <MarketContainer>
             <Description>
               <TitleRow>
-                <Link to="/executive/personas">
+                <Link to="/executive/markets">
                   <SectionTitle>Markets</SectionTitle>
                 </Link>
               </TitleRow>
@@ -96,19 +102,24 @@ class Markets extends Component {
                 </div>
               </ValueRow>
             </Description>
-            {data.map((market, index) => (
-              <Market key={index} first={index === 0}>
-                <TitleRow>
-                  <TitleTransform>{market.title}</TitleTransform>
-                </TitleRow>
-                <ValueRow>
-                  <ValueSized>{market.value}</ValueSized>
-                </ValueRow>
-                <ChartRow>
-                  <CircleChart percent={market.programShare} />
-                </ChartRow>
-              </Market>
-            ))}
+            {data
+              .sort((a, b) => {
+                return b[sortVar] - a[sortVar];
+              })
+              .map((market, index) => (
+                <Market key={index} first={index === 0}>
+                  <TitleRow>
+                    <TitleTransform>{market.title}</TitleTransform>
+                  </TitleRow>
+                  <ValueRow>
+                    <ValueSized>{market.value}</ValueSized>
+                  </ValueRow>
+                  <ChartRow>
+                    <CircleChart percent={market.programShare} />
+                    <ChartLabel>Program Share</ChartLabel>
+                  </ChartRow>
+                </Market>
+              ))}
           </MarketContainer>
         )}
       </GraphQL>
