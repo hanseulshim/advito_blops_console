@@ -21,16 +21,16 @@ const RiskAreas = () => (
     <GraphQL query={RISK_AREAS} name="riskAreas">
       {({ data }) =>
         data.riskAreas.map((riskArea, index) => (
-          <Link to="/travel/risk-areas" key={index}>
-            <RowContainer>
-              <Rank>{index + 1}</Rank>
-              <Row first={index === 0}>
-                <RowTitle>{riskArea.title}</RowTitle>
-                <Value>{riskArea.value}</Value>
-              </Row>
+          <RowContainer key={index}>
+            <Rank>{index + 1}</Rank>
+            <Row first={index === 0}>
+              <RowTitle>{riskArea.title}</RowTitle>
+              <Value>{riskArea.value}</Value>
+            </Row>
+            <Link to="/travel/risk-areas">
               <RightIcon className="fas fa-angle-right" />
-            </RowContainer>
-          </Link>
+            </Link>
+          </RowContainer>
         ))
       }
     </GraphQL>
