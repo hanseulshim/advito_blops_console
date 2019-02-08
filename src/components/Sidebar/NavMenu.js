@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import UserContext from 'components/context/UserContext';
 
 const MenuContainer = styled.div`
   background-color: ${props => props.theme.treePoppy};
@@ -10,7 +11,7 @@ const MenuContainer = styled.div`
   padding: 1em 2em;
   color: ${props => props.theme.white};
   position: absolute;
-  bottom: -170%;
+  bottom: -150%;
   right: 0;
   border-radius: 5%;
   cursor: pointer;
@@ -27,35 +28,33 @@ const NavItem = styled(Link)`
 
 const NavItems = [
   {
-    link: 'user/userProfile',
+    link: '/user-profile',
     title: 'User Profile',
   },
   {
-    link: 'user/clientSetup',
+    link: '/client-setup',
     title: 'Client Setup',
   },
   {
-    link: 'user/userAccess',
+    link: '/user-access',
     title: 'User Access',
   },
   {
-    link: 'user/appSettings',
-    title: 'App Settings',
-  },
-  {
-    link: 'user/login',
+    link: '/login',
     title: 'Log Out',
   },
 ];
 
 const NavMenu = ({ location }) => (
-  <MenuContainer>
-    {NavItems.map((nav, index) => (
-      <NavItem key={index} to={nav.link}>
-        {nav.title}
-      </NavItem>
-    ))}
-  </MenuContainer>
+  <UserContext.Consumer>
+    <MenuContainer>
+      {NavItems.map((nav, index) => (
+        <NavItem key={index} to={nav.link} replace={location.pathname.includes(nav.link)}>
+          {nav.title}
+        </NavItem>
+      ))}
+    </MenuContainer>
+  </UserContext.Consumer>
 );
 
 export default withRouter(NavMenu);

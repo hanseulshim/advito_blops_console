@@ -68,7 +68,7 @@ class SideBarUserInfo extends React.Component {
         {({ user }) => (
           <Container>
             <TitleContainer>
-              <Link to="/user/userProfile">
+              <Link to="/user-profile">
                 <Image>
                   <img src={Shayan} alt="avatar" />
                 </Image>
