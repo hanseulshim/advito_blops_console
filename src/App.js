@@ -16,10 +16,10 @@ const PrivateRoute = ({ authenticated, component: Component, collapse, ...rest }
 );
 
 class App extends Component {
-  state = { authenticated: false, user: {} };
-  componentDidMount() {
+  constructor() {
+    super();
     const userCheck = validateUser();
-    this.setState({ authenticated: userCheck.authenticated, user: userCheck.user });
+    this.state = { authenticated: userCheck.authenticated, user: userCheck.user };
   }
   removeUser = () => {
     removeUser();
