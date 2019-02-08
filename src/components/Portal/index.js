@@ -29,7 +29,7 @@ const PortalContainer = styled.div`
 
 const Portal = () => (
   <Container>
-    <Sidebar>
+    <Sidebar bgColor={'white'}>
       <UpcomingActions />
       <ActiveAlerts />
     </Sidebar>
