@@ -28,6 +28,7 @@ class Story extends Component {
     this.state = {
       viewIndex: 0,
       dataView: 'value',
+      donutDataView: { value: 'percentSpend', label: 'Percent of Spend' },
       data: [],
     };
   }
@@ -58,7 +59,10 @@ class Story extends Component {
     this.setState({ data });
   }
 
-  toggleDataView = () => {
+  toggleDataView = e => {
+    if (e.value) {
+      this.setState({ donutDataView: e });
+    }
     if (this.state.dataView === 'value') {
       this.setState({ dataView: 'percent' });
     } else {
@@ -82,12 +86,17 @@ class Story extends Component {
     }
   };
   render() {
-    const { data, viewIndex, dataView } = this.state;
+    const { data, viewIndex, dataView, donutDataView } = this.state;
     const { view } = this.props;
 
     return (
       <Container>
-        <DataToggle dataView={dataView} toggleDataView={this.toggleDataView} />
+        <DataToggle
+          dataView={dataView}
+          donutDataView={donutDataView}
+          toggleDataView={this.toggleDataView}
+          donutData={data.length !== 0 && !!data[viewIndex].donutData}
+        />
         {data.length === 0 ? (
           <Loader />
         ) : data[viewIndex].donutData ? (
