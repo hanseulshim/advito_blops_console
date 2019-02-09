@@ -60,7 +60,7 @@ class Donut extends Component {
     });
   }
 
-  createChart(data, colors, label, total) {
+  createChart(data, colors, label, total, last) {
     this.chart.validateData();
     const pieSeries = this.chart.series.push(new am4charts.PieSeries());
     pieSeries.data = data;
@@ -84,12 +84,10 @@ class Donut extends Component {
     const dropShadow = new am4core.DropShadowFilter();
     dropShadow.opacity = 0;
     pieSeries.tooltip.background.filters.push(dropShadow);
-
-    const lastContext = this.state.chartLevel.slice(-1)[0];
-    if (lastContext && lastContext.context === 'jfk') {
-      pieSeries.slices.template.adapter.add('tooltipHTML', (_, context) => {
-        const tooltip = context.dataItem.dataContext.tooltip;
-        return `
+    last
+      ? pieSeries.slices.template.adapter.add('tooltipHTML', (_, context) => {
+          const tooltip = context.dataItem.dataContext.tooltip;
+          return `
           <div style="padding: 5px;">
           <div style="margin-top:5px;"><strong>${tooltip.title}</strong></div>
           <table>
@@ -104,10 +102,8 @@ class Donut extends Component {
             .join('')}
           </table></div>
           `;
-      });
-    } else {
-      pieSeries.slices.template.tooltipText = '';
-    }
+        })
+      : (pieSeries.slices.template.tooltipText = '');
 
     pieSeries.slices.template.innerRadius = am4core.percent(85);
     pieSeries.slices.template.togglable = false;
@@ -151,6 +147,7 @@ class Donut extends Component {
           label,
           context,
           total,
+          last,
         } = data.donut.body.apidataset;
         this.props.updateInfo(title, summary);
 
@@ -158,14 +155,10 @@ class Donut extends Component {
         this.chart.seriesContainer.disposeChildren();
         const chartLevel = this.state.chartLevel.slice();
         chartLevel.push({ label, context, total });
-        this.setState(
-          {
-            chartLevel,
-          },
-          () => {
-            this.createChart(donutData, colors, label, total);
-          }
-        );
+        this.setState({
+          chartLevel,
+        });
+        this.createChart(donutData, colors, label, total, last);
       }
     }
   };
@@ -184,20 +177,16 @@ class Donut extends Component {
     if (data.donut.statusCode !== 200) {
       this.props.removeUser();
     } else {
-      const { title, summary, donutData, colors, label, total } = data.donut.body.apidataset;
+      const { title, summary, donutData, colors, label, total, last } = data.donut.body.apidataset;
       this.props.updateInfo(title, summary);
 
       this.chart.series.clear();
       this.chart.seriesContainer.disposeChildren();
       const chartLevel = this.state.chartLevel.slice(0, index + 1);
-      this.setState(
-        {
-          chartLevel,
-        },
-        () => {
-          this.createChart(donutData, colors, label, total);
-        }
-      );
+      this.setState({
+        chartLevel,
+      });
+      this.createChart(donutData, colors, label, total, last);
     }
   };
 
