@@ -1,7 +1,4 @@
 import gql from 'graphql-tag';
-// TODO: DELETE THESE FILES EVENTUALLY
-// import { AIR_SUMMARY, AIR_TRAFFIC, AIR_AIRLINES, AIR_CABINS } from './airStory';
-// import { HOTEL_SUMMARY, HOTEL_SPEND, TOP_HOTEL_CHAINS, TOP_HOTEL_TIERS } from './hotelStory';
 
 export const AIR_MAP = gql`
   query($clientId: Int!, $sessionToken: String!, $title: String!) {
