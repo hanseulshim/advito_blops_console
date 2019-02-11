@@ -20,6 +20,7 @@ const LogoContainer = styled.div`
   img {
     width: 75%;
   }
+  align-self:flex-start;
 `;
 
 const TimeSupportContainer = styled.div`

@@ -13,7 +13,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 1.5em;
-  margin-bottom:1.5em;
+  flex:1;
   position: relative;
 `;
 
