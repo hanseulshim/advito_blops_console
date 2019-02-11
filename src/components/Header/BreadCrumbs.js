@@ -27,8 +27,20 @@ const BackTo = styled(Text)`
 `;
 
 const getPath = path => {
-  if (path.includes('travel')) return 'Travel Manager Dashboard';
-  else if (path.includes('executive')) return 'Executive Dashboard';
+  switch (path) {
+    case 'travel':
+      return 'Travel Manager Dashboard';
+    case 'executive':
+      return 'Executive Dashboard';
+    case 'user-profile':
+      return 'User Profile';
+    case 'client-setup':
+      return 'Client Setup';
+    case 'user-access':
+      return 'User Access';
+    default:
+      return '';
+  }
 };
 
 const getSubPath = subpath => {
@@ -62,10 +74,10 @@ const BreadCrumbs = ({ location }) => {
       <Spacer>|</Spacer>
       {renderSubPaths ? (
         <Link to={`/${subPaths[1]}/dashboard`}>
-          <BackTo>{getPath(pathname)}</BackTo>
+          <BackTo>{getPath(subPaths[1])}</BackTo>
         </Link>
       ) : (
-        <Text>{getPath(pathname)}</Text>
+        <Text>{getPath(subPaths[1])}</Text>
       )}
       {renderSubPaths && (
         <>
