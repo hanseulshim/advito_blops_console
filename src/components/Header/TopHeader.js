@@ -52,16 +52,18 @@ const TopHeader = ({ location }) => {
           <img src={advito_logo} alt="advito logo" />
         </Link>
       </LogoContainer>
-      {!collapse && (
-        <TimeSupportContainer>
-          <Time timeZone={newYork} zone="Washington, DC" />
-          <Time timeZone={london} zone="London, UK" />
-          <IconContainer>
-            <AddyIcon className="far fa-comment-alt" />
-            <span>Ask Addy</span>
-          </IconContainer>
-        </TimeSupportContainer>
-      )}
+      <TimeSupportContainer>
+        {!collapse && (
+          <>
+            <Time timeZone={newYork} zone="Washington, DC" />
+            <Time timeZone={london} zone="London, UK" />
+          </>
+        )}
+        <IconContainer>
+          <AddyIcon className="far fa-comment-alt" />
+          <span>Ask Addy</span>
+        </IconContainer>
+      </TimeSupportContainer>
     </Container>
   );
 };
