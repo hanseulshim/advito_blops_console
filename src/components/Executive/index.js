@@ -9,22 +9,7 @@ import ActiveAlerts from 'components/Sidebar/ActiveAlerts';
 import Dashboard from './Dashboard';
 import Category from './Category';
 
-const Container = styled.div`
-  max-width: 1600px;
-  margin: auto;
-  display: flex;
-  position: relative;
-  height: 100%;
-`;
-
-const MainContainer = styled.div`
-  flex: 3;
-  padding: 0em 4em;
-`;
-
-const ExecutiveContainer = styled.div`
-  flex: 1;
-`;
+import { Container, MainContainer, DashboardContainer } from 'styles/Dashboard';
 
 const Executive = () => (
   <Container>
@@ -33,13 +18,13 @@ const Executive = () => (
       <ActiveAlerts />
     </CollapseSidebar>
     <MainContainer>
-      <Header />
-      <ExecutiveContainer>
+      <Header collapse />
+      <DashboardContainer>
         <Switch>
           <Route path={`/executive/dashboard`} exact component={Dashboard} />
           <Route path={`/executive/:category`} component={Category} />
         </Switch>
-      </ExecutiveContainer>
+      </DashboardContainer>
     </MainContainer>
   </Container>
 );
