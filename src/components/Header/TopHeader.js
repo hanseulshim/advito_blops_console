@@ -18,7 +18,7 @@ const Container = styled.div`
 const LogoContainer = styled.div`
   flex: 1;
   img {
-    width: 100%;
+    width: 75%;
   }
 `;
 

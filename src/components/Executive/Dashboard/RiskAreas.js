@@ -33,16 +33,16 @@ const RiskAreas = () => (
               </Row>
               <RightIcon className="fas fa-angle-right" />
               <Metric>
-                <Value>$11k</Value>
+                <Value>$394k/280k</Value>
+                <Unit>Regulatory</Unit>
+              </Metric>
+              <Metric>
+                <Value>32/$24k</Value>
+                <Unit>Retail Sales</Unit>
+              </Metric>
+              <Metric>
+                <Value>26%/$15k</Value>
                 <Unit>IT</Unit>
-              </Metric>
-              <Metric>
-                <Value>$3.1k</Value>
-                <Unit>Recruiting</Unit>
-              </Metric>
-              <Metric>
-                <Value>$2.9k</Value>
-                <Unit>Product</Unit>
               </Metric>
             </RowContainer>
           </Link>
