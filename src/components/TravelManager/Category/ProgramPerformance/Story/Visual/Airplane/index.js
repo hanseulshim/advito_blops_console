@@ -38,14 +38,14 @@ class Airplane extends Component {
 
   createPlane = () => {
     const airlineFill = this.getPixelCount(this.props.data);
-    const airplaneArr = AirplaneArr.slice();
+    const airplaneArr = AirplaneArr.slice().reverse();
     let point = airplaneArr.shift();
     let currentPlane = airlineFill.shift();
     const arr = [];
     let currentPixelCount = currentPlane.totalPixels;
 
-    for (let x = 1; x <= 100; x++) {
-      for (let y = 1; y <= 100; y++) {
+    for (let x = 100; x >= 1; x--) {
+      for (let y = 100; y >= 1; y--) {
         if (point === x * 100 + y) {
           if (airlineFill.length && arr.length === currentPixelCount) {
             currentPlane = airlineFill.shift();
