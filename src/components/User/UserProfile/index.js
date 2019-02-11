@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import UserForm from './UserForm';
-import UserPreferences from './UserPref';
+
 
 class UserProfile extends Component {
   state = {};
@@ -9,7 +9,6 @@ class UserProfile extends Component {
     return (
       <>
         <UserForm />
-        <UserPreferences />
       </>
     );
   }

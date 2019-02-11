@@ -12,18 +12,18 @@ const Label = styled.label`
 const Input = styled.input`
   font-size: 1em;
   border: 1px solid ${props => props.theme.grayNurse};
-  padding: 1em 1em;
+  padding: .6em .6em;
 `;
 
 const Error = styled.p`
   color: red;
 `;
 
-const TextInput = ({ name, label, onChange, placeholder, value, error }) => {
+const TextInput = ({ name, label, onChange, placeholder, value, error, type = "text", enabled }) => {
   return (
     <Wrapper>
       <Label htmlFor={name}>{label}</Label>
-      <Input type="text" name={name} placeholder={placeholder} onChange={onChange} value={value} />
+      <Input type={type} name={name} placeholder={placeholder} onChange={onChange} value={value} enabled={enabled} />
       {error && <Error>{error}</Error>}
     </Wrapper>
   );
