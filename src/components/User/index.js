@@ -25,7 +25,7 @@ const Container = styled.div`
 
 const MainContainer = styled.div`
   flex: 3;
-  padding: 0em 4em;
+  padding: 0em 3em;
 `;
 
 class User extends Component {

@@ -4,6 +4,7 @@ import Shayan from 'assets/shayan.jpeg';
 import Button from 'components/common/Button';
 import TextInput from 'components/common/TextInput';
 import Select from 'react-select';
+import Checkbox from 'components/common/Checkbox';
 
 //Mock Data before API
 let dateTimeOptions = [
@@ -35,11 +36,11 @@ let timeZones = [
 //Styled Components
 
 
-
 const FormContainer = styled.div`
   display: flex;
   height: 50%;
   justify-content:space-around;
+  justify-content:flex-start;
 `;
 
 const Avatar = styled.div`
@@ -68,6 +69,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 40%;
+  margin-right:auto;
   /* justify-content: space-around; */
 
 `;
@@ -88,12 +90,13 @@ const FormLabel = styled.span`
 const FormText = styled(TextInput)`
   padding: .5em;
   width: 100%;
+  box-sizing:border-box;
   background: transparent;
   border: 1px solid #dedede;
 `;
 
 const Dropdown = styled(Select)`
-`
+width:100%;`
 
 const Password = styled(TextInput)`
 border:none;
@@ -102,8 +105,11 @@ width:50%;`
 
 const Save = styled(Button)`
 position:relative;
-left:45%;
+left:40%;
 margin-top:5em;`
+
+const Settings = styled(Button)`
+border:none;`
 
 const ChangePassword = styled(Button)`
 position:absolute;
@@ -153,6 +159,7 @@ class UserForm extends Component {
             </FormItem>
           </Form>
         </FormContainer>
+        <Checkbox style={{ display: 'block' }}>Receive email notifications<Settings text="Settings" /></Checkbox>
         <Save text="Save" />
       </>
     );

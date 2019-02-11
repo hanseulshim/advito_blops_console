@@ -57,8 +57,8 @@ const ProfileSidebar = () => {
         {data.Activities.map((Activity) => {
           return (
             <div style={{ marginBottom: '1em' }}>
-              <Unit>{Activity.date}</Unit>
-              <p>{Activity.activity}</p>
+              <Unit style={{ marginBottom: '5px' }}>{Activity.date}</Unit><br />
+              {Activity.activity}
             </div>
           )
         })}
