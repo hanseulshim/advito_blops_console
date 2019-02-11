@@ -160,7 +160,7 @@ class UserForm extends Component {
           </Form>
         </FormContainer>
         <Checkbox style={{ display: 'block' }}>Receive email notifications<Settings text="Settings" /></Checkbox>
-        <Save text="Save" />
+        <Save type="submit" text="Save" />
       </>
     );
   }
