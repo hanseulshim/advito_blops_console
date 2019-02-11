@@ -17,7 +17,7 @@ const TravelManager = () => (
       <ActiveAlerts />
     </CollapseSidebar>
     <MainContainer>
-      <Header collapse />
+      <Header />
       <DashboardContainer>
         <Switch>
           <Route path={`/travel/dashboard`} exact component={Dashboard} />

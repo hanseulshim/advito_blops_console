@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
 
 import Header from 'components/Header';
@@ -18,7 +17,7 @@ const Executive = () => (
       <ActiveAlerts />
     </CollapseSidebar>
     <MainContainer>
-      <Header collapse />
+      <Header />
       <DashboardContainer>
         <Switch>
           <Route path={`/executive/dashboard`} exact component={Dashboard} />
