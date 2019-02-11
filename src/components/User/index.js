@@ -9,7 +9,6 @@ import ClientSetup from './ClientSetup';
 import ClientSetupSidebar from './ClientSetup/ClientSetupSidebar';
 
 import UserAcess from './UserAccess';
-import UserAccessSidebar from './UserAccess/UserAccessSidebar';
 
 import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
@@ -37,7 +36,6 @@ class User extends Component {
           <Switch>
             <Route path={'/user-profile'} component={ProfileSidebar} />
             <Route path={'/client-setup'} component={ClientSetupSidebar} />
-            <Route path={'/user-access'} component={UserAccessSidebar} />
           </Switch>
         </Sidebar>
         <MainContainer>
