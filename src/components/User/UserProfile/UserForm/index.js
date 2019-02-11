@@ -39,13 +39,13 @@ let timeZones = [
 const FormContainer = styled.div`
   display: flex;
   height: 50%;
-  justify-content:space-between;
+  justify-content:space-around;
 `;
 
 const Avatar = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex:2;
   position:relative;
   img {
@@ -55,8 +55,8 @@ const Avatar = styled.div`
 
   div{
     position:absolute;
-    right:10%;
-    bottom:10%;
+    right:5%;
+    bottom:30%;
 
     Button{
       background-color:${props => props.theme.white};
@@ -67,9 +67,8 @@ const Avatar = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  /* flex-wrap: wrap; */
-  width: 45%;
-  justify-content: space-between;
+  width: 40%;
+  /* justify-content: space-around; */
 
 `;
 
@@ -78,6 +77,7 @@ const FormItem = styled.div`
   flex-direction: column;
   width: 100%;
   flex:1;
+  position: ${props => props.Password && 'relative'};
 `;
 
 const FormLabel = styled.span`
@@ -86,8 +86,7 @@ const FormLabel = styled.span`
 `;
 
 const FormText = styled(TextInput)`
-  padding: 1em;
-  border: 1px solid #666;
+  padding: .5em;
   width: 100%;
   background: transparent;
   border: 1px solid #dedede;
@@ -97,12 +96,20 @@ const Dropdown = styled(Select)`
 `
 
 const Password = styled(TextInput)`
-border:none !important;`
+border:none;
+width:50%;`
+
 
 const Save = styled(Button)`
 position:relative;
 left:45%;
 margin-top:5em;`
+
+const ChangePassword = styled(Button)`
+position:absolute;
+bottom:50%;
+right:30%;
+`
 
 class UserForm extends Component {
   state = {};
@@ -129,15 +136,16 @@ class UserForm extends Component {
           <Form>
             <FormItem>
               <FormLabel>First Name</FormLabel>
-              <TextInput />
+              <FormText />
             </FormItem>
             <FormItem>
               <FormLabel>Last Name</FormLabel>
-              <TextInput />
+              <FormText />
             </FormItem>
-            <FormItem>
+            <FormItem Password>
               <FormLabel>Password</FormLabel>
-              <Password disabled type="password" />
+              <Password disabled type="password" value="************" />
+              <ChangePassword text="Change" />
             </FormItem>
             <FormItem>
               <FormLabel>Time Zone</FormLabel>

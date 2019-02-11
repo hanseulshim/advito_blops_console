@@ -12,7 +12,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 3em;
+  margin-top: 1.5em;
+  margin-bottom:1.5em;
   position: relative;
 `;
 
@@ -37,7 +38,7 @@ const TitleContainer = styled.div`
 
 const CogIcon = styled(Icon)`
   color: ${props => props.theme.treePoppy};
-  font-size: 30px;
+  font-size: 1.5em;
   position: absolute;
   right: 32.5%;
   bottom: 25%;
