@@ -19,6 +19,7 @@ const GraphQL = ({ query, variables, name, children }) => {
             const response = data[name];
             if (response.statusCode !== 200) {
               removeUser();
+              return null;
             } else {
               return children({ data: response.body.apidataset, fetchMore });
             }
