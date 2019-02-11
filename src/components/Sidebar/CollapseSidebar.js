@@ -24,7 +24,10 @@ const PersonIcon = styled(Icon)`
   border-left: none;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
-  top: 1em;
+  margin-top: 2.5em;
+  @media (max-width: 1336px) {
+    margin-top: 3em;
+  }
   color: ${props => props.theme.treePoppy};
   cursor: pointer;
   left: 0;
