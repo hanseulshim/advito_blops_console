@@ -18,6 +18,7 @@ const Container = styled.div`
 
 const LogoContainer = styled.div`
   flex: 1;
+  align-self: flex-start;
 `;
 
 const TimeSupportContainer = styled.div`

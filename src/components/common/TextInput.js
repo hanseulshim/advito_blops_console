@@ -1,30 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+const Wrapper = styled.div``;
 const Label = styled.label`
   color: ${props => props.theme.grayNurse};
 `;
 
 const Input = styled.input`
   font-size: 1em;
-  border: 1px solid ${props => props.theme.grayNurse};
-  padding: 1em 1em;
+  padding: 0.6em 0.6em;
 `;
 
 const Error = styled.p`
   color: red;
 `;
 
-const TextInput = ({ name, label, onChange, placeholder, value, error }) => {
+const TextInput = ({ type = 'text', ...props }) => {
+  const { ...style } = props;
   return (
     <Wrapper>
-      <Label htmlFor={name}>{label}</Label>
-      <Input type="text" name={name} placeholder={placeholder} onChange={onChange} value={value} />
-      {error && <Error>{error}</Error>}
+      <Label htmlFor={props.name}>{props.label}</Label>
+      <Input
+        type={type}
+        name={props.name}
+        onChange={props.onChange}
+        value={props.value}
+        disabled={props.disabled}
+        {...style}
+      />
+      {props.error && <Error>{props.error}</Error>}
     </Wrapper>
   );
 };
