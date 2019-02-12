@@ -43,7 +43,7 @@ class RiskAreas extends React.Component {
             <Button text="View Less" style={{ marginLeft: '5%' }} onClick={e => this.setLimit(3)} />
           )}
         </TitleContainer>
-        <GraphQL query={RISK_AREAS_EXECUTIVE} name="riskAreasExecutive">
+        <GraphQL query={RISK_AREAS_EXECUTIVE} name="riskAreasExecutive" variables={{ limit }}>
           {({ data }) =>
             data.riskAreas.map((riskArea, index) => (
               <Link to="/executive/risk-areas" key={index}>

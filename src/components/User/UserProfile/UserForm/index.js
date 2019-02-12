@@ -118,11 +118,12 @@ class UserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: '',
+      username: '',
       firstName: '',
       lastName: '',
       timeZone: {},
       dateTime: {},
+      password: '',
     };
   }
 
@@ -185,7 +186,7 @@ class UserForm extends Component {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <div style={{ width: '100%', display: 'flex', alignItems: 'flex-end' }}>
-                <Password disabled type="password" value="************" />
+                <Password disabled type="password" value="**************" />
                 <ChangePassword text="Change" />
               </div>
             </FormItem>

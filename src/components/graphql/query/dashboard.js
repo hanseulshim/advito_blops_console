@@ -170,8 +170,8 @@ export const RISK_AREAS_TRAVEL = gql`
 `;
 
 export const RISK_AREAS_EXECUTIVE = gql`
-  query($clientId: Int!, $sessionToken: String!) {
-    riskAreasExecutive(clientId: $clientId, sessionToken: $sessionToken, limit: 3) {
+  query($clientId: Int!, $sessionToken: String!, $limit: Int) {
+    riskAreasExecutive(clientId: $clientId, sessionToken: $sessionToken, limit: $limit) {
       statusCode
       body {
         apidataset {
