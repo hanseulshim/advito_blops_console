@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SectionTitle, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
-import { RISK_AREAS } from 'components/graphql/query';
+import { RISK_AREAS_TRAVEL } from 'components/graphql/query';
 import {
   Container,
   TitleContainer,
@@ -18,7 +18,7 @@ const RiskAreas = () => (
     <TitleContainer>
       <SectionTitle>top 3 risk areas</SectionTitle>
     </TitleContainer>
-    <GraphQL query={RISK_AREAS} name="riskAreas">
+    <GraphQL query={RISK_AREAS_TRAVEL} name="riskAreasTravel">
       {({ data }) =>
         data.riskAreas.map((riskArea, index) => (
           <RowContainer key={index}>

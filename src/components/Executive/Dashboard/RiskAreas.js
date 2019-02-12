@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SectionTitle, Value, Unit } from 'components/common/Typography';
+import { SectionTitle, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
-import { RISK_AREAS } from 'components/graphql/query';
 import Button from 'components/common/Button';
+import { RISK_AREAS_EXECUTIVE } from 'components/graphql/query';
 import {
   Container,
   TitleContainer,
@@ -13,6 +13,8 @@ import {
   RowTitle,
   RightIcon,
   Metric,
+  Unit,
+  Title,
 } from './SavingsRiskStyle';
 
 class RiskAreas extends React.Component {
@@ -41,7 +43,7 @@ class RiskAreas extends React.Component {
             <Button text="View Less" style={{ marginLeft: '5%' }} onClick={e => this.setLimit(3)} />
           )}
         </TitleContainer>
-        <GraphQL query={RISK_AREAS} name="riskAreas">
+        <GraphQL query={RISK_AREAS_EXECUTIVE} name="riskAreasExecutive">
           {({ data }) =>
             data.riskAreas.map((riskArea, index) => (
               <Link to="/executive/risk-areas" key={index}>
@@ -49,21 +51,23 @@ class RiskAreas extends React.Component {
                   <Rank>{index + 1}</Rank>
                   <Row first={index === 0}>
                     <RowTitle>{riskArea.title}</RowTitle>
-                    <Value>{riskArea.value}</Value>
+                    <Value>
+                      {riskArea.value} <Unit>{riskArea.unit}</Unit>
+                      {riskArea.secondaryValue && ` / ${riskArea.secondaryValue}`}{' '}
+                      <Unit>{riskArea.secondaryUnit}</Unit>
+                    </Value>
                   </Row>
                   <RightIcon className="fas fa-angle-right" />
-                  <Metric>
-                    <Value>$394k/280k</Value>
-                    <Unit>Regulatory</Unit>
-                  </Metric>
-                  <Metric>
-                    <Value>32/$24k</Value>
-                    <Unit>Retail Sales</Unit>
-                  </Metric>
-                  <Metric>
-                    <Value>26%/$15k</Value>
-                    <Unit>IT</Unit>
-                  </Metric>
+                  {riskArea.divisions.map((division, index) => (
+                    <Metric key={index}>
+                      <Value>
+                        {division.value} <Unit>{division.unit}</Unit>
+                        {division.secondaryValue && ` / ${division.secondaryValue}`}{' '}
+                        <Unit>{division.secondaryUnit}</Unit>
+                      </Value>
+                      <Title>{division.title}</Title>
+                    </Metric>
+                  ))}
                 </RowContainer>
               </Link>
             ))

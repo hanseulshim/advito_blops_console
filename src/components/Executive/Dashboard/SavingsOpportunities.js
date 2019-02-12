@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SectionTitle, Value, Unit } from 'components/common/Typography';
+import { SectionTitle, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
-import { SAVINGS_OPPORTUNITIES } from 'components/graphql/query';
 import Button from 'components/common/Button';
+import { SAVINGS_OPPORTUNITIES_EXECUTIVE } from 'components/graphql/query';
 import {
   Container,
   TitleContainer,
@@ -13,6 +13,8 @@ import {
   RowTitle,
   RightIcon,
   Metric,
+  Unit,
+  Title,
 } from './SavingsRiskStyle';
 
 class SavingsOpportunities extends React.Component {
@@ -40,7 +42,11 @@ class SavingsOpportunities extends React.Component {
             <Button text="View Less" style={{ marginLeft: '5%' }} onClick={e => this.setLimit(3)} />
           )}
         </TitleContainer>
-        <GraphQL query={SAVINGS_OPPORTUNITIES} variables={{ limit: limit }} name="opportunities">
+        <GraphQL
+          query={SAVINGS_OPPORTUNITIES_EXECUTIVE}
+          variables={{ limit }}
+          name="opportunitiesExecutive"
+        >
           {({ data }) =>
             data.opportunities.map((opportunity, index) => (
               <Link to="/executive/savings-opportunities" key={index}>
@@ -50,21 +56,21 @@ class SavingsOpportunities extends React.Component {
                     <RowTitle>{opportunity.title}</RowTitle>
                     <Value>
                       {opportunity.value} <Unit>{opportunity.unit}</Unit>
+                      {opportunity.secondaryValue && ` / ${opportunity.secondaryValue}`}{' '}
+                      <Unit>{opportunity.secondaryUnit}</Unit>
                     </Value>
                   </Row>
                   <RightIcon className="fas fa-angle-right" />
-                  <Metric>
-                    <Value>$11k</Value>
-                    <Unit>IT</Unit>
-                  </Metric>
-                  <Metric>
-                    <Value>$3.1k</Value>
-                    <Unit>Recruiting</Unit>
-                  </Metric>
-                  <Metric>
-                    <Value>$2.9k</Value>
-                    <Unit>Product</Unit>
-                  </Metric>
+                  {opportunity.divisions.map((division, index) => (
+                    <Metric key={index}>
+                      <Value>
+                        {division.value} <Unit>{division.unit}</Unit>
+                        {division.secondaryValue && ` / ${division.secondaryValue}`}{' '}
+                        <Unit>{division.secondaryUnit}</Unit>
+                      </Value>
+                      <Title>{division.title}</Title>
+                    </Metric>
+                  ))}
                 </RowContainer>
               </Link>
             ))

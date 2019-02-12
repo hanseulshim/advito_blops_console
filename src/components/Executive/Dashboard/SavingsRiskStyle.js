@@ -54,9 +54,23 @@ export const RightIcon = styled(Icon)`
 `;
 
 export const Metric = styled.div`
-display:flex;
-flex-direction:column;
-flex:1;
-justify-content:center;
-align-items:center;
-`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Unit = styled.span`
+  font-size: 0.75em;
+  line-height: 0.75em;
+  font-weight: 400;
+  color: ${props => props.theme.black};
+`;
+
+export const Title = styled.span`
+  font-size: 0.8em;
+  line-height: 0.8em;
+  text-transform: uppercase;
+  color: ${props => props.theme.black};
+`;
