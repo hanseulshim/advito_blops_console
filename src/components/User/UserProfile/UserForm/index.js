@@ -6,6 +6,8 @@ import TextInput from 'components/common/TextInput';
 import Select from 'react-select';
 import Checkbox from 'components/common/Checkbox';
 
+import { USER_PROFILE } from 'components/graphql/query/user';
+
 //Mock Data before API
 let dateTimeOptions = [
   {
@@ -65,7 +67,6 @@ const Form = styled.form`
   flex-direction: column;
   width: 40%;
   margin-right: auto;
-  /* justify-content: space-around; */
 `;
 
 const FormItem = styled.div`
@@ -109,16 +110,50 @@ const Settings = styled(Button)`
 `;
 
 const ChangePassword = styled(Button)`
-  /* position: absolute;
-  bottom: 30%;
-  right: 30%; */
   display: inline-block;
   flex-grow: 0;
 `;
 
 class UserForm extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      userName: '',
+      firstName: '',
+      lastName: '',
+      timeZone: {},
+      dateTime: {},
+    };
+  }
+
+  async componentDidMount() {
+    const client = this.props.client;
+
+    const response = await client.query({
+      query: USER_PROFILE,
+      variables: {
+        clientId: this.props.user.clientId,
+        sessionToken: this.props.user.sessionToken,
+      },
+    });
+
+    const data = response.data.userProfile.body.apidataset;
+
+    this.setState({
+      username: data.username,
+      firstName: data.firstName,
+      lastName: data.lastName,
+    });
+  }
+
+  changeInput = e => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+
   render() {
+    const { username, firstName, lastName, timeZone, dateTime } = this.state;
     return (
       <>
         <FormContainer>
@@ -131,7 +166,7 @@ class UserForm extends Component {
             </Avatar>
             <FormItem>
               <FormLabel>Username/Email</FormLabel>
-              <FormText />
+              <FormText value={username} name="username" onChange={this.changeInput} />
             </FormItem>
             <FormItem>
               <FormLabel>Date/Time Format</FormLabel>
@@ -141,11 +176,11 @@ class UserForm extends Component {
           <Form>
             <FormItem>
               <FormLabel>First Name</FormLabel>
-              <FormText />
+              <FormText value={firstName} name="firstName" onChange={this.changeInput} />
             </FormItem>
             <FormItem>
               <FormLabel>Last Name</FormLabel>
-              <FormText />
+              <FormText value={lastName} name="lastName" onChange={this.changeInput} />
             </FormItem>
             <FormItem>
               <FormLabel>Password</FormLabel>

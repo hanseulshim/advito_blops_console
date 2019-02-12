@@ -46,8 +46,8 @@ const ProfileSidebar = () => {
     <Container>
       <Section>
         <Title>My Applications</Title>
-        {data.Applications.map(App => (
-          <p>{App} </p>
+        {data.Applications.map((App, i) => (
+          <p key={'app' + i}>{App} </p>
         ))}
       </Section>
       <Section>
@@ -56,9 +56,9 @@ const ProfileSidebar = () => {
       </Section>
       <Section>
         <Title>Recent Activities</Title>
-        {data.Activities.map(Activity => {
+        {data.Activities.map((Activity, i) => {
           return (
-            <div style={{ marginBottom: '1em' }}>
+            <div style={{ marginBottom: '1em' }} key={'activity' + i}>
               <Unit style={{ marginBottom: '5px' }}>{Activity.date}</Unit>
               <br />
               {Activity.activity}
