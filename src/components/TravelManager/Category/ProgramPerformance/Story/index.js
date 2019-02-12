@@ -10,6 +10,7 @@ import DataToggle from './DataToggle';
 
 const Container = styled.div`
   position: relative;
+  flex: 1;
 `;
 
 const ArrowButton = styled.i`
