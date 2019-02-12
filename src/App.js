@@ -26,8 +26,8 @@ class App extends Component {
     this.setState({ authenticated: false, user: {} });
   };
   setUser = user => {
-    this.setState({ authenticated: true, user });
     setUser(user);
+    this.setState({ authenticated: true, user });
   };
   render() {
     const { authenticated, user } = this.state;
