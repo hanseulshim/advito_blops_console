@@ -8,8 +8,8 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 const client = new ApolloClient({
-  uri: 'https://x162060eb4.execute-api.us-east-2.amazonaws.com/dev/graphql',
-  // uri: 'http://localhost:8080/graphql',
+  // uri: 'https://x162060eb4.execute-api.us-east-2.amazonaws.com/dev/graphql',
+  uri: 'http://localhost:8080/graphql',
 });
 
 ReactDOM.render(

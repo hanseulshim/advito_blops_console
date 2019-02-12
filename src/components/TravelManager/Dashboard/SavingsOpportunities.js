@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SectionTitle, Value, Unit } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
-import { SAVINGS_OPPORTUNITIES } from 'components/graphql/query';
+import { SAVINGS_OPPORTUNITIES_TRAVEL } from 'components/graphql/query';
 import {
   Container,
   TitleContainer,
@@ -18,7 +18,11 @@ const SavingsOpportunities = () => (
     <TitleContainer>
       <SectionTitle>top 3 savings opportunities</SectionTitle>
     </TitleContainer>
-    <GraphQL query={SAVINGS_OPPORTUNITIES} variables={{ limit: 3 }} name="opportunities">
+    <GraphQL
+      query={SAVINGS_OPPORTUNITIES_TRAVEL}
+      variables={{ limit: 3 }}
+      name="opportunitiesTravel"
+    >
       {({ data }) =>
         data.opportunities.map((opportunity, index) => (
           <RowContainer key={index}>
@@ -26,7 +30,8 @@ const SavingsOpportunities = () => (
             <Row first={index === 0}>
               <RowTitle>{opportunity.title}</RowTitle>
               <Value>
-                {opportunity.value} <Unit>{opportunity.unit}</Unit>
+                {opportunity.value} {opportunity.secondaryValue && `/${opportunity.secondaryValue}`}{' '}
+                <Unit>{opportunity.secondaryUnit}</Unit>
               </Value>
             </Row>
             <Link to="/travel/savings-opportunities">

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import GraphQL from 'components/graphql';
-import { PROGRAM_PERFORMANCE } from 'components/graphql/query';
+import { PROGRAM_PERFORMANCE_EXECUTIVE } from 'components/graphql/query';
 import Button from 'components/common/Button';
 import { SectionTitle } from 'components/common/Typography';
 import Icon from 'components/common/Icon';
@@ -56,12 +56,12 @@ const ProgramPerformance = () => (
         <Button spaceLeft text="view more" />
       </Link>
     </SectionContainer>
-    <GraphQL query={PROGRAM_PERFORMANCE} name="programPerformance">
+    <GraphQL query={PROGRAM_PERFORMANCE_EXECUTIVE} name="programPerformanceExecutive">
       {({ data }) => (
         <>
           <Performance>
             <Row>
-              <Score>7.1</Score>
+              <Score>{data.value}</Score>
               <OutOf>/8.7</OutOf>
             </Row>
             <Changes>

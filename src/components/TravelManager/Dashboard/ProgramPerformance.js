@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import GraphQL from 'components/graphql';
-import { PROGRAM_PERFORMANCE } from 'components/graphql/query';
+import { PROGRAM_PERFORMANCE_TRAVEL } from 'components/graphql/query';
 import Button from 'components/common/Button';
 import { SectionTitle } from 'components/common/Typography';
 
@@ -50,7 +50,7 @@ const ProgramPerformance = () => (
         <Button spaceLeft text="view more" />
       </Link>
     </SectionContainer>
-    <GraphQL query={PROGRAM_PERFORMANCE} name="programPerformance">
+    <GraphQL query={PROGRAM_PERFORMANCE_TRAVEL} name="programPerformanceTravel">
       {({ data }) => (
         <>
           {data.map(performance => (
