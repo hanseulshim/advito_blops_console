@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SectionTitle, Value, Unit } from 'components/common/Typography';
+import { SectionTitle, Value } from 'components/common/Typography';
 import GraphQL from 'components/graphql';
-import { RISK_AREAS } from 'components/graphql/query';
+import { RISK_AREAS_EXECUTIVE } from 'components/graphql/query';
 import {
   Container,
   TitleContainer,
@@ -12,6 +12,8 @@ import {
   RowTitle,
   RightIcon,
   Metric,
+  Unit,
+  Title,
 } from './SavingsRiskStyle';
 
 const RiskAreas = () => (
@@ -19,7 +21,7 @@ const RiskAreas = () => (
     <TitleContainer>
       <SectionTitle>top 3 risk areas</SectionTitle>
     </TitleContainer>
-    <GraphQL query={RISK_AREAS} name="riskAreas">
+    <GraphQL query={RISK_AREAS_EXECUTIVE} name="riskAreasExecutive">
       {({ data }) =>
         data.riskAreas.map((riskArea, index) => (
           <Link to="/executive/risk-areas" key={index}>
@@ -28,22 +30,22 @@ const RiskAreas = () => (
               <Row first={index === 0}>
                 <RowTitle>{riskArea.title}</RowTitle>
                 <Value>
-                  {riskArea.value}
+                  {riskArea.value} <Unit>{riskArea.unit}</Unit>
+                  {riskArea.secondaryValue && ` / ${riskArea.secondaryValue}`}{' '}
+                  <Unit>{riskArea.secondaryUnit}</Unit>
                 </Value>
               </Row>
               <RightIcon className="fas fa-angle-right" />
-              <Metric>
-                <Value>$11k</Value>
-                <Unit>IT</Unit>
-              </Metric>
-              <Metric>
-                <Value>$3.1k</Value>
-                <Unit>Recruiting</Unit>
-              </Metric>
-              <Metric>
-                <Value>$2.9k</Value>
-                <Unit>Product</Unit>
-              </Metric>
+              {riskArea.divisions.map((division, index) => (
+                <Metric key={index}>
+                  <Value>
+                    {division.value} <Unit>{division.unit}</Unit>
+                    {division.secondaryValue && ` / ${division.secondaryValue}`}{' '}
+                    <Unit>{division.secondaryUnit}</Unit>
+                  </Value>
+                  <Title>{division.title}</Title>
+                </Metric>
+              ))}
             </RowContainer>
           </Link>
         ))

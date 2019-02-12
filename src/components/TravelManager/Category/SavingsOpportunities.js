@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
-import { SAVINGS_OPPORTUNITIES } from 'components/graphql/query';
+import { SAVINGS_OPPORTUNITIES_TRAVEL } from 'components/graphql/query';
 
 const Container = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const Item = styled.div`
 
 const SavingsOpportunities = () => {
   return (
-    <GraphQL query={SAVINGS_OPPORTUNITIES}>
+    <GraphQL query={SAVINGS_OPPORTUNITIES_TRAVEL}>
       {({ data, fetchMore }) => (
         <Container>
           <button
