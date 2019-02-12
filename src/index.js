@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { HashRouter } from 'react-router-dom';
+import * as am4core from '@amcharts/amcharts4/core';
 
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+
+am4core.options.commercialLicense = true;
 
 const client = new ApolloClient({
   uri: 'https://x162060eb4.execute-api.us-east-2.amazonaws.com/dev/graphql',
