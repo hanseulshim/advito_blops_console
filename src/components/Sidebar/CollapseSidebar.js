@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Icon from 'components/common/Icon';
+import SidebarUserInfo from './SidebarUserInfo';
 
 const Container = styled.div`
   flex: 1.25;
@@ -11,6 +12,7 @@ const Container = styled.div`
   position: absolute;
   opacity: 0.95;
   z-index: 5;
+  left: 0;
 `;
 
 const PersonIcon = styled(Icon)`
@@ -22,13 +24,18 @@ const PersonIcon = styled(Icon)`
   border-left: none;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
-  top: 1em;
+  margin-top: 3.5em;
+  @media (max-width: 1336px) {
+    margin-top: 4.4em;
+  }
   color: ${props => props.theme.treePoppy};
   cursor: pointer;
+  left: 0;
 `;
 
 const CloseIcon = styled(PersonIcon)`
   right: calc(-2em + 6px);
+  left: initial;
 `;
 
 class CollapseSidebar extends Component {
@@ -44,6 +51,7 @@ class CollapseSidebar extends Component {
     ) : (
       <Container>
         <CloseIcon className="fas fa-times" onClick={this.toggleSidebar} />
+        <SidebarUserInfo />
         {this.props.children}
       </Container>
     );

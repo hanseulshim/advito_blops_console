@@ -70,7 +70,7 @@ const StoryTitle = styled.div`
 `;
 
 const Home = () => (
-  <>
+  <div>
     <div>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -123,7 +123,7 @@ const Home = () => (
         </Link>
       </Story>
     </StoryContainer>
-  </>
+  </div>
 );
 
 export default Home;
