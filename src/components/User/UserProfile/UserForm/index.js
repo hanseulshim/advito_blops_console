@@ -35,33 +35,35 @@ let timeZones = [
 
 //Styled Components
 
-
 const FormContainer = styled.div`
   display: flex;
-  height: 50%;
-  justify-content:space-around;
-  justify-content:flex-start;
+  height: 40%;
+  justify-content: space-around;
+  justify-content: flex-start;
 `;
 
 const Avatar = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  flex:2;
-  position:relative;
+  flex: 2;
+  position: relative;
   img {
     border-radius: 50%;
     width: 10em;
   }
 
-  div{
-    position:absolute;
-    right:5%;
-    bottom:30%;
+  div {
+    /* position: absolute;
+    right: 5%;
+    bottom: 30%;
 
-    Button{
-      background-color:${props => props.theme.white};
-    }
+    button {
+      background-color: ${props => props.theme.white};
+    } */
+    align-self: flex-end;
+    position:relative;
+    bottom:15%;
   }
 `;
 
@@ -69,16 +71,15 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 40%;
-  margin-right:auto;
+  margin-right: auto;
   /* justify-content: space-around; */
-
 `;
 
 const FormItem = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  flex:1;
+  flex: 1;
   position: ${props => props.Password && 'relative'};
 `;
 
@@ -88,34 +89,37 @@ const FormLabel = styled.span`
 `;
 
 const FormText = styled(TextInput)`
-  padding: .5em;
+  padding: 0.5em;
   width: 100%;
-  box-sizing:border-box;
+  box-sizing: border-box;
   background: transparent;
   border: 1px solid #dedede;
 `;
 
 const Dropdown = styled(Select)`
-width:100%;`
+  width: 100%;
+`;
 
 const Password = styled(TextInput)`
-border:none;
-width:50%;`
-
+  border: none;
+  width: 50%;
+`;
 
 const Save = styled(Button)`
-position:relative;
-left:40%;
-margin-top:5em;`
+  position: relative;
+  left: 40%;
+  margin-top: 5em;
+`;
 
 const Settings = styled(Button)`
-border:none;`
+  border: none;
+`;
 
 const ChangePassword = styled(Button)`
-position:absolute;
-bottom:50%;
-right:30%;
-`
+  position: absolute;
+  bottom: 50%;
+  right: 30%;
+`;
 
 class UserForm extends Component {
   state = {};
@@ -159,7 +163,10 @@ class UserForm extends Component {
             </FormItem>
           </Form>
         </FormContainer>
-        <Checkbox style={{ display: 'block' }}>Receive email notifications<Settings text="Settings" /></Checkbox>
+        <Checkbox style={{ display: 'block' }}>
+          Receive email notifications
+          <Settings text="Settings" />
+        </Checkbox>
         <Save type="submit" text="Save" />
       </>
     );
