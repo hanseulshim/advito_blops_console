@@ -50,20 +50,13 @@ const Avatar = styled.div`
   position: relative;
   img {
     border-radius: 50%;
-    width: 10em;
+    width: 40%;
   }
 
   div {
-    /* position: absolute;
-    right: 5%;
-    bottom: 30%;
-
-    button {
-      background-color: ${props => props.theme.white};
-    } */
-    align-self: flex-end;
-    position:relative;
-    bottom:15%;
+    align-self: center;
+    position: relative;
+    top: 15%;
   }
 `;
 
@@ -80,7 +73,6 @@ const FormItem = styled.div`
   flex-direction: column;
   width: 100%;
   flex: 1;
-  position: ${props => props.Password && 'relative'};
 `;
 
 const FormLabel = styled.span`
@@ -103,6 +95,7 @@ const Dropdown = styled(Select)`
 const Password = styled(TextInput)`
   border: none;
   width: 50%;
+  display: inline-block;
 `;
 
 const Save = styled(Button)`
@@ -116,9 +109,11 @@ const Settings = styled(Button)`
 `;
 
 const ChangePassword = styled(Button)`
-  position: absolute;
-  bottom: 50%;
-  right: 30%;
+  /* position: absolute;
+  bottom: 30%;
+  right: 30%; */
+  display: inline-block;
+  flex-grow: 0;
 `;
 
 class UserForm extends Component {
@@ -152,10 +147,12 @@ class UserForm extends Component {
               <FormLabel>Last Name</FormLabel>
               <FormText />
             </FormItem>
-            <FormItem Password>
+            <FormItem>
               <FormLabel>Password</FormLabel>
-              <Password disabled type="password" value="************" />
-              <ChangePassword text="Change" />
+              <div style={{ width: '100%', display: 'flex', alignItems: 'flex-end' }}>
+                <Password disabled type="password" value="************" />
+                <ChangePassword text="Change" />
+              </div>
             </FormItem>
             <FormItem>
               <FormLabel>Time Zone</FormLabel>
