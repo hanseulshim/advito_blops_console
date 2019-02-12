@@ -20,6 +20,7 @@
     "react-scripts": "2.1.0",
     "react-select": "^2.3.0",
     "react-spinners": "^0.4.7",
+    "react-table": "^6.9.2",
     "react-toggle": "^4.0.2",
     "styled-components": "^4.1.1"
   },

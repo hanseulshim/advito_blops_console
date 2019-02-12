@@ -13,10 +13,20 @@ const MenuContainer = styled.div`
   padding: 1em 2em;
   color: ${props => props.theme.white};
   position: absolute;
-  bottom: -150%;
-  right: 0;
+  bottom: -140%;
+  right: 10%;
   border-radius: 5%;
   cursor: pointer;
+  -webkit-animation: fadein 1s;
+
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 const NavItem = styled(Link)`

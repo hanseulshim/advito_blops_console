@@ -129,7 +129,6 @@ class UserForm extends Component {
 
   async componentDidMount() {
     const client = this.props.client;
-
     const response = await client.query({
       query: USER_PROFILE,
       variables: {
@@ -139,7 +138,6 @@ class UserForm extends Component {
     });
 
     const data = response.data.userProfile.body.apidataset;
-
     this.setState({
       username: data.username,
       firstName: data.firstName,
