@@ -18,6 +18,40 @@ export const PROGRAM_PERFORMANCE_TRAVEL = gql`
   }
 `;
 
+export const NET_SPEND_ANALYSIS_TRAVEL = gql`
+  query($clientId: Int!, $sessionToken: String!) {
+    netSpendAnalysisTravel(clientId: $clientId, sessionToken: $sessionToken) {
+      statusCode
+      body {
+        success
+        apicode
+        apimessage
+        apidataset {
+          date
+          value
+        }
+      }
+    }
+  }
+`;
+
+export const NET_SPEND_ANALYSIS_EXECUTIVE = gql`
+  query($clientId: Int!, $sessionToken: String!) {
+    netSpendAnalysisExecutive(clientId: $clientId, sessionToken: $sessionToken) {
+      statusCode
+      body {
+        success
+        apicode
+        apimessage
+        apidataset {
+          date
+          value
+        }
+      }
+    }
+  }
+`;
+
 export const PROGRAM_PERFORMANCE_EXECUTIVE = gql`
   query($clientId: Int!, $sessionToken: String!) {
     programPerformanceExecutive(clientId: $clientId, sessionToken: $sessionToken) {

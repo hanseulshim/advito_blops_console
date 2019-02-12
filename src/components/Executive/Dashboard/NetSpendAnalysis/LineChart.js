@@ -39,72 +39,7 @@ class LineChart extends Component {
     bullet.circle.strokeWidth = 2;
     bullet.circle.radius = 4;
     bullet.circle.fill = am4core.color('#fff');
-    chart.data = [
-      {
-        date: '2013-01-15',
-        value: 73,
-      },
-      {
-        date: '2013-01-16',
-        value: 71,
-      },
-      {
-        date: '2013-01-17',
-        value: 74,
-      },
-      {
-        date: '2013-01-18',
-        value: 78,
-      },
-      {
-        date: '2013-01-19',
-        value: 85,
-      },
-      {
-        date: '2013-01-20',
-        value: 82,
-      },
-      {
-        date: '2013-01-21',
-        value: 83,
-      },
-      {
-        date: '2013-01-22',
-        value: 88,
-      },
-      {
-        date: '2013-01-23',
-        value: 85,
-      },
-      {
-        date: '2013-01-24',
-        value: 85,
-      },
-      {
-        date: '2013-01-25',
-        value: 80,
-      },
-      {
-        date: '2013-01-26',
-        value: 87,
-      },
-      {
-        date: '2013-01-27',
-        value: 84,
-      },
-      {
-        date: '2013-01-28',
-        value: 83,
-      },
-      {
-        date: '2013-01-29',
-        value: 84,
-      },
-      {
-        date: '2013-01-30',
-        value: 81,
-      },
-    ];
+    chart.data = this.props.data;
   }
 
   componentWillUnmount() {
