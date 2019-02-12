@@ -38,7 +38,11 @@ const RiskAreas = () => (
               <RightIcon className="fas fa-angle-right" />
               {riskArea.divisions.map((division, index) => (
                 <Metric key={index}>
-                  <Value>{division.value}</Value>
+                  <Value>
+                    {division.value} <Unit>{division.unit}</Unit>
+                    {division.secondaryValue && ` / ${division.secondaryValue}`}{' '}
+                    <Unit>{division.secondaryUnit}</Unit>
+                  </Value>
                   <Title>{division.title}</Title>
                 </Metric>
               ))}
