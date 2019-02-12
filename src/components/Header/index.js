@@ -3,9 +3,9 @@ import { withRouter } from 'react-router';
 import TopHeader from './TopHeader';
 import BreadCrumbs from './BreadCrumbs';
 
-const Header = ({ location }) => (
+const Header = ({ location, ...props }) => (
   <>
-    <TopHeader dashboard={location.pathname !== '/'} />
+    <TopHeader {...props} />
     {location.pathname !== '/' && <BreadCrumbs />}
   </>
 );

@@ -24,7 +24,11 @@ const Container = styled.div`
 
 const MainContainer = styled.div`
   flex: 3;
-  padding: 0em 4em;
+  padding: 0em 3em;
+`;
+
+const SidebarDyanmic = styled.div`
+  margin-top: 15%;
 `;
 
 class User extends Component {
@@ -34,8 +38,10 @@ class User extends Component {
       <Container>
         <Sidebar>
           <Switch>
-            <Route path={'/user-profile'} component={ProfileSidebar} />
-            <Route path={'/client-setup'} component={ClientSetupSidebar} />
+            <SidebarDyanmic>
+              <Route path={'/user-profile'} component={ProfileSidebar} />
+              <Route path={'/client-setup'} component={ClientSetupSidebar} />
+            </SidebarDyanmic>
           </Switch>
         </Sidebar>
         <MainContainer>

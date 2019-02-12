@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import GraphQL from 'components/graphql';
+import { NET_SPEND_ANALYSIS_EXECUTIVE } from 'components/graphql/query';
 import { Link } from 'react-router-dom';
 import Button from 'components/common/Button';
 import Checkbox from 'components/common/Checkbox';
@@ -29,7 +31,9 @@ const NetSpendAnalysis = () => (
       </Link>
     </TitleContainer>
     <Checkbox>Year to date</Checkbox>
-    <LineChart />
+    <GraphQL query={NET_SPEND_ANALYSIS_EXECUTIVE} name="netSpendAnalysisExecutive">
+      {({ data }) => <LineChart data={data} />}
+    </GraphQL>
   </Container>
 );
 

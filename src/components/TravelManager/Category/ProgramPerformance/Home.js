@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
-import { PROGRAM_PERFORMANCE, NO_CHANGE_SINCE } from 'components/graphql/query';
+import { PROGRAM_PERFORMANCE_TRAVEL, NO_CHANGE_SINCE } from 'components/graphql/query';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
 import { Title, Value } from 'components/common/Typography';
@@ -70,7 +70,7 @@ const StoryTitle = styled.div`
 `;
 
 const Home = () => (
-  <>
+  <div>
     <div>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -78,7 +78,7 @@ const Home = () => (
       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
       non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </div>
-    <GraphQL query={PROGRAM_PERFORMANCE} name="programPerformance">
+    <GraphQL query={PROGRAM_PERFORMANCE_TRAVEL} name="programPerformanceTravel">
       {({ data }) => (
         <PerformanceContainer>
           {data.map((performance, index) => (
@@ -123,7 +123,7 @@ const Home = () => (
         </Link>
       </Story>
     </StoryContainer>
-  </>
+  </div>
 );
 
 export default Home;

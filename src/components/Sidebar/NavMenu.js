@@ -23,7 +23,7 @@ const NavItem = styled(Link)`
   color: ${props => props.theme.white};
   margin-bottom: 1em;
   :hover {
-    color: ${props => props.theme.steelBlue};
+    color: ${props => props.theme.white};
     text-decoration: underline;
   }
 `;
@@ -32,7 +32,7 @@ const LogOut = styled.span`
   color: ${props => props.theme.white};
   margin-bottom: 1em;
   :hover {
-    color: ${props => props.theme.steelBlue};
+    color: ${props => props.theme.white};
     text-decoration: underline;
   }
 `;

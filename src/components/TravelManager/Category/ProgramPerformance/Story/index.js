@@ -10,6 +10,7 @@ import DataToggle from './DataToggle';
 
 const Container = styled.div`
   position: relative;
+  flex: 1;
 `;
 
 const ArrowButton = styled.i`
@@ -56,7 +57,11 @@ class Story extends Component {
       }
       return dataItem.body.apidataset;
     });
-    this.setState({ data });
+    if (!this.isCancelled) this.setState({ data });
+  }
+
+  componentWillUnmount() {
+    this.isCancelled = true;
   }
 
   toggleDataView = e => {
