@@ -6,7 +6,9 @@ import ProgramPerformance from './ProgramPerformance';
 // import SavingsOpportunities from './SavingsOpportunities';
 
 const Container = styled.div`
-  padding: 2em 4em;
+  padding: 4em;
+  min-height: 900px;
+  display: flex;
   background: ${props => props.theme.white};
   border-left: ${props => `1px solid ${props.theme.grayNurse}`};
   border-right: ${props => `1px solid ${props.theme.grayNurse}`};

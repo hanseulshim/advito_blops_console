@@ -48,8 +48,8 @@ const Label = styled.span`
 const options = [
   { value: 'percentSpend', label: 'Percent of Spend' },
   { value: 'percentSavings', label: 'Percent of Savings' },
-  { value: 'amountSpend', label: 'Percent of Spend' },
-  { value: 'amountSavings', label: 'Percent of Savings' },
+  { value: 'amountSpend', label: 'Amount of Spend' },
+  { value: 'amountSavings', label: 'Amount of Savings' },
 ];
 
 const DataToggle = ({ dataView, donutDataView, toggleDataView, donutData }) => {
