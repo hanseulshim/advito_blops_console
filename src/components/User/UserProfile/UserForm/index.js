@@ -7,6 +7,7 @@ import Select from 'react-select';
 import Checkbox from 'components/common/Checkbox';
 import Modal from 'components/common/Modal';
 import Loader from 'components/common/Loader';
+import UpdatePassword from './UpdatePassword';
 
 import { USER_PROFILE, UPDATE_USER_PROFILE } from 'components/graphql/query/user';
 
@@ -63,7 +64,7 @@ const Avatar = styled.div`
   }
 `;
 
-const Form = styled.form`
+const Form = styled.div`
   display: flex;
   flex-direction: column;
   width: 40%;
@@ -127,6 +128,7 @@ class UserForm extends Component {
       emailNotifications: false,
       profilePicturePath: '',
       openSave: false,
+      openPassword: false,
       errorMessage: '',
     };
     this.loading = true;
@@ -191,6 +193,7 @@ class UserForm extends Component {
   saveUser = async () => {
     const payload = { ...this.state };
     delete payload.openSave;
+    delete payload.openPassword;
     delete payload.errorMessage;
     const { client, user } = this.props;
     payload.sessionToken = user.sessionToken;
@@ -214,8 +217,10 @@ class UserForm extends Component {
       timezoneDefault,
       dateFormatDefault,
       openSave,
+      openPassword,
       errorMessage,
     } = this.state;
+    const { user, client } = this.props;
 
     return this.loading ? (
       <Loader />
@@ -255,7 +260,7 @@ class UserForm extends Component {
               <FormLabel>Password</FormLabel>
               <div style={{ width: '100%', display: 'flex', alignItems: 'flex-end' }}>
                 <Password disabled type="password" value="**************" />
-                <ChangePassword text="Change" />
+                <ChangePassword text="Change" onClick={() => this.toggleModal('openPassword')} />
               </div>
             </FormItem>
             <FormItem>
@@ -278,6 +283,13 @@ class UserForm extends Component {
             {errorMessage ? `Error: ${errorMessage}` : 'User information successfully updated'}
           </div>
           <Save text="Close" onClick={() => this.toggleModal('openSave')} />
+        </Modal>
+        <Modal open={openPassword} handleClose={() => this.toggleModal('openPassword')}>
+          <UpdatePassword
+            user={user}
+            client={client}
+            handleClose={() => this.toggleModal('openPassword')}
+          />
         </Modal>
       </>
     );

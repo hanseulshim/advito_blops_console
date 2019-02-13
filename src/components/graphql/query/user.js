@@ -67,3 +67,15 @@ export const UPDATE_USER_PROFILE = gql`
     }
   }
 `;
+
+export const UPDATE_PASSWORD = gql`
+  mutation UpdatePassword($clientId: Int!, $sessionToken: String!, $pwd: String!) {
+    updatePassword(clientId: $clientId, sessionToken: $sessionToken, pwd: $pwd) {
+      statusCode
+      body {
+        apimessage
+        apidataset
+      }
+    }
+  }
+`;
