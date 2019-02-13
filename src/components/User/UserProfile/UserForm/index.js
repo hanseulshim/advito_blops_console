@@ -12,15 +12,15 @@ import { USER_PROFILE, UPDATE_USER_PROFILE } from 'components/graphql/query/user
 const dateTimeOptions = [
   {
     label: 'European(01 JAN 2017)',
-    value: 'European',
+    value: 'european',
   },
   {
     label: 'Western(JAN 01 2017)',
-    value: 'Western',
+    value: 'western',
   },
   {
     label: 'Sailor(%$&&^%$@!)',
-    value: 'Sailor',
+    value: 'sailor',
   },
 ];
 
@@ -181,7 +181,6 @@ class UserForm extends Component {
   saveUser = async () => {
     const payload = { ...this.state };
     const { client, user } = this.props;
-    payload.clientId = user.clientId;
     payload.sessionToken = user.sessionToken;
     payload.timezoneDefault = payload.timezoneDefault.value;
     payload.dateFormatDefault = payload.dateFormatDefault.value;
