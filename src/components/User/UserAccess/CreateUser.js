@@ -63,6 +63,8 @@ class CreateUser extends Component {
     });
   };
 
+  changeTogle;
+
   handleSave;
 
   render() {
