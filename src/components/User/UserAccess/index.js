@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Checkbox from 'components/common/Checkbox';
 import Button from 'components/common/Button';
-
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
+import UserTable from './UserTable';
 
 //mock data for table
 
@@ -35,24 +33,6 @@ const data = [
   },
 ];
 
-const columns = [
-  {
-    Header: 'UserName',
-    accessor: 'name', // String-based value accessors!
-  },
-  {
-    Header: 'Email',
-    accessor: 'email',
-    // Cell: props => <span className="number">{props.value}</span>, // Custom cell components!
-  },
-  {
-    // id: 'friendName', // Required because our accessor is not a string
-    Header: 'User Type',
-    accesor: 'type',
-    // accessor: d => d.friend.name, // Custom value accessors!
-  },
-];
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -64,6 +44,7 @@ const ControlRow = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 5%;
 `;
 
 class UserAccess extends Component {
@@ -78,7 +59,7 @@ class UserAccess extends Component {
           <Checkbox>Show Inactive</Checkbox>
           <Button text="+ New User" />
         </ControlRow>
-        <ReactTable data={data} columns={columns} />
+        <UserTable />
       </Container>
     );
   }

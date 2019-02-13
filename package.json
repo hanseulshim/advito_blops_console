@@ -5,6 +5,7 @@
   "dependencies": {
     "@amcharts/amcharts4": "^4.0.13",
     "@amcharts/amcharts4-geodata": "^4.0.26",
+    "@material-ui/core": "^3.9.2",
     "apollo-boost": "^0.1.22",
     "cities.json": "^1.1.5",
     "graphql": "^14.0.2",
@@ -20,7 +21,6 @@
     "react-scripts": "2.1.0",
     "react-select": "^2.3.0",
     "react-spinners": "^0.4.7",
-    "react-table": "^6.9.2",
     "react-toggle": "^4.0.2",
     "styled-components": "^4.1.1"
   },
