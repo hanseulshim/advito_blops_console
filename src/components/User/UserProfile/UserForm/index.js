@@ -192,7 +192,6 @@ class UserForm extends Component {
     const payload = { ...this.state };
     delete payload.openSave;
     delete payload.errorMessage;
-    console.log('payload', payload);
     const { client, user } = this.props;
     payload.sessionToken = user.sessionToken;
     payload.timezoneDefault = payload.timezoneDefault.value;
