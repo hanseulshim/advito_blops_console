@@ -61,6 +61,7 @@ export const UPDATE_USER_PROFILE = gql`
     ) {
       statusCode
       body {
+        apimessage
         apidataset
       }
     }

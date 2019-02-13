@@ -5,6 +5,7 @@ import Button from 'components/common/Button';
 import TextInput from 'components/common/TextInput';
 import Select from 'react-select';
 import Checkbox from 'components/common/Checkbox';
+import Modal from 'components/common/Modal';
 import Loader from 'components/common/Loader';
 
 import { USER_PROFILE, UPDATE_USER_PROFILE } from 'components/graphql/query/user';
@@ -125,6 +126,8 @@ class UserForm extends Component {
       dateFormatDefault: dateTimeOptions[0],
       emailNotifications: false,
       profilePicturePath: '',
+      openSave: false,
+      errorMessage: '',
     };
     this.loading = true;
   }
@@ -178,8 +181,18 @@ class UserForm extends Component {
     this.setState({ emailNotifications: !this.state.emailNotifications });
   };
 
+  toggleModal = key => {
+    if (this.state.key) {
+      this.setState({ errorMessage: '' });
+    }
+    this.setState({ [key]: !this.state[key] });
+  };
+
   saveUser = async () => {
     const payload = { ...this.state };
+    delete payload.openSave;
+    delete payload.errorMessage;
+    console.log('payload', payload);
     const { client, user } = this.props;
     payload.sessionToken = user.sessionToken;
     payload.timezoneDefault = payload.timezoneDefault.value;
@@ -188,10 +201,23 @@ class UserForm extends Component {
       mutation: UPDATE_USER_PROFILE,
       variables: { ...payload },
     });
+    if (data.updateUserProfile.statusCode !== 200) {
+      this.setState({ errorMessage: data.updateUserProfile.body.apimessage });
+    }
+    this.toggleModal('openSave');
   };
 
   render() {
-    const { username, nameFirst, nameLast, timezoneDefault, dateFormatDefault } = this.state;
+    const {
+      username,
+      nameFirst,
+      nameLast,
+      timezoneDefault,
+      dateFormatDefault,
+      openSave,
+      errorMessage,
+    } = this.state;
+
     return this.loading ? (
       <Loader />
     ) : (
@@ -248,6 +274,12 @@ class UserForm extends Component {
           <Settings text="Settings" />
         </Checkbox>
         <Save text="Save" onClick={this.saveUser} />
+        <Modal open={openSave} handleClose={() => this.toggleModal('openSave')}>
+          <div style={{ textAlign: 'center' }}>
+            {errorMessage ? `Error: ${errorMessage}` : 'User information successfully updated'}
+          </div>
+          <Save text="Close" onClick={() => this.toggleModal('openSave')} />
+        </Modal>
       </>
     );
   }

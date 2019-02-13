@@ -11,8 +11,8 @@ import { ApolloProvider } from 'react-apollo';
 am4core.options.commercialLicense = true;
 
 const client = new ApolloClient({
-  uri: 'https://x162060eb4.execute-api.us-east-2.amazonaws.com/dev/graphql',
-  // uri: 'http://localhost:8080/graphql',
+  // uri: 'https://x162060eb4.execute-api.us-east-2.amazonaws.com/dev/graphql',
+  uri: 'http://localhost:8080/graphql',
 });
 
 ReactDOM.render(

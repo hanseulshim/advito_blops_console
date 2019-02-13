@@ -5,6 +5,7 @@
   "dependencies": {
     "@amcharts/amcharts4": "^4.0.13",
     "@amcharts/amcharts4-geodata": "^4.0.26",
+    "@material-ui/core": "^3.9.2",
     "apollo-boost": "^0.1.22",
     "cities.json": "^1.1.5",
     "graphql": "^14.0.2",
