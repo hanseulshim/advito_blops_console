@@ -5,11 +5,11 @@ import Button from 'components/common/Button';
 import TextInput from 'components/common/TextInput';
 import Select from 'react-select';
 import Checkbox from 'components/common/Checkbox';
+import Loader from 'components/common/Loader';
 
-import { USER_PROFILE } from 'components/graphql/query/user';
+import { USER_PROFILE, UPDATE_USER_PROFILE } from 'components/graphql/query/user';
 
-//Mock Data before API
-let dateTimeOptions = [
+const dateTimeOptions = [
   {
     label: 'European(01 JAN 2017)',
     value: 'European',
@@ -24,14 +24,14 @@ let dateTimeOptions = [
   },
 ];
 
-let timeZones = [
+const timeZones = [
   {
     label: '(UTC-05:00) Eastern Time',
-    value: 'Eastern',
+    value: 'EST',
   },
   {
     label: '(MTN-07:00) Mountain',
-    value: 'Mountain',
+    value: 'MT',
   },
 ];
 
@@ -119,43 +119,83 @@ class UserForm extends Component {
     super(props);
     this.state = {
       username: '',
-      firstName: '',
-      lastName: '',
-      timeZone: {},
-      dateTime: {},
-      password: '',
+      nameFirst: '',
+      nameLast: '',
+      timezoneDefault: timeZones[0],
+      dateFormatDefault: dateTimeOptions[0],
+      emailNotifications: false,
+      profilePicturePath: '',
     };
+    this.loading = true;
   }
 
   async componentDidMount() {
-    const client = this.props.client;
+    const { client, removeUser } = this.props;
 
-    const response = await client.query({
+    const { data } = await client.query({
       query: USER_PROFILE,
       variables: {
         clientId: this.props.user.clientId,
         sessionToken: this.props.user.sessionToken,
       },
     });
-
-    const data = response.data.userProfile.body.apidataset;
-
-    this.setState({
-      username: data.username,
-      firstName: data.firstName,
-      lastName: data.lastName,
-    });
+    if (data.userProfile.statusCode !== 200) {
+      removeUser();
+    } else {
+      this.loading = false;
+      const userData = data.userProfile.body.apidataset;
+      const state = {};
+      Object.keys(userData).forEach(key => {
+        if (userData[key]) {
+          if (key === 'timezoneDefault') {
+            const value = timeZones.filter(v => v.value === userData[key])[0];
+            state[key] = value;
+          } else if (key === 'dateFormatDefault') {
+            const value = dateTimeOptions.filter(v => v.value === userData[key])[0];
+            state[key] = value;
+          } else {
+            state[key] = userData[key];
+          }
+        }
+      });
+      this.setState({
+        ...state,
+      });
+    }
   }
 
-  changeInput = e => {
-    this.setState({
-      [e.target.name]: e.target.value,
+  changeInput = (e, name) => {
+    if (e.label) {
+      this.setState({ [name]: e });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value,
+      });
+    }
+  };
+
+  toggleEmail = () => {
+    this.setState({ emailNotifications: !this.state.emailNotifications });
+  };
+
+  saveUser = async () => {
+    const payload = { ...this.state };
+    const { client, user } = this.props;
+    payload.clientId = user.clientId;
+    payload.sessionToken = user.sessionToken;
+    payload.timezoneDefault = payload.timezoneDefault.value;
+    payload.dateFormatDefault = payload.dateFormatDefault.value;
+    const { data } = await client.mutate({
+      mutation: UPDATE_USER_PROFILE,
+      variables: { ...payload },
     });
   };
 
   render() {
-    const { username, firstName, lastName, timeZone, dateTime } = this.state;
-    return (
+    const { username, nameFirst, nameLast, timezoneDefault, dateFormatDefault } = this.state;
+    return this.loading ? (
+      <Loader />
+    ) : (
       <>
         <FormContainer>
           <Form>
@@ -171,17 +211,21 @@ class UserForm extends Component {
             </FormItem>
             <FormItem>
               <FormLabel>Date/Time Format</FormLabel>
-              <Dropdown options={dateTimeOptions} />
+              <Dropdown
+                options={dateTimeOptions}
+                value={dateFormatDefault}
+                onChange={e => this.changeInput(e, 'dateFormatDefault')}
+              />
             </FormItem>
           </Form>
           <Form>
             <FormItem>
               <FormLabel>First Name</FormLabel>
-              <FormText value={firstName} name="firstName" onChange={this.changeInput} />
+              <FormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
             </FormItem>
             <FormItem>
               <FormLabel>Last Name</FormLabel>
-              <FormText value={lastName} name="lastName" onChange={this.changeInput} />
+              <FormText value={nameLast} name="nameLast" onChange={this.changeInput} />
             </FormItem>
             <FormItem>
               <FormLabel>Password</FormLabel>
@@ -192,15 +236,19 @@ class UserForm extends Component {
             </FormItem>
             <FormItem>
               <FormLabel>Time Zone</FormLabel>
-              <Dropdown options={timeZones} />
+              <Dropdown
+                options={timeZones}
+                value={timezoneDefault}
+                onChange={e => this.changeInput(e, 'timezoneDefault')}
+              />
             </FormItem>
           </Form>
         </FormContainer>
-        <Checkbox style={{ display: 'block' }}>
+        <Checkbox style={{ display: 'block' }} onChange={this.toggleEmail}>
           Receive email notifications
           <Settings text="Settings" />
         </Checkbox>
-        <Save type="submit" text="Save" />
+        <Save text="Save" onClick={this.saveUser} />
       </>
     );
   }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import UserForm from './UserForm';
 import { ApolloConsumer } from 'react-apollo';
 import UserContext from 'components/context/UserContext';
@@ -12,8 +11,8 @@ class UserProfile extends Component {
         <ApolloConsumer>
           {client => (
             <UserContext.Consumer>
-              {({ user }) => (
-                <UserForm client={client} user={user} />
+              {({ user, removeUser }) => (
+                <UserForm client={client} user={user} removeUser={removeUser} />
               )}
             </UserContext.Consumer>
           )}
