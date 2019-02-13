@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Checkbox from 'components/common/Checkbox';
 import Button from 'components/common/Button';
 import UserTable from './UserTable';
+import CreateUser from './CreateUser';
 
 //mock data for table
 
@@ -50,16 +51,26 @@ const ControlRow = styled.div`
 class UserAccess extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      modalOpen: false,
+    };
   }
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      modalOpen: !prevState.modalOpen,
+    }));
+  };
   render() {
+    const { modalOpen } = this.state;
     return (
       <Container>
         <ControlRow>
           <Checkbox>Show Inactive</Checkbox>
-          <Button text="+ New User" />
+          <Button text="+ New User" onClick={this.toggleModal} />
         </ControlRow>
-        <UserTable />
+        <UserTable users={data} />
+        <CreateUser open={modalOpen} onClose={this.toggleModal} />
       </Container>
     );
   }
