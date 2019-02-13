@@ -19,9 +19,27 @@ export const USER_PROFILE = gql`
   }
 `;
 
+export const GET_USERS = gql`
+  query($clientId: Int!, $sessionToken: String!) {
+    getUsers(clientId: $clientId, sessionToken: $sessionToken) {
+      statusCode
+      body {
+        apidataset {
+          username
+          active
+          nameFirst
+          nameLast
+          phone
+          address
+          role
+        }
+      }
+    }
+  }
+`;
+
 export const UPDATE_USER_PROFILE = gql`
   mutation UpdateUserProfile(
-    $clientId: Int!
     $sessionToken: String!
     $nameFirst: String!
     $nameLast: String!
@@ -32,7 +50,6 @@ export const UPDATE_USER_PROFILE = gql`
     $emailNotifications: Boolean!
   ) {
     updateUserProfile(
-      clientId: $clientId
       sessionToken: $sessionToken
       nameFirst: $nameFirst
       nameLast: $nameLast
