@@ -76,13 +76,11 @@ const NavMenu = ({ location }) => (
             <LogOut
               onClick={async event => {
                 event.preventDefault();
-                const { data } = await client.query({
+                removeUser();
+                await client.query({
                   query: LOGOUT,
                   variables: { sessionToken: user.sessionToken },
                 });
-                if (data.logout.statusCode === 200) {
-                  removeUser();
-                }
               }}
             >
               Logout
