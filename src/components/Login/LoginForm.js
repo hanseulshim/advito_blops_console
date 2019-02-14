@@ -4,6 +4,8 @@ import { ApolloConsumer } from 'react-apollo';
 import { LOGIN } from 'components/graphql/query';
 import styled from 'styled-components';
 import UserContext from 'components/context/UserContext';
+import Modal from 'components/common/Modal';
+import ForgotPassword from './ForgotPassword';
 
 const FormContainer = styled.div`
   margin-top: 1em;
@@ -45,12 +47,14 @@ const Forgot = styled.span`
   font-size: 0.75em;
   color: ${props => props.theme.alabaster};
   margin-left: 1.5em;
+  cursor: pointer;
 `;
 
 class LoginForm extends Component {
   state = {
     username: '',
     pwd: '',
+    forgotPassword: false,
   };
   updateUsername = event => {
     this.setState({ username: event.target.value });
@@ -58,8 +62,14 @@ class LoginForm extends Component {
   updatePassword = event => {
     this.setState({ pwd: event.target.value });
   };
+
+  toggleModal = () => {
+    this.setState({
+      forgotPassword: !this.state.forgotPassword,
+    });
+  };
   render() {
-    const { username, pwd } = this.state;
+    const { username, pwd, forgotPassword } = this.state;
     return (
       <UserContext.Consumer>
         {({ authenticated, setUser }) =>
@@ -97,9 +107,12 @@ class LoginForm extends Component {
                       />
                       <SubmitContainer>
                         <Submit type="submit" value="Login" />
-                        <Forgot>Forgot Password?</Forgot>
+                        <Forgot onClick={this.toggleModal}>Forgot Password?</Forgot>
                       </SubmitContainer>
                     </Form>
+                    <Modal open={forgotPassword} handleClose={() => this.toggleModal}>
+                      <ForgotPassword handleClose={this.toggleModal} />
+                    </Modal>
                   </FormContainer>
                 </div>
               )}
