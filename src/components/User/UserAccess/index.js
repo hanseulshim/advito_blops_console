@@ -4,6 +4,10 @@ import Checkbox from 'components/common/Checkbox';
 import Button from 'components/common/Button';
 import UserTable from './UserTable';
 import CreateUser from './CreateUser';
+import Modal from 'components/common/Modal';
+
+import { ApolloConsumer } from 'react-apollo';
+import UserContext from 'components/context/UserContext';
 
 //mock data for table
 
@@ -64,14 +68,30 @@ class UserAccess extends Component {
   render() {
     const { modalOpen } = this.state;
     return (
-      <Container>
-        <ControlRow>
-          <Checkbox>Show Inactive</Checkbox>
-          <Button text="+ New User" onClick={this.toggleModal} />
-        </ControlRow>
-        <UserTable users={data} />
-        <CreateUser open={modalOpen} onClose={this.toggleModal} />
-      </Container>
+      <ApolloConsumer>
+        {client => (
+          <UserContext.Consumer>
+            {({ user, removeUser }) => (
+              <Container>
+                <ControlRow>
+                  <Checkbox>Show Inactive</Checkbox>
+                  <Button text="+ New User" onClick={this.toggleModal} />
+                </ControlRow>
+                <UserTable users={data} />
+                <Modal open={modalOpen} onClose={this.toggleModal} size="tall">
+                  <CreateUser
+                    open={modalOpen}
+                    onClose={this.toggleModal}
+                    client={client}
+                    user={user}
+                    removeUser={removeUser}
+                  />
+                </Modal>
+              </Container>
+            )}
+          </UserContext.Consumer>
+        )}
+      </ApolloConsumer>
     );
   }
 }
