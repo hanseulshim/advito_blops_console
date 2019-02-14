@@ -135,9 +135,9 @@ class EditUserForm extends Component {
   };
 
   handleToggle = () => {
-    this.setState(prevState => ({
-      isEnabled: !prevState.active,
-    }));
+    this.setState({
+      isEnabled: !this.state.isEnabled,
+    });
   };
 
   handleSave = async () => {
@@ -186,9 +186,7 @@ class EditUserForm extends Component {
           </FormItem>
           <FormItem>
             <FormLabel>Account Active</FormLabel>
-            <FormLabel>
-              <Toggle defaultChecked={isEnabled} icons={false} onChange={this.handleToggle} />
-            </FormLabel>
+            <Toggle checked={isEnabled} icons={false} onChange={this.handleToggle} />
           </FormItem>
           <FormItem>
             <FormLabel>First Name *</FormLabel>

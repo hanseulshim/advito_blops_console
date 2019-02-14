@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import Modal from 'components/common/Modal';
 import Icon from 'components/common/Icon';
 import EditUserForm from './EditUserForm';
