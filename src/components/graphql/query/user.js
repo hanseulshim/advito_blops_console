@@ -28,7 +28,7 @@ export const GET_USERS = gql`
         apidataset {
           userId
           username
-          active
+          isEnabled
           nameFirst
           nameLast
           phone

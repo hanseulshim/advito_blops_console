@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import GraphQL from 'components/graphql';
+import { GET_USERS } from 'components/graphql/query/user';
 
 //ReactTable imports...
 import Table from '@material-ui/core/Table';
@@ -7,7 +9,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Icon } from '@material-ui/core';
+import EditUser from './EditUser';
 
 const CustomTableHead = styled(TableHead)`
   background-color: ${props => props.theme.grayNurse};
@@ -15,30 +17,34 @@ const CustomTableHead = styled(TableHead)`
   font-size: 2em;
 `;
 
-const UserTable = ({ users }) => {
+const UserTable = props => {
   return (
-    <Table>
-      <CustomTableHead>
-        <TableCell>UserName</TableCell>
-        <TableCell>Email</TableCell>
-        <TableCell>UserType</TableCell>
-        <TableCell>Edit</TableCell>
-      </CustomTableHead>
-      <TableBody>
-        {users.map((user, i) => (
-          <TableRow key={'user' + i}>
-            <TableCell component="th" scope="row">
-              {user.name}
-            </TableCell>
-            <TableCell align="left">{user.email}</TableCell>
-            <TableCell align="left">{user.type}</TableCell>
-            <TableCell align="left">
-              <Icon className="fas fa-pencil-alt" style={{ fontSize: '1em' }} />
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <GraphQL query={GET_USERS} name="getUsers">
+      {({ data, fetchMore }) => (
+        <Table>
+          <CustomTableHead>
+            <TableCell>UserName</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>UserType</TableCell>
+            <TableCell>Edit</TableCell>
+          </CustomTableHead>
+          <TableBody>
+            {data.map((user, i) => (
+              <TableRow key={'user' + i}>
+                <TableCell component="th" scope="row">
+                  {user.nameFirst + user.nameLast}
+                </TableCell>
+                <TableCell align="left">{user.username}</TableCell>
+                <TableCell align="left">{user.role}</TableCell>
+                <TableCell align="left">
+                  <EditUser client={props.client} user={user} loggedIn={props.user} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </GraphQL>
   );
 };
 

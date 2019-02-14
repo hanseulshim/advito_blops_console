@@ -10,7 +10,7 @@ import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
 
 //Query
-import { CREATE_USER } from 'components/graphql/query/user';
+import { EDIT_USER } from 'components/graphql/query/user';
 
 const TitleRow = styled.div`
   display: flex;
@@ -86,22 +86,36 @@ const roles = [
   { label: 'Reports', value: 6 },
 ];
 
-class CreateUser extends Component {
+class EditUserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      isEnabled: true,
+      isEnabled: false,
       nameFirst: '',
       nameLast: '',
       phone: '',
       address: '',
       role: '',
-      pwd: '',
-      confirmPwd: '',
-      errorMessage: '',
-      notifyUser: false,
     };
+  }
+
+  componentDidMount() {
+    const { user } = this.props;
+    const state = {};
+    Object.keys(user).forEach(key => {
+      if (user[key]) {
+        if (key === 'roleId') {
+          const value = roles.filter(v => v.value === user[key])[0];
+          state['role'] = value;
+        } else {
+          state[key] = user[key];
+        }
+      }
+    });
+    this.setState({
+      ...state,
+    });
   }
 
   changeInput = (e, name) => {
@@ -130,18 +144,19 @@ class CreateUser extends Component {
     const payload = { ...this.state };
     delete payload.errorMessage;
     delete payload.notifyUser;
-    const { client, user } = this.props;
-    payload.sessionToken = user.sessionToken;
-    payload.clientId = user.clientId;
+    const { client, loggedIn } = this.props;
+    payload.sessionToken = loggedIn.sessionToken;
+    payload.clientId = loggedIn.clientId;
     payload.roleId = payload.role.value;
     const { data } = await client.mutate({
-      mutation: CREATE_USER,
+      mutation: EDIT_USER,
       variables: { ...payload },
     });
 
-    if (data.createUser.statusCode !== 200) {
-      this.setState({ errorMessage: data.createUser.body.apimessage });
+    if (data.editUser.statusCode !== 200) {
+      this.setState({ errorMessage: data.editUser.body.apimessage });
     }
+
     this.toggleNotification();
   };
 
@@ -154,8 +169,6 @@ class CreateUser extends Component {
       phone,
       address,
       role,
-      pwd,
-      confirmPwd,
       errorMessage,
       notifyUser,
     } = this.state;
@@ -163,7 +176,7 @@ class CreateUser extends Component {
     return (
       <>
         <TitleRow>
-          <SectionTitle>Create User</SectionTitle>
+          <SectionTitle>Edit User</SectionTitle>
           <Close className="fas fa-times" onClick={onClose} />
         </TitleRow>
         <Form>
@@ -197,14 +210,6 @@ class CreateUser extends Component {
             <FormLabel>Role*</FormLabel>
             <Select options={roles} value={role} onChange={e => this.changeInput(e, 'role')} />
           </FormItem>
-          <FormItem>
-            <FormLabel>Password *</FormLabel>
-            <FormText value={pwd} type="password" name="pwd" onChange={this.changeInput} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Confirm Password *</FormLabel>
-            <FormText value={confirmPwd} name="confirmPwd" onChange={this.changeInput} />
-          </FormItem>
         </Form>
         <Text>
           {`Passwords must be a minimum of eight (8) characters
@@ -230,4 +235,4 @@ class CreateUser extends Component {
   }
 }
 
-export default CreateUser;
+export default EditUserForm;

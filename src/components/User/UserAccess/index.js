@@ -77,7 +77,7 @@ class UserAccess extends Component {
                   <Checkbox>Show Inactive</Checkbox>
                   <Button text="+ New User" onClick={this.toggleModal} />
                 </ControlRow>
-                <UserTable users={data} />
+                <UserTable client={client} user={user} removeUser={removeUser} />
                 <Modal open={modalOpen} onClose={this.toggleModal} size="tall">
                   <CreateUser
                     open={modalOpen}
