@@ -7,7 +7,7 @@ const Container = styled.div`
   flex: 1.25;
   background: ${props => props.theme.white};
   border: 1px solid ${props => props.theme.grayNurse};
-  padding: 0 2.5em;
+  padding: 2.5em 4em;
   height: 100%;
   position: absolute;
   opacity: 0.95;

@@ -14,7 +14,7 @@ export {
   RISK_AREAS_EXECUTIVE,
 } from './dashboard';
 export { NO_CHANGE_SINCE } from './category';
-export { USER_PROFILE } from './user';
+export { USER_PROFILE, UPDATE_USER_PROFILE, UPDATE_PASSWORD } from './user';
 
 export const LOGIN = gql`
   query($username: String!, $pwd: String!) {
