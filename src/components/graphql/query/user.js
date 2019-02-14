@@ -82,3 +82,71 @@ export const UPDATE_PASSWORD = gql`
     }
   }
 `;
+
+export const CREATE_USER = gql`
+  mutation CreateUser(
+    $clientId: Int!
+    $sessionToken: String!
+    $username: String!
+    $isEnabled: Boolean!
+    $nameFirst: String!
+    $nameLast: String!
+    $phone: String
+    $address: String
+    $roleId: Int!
+    $pwd: String!
+  ) {
+    createUser(
+      clientId: $clientId
+      sessionToken: $sessionToken
+      username: $username
+      isEnabled: $isEnabled
+      nameFirst: $nameFirst
+      nameLast: $nameLast
+      phone: $phone
+      address: $address
+      roleId: $roleId
+      pwd: $pwd
+    ) {
+      statusCode
+      body {
+        apicode
+        apimessage
+        apidataset
+      }
+    }
+  }
+`;
+
+export const EDIT_USER = gql`
+  mutation CreateUser(
+    $userId: Int!
+    $sessionToken: String!
+    $username: String!
+    $isEnabled: Boolean!
+    $nameFirst: String!
+    $nameLast: String!
+    $phone: String
+    $address: String
+    $roleId: Int!
+  ) {
+    createUser(
+      userId: $userId
+      sessionToken: $sessionToken
+      username: $username
+      isEnabled: $isEnabled
+      nameFirst: $nameFirst
+      nameLast: $nameLast
+      phone: $phone
+      address: $address
+      roleId: $roleId
+    ) {
+      statusCode
+      body {
+        apicode
+        apimessage
+        apidataset
+      }
+    }
+  }
+`;
