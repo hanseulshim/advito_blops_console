@@ -32,12 +32,17 @@ const UserTable = props => {
             {data.map((user, i) => (
               <TableRow key={'user' + i}>
                 <TableCell component="th" scope="row">
-                  {user.nameFirst + user.nameLast}
+                  {`${user.nameFirst} ${user.nameLast}`}
                 </TableCell>
                 <TableCell align="left">{user.username}</TableCell>
                 <TableCell align="left">{user.role}</TableCell>
                 <TableCell align="left">
-                  <EditUser client={props.client} user={user} loggedIn={props.user} />
+                  <EditUser
+                    client={props.client}
+                    user={user}
+                    loggedIn={props.user}
+                    fetchMore={fetchMore}
+                  />
                 </TableCell>
               </TableRow>
             ))}

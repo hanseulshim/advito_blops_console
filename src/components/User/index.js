@@ -25,6 +25,7 @@ const Container = styled.div`
 const MainContainer = styled.div`
   flex: 3;
   padding: 0em 3em;
+  overflow: auto;
 `;
 
 const SidebarDyanmic = styled.div`
