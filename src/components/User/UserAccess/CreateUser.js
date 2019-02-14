@@ -91,14 +91,14 @@ class CreateUser extends Component {
     super(props);
     this.state = {
       username: '',
-      firstname: '',
-      active: true,
-      lastname: '',
+      isEnabled: true,
+      nameFirst: '',
+      nameLast: '',
       phone: '',
       address: '',
       role: '',
-      password: '',
-      confirm: '',
+      pwd: '',
+      confirmPwd: '',
       errorMessage: '',
       notifyUser: false,
     };
@@ -122,7 +122,7 @@ class CreateUser extends Component {
 
   handleToggle = () => {
     this.setState(prevState => ({
-      active: !prevState.active,
+      isEnabled: !prevState.active,
     }));
   };
 
@@ -132,6 +132,7 @@ class CreateUser extends Component {
     delete payload.notifyUser;
     const { client, user } = this.props;
     payload.sessionToken = user.sessionToken;
+    payload.clientId = user.clientId;
     payload.role = payload.role.value;
     const { data } = await client.mutate({
       mutation: CREATE_USER,
@@ -147,14 +148,14 @@ class CreateUser extends Component {
   render() {
     const {
       username,
-      active,
-      firstname,
-      lastname,
+      isEnabled,
+      nameFirst,
+      nameLast,
       phone,
       address,
       role,
-      password,
-      confirm,
+      pwd,
+      confirmPwd,
       errorMessage,
       notifyUser,
     } = this.state;
@@ -173,16 +174,16 @@ class CreateUser extends Component {
           <FormItem>
             <FormLabel>Account Active</FormLabel>
             <FormLabel>
-              <Toggle defaultChecked={active} icons={false} onChange={this.handleToggle} />
+              <Toggle defaultChecked={isEnabled} icons={false} onChange={this.handleToggle} />
             </FormLabel>
           </FormItem>
           <FormItem>
             <FormLabel>First Name *</FormLabel>
-            <FormText value={firstname} name="firstname" onChange={this.changeInput} />
+            <FormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
           </FormItem>
           <FormItem>
             <FormLabel>Last Name *</FormLabel>
-            <FormText value={lastname} name="lastname" onChange={this.changeInput} />
+            <FormText value={nameLast} name="nameLast" onChange={this.changeInput} />
           </FormItem>
           <FormItem>
             <FormLabel>Phone</FormLabel>
@@ -198,16 +199,11 @@ class CreateUser extends Component {
           </FormItem>
           <FormItem>
             <FormLabel>Password *</FormLabel>
-            <FormText
-              value={password}
-              type="password"
-              name="password"
-              onChange={this.changeInput}
-            />
+            <FormText value={pwd} type="password" name="pwd" onChange={this.changeInput} />
           </FormItem>
           <FormItem>
             <FormLabel>Confirm Password *</FormLabel>
-            <FormText value={confirm} name="confirm" onChange={this.changeInput} />
+            <FormText value={confirmPwd} name="confirmPwd" onChange={this.changeInput} />
           </FormItem>
         </Form>
         <Text>
