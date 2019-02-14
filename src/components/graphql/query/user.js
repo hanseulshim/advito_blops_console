@@ -72,8 +72,18 @@ export const UPDATE_USER_PROFILE = gql`
 `;
 
 export const UPDATE_PASSWORD = gql`
-  mutation UpdatePassword($clientId: Int!, $sessionToken: String!, $pwd: String!) {
-    updatePassword(clientId: $clientId, sessionToken: $sessionToken, pwd: $pwd) {
+  mutation UpdatePassword(
+    $clientId: Int!
+    $sessionToken: String!
+    $pwd: String!
+    $confirmPwd: String!
+  ) {
+    updatePassword(
+      clientId: $clientId
+      sessionToken: $sessionToken
+      pwd: $pwd
+      confirmPwd: $confirmPwd
+    ) {
       statusCode
       body {
         apimessage
@@ -95,6 +105,7 @@ export const CREATE_USER = gql`
     $address: String
     $roleId: Int!
     $pwd: String!
+    $confirmPwd: String!
   ) {
     createUser(
       clientId: $clientId
@@ -107,6 +118,7 @@ export const CREATE_USER = gql`
       address: $address
       roleId: $roleId
       pwd: $pwd
+      confirmPwd: $confirmPwd
     ) {
       statusCode
       body {
@@ -119,7 +131,7 @@ export const CREATE_USER = gql`
 `;
 
 export const EDIT_USER = gql`
-  mutation CreateUser(
+  mutation EditUser(
     $userId: Int!
     $sessionToken: String!
     $username: String!
@@ -130,7 +142,7 @@ export const EDIT_USER = gql`
     $address: String
     $roleId: Int!
   ) {
-    createUser(
+    editUser(
       userId: $userId
       sessionToken: $sessionToken
       username: $username
