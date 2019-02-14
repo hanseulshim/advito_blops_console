@@ -13,6 +13,8 @@ const styles = theme => ({
     top: '50%',
     left: '40%',
     borderRadius: '10px',
+    maxHeight: '750px',
+    overflow: 'scroll',
   },
   BackdropProps: {
     backgroundColor: 'rgba(255, 255, 255, 0.4)',

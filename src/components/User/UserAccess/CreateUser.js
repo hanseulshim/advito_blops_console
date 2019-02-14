@@ -203,7 +203,12 @@ class CreateUser extends Component {
           </FormItem>
           <FormItem>
             <FormLabel>Confirm Password *</FormLabel>
-            <FormText value={confirmPwd} name="confirmPwd" onChange={this.changeInput} />
+            <FormText
+              value={confirmPwd}
+              type="password"
+              name="confirmPwd"
+              onChange={this.changeInput}
+            />
           </FormItem>
         </Form>
         <Text>
