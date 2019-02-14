@@ -24,7 +24,9 @@ export const GET_USERS = gql`
     getUsers(clientId: $clientId, sessionToken: $sessionToken) {
       statusCode
       body {
+        apimessage
         apidataset {
+          userId
           username
           active
           nameFirst
@@ -32,6 +34,7 @@ export const GET_USERS = gql`
           phone
           address
           role
+          roleId
         }
       }
     }
