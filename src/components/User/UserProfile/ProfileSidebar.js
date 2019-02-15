@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { SectionTitle, Value, Unit } from 'components/common/Typography';
+import React from 'react'
+import styled from 'styled-components'
+import { SectionTitle, Unit } from 'components/common/Typography'
 
 //Mock data
 
@@ -25,21 +25,21 @@ const data = {
       activity: 'Account created',
     },
   ],
-};
+}
 
 const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-`;
+`
 
 const Section = styled.div`
   margin-bottom: 10%;
-`;
+`
 
 const Title = styled(SectionTitle)`
   margin-bottom: 0.5em;
-`;
+`
 
 const ProfileSidebar = () => {
   return (
@@ -63,11 +63,11 @@ const ProfileSidebar = () => {
               <br />
               {Activity.activity}
             </div>
-          );
+          )
         })}
       </Section>
     </Container>
-  );
-};
+  )
+}
 
-export default ProfileSidebar;
+export default ProfileSidebar

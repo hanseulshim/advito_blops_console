@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import { GET_USERS } from 'components/graphql/query/user';
