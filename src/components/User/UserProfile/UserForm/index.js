@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import Shayan from 'assets/shayan.jpeg';
-import Button from 'components/common/Button';
-import TextInput from 'components/common/TextInput';
-import Select from 'react-select';
-import Checkbox from 'components/common/Checkbox';
-import Modal from 'components/common/Modal';
-import Loader from 'components/common/Loader';
-import UpdatePassword from './UpdatePassword';
+import React, { Component } from 'react'
+import styled from 'styled-components'
+import Shayan from 'assets/shayan.jpeg'
+import Button from 'components/common/Button'
+import TextInput from 'components/common/TextInput'
+import Select from 'react-select'
+import Checkbox from 'components/common/Checkbox'
+import Modal from 'components/common/Modal'
+import Loader from 'components/common/Loader'
+import UpdatePassword from './UpdatePassword'
 
-import { USER_PROFILE, UPDATE_USER_PROFILE } from 'components/graphql/query/user';
+import { USER_PROFILE, UPDATE_USER_PROFILE } from 'components/graphql/query/user'
 
 const dateTimeOptions = [
   {
@@ -20,7 +20,7 @@ const dateTimeOptions = [
     label: 'Western(JAN 01 2017)',
     value: 'western',
   },
-];
+]
 
 const timeZones = [
   {
@@ -31,7 +31,7 @@ const timeZones = [
     label: '(MTN-07:00) Mountain',
     value: 'MT',
   },
-];
+]
 
 //Styled Components
 
@@ -40,7 +40,7 @@ const FormContainer = styled.div`
   height: 40%;
   justify-content: space-around;
   justify-content: flex-start;
-`;
+`
 
 const Avatar = styled.div`
   display: flex;
@@ -58,26 +58,26 @@ const Avatar = styled.div`
     position: relative;
     top: 15%;
   }
-`;
+`
 
 const Form = styled.div`
   display: flex;
   flex-direction: column;
   width: 40%;
   margin-right: auto;
-`;
+`
 
 const FormItem = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   flex: 1;
-`;
+`
 
 const FormLabel = styled.span`
   text-transform: uppercase;
   margin-bottom: 5px;
-`;
+`
 
 const FormText = styled(TextInput)`
   padding: 0.5em;
@@ -85,36 +85,36 @@ const FormText = styled(TextInput)`
   box-sizing: border-box;
   background: transparent;
   border: 1px solid #dedede;
-`;
+`
 
 const Dropdown = styled(Select)`
   width: 100%;
-`;
+`
 
 const Password = styled(TextInput)`
   border: none;
   width: 50%;
   display: inline-block;
-`;
+`
 
 const Save = styled(Button)`
   position: relative;
   left: 40%;
   margin-top: 5em;
-`;
+`
 
 const Settings = styled(Button)`
   border: none;
-`;
+`
 
 const ChangePassword = styled(Button)`
   display: inline-block;
   flex-grow: 0;
-`;
+`
 
 class UserForm extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       username: '',
       nameFirst: '',
@@ -126,84 +126,87 @@ class UserForm extends Component {
       openSave: false,
       openPassword: false,
       errorMessage: '',
-    };
-    this.loading = true;
+    }
+    this.loading = true
   }
 
   async componentDidMount() {
-    const { client, removeUser } = this.props;
+    const { client, removeUser } = this.props
     const { data } = await client.query({
       query: USER_PROFILE,
       variables: {
         clientId: this.props.user.clientId,
         sessionToken: this.props.user.sessionToken,
       },
-    });
+    })
     if (data.userProfile.statusCode !== 200) {
-      removeUser();
+      removeUser()
     } else {
-      this.loading = false;
-      const userData = data.userProfile.body.apidataset;
-      const state = {};
+      this.loading = false
+      const userData = data.userProfile.body.apidataset
+      const state = {}
       Object.keys(userData).forEach(key => {
         if (userData[key]) {
           if (key === 'timezoneDefault') {
-            const value = timeZones.filter(v => v.value === userData[key])[0];
-            state[key] = value;
+            const value = timeZones.filter(v => v.value === userData[key])[0]
+            state[key] = value
           } else if (key === 'dateFormatDefault') {
-            const value = dateTimeOptions.filter(v => v.value === userData[key])[0];
-            state[key] = value;
+            const value = dateTimeOptions.filter(v => v.value === userData[key])[0]
+            state[key] = value
           } else {
-            state[key] = userData[key];
+            state[key] = userData[key]
           }
         }
-      });
+      })
       this.setState({
         ...state,
-      });
+      })
     }
   }
 
   changeInput = (e, name) => {
     if (e.label) {
-      this.setState({ [name]: e });
+      this.setState({ [name]: e })
     } else {
       this.setState({
         [e.target.name]: e.target.value,
-      });
+      })
     }
-  };
+  }
 
   toggleEmail = () => {
-    this.setState({ emailNotifications: !this.state.emailNotifications });
-  };
+    this.setState({ emailNotifications: !this.state.emailNotifications })
+  }
 
   toggleModal = key => {
     if (this.state.key) {
-      this.setState({ errorMessage: '' });
+      this.setState({ errorMessage: '' })
     }
-    this.setState({ [key]: !this.state[key] });
-  };
+    this.setState({ [key]: !this.state[key] })
+  }
 
   saveUser = async () => {
-    const payload = { ...this.state };
+    const payload = { ...this.state }
 
-    delete payload.openSave;
-    delete payload.openPassword;
-    delete payload.errorMessage;
-    const { client, user } = this.props;
-    payload.sessionToken = user.sessionToken;
-    payload.timezoneDefault = payload.timezoneDefault.value;
-    payload.dateFormatDefault = payload.dateFormatDefault.value;
+    delete payload.openSave
+    delete payload.openPassword
+    delete payload.errorMessage
+    const { client, user, setUser } = this.props
+    payload.sessionToken = user.sessionToken
+    payload.timezoneDefault = payload.timezoneDefault.value
+    payload.dateFormatDefault = payload.dateFormatDefault.value
     const { data } = await client.mutate({
       mutation: UPDATE_USER_PROFILE,
       variables: { ...payload },
-    });
+    })
     if (data.updateUserProfile.statusCode !== 200) {
-      this.setState({ errorMessage: data.updateUserProfile.body.apimessage });
+      this.setState({ errorMessage: data.updateUserProfile.body.apimessage })
     }
-    this.toggleModal('openSave');
-  };
+    const userCopy = { ...this.props.user }
+    userCopy.displayName = `${this.state.nameFirst} ${this.state.nameLast}`
+    setUser(userCopy)
+    this.toggleModal('openSave')
+  }
 
   render() {
     const {
@@ -215,8 +218,8 @@ class UserForm extends Component {
       openSave,
       openPassword,
       errorMessage,
-    } = this.state;
-    const { user, client } = this.props;
+    } = this.state
+    const { user, client } = this.props
 
     return this.loading ? (
       <Loader />
@@ -292,8 +295,8 @@ class UserForm extends Component {
           />
         </Modal>
       </>
-    );
+    )
   }
 }
 
-export default UserForm;
+export default UserForm
