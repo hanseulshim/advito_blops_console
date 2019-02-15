@@ -20,10 +20,6 @@ const dateTimeOptions = [
     label: 'Western(JAN 01 2017)',
     value: 'western',
   },
-  {
-    label: 'Sailor(%$&&^%$@!)',
-    value: 'sailor',
-  },
 ];
 
 const timeZones = [
@@ -136,7 +132,6 @@ class UserForm extends Component {
 
   async componentDidMount() {
     const { client, removeUser } = this.props;
-
     const { data } = await client.query({
       query: USER_PROFILE,
       variables: {
@@ -192,6 +187,7 @@ class UserForm extends Component {
 
   saveUser = async () => {
     const payload = { ...this.state };
+
     delete payload.openSave;
     delete payload.openPassword;
     delete payload.errorMessage;
@@ -284,7 +280,11 @@ class UserForm extends Component {
           </div>
           <Save text="Close" onClick={() => this.toggleModal('openSave')} />
         </Modal>
-        <Modal open={openPassword} handleClose={() => this.toggleModal('openPassword')}>
+        <Modal
+          open={openPassword}
+          handleClose={() => this.toggleModal('openPassword')}
+          size="medium"
+        >
           <UpdatePassword
             user={user}
             client={client}

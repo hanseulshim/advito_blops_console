@@ -10,19 +10,27 @@ const styles = theme => ({
     padding: theme.spacing.unit * 4,
     boxShadow: theme.shadows[1],
     outline: 'none',
-    top: '25%',
-    left: '25%',
+    top: '50%',
+    left: '40%',
     borderRadius: '10px',
+    maxHeight: '750px',
+    overflow: 'scroll',
   },
   BackdropProps: {
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
+  },
+  tall: {
+    top: '2.5%',
+  },
+  medium: {
+    top: '15%',
   },
 });
 
 class ModalWrapper extends Component {
   render() {
-    const { classes, handleClose, open } = this.props;
-
+    const { classes, handleClose, open, size } = this.props;
+    const sizeClass = size ? classes[size] : '';
     return (
       <Modal
         aria-labelledby="simple-modal-title"
@@ -35,7 +43,7 @@ class ModalWrapper extends Component {
         open={open}
         onClose={handleClose}
       >
-        <div className={classes.paper}>{this.props.children}</div>
+        <div className={`${classes.paper} ${sizeClass}`}>{this.props.children}</div>
       </Modal>
     );
   }

@@ -13,5 +13,5 @@ export default {
   treePoppy: '#FF9E16',
   steelBlue: '#5890bf',
   tropicalBlue: '#cae4f9',
-  verticalSpace: '3em',
+  verticalSpace: '3.5em',
 };
