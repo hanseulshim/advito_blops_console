@@ -144,7 +144,7 @@ class EditUserForm extends Component {
     const payload = { ...this.state };
     delete payload.errorMessage;
     delete payload.notifyUser;
-    const { client, loggedIn } = this.props;
+    const { client, loggedIn, fetchMore } = this.props;
     payload.sessionToken = loggedIn.sessionToken;
     payload.clientId = loggedIn.clientId;
     payload.roleId = payload.role.value;
@@ -156,6 +156,17 @@ class EditUserForm extends Component {
     if (data.editUser.statusCode !== 200) {
       this.setState({ errorMessage: data.editUser.body.apimessage });
     }
+
+    fetchMore({
+      variables: {
+        sessionToken: loggedIn.sessionToken,
+        clientId: loggedIn.clientId,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+        return fetchMoreResult;
+      },
+    })
 
     this.toggleNotification();
   };
