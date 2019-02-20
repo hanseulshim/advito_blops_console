@@ -37,7 +37,7 @@ const timeZones = [
 
 const FormContainer = styled.div`
   display: flex;
-  height: 40%;
+  height: 45%;
   justify-content: space-around;
   justify-content: flex-start;
 `
@@ -51,6 +51,7 @@ const Avatar = styled.div`
   img {
     border-radius: 50%;
     width: 40%;
+    max-width: 130px;
   }
 
   div {
@@ -224,78 +225,78 @@ class UserForm extends Component {
     return this.loading ? (
       <Loader />
     ) : (
-      <>
-        <FormContainer>
-          <Form>
-            <Avatar>
-              <img src={Shayan} alt="Avatar" />
-              <div>
-                <Button text="Change" />
-              </div>
-            </Avatar>
-            <FormItem>
-              <FormLabel>Username/Email</FormLabel>
-              <FormText value={username} name="username" onChange={this.changeInput} />
-            </FormItem>
-            <FormItem>
-              <FormLabel>Date/Time Format</FormLabel>
-              <Dropdown
-                options={dateTimeOptions}
-                value={dateFormatDefault}
-                onChange={e => this.changeInput(e, 'dateFormatDefault')}
-              />
-            </FormItem>
-          </Form>
-          <Form>
-            <FormItem>
-              <FormLabel>First Name</FormLabel>
-              <FormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
-            </FormItem>
-            <FormItem>
-              <FormLabel>Last Name</FormLabel>
-              <FormText value={nameLast} name="nameLast" onChange={this.changeInput} />
-            </FormItem>
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <div style={{ width: '100%', display: 'flex', alignItems: 'flex-end' }}>
-                <Password disabled type="password" value="**************" />
-                <ChangePassword text="Change" onClick={() => this.toggleModal('openPassword')} />
-              </div>
-            </FormItem>
-            <FormItem>
-              <FormLabel>Time Zone</FormLabel>
-              <Dropdown
-                options={timeZones}
-                value={timezoneDefault}
-                onChange={e => this.changeInput(e, 'timezoneDefault')}
-              />
-            </FormItem>
-          </Form>
-        </FormContainer>
-        <Checkbox style={{ display: 'block' }} onChange={this.toggleEmail}>
-          Receive email notifications
+        <>
+          <FormContainer>
+            <Form>
+              <Avatar>
+                <img src={Shayan} alt="Avatar" />
+                <div>
+                  <Button text="Change" />
+                </div>
+              </Avatar>
+              <FormItem>
+                <FormLabel>Username/Email</FormLabel>
+                <FormText value={username} name="username" onChange={this.changeInput} />
+              </FormItem>
+              <FormItem>
+                <FormLabel>Date/Time Format</FormLabel>
+                <Dropdown
+                  options={dateTimeOptions}
+                  value={dateFormatDefault}
+                  onChange={e => this.changeInput(e, 'dateFormatDefault')}
+                />
+              </FormItem>
+            </Form>
+            <Form>
+              <FormItem>
+                <FormLabel>First Name</FormLabel>
+                <FormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
+              </FormItem>
+              <FormItem>
+                <FormLabel>Last Name</FormLabel>
+                <FormText value={nameLast} name="nameLast" onChange={this.changeInput} />
+              </FormItem>
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <div style={{ width: '100%', display: 'flex', alignItems: 'flex-end' }}>
+                  <Password disabled type="password" value="**************" />
+                  <ChangePassword text="Change" onClick={() => this.toggleModal('openPassword')} />
+                </div>
+              </FormItem>
+              <FormItem>
+                <FormLabel>Time Zone</FormLabel>
+                <Dropdown
+                  options={timeZones}
+                  value={timezoneDefault}
+                  onChange={e => this.changeInput(e, 'timezoneDefault')}
+                />
+              </FormItem>
+            </Form>
+          </FormContainer>
+          <Checkbox style={{ display: 'block' }} onChange={this.toggleEmail}>
+            Receive email notifications
           <Settings text="Settings" />
-        </Checkbox>
-        <Save text="Save" onClick={this.saveUser} />
-        <Modal open={openSave} handleClose={() => this.toggleModal('openSave')}>
-          <div style={{ textAlign: 'center' }}>
-            {errorMessage ? `Error: ${errorMessage}` : 'User information successfully updated'}
-          </div>
-          <Save text="Close" onClick={() => this.toggleModal('openSave')} />
-        </Modal>
-        <Modal
-          open={openPassword}
-          handleClose={() => this.toggleModal('openPassword')}
-          size="medium"
-        >
-          <UpdatePassword
-            user={user}
-            client={client}
+          </Checkbox>
+          <Save text="Save" onClick={this.saveUser} />
+          <Modal open={openSave} handleClose={() => this.toggleModal('openSave')}>
+            <div style={{ textAlign: 'center' }}>
+              {errorMessage ? `Error: ${errorMessage}` : 'User information successfully updated'}
+            </div>
+            <Save text="Close" onClick={() => this.toggleModal('openSave')} />
+          </Modal>
+          <Modal
+            open={openPassword}
             handleClose={() => this.toggleModal('openPassword')}
-          />
-        </Modal>
-      </>
-    )
+            size="medium"
+          >
+            <UpdatePassword
+              user={user}
+              client={client}
+              handleClose={() => this.toggleModal('openPassword')}
+            />
+          </Modal>
+        </>
+      )
   }
 }
 

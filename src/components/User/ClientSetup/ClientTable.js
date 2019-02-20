@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
-import { GET_USERS } from 'components/graphql/query/user';
+import { GET_CLIENTS } from 'components/graphql/query/client';
+import Icon from 'components/common/Icon';
 
 //ReactTable imports...
 import Table from '@material-ui/core/Table';
@@ -18,25 +19,29 @@ const CustomTableHead = styled(TableHead)`
 
 const ClientTable = props => {
   return (
-    <GraphQL query={GET_USERS} name="getUsers">
+    <GraphQL query={GET_CLIENTS} name="getClients">
       {({ data, fetchMore }) => (
         <Table>
+          {console.log(data)}
           <CustomTableHead>
-            <TableCell>UserName</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>UserType</TableCell>
+            <TableCell>GCN</TableCell>
+            <TableCell>Client Name</TableCell>
+            <TableCell>Industry</TableCell>
             <TableCell>Edit</TableCell>
           </CustomTableHead>
           <TableBody>
-            {data.map((user, i) => (
-              <TableRow key={'user' + i}>
+            {data.map((client, i) => (
+              <TableRow key={'client' + i}>
                 <TableCell component="th" scope="row">
-                  {`${user.nameFirst} ${user.nameLast}`}
+                  {`12345`}
                 </TableCell>
-                <TableCell align="left">{user.username}</TableCell>
-                <TableCell align="left">{user.role}</TableCell>
+                <TableCell align="left">{client.clientName}</TableCell>
+                <TableCell align="left">{client.industry}</TableCell>
                 <TableCell align="left">
-                  <i className="fas fa-pencil" />
+                  <Icon
+                    className="fas fa-pencil-alt"
+                    style={{ fontSize: '1em', cursor: 'pointer' }}
+                  />
                 </TableCell>
               </TableRow>
             ))}
