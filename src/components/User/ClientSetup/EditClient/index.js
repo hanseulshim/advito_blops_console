@@ -1,12 +1,57 @@
 import React from 'react';
+import GraphQL from 'components/graphql'
+import Navigation from './Navigation'
+
+//views
+import General from './General';
+import Divisions from './Divisions';
+import Users from './Users';
+import Applications from './Applications';
+
+import { GET_CLIENTS } from 'components/graphql/query/client';
 
 class EditClient extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            client: {},
+            view: "General"
+        }
     }
+
+    changeView = (view) => {
+        this.setState({
+            view
+        })
+    }
+
+    renderView(view) {
+        switch (view) {
+            case 'General':
+                return <General />;
+            case 'Divisions':
+                return <Divisions />;
+            case 'Users':
+                return <Users />;
+            case 'Applications':
+                return <Applications />
+            default:
+                return <General />
+        }
+    }
+
     render() {
-        return (<p>{this.props.match.params.client}</p>);
+        const { view } = this.state;
+        return (
+            <GraphQL query={GET_CLIENTS} name="getClients">
+                {({ data }) => (
+                    <>
+                        <Navigation changeView={this.changeView} selected={view} />
+                        {this.renderView(view)}
+                    </>
+                )}
+            </GraphQL>
+        );
     }
 }
 
