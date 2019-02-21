@@ -1,59 +1,29 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import ClientTable from './ClientTable';
-import { ApolloConsumer } from 'react-apollo'
-import UserContext from 'components/context/UserContext'
+import { Route, Switch } from 'react-router-dom';
+import SelectClient from './SelectClient';
+import EditClient from './EditClient';
 
 //project imports
-import Checkbox from 'components/common/Checkbox'
-import Button from 'components/common/Button'
-import Modal from 'components/common/Modal'
 
-const ControlRow = styled.div`
-  display: flex;
-  width: 100%;
-  flex: 1;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5%;
-`;
 
 class ClientSetup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      addClientOpen: false
+
     };
   }
 
-  toggleForm = () => {
-    this.setState({
-      addClientOpen: !this.state.addClientOpen
-    })
-  }
-
   render() {
-    const { addClientOpen } = this.state;
-    return (
-      <ApolloConsumer>
-        {client => (
-          <UserContext.Consumer>
-            {({ user, removeUser, }) => (
-              <>
-                <ControlRow>
-                  <Checkbox>Show Inactive</Checkbox>
-                  <Button text="+ New Client" onClick={this.toggleModal} style={{ whiteSpace: 'nowrap', width: '9em' }} />
-                </ControlRow>
-                <ClientTable />
-                <Modal open={addClientOpen} handleClose={this.toggleForm} size="tall">
-                  <EditUserForm client={client} user={user} loggedIn={loggedIn} onClose={this.toggleForm} fetchMore={fetchMore} />
-                </Modal>
-              </>
-            )}
-          </UserContext.Consumer>
-        )}
-      </ApolloConsumer>
 
+    return (
+      <>
+        <Switch>
+          <Route path={`/client-setup`} exact component={SelectClient} />
+          <Route path={`/client-setup/:client`} component={EditClient} />
+        </Switch>
+      </>
     )
   }
 }

@@ -11,6 +11,8 @@ export const GET_CLIENTS = gql`
             clientName
             clientNameFull
             clientTag
+            gcn
+            lanyonClientCode
             isActive
             industry
             defaultCurrencyCode
