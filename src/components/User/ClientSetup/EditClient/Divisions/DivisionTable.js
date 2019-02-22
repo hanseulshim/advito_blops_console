@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
 import { GET_CLIENTS } from 'components/graphql/query/client';
-import Icon from 'components/common/Icon';
-import { Link } from 'react-router-dom';
 
 //ReactTable imports...
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { CustomTableHeader, CustomTableCell } from '../../Styles/TableStyles';
+import EditDivision from './EditDivison';
+import { CustomTableHeader, CustomTableCell } from '../../../Styles/TableStyles';
 
-class ClientTable extends Component {
+class DivisionTable extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -26,9 +25,8 @@ class ClientTable extends Component {
             <TableHead>
               <TableRow>
                 <CustomTableHeader>GCN</CustomTableHeader>
-                <CustomTableHeader>Client Name</CustomTableHeader>
-                <CustomTableHeader>Industry</CustomTableHeader>
-                <CustomTableHeader>Edit</CustomTableHeader>
+                <CustomTableHeader align="left">Division Name</CustomTableHeader>
+                <CustomTableHeader align="right">Edit</CustomTableHeader>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -38,14 +36,8 @@ class ClientTable extends Component {
                     {client.gcn}
                   </CustomTableCell>
                   <CustomTableCell align="left">{client.clientName}</CustomTableCell>
-                  <CustomTableCell align="left">{client.industry}</CustomTableCell>
-                  <CustomTableCell align="left">
-                    <Link to={`/client-setup/${client.clientName}`}>
-                      <Icon
-                        className="fas fa-pencil-alt"
-                        style={{ fontSize: '1em', cursor: 'pointer' }}
-                      />
-                    </Link>
+                  <CustomTableCell align="right">
+                    <EditDivision />
                   </CustomTableCell>
                 </TableRow>
               ))}
@@ -57,4 +49,4 @@ class ClientTable extends Component {
   }
 }
 
-export default ClientTable;
+export default DivisionTable;

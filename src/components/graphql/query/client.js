@@ -7,17 +7,17 @@ export const GET_CLIENTS = gql`
       body {
         apimessage
         apidataset {
-            id
-            clientName
-            clientNameFull
-            clientTag
-            gcn
-            lanyonClientCode
-            isActive
-            industry
-            defaultCurrencyCode
-            defaultDistanceUnits
-            description
+          id
+          clientName
+          clientNameFull
+          clientTag
+          gcn
+          lanyonClientCode
+          isActive
+          industry
+          defaultCurrencyCode
+          defaultDistanceUnits
+          description
         }
       }
     }
