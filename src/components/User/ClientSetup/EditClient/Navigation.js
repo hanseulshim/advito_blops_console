@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const Container = styled.div`
   display: flex;
   align-items: flex-end;
-  margin-bottom:3em;
 `;
 
 const NavItem = styled.div`
