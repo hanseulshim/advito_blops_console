@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   display: flex;
   align-items: flex-end;
+  margin-bottom:3em;
 `;
 
 const NavItem = styled.div`
@@ -28,13 +29,13 @@ const tabs = ["General", "Divisions", "Users", "Applications"];
 
 
 const Navigation = (props) => {
-    return (
-        <Container>
-            {tabs.map((tab, index) => (
-                <NavItem key={"tab" + index} onClick={e => props.changeView(tab)} selected={props.selected === tab}>{tab}</NavItem>
-            ))}
-        </Container>
-    );
+  return (
+    <Container>
+      {tabs.map((tab, index) => (
+        <NavItem key={"tab" + index} onClick={e => props.changeView(tab)} selected={props.selected === tab}>{tab}</NavItem>
+      ))}
+    </Container>
+  );
 }
 
 export default Navigation;

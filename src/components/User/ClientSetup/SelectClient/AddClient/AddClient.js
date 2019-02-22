@@ -7,7 +7,7 @@ import Modal from 'components/common/Modal';
 
 
 //Form Styles
-import { TitleRow, Close, Form, FormItem, FormLabel, FormText, Text, SubText, Save, Notes } from '../../../Styles/FormStyles';
+import { TitleRow, Close, ModalForm, ModalFormItem, ModalFormLabel, ModalFormText, ModalText, ModalSubText, Save, Notes } from '../../../Styles/ModalFormStyles';
 import '../../../Styles/toggle.css';
 
 const industries = [
@@ -99,68 +99,68 @@ class AddClient extends Component {
                     <SectionTitle>New Client</SectionTitle>
                     <Close className="fas fa-times" onClick={onClose} />
                 </TitleRow>
-                <Form>
-                    <FormItem>
-                        <FormLabel>Client Name, Short *</FormLabel>
-                        <FormText value={clientNameShort} name="clientNameShort" onChange={this.changeInput} />
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel>Client Name, Full *</FormLabel>
-                        <FormText value={clientNameFull} name="clientNameFull" onChange={this.changeInput} />
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel>GCN ^</FormLabel>
-                        <FormText value={gcn} name="gcn" onChange={this.changeInput} />
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel>Lanyon Code *</FormLabel>
-                        <FormText value={lanyonClientCode} name="lanyonClientCode" onChange={this.changeInput} />
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel>Client ID *</FormLabel>
-                        <FormText value={clientId} name="clientId" onChange={this.changeInput} />
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel>Client Tag *</FormLabel>
-                        <FormText value={clientTag} name="clientTag" onChange={this.changeInput} />
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel>Client Active *</FormLabel>
+                <ModalForm>
+                    <ModalFormItem>
+                        <ModalFormLabel>Client Name, Short *</ModalFormLabel>
+                        <ModalFormText value={clientNameShort} name="clientNameShort" onChange={this.changeInput} />
+                    </ModalFormItem>
+                    <ModalFormItem>
+                        <ModalFormLabel>Client Name, Full *</ModalFormLabel>
+                        <ModalFormText value={clientNameFull} name="clientNameFull" onChange={this.changeInput} />
+                    </ModalFormItem>
+                    <ModalFormItem>
+                        <ModalFormLabel>GCN ^</ModalFormLabel>
+                        <ModalFormText value={gcn} name="gcn" onChange={this.changeInput} />
+                    </ModalFormItem>
+                    <ModalFormItem>
+                        <ModalFormLabel>Lanyon Code *</ModalFormLabel>
+                        <ModalFormText value={lanyonClientCode} name="lanyonClientCode" onChange={this.changeInput} />
+                    </ModalFormItem>
+                    <ModalFormItem>
+                        <ModalFormLabel>Client ID *</ModalFormLabel>
+                        <ModalFormText value={clientId} name="clientId" onChange={this.changeInput} />
+                    </ModalFormItem>
+                    <ModalFormItem>
+                        <ModalFormLabel>Client Tag *</ModalFormLabel>
+                        <ModalFormText value={clientTag} name="clientTag" onChange={this.changeInput} />
+                    </ModalFormItem>
+                    <ModalFormItem>
+                        <ModalFormLabel>Client Active *</ModalFormLabel>
                         <Toggle checked={isEnabled} icons={false} onChange={this.changeInput} />
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel>Industry *</FormLabel>
+                    </ModalFormItem>
+                    <ModalFormItem>
+                        <ModalFormLabel>Industry *</ModalFormLabel>
                         <Select options={industries} value={industry} onChange={e => this.changeInput(e, 'industry')} />
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel>Default Currency</FormLabel>
+                    </ModalFormItem>
+                    <ModalFormItem>
+                        <ModalFormLabel>Default Currency</ModalFormLabel>
                         <Select options={industries} value={defaultCurrrency} onChange={e => this.changeInput(e, 'defaultCurrrency')} />
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel>Default Distance Units</FormLabel>
+                    </ModalFormItem>
+                    <ModalFormItem>
+                        <ModalFormLabel>Default Distance Units</ModalFormLabel>
                         <Select options={industries} value={defaultDistanceUnits} onChange={e => this.changeInput(e, 'defaultDistanceUnits')} />
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel>Client Logo</FormLabel>
+                    </ModalFormItem>
+                    <ModalFormItem>
+                        <ModalFormLabel>Client Logo</ModalFormLabel>
                         <Button text="Upload Image" />
-                    </FormItem>
-                    <FormItem>
-                        <FormLabel>Notes</FormLabel>
+                    </ModalFormItem>
+                    <ModalFormItem>
+                        <ModalFormLabel>Notes</ModalFormLabel>
                         <Notes value={notes} name="notes" onChange={this.changeInput} />
-                    </FormItem>
-                </Form>
-                <Text>
+                    </ModalFormItem>
+                </ModalForm>
+                <ModalText>
                     {`Passwords must be a minimum of eight (8) characters
                     and includes (3) of the following (4) criteria:
                     `}
-                </Text>
-                <SubText>
+                </ModalText>
+                <ModalSubText>
                     {`- Lowercase character
                     - Upper case character
                     - Number
                     - Special characters (e.g.!, $, #, %)
                     `}
-                </SubText>
+                </ModalSubText>
                 <Save text="Save" onClick={this.handleSave} />
                 {/* <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
                     <div style={{ textAlign: 'center' }}>

@@ -5,7 +5,7 @@ import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
 
 //Form Styles
-import { TitleRow, Close, Form, FormItem, FormLabel, FormText, Text, SubText, Save } from '../Styles/FormStyles';
+import { TitleRow, Close, ModalForm, ModalFormItem, ModalFormLabel, ModalFormText, ModalText, ModalSubText, Save } from '../Styles/ModalFormStyles';
 import '../Styles/toggle.css';
 
 //Query
@@ -124,48 +124,48 @@ class EditUserForm extends Component {
           <SectionTitle>Edit User</SectionTitle>
           <Close className="fas fa-times" onClick={onClose} />
         </TitleRow>
-        <Form>
-          <FormItem>
-            <FormLabel>User Name *</FormLabel>
-            <FormText value={username} name="username" onChange={this.changeInput} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Account Active</FormLabel>
+        <ModalForm>
+          <ModalFormItem>
+            <ModalFormLabel>User Name *</ModalFormLabel>
+            <ModalFormText value={username} name="username" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Account Active</ModalFormLabel>
             <Toggle checked={isEnabled} icons={false} onChange={this.handleToggle} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>First Name *</FormLabel>
-            <FormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Last Name *</FormLabel>
-            <FormText value={nameLast} name="nameLast" onChange={this.changeInput} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Phone</FormLabel>
-            <FormText value={phone} name="phone" onChange={this.changeInput} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Address</FormLabel>
-            <FormText value={address} name="address" onChange={this.changeInput} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Role*</FormLabel>
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>First Name *</ModalFormLabel>
+            <ModalFormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Last Name *</ModalFormLabel>
+            <ModalFormText value={nameLast} name="nameLast" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Phone</ModalFormLabel>
+            <ModalFormText value={phone} name="phone" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Address</ModalFormLabel>
+            <ModalFormText value={address} name="address" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Role*</ModalFormLabel>
             <Select options={roles} value={role} onChange={e => this.changeInput(e, 'role')} />
-          </FormItem>
-        </Form>
-        <Text>
+          </ModalFormItem>
+        </ModalForm>
+        <ModalText>
           {`Passwords must be a minimum of eight (8) characters
           and includes (3) of the following (4) criteria:
           `}
-        </Text>
-        <SubText>
+        </ModalText>
+        <ModalSubText>
           {`- Lowercase character
           - Upper case character
           - Number
           - Special characters (e.g.!, $, #, %)
           `}
-        </SubText>
+        </ModalSubText>
         <Save text="Save" onClick={this.handleSave} />
         <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
           <div style={{ textAlign: 'center' }}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import GraphQL from 'components/graphql'
 import Navigation from './Navigation'
 
@@ -9,6 +10,11 @@ import Users from './Users';
 import Applications from './Applications';
 
 import { GET_CLIENTS } from 'components/graphql/query/client';
+
+
+const Main = styled.div`
+padding-top:3em;
+padding-bottom:3em;`
 
 class EditClient extends React.Component {
     constructor(props) {
@@ -47,7 +53,9 @@ class EditClient extends React.Component {
                 {({ data }) => (
                     <>
                         <Navigation changeView={this.changeView} selected={view} />
-                        {this.renderView(view)}
+                        <Main>
+                            {this.renderView(view)}
+                        </Main>
                     </>
                 )}
             </GraphQL>

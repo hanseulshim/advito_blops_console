@@ -1,7 +1,10 @@
 import React from 'react';
+import GeneralForm from './GeneralForm';
 
 const General = () => {
-    return (<p>General</p>);
+    return (
+        <GeneralForm />
+    );
 }
 
 export default General;
