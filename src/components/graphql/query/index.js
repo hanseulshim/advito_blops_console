@@ -14,6 +14,7 @@ export {
   RISK_AREAS_EXECUTIVE,
 } from './dashboard';
 export { NO_CHANGE_SINCE } from './category';
+export { UPDATE_CLIENT, CREATE_CLIENT, GET_CLIENTS } from './client';
 export { USER_PROFILE, UPDATE_USER_PROFILE, UPDATE_PASSWORD } from './user';
 
 export const LOGIN = gql`
