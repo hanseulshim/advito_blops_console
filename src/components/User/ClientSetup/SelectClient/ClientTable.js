@@ -19,40 +19,44 @@ class ClientTable extends Component {
   }
 
   render() {
+    const { clients } = this.props;
     return (
-      <GraphQL query={GET_CLIENTS} name="getClients">
-        {({ data, fetchMore }) => (
-          <Table>
-            <TableHead>
-              <TableRow>
-                <CustomTableHeader>GCN</CustomTableHeader>
-                <CustomTableHeader>Client Name</CustomTableHeader>
-                <CustomTableHeader>Industry</CustomTableHeader>
-                <CustomTableHeader>Edit</CustomTableHeader>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((client, i) => (
-                <TableRow key={'client' + i}>
-                  <CustomTableCell component="th" scope="row">
-                    {client.gcn}
-                  </CustomTableCell>
-                  <CustomTableCell align="left">{client.clientName}</CustomTableCell>
-                  <CustomTableCell align="left">{client.industry}</CustomTableCell>
-                  <CustomTableCell align="left">
-                    <Link to={`/client-setup/${client.clientName}`}>
-                      <Icon
-                        className="fas fa-pencil-alt"
-                        style={{ fontSize: '1em', cursor: 'pointer' }}
-                      />
-                    </Link>
-                  </CustomTableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        )}
-      </GraphQL>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <CustomTableHeader>GCN</CustomTableHeader>
+            <CustomTableHeader>Client Name</CustomTableHeader>
+            <CustomTableHeader>Industry</CustomTableHeader>
+            <CustomTableHeader>Edit</CustomTableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {clients.map((client, i) => (
+            <TableRow key={'client' + i}>
+              <CustomTableCell component="th" scope="row">
+                {client.gcn}
+              </CustomTableCell>
+              <CustomTableCell align="left">{client.clientName}</CustomTableCell>
+              <CustomTableCell align="left">{client.industry}</CustomTableCell>
+              <CustomTableCell align="left">
+                <Link
+                  to={{
+                    pathname: `/client-setup/${client.clientName}/general`,
+                    state: {
+                      client,
+                    },
+                  }}
+                >
+                  <Icon
+                    className="fas fa-pencil-alt"
+                    style={{ fontSize: '1em', cursor: 'pointer' }}
+                  />
+                </Link>
+              </CustomTableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     );
   }
 }

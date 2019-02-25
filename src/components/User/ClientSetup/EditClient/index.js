@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import GraphQL from 'components/graphql';
+import { Route, Switch } from 'react-router-dom';
 import Navigation from './Navigation';
 
 //views
@@ -9,10 +9,8 @@ import Divisions from './Divisions';
 import Users from './Users';
 import Applications from './Applications';
 
-import { GET_CLIENTS } from 'components/graphql/query/client';
-
 const Main = styled.div`
-  padding-top: 3em;
+  padding-top: 4em;
   padding-bottom: 3em;
 `;
 
@@ -20,43 +18,40 @@ class EditClient extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      client: {},
       view: 'General',
     };
   }
 
-  changeView = view => {
+  componentWillMount() {
     this.setState({
-      view,
+      selectedClient: this.props.location.state.client,
     });
-  };
-
-  renderView(view) {
-    switch (view) {
-      case 'General':
-        return <General />;
-      case 'Divisions':
-        return <Divisions />;
-      case 'Users':
-        return <Users />;
-      case 'Applications':
-        return <Applications />;
-      default:
-        return <General />;
-    }
   }
 
   render() {
-    const { view } = this.state;
+    const { selectedClient } = this.state;
     return (
-      <GraphQL query={GET_CLIENTS} name="getClients">
-        {({ data }) => (
-          <>
-            <Navigation changeView={this.changeView} selected={view} />
-            <Main>{this.renderView(view)}</Main>
-          </>
-        )}
-      </GraphQL>
+      <>
+        <Navigation selectedClient={selectedClient} />
+        <Main>
+          <Switch>
+            <Route
+              path={`/client-setup/${selectedClient.clientName}/general`}
+              exact
+              component={General}
+            />
+            <Route
+              path={`/client-setup/${selectedClient.clientName}/divisions`}
+              component={Divisions}
+            />
+            <Route path={`/client-setup/${selectedClient.clientName}/users`} component={Users} />
+            <Route
+              path={`/client-setup/${selectedClient.clientName}/applications`}
+              component={Applications}
+            />
+          </Switch>
+        </Main>
+      </>
     );
   }
 }

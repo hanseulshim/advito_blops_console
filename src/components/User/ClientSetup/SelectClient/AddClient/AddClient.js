@@ -4,173 +4,233 @@ import Toggle from 'react-toggle';
 import Select from 'react-select';
 import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
+import { withApollo } from 'react-apollo';
 
+//GraphQl Mutation
+import { CREATE_CLIENT } from 'components/graphql/query/client';
 
 //Form Styles
-import { TitleRow, Close, ModalForm, ModalFormItem, ModalFormLabel, ModalFormText, ModalText, ModalSubText, Save, Notes } from '../../../Styles/ModalFormStyles';
+import {
+  TitleRow,
+  Close,
+  ModalForm,
+  ModalFormItem,
+  ModalFormLabel,
+  ModalFormText,
+  ModalText,
+  ModalSubText,
+  Save,
+  Notes,
+} from '../../../Styles/ModalFormStyles';
 import '../../../Styles/toggle.css';
 
 const industries = [
-    { label: 'Information Technology', value: 1 },
-    { label: 'Travel', value: 2 },
-    { label: 'Software Development', value: 3 },
-    { label: 'Education', value: 4 },
-    { label: 'Public Service', value: 5 },
+  { label: 'Information Technology', value: 'Information Technology' },
+  { label: 'Travel', value: 'Travel' },
+  { label: 'Software Development', value: 'Software Development' },
+  { label: 'Education', value: 'Education' },
+  { label: 'Public Service', value: 'Public Service' },
+];
+
+const currencies = [{ label: 'US Dollar', value: 'Dollar' }, { label: 'Euro', value: 'Euro' }];
+
+const distanceUnits = [
+  { label: 'Miles', value: 'Miles' },
+  { label: 'Kilometers', value: 'Kilometers' },
 ];
 
 class AddClient extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            clientNameShort: '',
-            clientNameFull: '',
-            gcn: '',
-            lanyonClientCode: '',
-            clientId: '',
-            clientTag: '',
-            isEnabled: true,
-            industry: '',
-            defaultCurrrency: '',
-            defaultDistanceUnits: '',
-            clientLogo: '',
-            notes: ''
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      clientName: '',
+      clientNameFull: '',
+      clientTag: '',
+      gcn: '',
+      lanyonClientCode: '',
+      isActive: true,
+      industry: '',
+      defaultCurrencyCode: '',
+      defaultDistanceUnits: '',
+      logoPath: '',
+      description: '',
+      errorMessage: '',
+      notifyUser: false,
+    };
+  }
+
+  changeInput = (e, name) => {
+    if (e.label) {
+      this.setState({ [name]: e });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value,
+      });
     }
+  };
 
-    changeInput = (e, name) => {
-        if (e.label) {
-            this.setState({ [name]: e });
-        }
-        else {
-            this.setState({
-                [e.target.name]: e.target.value,
-            });
-        }
-    };
+  toggleActive = () => this.setState({ isActive: !this.state.isActive });
 
-    handleSave = async () => {
-        // const payload = { ...this.state };
-        // delete payload.errorMessage;
-        // delete payload.notifyUser;
-        // const { client, loggedIn, fetchMore } = this.props;
-        // payload.sessionToken = loggedIn.sessionToken;
-        // payload.clientId = loggedIn.clientId;
-        // payload.roleId = payload.role.value;
-        // const { data } = await client.mutate({
-        //     mutation: EDIT_USER,
-        //     variables: { ...payload },
-        // });
+  toggleModal = () => {
+    if (!this.state.errorMessage && this.state.notifyUser) this.props.onClose();
+    else this.setState({ notifyUser: !this.state.notifyUser });
+  };
 
-        // if (data.editUser.statusCode !== 200) {
-        //     this.setState({ errorMessage: data.editUser.body.apimessage });
-        // }
+  handleSave = async () => {
+    const payload = { ...this.state };
+    delete payload.errorMessage;
+    delete payload.notifyUser;
 
-        // fetchMore({
-        //     variables: {
-        //         sessionToken: loggedIn.sessionToken,
-        //         clientId: loggedIn.clientId,
-        //     },
-        //     updateQuery: (prev, { fetchMoreResult }) => {
-        //         if (!fetchMoreResult) return prev;
-        //         return fetchMoreResult;
-        //     },
-        // })
-    };
+    const { client, user, fetchMore } = this.props;
+    payload.sessionToken = user.sessionToken;
 
-    render() {
-        const {
-            clientNameShort,
-            clientNameFull,
-            gcn,
-            lanyonClientCode,
-            clientId,
-            clientTag,
-            isEnabled,
-            industry,
-            defaultCurrrency,
-            defaultDistanceUnits,
-            clientLogo,
-            notes,
-        } = this.state;
-        const { onClose } = this.props;
-        return (
-            <>
-                <TitleRow>
-                    <SectionTitle>New Client</SectionTitle>
-                    <Close className="fas fa-times" onClick={onClose} />
-                </TitleRow>
-                <ModalForm>
-                    <ModalFormItem>
-                        <ModalFormLabel>Client Name, Short *</ModalFormLabel>
-                        <ModalFormText value={clientNameShort} name="clientNameShort" onChange={this.changeInput} />
-                    </ModalFormItem>
-                    <ModalFormItem>
-                        <ModalFormLabel>Client Name, Full *</ModalFormLabel>
-                        <ModalFormText value={clientNameFull} name="clientNameFull" onChange={this.changeInput} />
-                    </ModalFormItem>
-                    <ModalFormItem>
-                        <ModalFormLabel>GCN ^</ModalFormLabel>
-                        <ModalFormText value={gcn} name="gcn" onChange={this.changeInput} />
-                    </ModalFormItem>
-                    <ModalFormItem>
-                        <ModalFormLabel>Lanyon Code *</ModalFormLabel>
-                        <ModalFormText value={lanyonClientCode} name="lanyonClientCode" onChange={this.changeInput} />
-                    </ModalFormItem>
-                    <ModalFormItem>
-                        <ModalFormLabel>Client ID *</ModalFormLabel>
-                        <ModalFormText value={clientId} name="clientId" onChange={this.changeInput} />
-                    </ModalFormItem>
-                    <ModalFormItem>
-                        <ModalFormLabel>Client Tag *</ModalFormLabel>
-                        <ModalFormText value={clientTag} name="clientTag" onChange={this.changeInput} />
-                    </ModalFormItem>
-                    <ModalFormItem>
-                        <ModalFormLabel>Client Active *</ModalFormLabel>
-                        <Toggle checked={isEnabled} icons={false} onChange={this.changeInput} />
-                    </ModalFormItem>
-                    <ModalFormItem>
-                        <ModalFormLabel>Industry *</ModalFormLabel>
-                        <Select options={industries} value={industry} onChange={e => this.changeInput(e, 'industry')} />
-                    </ModalFormItem>
-                    <ModalFormItem>
-                        <ModalFormLabel>Default Currency</ModalFormLabel>
-                        <Select options={industries} value={defaultCurrrency} onChange={e => this.changeInput(e, 'defaultCurrrency')} />
-                    </ModalFormItem>
-                    <ModalFormItem>
-                        <ModalFormLabel>Default Distance Units</ModalFormLabel>
-                        <Select options={industries} value={defaultDistanceUnits} onChange={e => this.changeInput(e, 'defaultDistanceUnits')} />
-                    </ModalFormItem>
-                    <ModalFormItem>
-                        <ModalFormLabel>Client Logo</ModalFormLabel>
-                        <Button text="Upload Image" />
-                    </ModalFormItem>
-                    <ModalFormItem>
-                        <ModalFormLabel>Notes</ModalFormLabel>
-                        <Notes value={notes} name="notes" onChange={this.changeInput} />
-                    </ModalFormItem>
-                </ModalForm>
-                <ModalText>
-                    {`Passwords must be a minimum of eight (8) characters
+    payload.industry = payload.industry.value;
+    payload.defaultCurrencyCode = payload.defaultCurrencyCode.value;
+    payload.defaultDistanceUnits = payload.defaultDistanceUnits.value;
+
+    const { data } = await client.mutate({
+      mutation: CREATE_CLIENT,
+      variables: { ...payload },
+    });
+    if (data.createClient.statusCode !== 200) {
+      this.setState({
+        errorMessage: data.createClient.body.apimessage,
+      });
+      this.toggleModal();
+    } else {
+      this.setState({
+        errorMessage: '',
+      });
+      this.toggleModal();
+
+      fetchMore({
+        variables: {
+          sessionToken: user.sessionToken,
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prev;
+          return fetchMoreResult;
+        },
+      });
+    }
+  };
+
+  render() {
+    const {
+      clientName,
+      clientNameFull,
+      gcn,
+      lanyonClientCode,
+      clientTag,
+      isActive,
+      logoPath,
+      industry,
+      defaultCurrencyCode,
+      defaultDistanceUnits,
+      description,
+      notifyUser,
+      errorMessage,
+    } = this.state;
+    const { onClose } = this.props;
+    return (
+      <>
+        <TitleRow>
+          <SectionTitle>New Client</SectionTitle>
+          <Close className="fas fa-times" onClick={onClose} />
+        </TitleRow>
+        <ModalForm>
+          <ModalFormItem>
+            <ModalFormLabel>Client Name, Short *</ModalFormLabel>
+            <ModalFormText value={clientName} name="clientName" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Client Name, Full *</ModalFormLabel>
+            <ModalFormText
+              value={clientNameFull}
+              name="clientNameFull"
+              onChange={this.changeInput}
+            />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>GCN </ModalFormLabel>
+            <ModalFormText value={gcn} name="gcn" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Lanyon Code *</ModalFormLabel>
+            <ModalFormText
+              value={lanyonClientCode}
+              name="lanyonClientCode"
+              onChange={this.changeInput}
+            />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Client Tag *</ModalFormLabel>
+            <ModalFormText value={clientTag} name="clientTag" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Client Active *</ModalFormLabel>
+            <Toggle checked={isActive} icons={false} onChange={this.toggleActive} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Industry *</ModalFormLabel>
+            <Select
+              options={industries}
+              value={industry}
+              onChange={e => this.changeInput(e, 'industry')}
+            />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Default Currency</ModalFormLabel>
+            <Select
+              options={currencies}
+              value={defaultCurrencyCode}
+              onChange={e => this.changeInput(e, 'defaultCurrencyCode')}
+            />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Default Distance Units</ModalFormLabel>
+            <Select
+              options={distanceUnits}
+              value={defaultDistanceUnits}
+              onChange={e => this.changeInput(e, 'defaultDistanceUnits')}
+            />
+          </ModalFormItem>
+          <div
+            style={{
+              flex: '1',
+              marginBottom: '2em',
+            }}
+          >
+            <ModalFormLabel>Client Logo</ModalFormLabel>
+            <Button text="Upload Image" style={{ width: '10em', marginLeft: '1em' }} />
+          </div>
+          <ModalFormItem>
+            <ModalFormLabel>Notes</ModalFormLabel>
+            <Notes value={description} name="description" onChange={this.changeInput} />
+          </ModalFormItem>
+        </ModalForm>
+        <ModalText>
+          {`Passwords must be a minimum of eight (8) characters
                     and includes (3) of the following (4) criteria:
                     `}
-                </ModalText>
-                <ModalSubText>
-                    {`- Lowercase character
+        </ModalText>
+        <ModalSubText>
+          {`- Lowercase character
                     - Upper case character
                     - Number
                     - Special characters (e.g.!, $, #, %)
                     `}
-                </ModalSubText>
-                <Save text="Save" onClick={this.handleSave} />
-                {/* <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
-                    <div style={{ textAlign: 'center' }}>
-                        {errorMessage ? `Error: ${errorMessage}` : 'User successfully updated'}
-                    </div>
-                    <Save text="Close" onClick={() => this.toggleNotification()} />
-                </Modal> */}
-            </>
-        );
-    }
+        </ModalSubText>
+        <Save text="Save" onClick={this.handleSave} />
+        <Modal open={notifyUser} handleClose={() => this.toggleModal()}>
+          <div style={{ textAlign: 'center' }}>
+            {errorMessage ? `Error: ${errorMessage}` : 'Client successfully created.'}
+          </div>
+          <Save text="Close" onClick={() => this.toggleModal()} />
+        </Modal>
+      </>
+    );
+  }
 }
 
-export default AddClient;
+export default withApollo(AddClient);

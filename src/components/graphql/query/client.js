@@ -17,6 +17,7 @@ export const GET_CLIENTS = gql`
           defaultCurrencyCode
           defaultDistanceUnits
           description
+          gcn
         }
       }
     }

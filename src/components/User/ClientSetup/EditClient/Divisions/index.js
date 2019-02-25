@@ -31,20 +31,24 @@ class Divisions extends React.Component {
   render() {
     const { addDivision } = this.state;
     return (
-      <>
-        <ControlRow>
-          <Checkbox>Show Inactive</Checkbox>
-          <Button
-            text="+ New Division"
-            onClick={this.toggleForm}
-            style={{ whiteSpace: 'nowrap', width: '9em' }}
-          />
-        </ControlRow>
-        <DivisionTable />
-        <Modal open={addDivision} handleClose={this.toggleForm} size="tall">
-          <AddDivision onClose={this.toggleForm} />
-        </Modal>
-      </>
+      <GraphQL query={GET_CLIENTS} name="getClients">
+        {({ data, fetchMore }) => (
+          <>
+            <ControlRow>
+              <Checkbox>Show Inactive</Checkbox>
+              <Button
+                text="+ New Division"
+                onClick={this.toggleForm}
+                style={{ whiteSpace: 'nowrap', width: '9em' }}
+              />
+            </ControlRow>
+            <DivisionTable />
+            <Modal open={addDivision} handleClose={this.toggleForm} size="tall">
+              <AddDivision onClose={this.toggleForm} />
+            </Modal>
+          </>
+        )}
+      </GraphQL>
     );
   }
 }

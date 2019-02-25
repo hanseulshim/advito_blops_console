@@ -5,7 +5,12 @@ import ClientLogo from 'assets/react_logo.png';
 import Button from 'components/common/Button';
 import Select from 'react-select';
 import Modal from 'components/common/Modal';
-import Loader from 'components/common/Loader';
+import Toggle from 'react-toggle';
+
+import { withApollo } from 'react-apollo';
+
+//GraphQl Mutation
+import { UPDATE_CLIENT } from 'components/graphql/query/client';
 
 import {
   FormContainer,
@@ -17,26 +22,18 @@ import {
   Notes,
 } from '../../../Styles/FormStyles';
 
-const dateTimeOptions = [
-  {
-    label: 'European(01 JAN 2017)',
-    value: 'european',
-  },
-  {
-    label: 'Western(JAN 01 2017)',
-    value: 'western',
-  },
+const industries = [
+  { label: 'Information Technology', value: 'Information Technology' },
+  { label: 'Travel', value: 'Travel' },
+  { label: 'Software Development', value: 'Software Development' },
+  { label: 'Education', value: 'Education' },
+  { label: 'Public Service', value: 'Public Service' },
 ];
+const currencies = [{ label: 'US Dollar', value: 'Dollar' }, { label: 'Euro', value: 'Euro' }];
 
-const timeZones = [
-  {
-    label: '(UTC-05:00) Eastern Time',
-    value: 'EST',
-  },
-  {
-    label: '(MTN-07:00) Mountain',
-    value: 'MT',
-  },
+const distanceUnits = [
+  { label: 'Miles', value: 'Miles' },
+  { label: 'Kilometers', value: 'Kilometers' },
 ];
 
 const Logo = styled.div`
@@ -57,18 +54,76 @@ class GeneralForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      nameFirst: '',
-      nameLast: '',
-      timezoneDefault: timeZones[0],
-      dateFormatDefault: dateTimeOptions[0],
-      emailNotifications: false,
-      profilePicturePath: '',
-      openSave: false,
-      openPassword: false,
+      clientName: '',
+      clientNameFull: '',
+      clientTag: '',
+      gcn: '',
+      lanyonClientCode: '',
+      isActive: false,
+      logoPath: '',
+      industry: '',
+      defaultCurrencyCode: '',
+      defaultDistanceUnits: '',
+      description: '',
       errorMessage: '',
+      notifyUser: false,
     };
   }
+
+  componentDidMount() {
+    const { selectedClient } = this.props;
+    const state = {};
+    Object.keys(selectedClient).forEach(key => {
+      if (selectedClient[key]) {
+        if (key === 'defaultCurrencyCode') {
+          const value = currencies.filter(v => v.value === selectedClient[key])[0];
+          state[key] = value;
+        } else if (key === 'defaultDistanceUnits') {
+          const value = distanceUnits.filter(v => v.value === selectedClient[key])[0];
+          state[key] = value;
+        } else if (key === 'industry') {
+          const value = industries.filter(v => v.value === selectedClient[key])[0];
+          state[key] = value;
+        } else {
+          state[key] = selectedClient[key];
+        }
+      }
+    });
+    this.setState({
+      ...state,
+    });
+  }
+
+  handleSave = async () => {
+    const payload = { ...this.state };
+    delete payload.errorMessage;
+    delete payload.notifyUser;
+
+    const { client, user } = this.props;
+    payload.sessionToken = user.sessionToken;
+    payload.clientId = this.props.selectedClient.id;
+
+    payload.industry = payload.industry.value;
+    payload.defaultCurrencyCode = payload.defaultCurrencyCode.value;
+    payload.defaultDistanceUnits = payload.defaultDistanceUnits.value;
+
+    const { data } = await client.mutate({
+      mutation: UPDATE_CLIENT,
+      variables: { ...payload },
+    });
+    console.log(data);
+    if (data.updateClient.statusCode !== 200) {
+      this.setState({
+        errorMessage: data.updateClient.body.apimessage,
+      });
+      this.toggleModal();
+    } else {
+      this.setState({
+        errorMessage: '',
+      });
+      this.toggleModal();
+    }
+  };
 
   changeInput = (e, name) => {
     if (e.label) {
@@ -80,48 +135,48 @@ class GeneralForm extends Component {
     }
   };
 
-  toggleModal = e => {};
+  toggleModal = () => {
+    this.setState({
+      notifyUser: !this.state.notifyUser,
+    });
+  };
 
-  saveClient = async () => {};
+  toggleActive = () => this.setState({ isActive: !this.state.isActive });
 
   render() {
     const {
-      username,
-      nameFirst,
-      nameLast,
-      timezoneDefault,
-      dateFormatDefault,
-      openSave,
-      openPassword,
+      clientName,
+      clientNameFull,
+      clientTag,
+      isActive,
+      logoPath,
+      industry,
+      defaultCurrencyCode,
+      defaultDistanceUnits,
+      description,
+      notifyUser,
       errorMessage,
     } = this.state;
-    const { user, client } = this.props;
 
-    return this.loading ? (
-      <Loader />
-    ) : (
+    return (
       <>
         <FormContainer>
           <Form>
             <FormItem>
               <FormLabel>Client Name, Short</FormLabel>
-              <FormText value={username} name="username" onChange={this.changeInput} />
+              <FormText value={clientName} name="clientName" onChange={this.changeInput} />
             </FormItem>
             <FormItem>
               <FormLabel>Client Name, Full</FormLabel>
-              <FormText value={username} name="username" onChange={this.changeInput} />
+              <FormText value={clientNameFull} name="clientNameFull" onChange={this.changeInput} />
             </FormItem>
             <FormItem>
               <FormLabel>Client Tag</FormLabel>
-              <FormText value={username} name="username" onChange={this.changeInput} />
+              <FormText value={clientTag} name="clientTag" onChange={this.changeInput} />
             </FormItem>
             <FormItem>
               <FormLabel>Client Status</FormLabel>
-              <Select
-                options={dateTimeOptions}
-                value={dateFormatDefault}
-                onChange={e => this.changeInput(e, 'dateFormatDefault')}
-              />
+              <Toggle checked={isActive} icons={false} onChange={this.toggleActive} />
             </FormItem>
           </Form>
           <Form>
@@ -134,30 +189,35 @@ class GeneralForm extends Component {
             <FormItem>
               <FormLabel>Industry</FormLabel>
               <Select
-                options={dateTimeOptions}
-                value={dateFormatDefault}
-                onChange={e => this.changeInput(e, 'dateFormatDefault')}
+                options={industries}
+                value={industry}
+                onChange={e => this.changeInput(e, 'industry')}
               />
             </FormItem>
             <FormItem>
               <FormLabel>Default Currency</FormLabel>
               <Select
-                options={dateTimeOptions}
-                value={dateFormatDefault}
-                onChange={e => this.changeInput(e, 'dateFormatDefault')}
+                options={currencies}
+                value={defaultCurrencyCode}
+                onChange={e => this.changeInput(e, 'defaultCurrencyCode')}
               />
             </FormItem>
             <FormItem>
               <FormLabel>Default Distance Units</FormLabel>
               <Select
-                options={dateTimeOptions}
-                value={dateFormatDefault}
-                onChange={e => this.changeInput(e, 'dateFormatDefault')}
+                options={distanceUnits}
+                value={defaultDistanceUnits}
+                onChange={e => this.changeInput(e, 'defaultDistanceUnits')}
               />
             </FormItem>
           </Form>
         </FormContainer>
-        <Notes style={{ width: '90%' }} />
+        <Notes
+          value={description}
+          name="description"
+          onChange={this.changeInput}
+          style={{ width: '90%' }}
+        />
         <div
           style={{
             display: 'flex',
@@ -167,17 +227,17 @@ class GeneralForm extends Component {
             marginTop: '2.5em',
           }}
         >
-          <Button text="Save" onClick={this.saveUser} />
+          <Button text="Save" onClick={this.handleSave} />
         </div>
-        <Modal open={openSave} handleClose={() => this.toggleModal('openSave')}>
+        <Modal open={notifyUser} handleClose={() => this.toggleModal()}>
           <div style={{ textAlign: 'center' }}>
-            {errorMessage ? `Error: ${errorMessage}` : 'User information successfully updated'}
+            {errorMessage ? `Error: ${errorMessage}` : 'Client information successfully updated'}
           </div>
-          <Save text="Close" onClick={() => this.toggleModal('openSave')} />
+          <Save text="Close" onClick={() => this.toggleModal()} />
         </Modal>
       </>
     );
   }
 }
 
-export default GeneralForm;
+export default withApollo(GeneralForm);
