@@ -39,21 +39,21 @@ class EditDivisionForm extends Component {
   }
 
   componentDidMount() {
-    // const { division } = this.props;
-    // const state = {};
-    // Object.keys(division).forEach(key => {
-    //   if (division[key]) {
-    //     if (key === 'roleId') {
-    //       const value = roles.filter(v => v.value === user[key])[0];
-    //       state['role'] = value;
-    //     } else {
-    //       state[key] = user[key];
-    //     }
-    //   }
-    // });
-    // this.setState({
-    //   ...state,
-    // });
+    const { division } = this.props;
+    const state = {};
+    Object.keys(division).forEach(key => {
+      if (division[key]) {
+        if (key === 'divisionStatus') {
+          const value = roles.filter(v => v.value === user[key])[0];
+          state[key] = value;
+        } else {
+          state[key] = division[key];
+        }
+      }
+    });
+    this.setState({
+      ...state,
+    });
   }
 
   changeInput = (e, name) => {
