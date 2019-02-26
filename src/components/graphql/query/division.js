@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const GET_DIVISIONS = gql`
   query($sessionToken: String!) {
@@ -20,17 +20,17 @@ export const GET_DIVISIONS = gql`
       }
     }
   }
-`
+`;
 
 export const UPDATE_DIVISION = gql`
   mutation updateDivision(
-    $sessionToken: String!,
-    $clientDivisionId: Int!,
-    $divisionName: String!,
-    $divisionNameFull: String,
-    $isActive: Boolean!,
-    $divisionTag: String,
-    $gcn: String,
+    $sessionToken: String!
+    $clientDivisionId: Int!
+    $divisionName: String!
+    $divisionNameFull: String
+    $isActive: Boolean!
+    $divisionTag: String
+    $gcn: String
     $description: String
   ) {
     updateDivision(
@@ -50,28 +50,28 @@ export const UPDATE_DIVISION = gql`
       }
     }
   }
-`
+`;
 
 export const CREATE_DIVISION = gql`
   mutation createDivision(
-    $sessionToken: String!,
-    $clientId: Int!,
-    $divisionName: String!,
-    $divisionNameFull: String,
-    $isActive: Boolean,
-    $divisionTag: String,
-    $gcn: String,
+    $sessionToken: String!
+    $clientId: Int!
+    $divisionName: String!
+    $divisionNameFull: String
+    $isActive: Boolean
+    $divisionTag: String
+    $gcn: String
     $description: String
   ) {
     createDivision(
-      $sessionToken: sessionToken
-      $clientId: clientId
-      $divisionName: divisionName
-      $divisionNameFull: divisionNameFull
-      $isActive: isActive
-      $divisionTag: divisionTag
-      $gcn: gcn
-      $description: description
+      sessionToken: $sessionToken
+      clientId: $clientId
+      divisionName: $divisionName
+      divisionNameFull: $divisionNameFull
+      isActive: $isActive
+      divisionTag: $divisionTag
+      gcn: $gcn
+      description: $description
     ) {
       statusCode
       body {
@@ -80,4 +80,4 @@ export const CREATE_DIVISION = gql`
       }
     }
   }
-`
+`;

@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import GraphQL from 'components/graphql';
-import { GET_CLIENTS } from 'components/graphql/query/client';
 
 //ReactTable imports...
 import Table from '@material-ui/core/Table';
@@ -19,32 +16,28 @@ class DivisionTable extends Component {
 
   render() {
     return (
-      <GraphQL query={GET_CLIENTS} name="getClients">
-        {({ data, fetchMore }) => (
-          <Table>
-            <TableHead>
-              <TableRow>
-                <CustomTableHeader>GCN</CustomTableHeader>
-                <CustomTableHeader align="left">Division Name</CustomTableHeader>
-                <CustomTableHeader align="right">Edit</CustomTableHeader>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((client, i) => (
-                <TableRow key={'client' + i}>
-                  <CustomTableCell component="th" scope="row">
-                    {client.gcn}
-                  </CustomTableCell>
-                  <CustomTableCell align="left">{client.clientName}</CustomTableCell>
-                  <CustomTableCell align="right">
-                    <EditDivision />
-                  </CustomTableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        )}
-      </GraphQL>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <CustomTableHeader>GCN</CustomTableHeader>
+            <CustomTableHeader align="left">Division Name</CustomTableHeader>
+            <CustomTableHeader align="right">Edit</CustomTableHeader>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {this.props.data.map((division, i) => (
+            <TableRow key={'division' + i}>
+              <CustomTableCell component="th" scope="row">
+                {division.gcn}
+              </CustomTableCell>
+              <CustomTableCell align="left">{division.divisionName}</CustomTableCell>
+              <CustomTableCell align="right">
+                <EditDivision division={division} />
+              </CustomTableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     );
   }
 }
