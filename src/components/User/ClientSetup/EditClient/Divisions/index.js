@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import GraphQL from 'components/graphql';
+import { GET_SELECTED_CLIENT } from 'graphql/queries';
 import { GET_DIVISIONS } from 'components/graphql/query/division';
+import { Query } from 'react-apollo';
 
 //project imports
 
@@ -10,7 +12,6 @@ import Button from 'components/common/Button';
 import Modal from 'components/common/Modal';
 import DivisionTable from './DivisionTable';
 import AddDivision from './AddDivision';
-import { select } from 'async';
 
 const ControlRow = styled.div`
   display: flex;
@@ -33,26 +34,34 @@ class Divisions extends React.Component {
 
   render() {
     const { addDivision } = this.state;
-    const { selectedClient } = this.props.location.state;
+
     return (
-      <GraphQL query={GET_DIVISIONS} name="getDivisions">
-        {({ data, fetchMore }) => (
-          <>
-            <ControlRow>
-              <Checkbox>Show Inactive</Checkbox>
-              <Button
-                text="+ New Division"
-                onClick={this.toggleForm}
-                style={{ whiteSpace: 'nowrap', width: '9em' }}
-              />
-            </ControlRow>
-            <DivisionTable divisions={data} />
-            <Modal open={addDivision} handleClose={this.toggleForm} size="tall">
-              <AddDivision onClose={this.toggleForm} fetchMore={fetchMore} />
-            </Modal>
-          </>
+      <Query query={GET_SELECTED_CLIENT}>
+        {({ data }) => (
+          <GraphQL
+            query={GET_DIVISIONS}
+            name="getDivisions"
+            variables={{ clientId: data.selectedClient.id }}
+          >
+            {({ data, fetchMore }) => (
+              <>
+                <ControlRow>
+                  <Checkbox>Show Inactive</Checkbox>
+                  <Button
+                    text="+ New Division"
+                    onClick={this.toggleForm}
+                    style={{ whiteSpace: 'nowrap', width: '9em' }}
+                  />
+                </ControlRow>
+                <DivisionTable divisions={data} />
+                <Modal open={addDivision} handleClose={this.toggleForm} size="tall">
+                  <AddDivision onClose={this.toggleForm} fetchMore={fetchMore} />
+                </Modal>
+              </>
+            )}
+          </GraphQL>
         )}
-      </GraphQL>
+      </Query>
     );
   }
 }

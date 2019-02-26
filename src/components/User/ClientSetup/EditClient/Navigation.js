@@ -27,7 +27,7 @@ const NavItems = [
   },
 ];
 
-const Navigation = ({ location, selectedClient }) => {
+const Navigation = ({ location }) => {
   return (
     <Container>
       {NavItems.map((tab, index) => (
@@ -35,9 +35,6 @@ const Navigation = ({ location, selectedClient }) => {
           key={index}
           to={{
             pathname: `${tab.link}`,
-            state: {
-              selectedClient,
-            },
           }}
           replace={location.pathname.includes(tab.link)}
         >

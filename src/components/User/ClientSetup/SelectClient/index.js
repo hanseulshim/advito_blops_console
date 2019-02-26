@@ -53,7 +53,7 @@ class SelectClient extends Component {
                     style={{ whiteSpace: 'nowrap', width: '9em' }}
                   />
                 </ControlRow>
-                <ClientTable clients={data} />
+                <ClientTable clients={data} fetchMore={fetchMore} />
                 <Modal open={addClientOpen} handleClose={this.toggleForm} size="tall">
                   <AddClient onClose={this.toggleForm} user={user} fetchMore={fetchMore} />
                 </Modal>

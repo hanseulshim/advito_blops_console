@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
 import Navigation from './Navigation';
 
-//views
+import { withApollo } from 'react-apollo';
+
+//route components
 import General from './General';
 import Divisions from './Divisions';
 import Users from './Users';
@@ -17,38 +19,21 @@ const Main = styled.div`
 class EditClient extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      view: 'General',
-    };
+    this.state = {};
   }
 
-  componentWillMount() {
-    this.setState({
-      selectedClient: this.props.location.state.client,
-    });
-  }
+  componentDidMount() {}
 
   render() {
-    const { selectedClient } = this.state;
     return (
       <>
-        <Navigation selectedClient={selectedClient} />
+        <Navigation />
         <Main>
           <Switch>
-            <Route
-              path={`/client-setup/${selectedClient.clientName}/general`}
-              exact
-              component={General}
-            />
-            <Route
-              path={`/client-setup/${selectedClient.clientName}/divisions`}
-              component={Divisions}
-            />
-            <Route path={`/client-setup/${selectedClient.clientName}/users`} component={Users} />
-            <Route
-              path={`/client-setup/${selectedClient.clientName}/applications`}
-              component={Applications}
-            />
+            <Route path={`/client-setup/general`} component={General} />
+            <Route path={`/client-setup/divisions`} component={Divisions} />
+            <Route path={`/client-setup/users`} component={Users} />
+            <Route path={`/client-setup/applications`} component={Applications} />
           </Switch>
         </Main>
       </>
@@ -56,4 +41,4 @@ class EditClient extends React.Component {
   }
 }
 
-export default EditClient;
+export default withApollo(EditClient);

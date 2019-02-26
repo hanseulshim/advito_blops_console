@@ -5,6 +5,19 @@ export default {
     value: '',
     secondaryValue: '',
     secondaryUnit: '',
-    __typename: 'SavingsOpportunity'
+    __typename: 'SavingsOpportunity',
+  },
+  selectedClient: {
+    id: null,
+    clientName: '',
+    clientNameFull: '',
+    clientTag: '',
+    defaultCurrencyCode: '',
+    defaultDistanceUnits: '',
+    description: '',
+    gcn: '',
+    industry: '',
+    isActive: false,
+    __typename: 'ClientData',
   },
 };

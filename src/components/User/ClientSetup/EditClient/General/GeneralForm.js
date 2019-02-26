@@ -11,6 +11,7 @@ import { withApollo } from 'react-apollo';
 
 //GraphQl Mutation
 import { UPDATE_CLIENT } from 'components/graphql/query/client';
+import { GET_CLIENTS } from 'components/graphql/query/client';
 
 import {
   FormContainer,
@@ -111,7 +112,6 @@ class GeneralForm extends Component {
       mutation: UPDATE_CLIENT,
       variables: { ...payload },
     });
-    console.log(data);
     if (data.updateClient.statusCode !== 200) {
       this.setState({
         errorMessage: data.updateClient.body.apimessage,
@@ -120,6 +120,11 @@ class GeneralForm extends Component {
     } else {
       this.setState({
         errorMessage: '',
+      });
+      client.query({
+        query: GET_CLIENTS,
+        variables: { sessionToken: user.sessionToken },
+        fetchPolicy: 'network-only',
       });
       this.toggleModal();
     }

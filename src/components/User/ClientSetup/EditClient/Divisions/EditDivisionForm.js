@@ -18,7 +18,7 @@ import {
 import '../../../Styles/toggle.css';
 
 //Query
-import { EDIT_USER } from 'components/graphql/query/user';
+import { UPDATE_DIVISION } from 'components/graphql/query/division';
 
 const status = [{ label: 'Active', value: 1 }, { label: 'Air Inactive', value: 2 }];
 

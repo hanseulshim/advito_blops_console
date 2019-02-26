@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import GraphQL from 'components/graphql';
-import { GET_CLIENTS } from 'components/graphql/query/client';
+import { withApollo } from 'react-apollo';
 import Icon from 'components/common/Icon';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'react-apollo';
 
 //ReactTable imports...
 import Table from '@material-ui/core/Table';
@@ -11,12 +11,23 @@ import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { CustomTableHeader, CustomTableCell } from '../../Styles/TableStyles';
+import { UPDATE_SELECTED_CLIENT } from 'graphql/mutations';
 
 class ClientTable extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
+  updateSelectedClient = async client => {
+    await this.props.client.mutate({
+      mutation: UPDATE_SELECTED_CLIENT,
+      variables: {
+        selectedClient: client,
+      },
+    });
+    this.props.history.push('/client-setup/general');
+  };
 
   render() {
     const { clients } = this.props;
@@ -39,19 +50,11 @@ class ClientTable extends Component {
               <CustomTableCell align="left">{client.clientName}</CustomTableCell>
               <CustomTableCell align="left">{client.industry}</CustomTableCell>
               <CustomTableCell align="left">
-                <Link
-                  to={{
-                    pathname: `/client-setup/${client.clientName}/general`,
-                    state: {
-                      client,
-                    },
-                  }}
-                >
-                  <Icon
-                    className="fas fa-pencil-alt"
-                    style={{ fontSize: '1em', cursor: 'pointer' }}
-                  />
-                </Link>
+                <Icon
+                  className="fas fa-pencil-alt"
+                  style={{ fontSize: '1em', cursor: 'pointer' }}
+                  onClick={e => this.updateSelectedClient(client)}
+                />
               </CustomTableCell>
             </TableRow>
           ))}
@@ -61,4 +64,7 @@ class ClientTable extends Component {
   }
 }
 
-export default ClientTable;
+export default compose(
+  withRouter,
+  withApollo
+)(ClientTable);

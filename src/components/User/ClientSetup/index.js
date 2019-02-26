@@ -6,25 +6,21 @@ import EditClient from './EditClient';
 
 //project imports
 
-
 class ClientSetup extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
   }
 
   render() {
-
     return (
       <>
         <Switch>
           <Route path={`/client-setup`} exact component={SelectClient} />
-          <Route path={`/client-setup/:client`} component={EditClient} />
+          <Route path={`/client-setup/:tab`} component={EditClient} />
         </Switch>
       </>
-    )
+    );
   }
 }
 
