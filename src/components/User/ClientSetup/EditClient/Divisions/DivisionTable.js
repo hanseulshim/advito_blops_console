@@ -25,17 +25,21 @@ class DivisionTable extends Component {
           </TableRow>
         </TableHead>
         <TableBody>
-          {this.props.data.map((division, i) => (
-            <TableRow key={'division' + i}>
-              <CustomTableCell component="th" scope="row">
-                {division.gcn}
-              </CustomTableCell>
-              <CustomTableCell align="left">{division.divisionName}</CustomTableCell>
-              <CustomTableCell align="right">
-                <EditDivision division={division} />
-              </CustomTableCell>
-            </TableRow>
-          ))}
+          {this.props.data ? (
+            this.props.data.map((division, i) => (
+              <TableRow key={'division' + i}>
+                <CustomTableCell component="th" scope="row">
+                  {division.gcn}
+                </CustomTableCell>
+                <CustomTableCell align="left">{division.divisionName}</CustomTableCell>
+                <CustomTableCell align="right">
+                  <EditDivision division={division} />
+                </CustomTableCell>
+              </TableRow>
+            ))
+          ) : (
+            <p>No divisions yet!</p>
+          )}
         </TableBody>
       </Table>
     );
