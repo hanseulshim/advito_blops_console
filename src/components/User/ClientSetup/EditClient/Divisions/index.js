@@ -38,7 +38,7 @@ class Divisions extends React.Component {
     return (
       <Query query={GET_SELECTED_CLIENT}>
         {({ data }) => (
-          <GraphQL
+          <Query
             query={GET_DIVISIONS}
             name="getDivisions"
             variables={{ clientId: data.selectedClient.id }}
@@ -59,7 +59,7 @@ class Divisions extends React.Component {
                 </Modal>
               </>
             )}
-          </GraphQL>
+          </Query>
         )}
       </Query>
     );

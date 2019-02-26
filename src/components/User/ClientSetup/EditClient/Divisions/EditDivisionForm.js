@@ -44,7 +44,7 @@ class EditDivisionForm extends Component {
     Object.keys(division).forEach(key => {
       if (division[key]) {
         if (key === 'divisionStatus') {
-          const value = roles.filter(v => v.value === user[key])[0];
+          const value = status.filter(v => v.value === division[key])[0];
           state[key] = value;
         } else {
           state[key] = division[key];
