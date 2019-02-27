@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react'
+import styled from 'styled-components'
 
-import ClientLogo from 'assets/react_logo.png';
-import Button from 'components/common/Button';
-import Select from 'react-select';
-import Modal from 'components/common/Modal';
-import Toggle from 'react-toggle';
+import ClientLogo from 'assets/react_logo.png'
+import Button from 'components/common/Button'
+import Select from 'react-select'
+import Modal from 'components/common/Modal'
+import Toggle from 'react-toggle'
 
-import { withApollo } from 'react-apollo';
+import { withApollo } from 'react-apollo'
 
 //GraphQl Mutation
-import { UPDATE_CLIENT } from 'components/graphql/query/client';
-import { GET_CLIENTS } from 'components/graphql/query/client';
+import { UPDATE_CLIENT } from 'components/graphql/query/client'
+import { GET_CLIENTS } from 'components/graphql/query/client'
 
 import {
   FormContainer,
@@ -21,7 +21,7 @@ import {
   FormText,
   Save,
   Notes,
-} from '../../../Styles/FormStyles';
+} from '../../../Styles/FormStyles'
 
 const industries = [
   { label: 'Information Technology', value: 'Information Technology' },
@@ -29,13 +29,13 @@ const industries = [
   { label: 'Software Development', value: 'Software Development' },
   { label: 'Education', value: 'Education' },
   { label: 'Public Service', value: 'Public Service' },
-];
-const currencies = [{ label: 'US Dollar', value: 'Dollar' }, { label: 'Euro', value: 'Euro' }];
+]
+const currencies = [{ label: 'US Dollar', value: 'Dollar' }, { label: 'Euro', value: 'Euro' }]
 
 const distanceUnits = [
   { label: 'Miles', value: 'Miles' },
   { label: 'Kilometers', value: 'Kilometers' },
-];
+]
 
 const Logo = styled.div`
   flex: 1;
@@ -49,11 +49,11 @@ const Logo = styled.div`
     border-radius: 50%;
     margin-right: 5%;
   }
-`;
+`
 
 class GeneralForm extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       clientName: '',
       clientNameFull: '',
@@ -68,85 +68,85 @@ class GeneralForm extends Component {
       description: '',
       errorMessage: '',
       notifyUser: false,
-    };
+    }
   }
 
   componentDidMount() {
-    const { selectedClient } = this.props;
-    const state = {};
+    const { selectedClient } = this.props
+    const state = {}
     Object.keys(selectedClient).forEach(key => {
       if (selectedClient[key]) {
         if (key === 'defaultCurrencyCode') {
-          const value = currencies.filter(v => v.value === selectedClient[key])[0];
-          state[key] = value;
+          const value = currencies.filter(v => v.value === selectedClient[key])[0]
+          state[key] = value
         } else if (key === 'defaultDistanceUnits') {
-          const value = distanceUnits.filter(v => v.value === selectedClient[key])[0];
-          state[key] = value;
+          const value = distanceUnits.filter(v => v.value === selectedClient[key])[0]
+          state[key] = value
         } else if (key === 'industry') {
-          const value = industries.filter(v => v.value === selectedClient[key])[0];
-          state[key] = value;
+          const value = industries.filter(v => v.value === selectedClient[key])[0]
+          state[key] = value
         } else {
-          state[key] = selectedClient[key];
+          state[key] = selectedClient[key]
         }
       }
-    });
+    })
     this.setState({
       ...state,
-    });
+    })
   }
 
   handleSave = async () => {
-    const payload = { ...this.state };
-    delete payload.errorMessage;
-    delete payload.notifyUser;
+    const payload = { ...this.state }
+    delete payload.errorMessage
+    delete payload.notifyUser
 
-    const { client, user } = this.props;
-    payload.sessionToken = user.sessionToken;
-    payload.clientId = this.props.selectedClient.id;
+    const { client, user } = this.props
+    payload.sessionToken = user.sessionToken
+    payload.clientId = this.props.selectedClient.id
 
-    payload.industry = payload.industry.value;
-    payload.defaultCurrencyCode = payload.defaultCurrencyCode.value;
-    payload.defaultDistanceUnits = payload.defaultDistanceUnits.value;
+    payload.industry = payload.industry.value
+    payload.defaultCurrencyCode = payload.defaultCurrencyCode.value
+    payload.defaultDistanceUnits = payload.defaultDistanceUnits.value
 
     const { data } = await client.mutate({
       mutation: UPDATE_CLIENT,
       variables: { ...payload },
-    });
+    })
     if (data.updateClient.statusCode !== 200) {
       this.setState({
         errorMessage: data.updateClient.body.apimessage,
-      });
-      this.toggleModal();
+      })
+      this.toggleModal()
     } else {
       this.setState({
         errorMessage: '',
-      });
+      })
       client.query({
         query: GET_CLIENTS,
         variables: { sessionToken: user.sessionToken },
         fetchPolicy: 'network-only',
-      });
-      this.toggleModal();
+      })
+      this.toggleModal()
     }
-  };
+  }
 
   changeInput = (e, name) => {
     if (e.label) {
-      this.setState({ [name]: e });
+      this.setState({ [name]: e })
     } else {
       this.setState({
         [e.target.name]: e.target.value,
-      });
+      })
     }
-  };
+  }
 
   toggleModal = () => {
     this.setState({
       notifyUser: !this.state.notifyUser,
-    });
-  };
+    })
+  }
 
-  toggleActive = () => this.setState({ isActive: !this.state.isActive });
+  toggleActive = () => this.setState({ isActive: !this.state.isActive })
 
   render() {
     const {
@@ -154,14 +154,13 @@ class GeneralForm extends Component {
       clientNameFull,
       clientTag,
       isActive,
-      logoPath,
       industry,
       defaultCurrencyCode,
       defaultDistanceUnits,
       description,
       notifyUser,
       errorMessage,
-    } = this.state;
+    } = this.state
 
     return (
       <>
@@ -241,8 +240,8 @@ class GeneralForm extends Component {
           <Save text="Close" onClick={() => this.toggleModal()} />
         </Modal>
       </>
-    );
+    )
   }
 }
 
-export default withApollo(GeneralForm);
+export default withApollo(GeneralForm)

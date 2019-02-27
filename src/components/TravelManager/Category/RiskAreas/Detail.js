@@ -7,12 +7,6 @@ import { GET_RISK_AREA_DETAIL } from 'components/graphql/query'
 const ChartContainerRow = styled.div`
   display: flex;
 `
-const ChartContainer = styled.div`
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  height: 400px;
-`
 
 const CommentaryContainer = styled.div`
   margin-top: 2em;
@@ -29,11 +23,6 @@ const Detail = ({ id }) => {
         <>
           <ChartContainerRow>
             <Map data={locationList} />
-            {/* {locationList.map((location, i) => (
-              <ChartContainer key={i}>
-                <PieChart id={i} title={location.title} data={location.personaList} />
-              </ChartContainer>
-            ))} */}
           </ChartContainerRow>
           <CommentaryContainer>
             <Commentary>Commentary</Commentary>

@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Route, Switch } from 'react-router-dom';
-import SelectClient from './SelectClient';
-import EditClient from './EditClient';
+import React, { Component } from 'react'
+import { Route, Switch } from 'react-router-dom'
+import SelectClient from './SelectClient'
+import EditClient from './EditClient'
 
 //project imports
 
 class ClientSetup extends Component {
   constructor(props) {
-    super(props);
-    this.state = {};
+    super(props)
+    this.state = {}
   }
 
   render() {
@@ -20,8 +19,8 @@ class ClientSetup extends Component {
           <Route path={`/client-setup/:tab`} component={EditClient} />
         </Switch>
       </>
-    );
+    )
   }
 }
 
-export default ClientSetup;
+export default ClientSetup

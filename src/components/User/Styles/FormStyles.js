@@ -1,14 +1,11 @@
-import styled from 'styled-components';
-import Icon from 'components/common/Icon';
-import Button from 'components/common/Button';
-import TextInput from 'components/common/TextInput';
-import Select from 'react-select';
-
-
+import styled from 'styled-components'
+import Button from 'components/common/Button'
+import TextInput from 'components/common/TextInput'
+import Select from 'react-select'
 
 export const FormContainer = styled.div`
   display: flex;
-  height:30em;
+  height: 30em;
   justify-content: flex-start;
 `
 
@@ -66,10 +63,11 @@ export const ChangePassword = styled(Button)`
 `
 
 export const Notes = styled.textarea`
-height:10em;
-padding: 0.5em;
-width: 100%;
-box-sizing: border-box;
-background: transparent;
-border: 1px solid #dedede;
-font-size:1em;`
+  height: 10em;
+  padding: 0.5em;
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  border: 1px solid #dedede;
+  font-size: 1em;
+`
