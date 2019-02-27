@@ -1,6 +1,6 @@
-import gql from 'graphql-tag';
-export { AIR_STORY_QUERIES, HOTEL_STORY_QUERIES, DONUT } from './story';
-export { UPCOMING_ACTIONS, ACTIVE_ALERTS, PROGRAM_SELECT, BOTTOM_INFO } from './portal';
+import gql from 'graphql-tag'
+export { AIR_STORY_QUERIES, HOTEL_STORY_QUERIES, DONUT } from './story'
+export { UPCOMING_ACTIONS, ACTIVE_ALERTS, PROGRAM_SELECT, BOTTOM_INFO } from './portal'
 export {
   PROGRAM_PERFORMANCE_TRAVEL,
   PROGRAM_PERFORMANCE_EXECUTIVE,
@@ -12,9 +12,10 @@ export {
   SAVINGS_OPPORTUNITIES_EXECUTIVE,
   RISK_AREAS_TRAVEL,
   RISK_AREAS_EXECUTIVE,
-} from './dashboard';
-export { NO_CHANGE_SINCE } from './category';
-export { USER_PROFILE, UPDATE_USER_PROFILE, UPDATE_PASSWORD } from './user';
+} from './dashboard'
+export { NO_CHANGE_SINCE } from './category'
+export { GET_SAVINGS_OPPORTUNITY_DETAIL } from './savingsOpportunity'
+export { USER_PROFILE, UPDATE_USER_PROFILE, UPDATE_PASSWORD } from './user'
 
 export const LOGIN = gql`
   query($username: String!, $pwd: String!) {
@@ -33,7 +34,7 @@ export const LOGIN = gql`
       }
     }
   }
-`;
+`
 
 export const LOGOUT = gql`
   query($sessionToken: String!) {
@@ -47,4 +48,4 @@ export const LOGOUT = gql`
       }
     }
   }
-`;
+`

@@ -1,10 +1,10 @@
 export default {
   savingsOpportunity: {
-    id: null,
+    id: 1,
     title: '',
     value: '',
     secondaryValue: '',
     secondaryUnit: '',
-    __typename: 'SavingsOpportunity'
+    __typename: 'SavingsOpportunity',
   },
-};
+}
