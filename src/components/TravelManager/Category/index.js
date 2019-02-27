@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Navigation from './Navigation'
 import ProgramPerformance from './ProgramPerformance'
 import SavingsOpportunities from './SavingsOpportunities'
+import RiskAreas from './RiskAreas'
 
 const Container = styled.div`
   padding: 4em;
@@ -23,6 +24,7 @@ const Category = () => {
         <Switch>
           <Route path={`/travel/program-performance`} component={ProgramPerformance} />
           <Route path={`/travel/savings-opportunities`} component={SavingsOpportunities} />
+          <Route path={`/travel/risk-areas`} component={RiskAreas} />
         </Switch>
       </Container>
     </>

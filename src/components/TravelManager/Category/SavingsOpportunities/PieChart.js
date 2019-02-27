@@ -77,7 +77,7 @@ class PieChart extends Component {
       <div style="margin-top:5px;"><strong>${opportunity.title}: ${numeral(
         opportunity.value
       ).format('$0.a')}</strong></div>
-      <table style="margin: 10px 0">
+      <table style="margin: 1em 0">
       ${hover.fields
         .map(
           data =>

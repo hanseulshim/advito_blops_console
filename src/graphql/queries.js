@@ -11,3 +11,14 @@ export const GET_SAVINGS_OPPORTUNITY = gql`
     }
   }
 `
+export const GET_RISK_AREA = gql`
+  {
+    riskArea @client {
+      id
+      title
+      value
+      secondaryValue
+      secondaryUnit
+    }
+  }
+`
