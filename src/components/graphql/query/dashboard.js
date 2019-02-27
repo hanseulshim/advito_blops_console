@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const PROGRAM_PERFORMANCE_TRAVEL = gql`
   query($clientId: Int!, $sessionToken: String!) {
@@ -16,7 +16,7 @@ export const PROGRAM_PERFORMANCE_TRAVEL = gql`
       }
     }
   }
-`;
+`
 
 export const NET_SPEND_ANALYSIS_TRAVEL = gql`
   query($clientId: Int!, $sessionToken: String!) {
@@ -33,7 +33,7 @@ export const NET_SPEND_ANALYSIS_TRAVEL = gql`
       }
     }
   }
-`;
+`
 
 export const NET_SPEND_ANALYSIS_EXECUTIVE = gql`
   query($clientId: Int!, $sessionToken: String!) {
@@ -50,7 +50,7 @@ export const NET_SPEND_ANALYSIS_EXECUTIVE = gql`
       }
     }
   }
-`;
+`
 
 export const PROGRAM_PERFORMANCE_EXECUTIVE = gql`
   query($clientId: Int!, $sessionToken: String!) {
@@ -66,7 +66,7 @@ export const PROGRAM_PERFORMANCE_EXECUTIVE = gql`
       }
     }
   }
-`;
+`
 
 export const PERSONAS = gql`
   query($clientId: Int!, $sessionToken: String!) {
@@ -84,7 +84,7 @@ export const PERSONAS = gql`
       }
     }
   }
-`;
+`
 
 export const MARKETS = gql`
   query($clientId: Int!, $sessionToken: String!) {
@@ -102,15 +102,25 @@ export const MARKETS = gql`
       }
     }
   }
-`;
+`
 
 export const SAVINGS_OPPORTUNITIES_TRAVEL = gql`
-  query($clientId: Int!, $sessionToken: String!, $limit: Int) {
-    opportunitiesTravel(clientId: $clientId, sessionToken: $sessionToken, limit: $limit) {
+  query($clientId: Int!, $sessionToken: String!, $limit: Int, $cursor: Int) {
+    opportunitiesTravel(
+      clientId: $clientId
+      sessionToken: $sessionToken
+      limit: $limit
+      cursor: $cursor
+    ) {
       statusCode
       body {
         apidataset {
+          prevCursor
+          cursor
+          totalOpportunities
+          hasNext
           opportunities {
+            id
             title
             value
             secondaryValue
@@ -121,7 +131,7 @@ export const SAVINGS_OPPORTUNITIES_TRAVEL = gql`
       }
     }
   }
-`;
+`
 
 export const SAVINGS_OPPORTUNITIES_EXECUTIVE = gql`
   query($clientId: Int!, $sessionToken: String!, $limit: Int) {
@@ -147,7 +157,7 @@ export const SAVINGS_OPPORTUNITIES_EXECUTIVE = gql`
       }
     }
   }
-`;
+`
 
 export const RISK_AREAS_TRAVEL = gql`
   query($clientId: Int!, $sessionToken: String!) {
@@ -167,7 +177,7 @@ export const RISK_AREAS_TRAVEL = gql`
       }
     }
   }
-`;
+`
 
 export const RISK_AREAS_EXECUTIVE = gql`
   query($clientId: Int!, $sessionToken: String!, $limit: Int) {
@@ -197,4 +207,4 @@ export const RISK_AREAS_EXECUTIVE = gql`
       }
     }
   }
-`;
+`
