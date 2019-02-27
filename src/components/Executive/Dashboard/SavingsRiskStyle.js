@@ -38,7 +38,7 @@ export const Rank = styled.div`
 
 export const Row = styled.div`
   padding: 1em 0;
-  flex: 1;
+  flex: 1.5;
 `;
 
 export const RowTitle = styled.div`
@@ -51,6 +51,7 @@ export const RowTitle = styled.div`
 export const RightIcon = styled(Icon)`
   color: ${props => props.theme.treePoppy};
   font-size: 2em;
+  margin-right: 10%;
 `;
 
 export const Metric = styled.div`
@@ -58,7 +59,7 @@ export const Metric = styled.div`
   flex-direction: column;
   flex: 1;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 export const Unit = styled.span`

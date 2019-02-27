@@ -47,7 +47,7 @@ class RiskAreas extends React.Component {
           {({ data }) =>
             data.riskAreas.map((riskArea, index) => (
               <Link to="/executive/risk-areas" key={index}>
-                <RowContainer>
+                <RowContainer first={index === 0}>
                   <Rank>{index + 1}</Rank>
                   <Row first={index === 0}>
                     <RowTitle>{riskArea.title}</RowTitle>
