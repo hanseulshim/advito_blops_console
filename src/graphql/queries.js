@@ -22,3 +22,20 @@ export const GET_RISK_AREA = gql`
     }
   }
 `
+export const GET_SELECTED_CLIENT = gql`
+  {
+    selectedClient @client {
+      clientName
+      clientNameFull
+      clientTag
+      defaultCurrencyCode
+      defaultDistanceUnits
+      description
+      gcn
+      id
+      industry
+      isActive
+      __typename
+    }
+  }
+`

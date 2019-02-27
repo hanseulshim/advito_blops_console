@@ -11,3 +11,9 @@ export const UPDATE_RISK_AREA = gql`
     updateRiskArea(riskArea: $riskArea) @client
   }
 `
+
+export const UPDATE_SELECTED_CLIENT = gql`
+  mutation updateSelectedClient($selectedClient: ClientData) {
+    updateSelectedClient(selectedClient: $selectedClient) @client
+  }
+`

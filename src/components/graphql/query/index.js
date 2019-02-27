@@ -16,6 +16,7 @@ export {
 export { NO_CHANGE_SINCE } from './category'
 export { GET_SAVINGS_OPPORTUNITY_DETAIL } from './savingsOpportunity'
 export { GET_RISK_AREA_DETAIL } from './riskArea'
+export { UPDATE_CLIENT, CREATE_CLIENT, GET_CLIENTS } from './client'
 export { USER_PROFILE, UPDATE_USER_PROFILE, UPDATE_PASSWORD } from './user'
 
 export const LOGIN = gql`

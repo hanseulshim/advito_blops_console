@@ -1,81 +1,15 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Button from 'components/common/Button';
 import Toggle from 'react-toggle';
-import './toggle.css';
 import Select from 'react-select';
-import TextInput from 'components/common/TextInput';
-import Icon from 'components/common/Icon';
 import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
 
 //Query
 import { CREATE_USER } from 'components/graphql/query/user';
 
-const TitleRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 2em;
-`;
-
-const Close = styled(Icon)`
-  color: ${props => props.theme.treePoppy};
-  border: 1px solid;
-  border-radius: 100%;
-  padding: 0.5em;
-  width: 5px;
-  height: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-  cursor: pointer;
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-right: auto;
-`;
-
-const FormItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  flex: 1;
-  margin-bottom: 2em;
-`;
-
-const FormLabel = styled.span`
-  text-transform: uppercase;
-  margin-bottom: 5px;
-`;
-
-const FormText = styled(TextInput)`
-  padding: 0.5em;
-  width: 100%;
-  box-sizing: border-box;
-  background: transparent;
-  border: 1px solid #dedede;
-`;
-
-const Text = styled.div`
-  white-space: pre-line;
-  font-style: italic;
-`;
-
-const SubText = styled(Text)`
-  margin-top: 1em;
-  margin-left: 2em;
-`;
-
-const Save = styled(Button)`
-  position: relative;
-  left: 40%;
-  margin-top: 5em;
-`;
+import { TitleRow, Close, ModalForm, ModalFormItem, ModalFormLabel, ModalFormText, ModalText, ModalSubText, Save } from '../Styles/ModalFormStyles';
+import '../Styles/toggle.css';
 
 const roles = [
   { label: 'Hotel System', value: 1 },
@@ -166,63 +100,63 @@ class CreateUser extends Component {
           <SectionTitle>Create User</SectionTitle>
           <Close className="fas fa-times" onClick={onClose} />
         </TitleRow>
-        <Form>
-          <FormItem>
-            <FormLabel>User Name *</FormLabel>
-            <FormText value={username} name="username" onChange={this.changeInput} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Account Active</FormLabel>
-            <FormLabel>
+        <ModalForm>
+          <ModalFormItem>
+            <ModalFormLabel>User Name *</ModalFormLabel>
+            <ModalFormText value={username} name="username" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Account Active</ModalFormLabel>
+            <ModalFormLabel>
               <Toggle defaultChecked={isEnabled} icons={false} onChange={this.handleToggle} />
-            </FormLabel>
-          </FormItem>
-          <FormItem>
-            <FormLabel>First Name *</FormLabel>
-            <FormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Last Name *</FormLabel>
-            <FormText value={nameLast} name="nameLast" onChange={this.changeInput} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Phone</FormLabel>
-            <FormText value={phone} name="phone" onChange={this.changeInput} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Address</FormLabel>
-            <FormText value={address} name="address" onChange={this.changeInput} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Role*</FormLabel>
+            </ModalFormLabel>
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>First Name *</ModalFormLabel>
+            <ModalFormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Last Name *</ModalFormLabel>
+            <ModalFormText value={nameLast} name="nameLast" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Phone</ModalFormLabel>
+            <ModalFormText value={phone} name="phone" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Address</ModalFormLabel>
+            <ModalFormText value={address} name="address" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Role*</ModalFormLabel>
             <Select options={roles} value={role} onChange={e => this.changeInput(e, 'role')} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Password *</FormLabel>
-            <FormText value={pwd} type="password" name="pwd" onChange={this.changeInput} />
-          </FormItem>
-          <FormItem>
-            <FormLabel>Confirm Password *</FormLabel>
-            <FormText
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Password *</ModalFormLabel>
+            <ModalFormText value={pwd} type="password" name="pwd" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Confirm Password *</ModalFormLabel>
+            <ModalFormText
               value={confirmPwd}
               type="password"
               name="confirmPwd"
               onChange={this.changeInput}
             />
-          </FormItem>
-        </Form>
-        <Text>
+          </ModalFormItem>
+        </ModalForm>
+        <ModalText>
           {`Passwords must be a minimum of eight (8) characters
           and includes (3) of the following (4) criteria:
           `}
-        </Text>
-        <SubText>
+        </ModalText>
+        <ModalSubText>
           {`- Lowercase character
           - Upper case character
           - Number
           - Special characters (e.g.!, $, #, %)
           `}
-        </SubText>
+        </ModalSubText>
         <Save text="Save" onClick={this.handleSave} />
         <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
           <div style={{ textAlign: 'center' }}>

@@ -26,5 +26,15 @@ export default {
       })
       return null
     },
+    updateSelectedClient: (_, { selectedClient = defaults.selectedClient }, { cache }) => {
+      cache.writeData({
+        data: {
+          selectedClient: {
+            ...selectedClient,
+          },
+        },
+      })
+      return null
+    },
   },
 }
