@@ -19,7 +19,7 @@ class EditDivision extends React.Component {
     });
   };
   render() {
-    const { client, fetchMore } = this.props;
+    const { division, fetchMore } = this.props;
     const { formOpen } = this.state;
     return (
       <>
@@ -29,7 +29,7 @@ class EditDivision extends React.Component {
           onClick={this.toggleForm}
         />
         <Modal open={formOpen} handleClose={this.toggleForm} size="tall">
-          <EditDivisionForm client={client} onClose={this.toggleForm} fetchMore={fetchMore} />
+          <EditDivisionForm division={division} onClose={this.toggleForm} fetchMore={fetchMore} />
         </Modal>
       </>
     );
