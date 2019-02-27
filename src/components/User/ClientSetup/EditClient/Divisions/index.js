@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import GraphQL from 'components/graphql';
+
 import { GET_SELECTED_CLIENT } from 'graphql/queries';
 import { GET_DIVISIONS } from 'components/graphql/query/division';
 import { Query } from 'react-apollo';
+import UserContext from 'components/context/UserContext';
 
 //project imports
 
@@ -36,32 +37,36 @@ class Divisions extends React.Component {
     const { addDivision } = this.state;
 
     return (
-      <Query query={GET_SELECTED_CLIENT}>
-        {({ data }) => (
-          <Query
-            query={GET_DIVISIONS}
-            name="getDivisions"
-            variables={{ clientId: data.selectedClient.id }}
-          >
-            {({ data, fetchMore }) => (
-              <>
-                <ControlRow>
-                  <Checkbox>Show Inactive</Checkbox>
-                  <Button
-                    text="+ New Division"
-                    onClick={this.toggleForm}
-                    style={{ whiteSpace: 'nowrap', width: '9em' }}
-                  />
-                </ControlRow>
-                <DivisionTable divisions={data} />
-                <Modal open={addDivision} handleClose={this.toggleForm} size="tall">
-                  <AddDivision onClose={this.toggleForm} fetchMore={fetchMore} />
-                </Modal>
-              </>
+      <UserContext.Consumer>
+        {({ user, removeUser }) => (
+          <Query query={GET_SELECTED_CLIENT}>
+            {({ data }) => (
+              <Query
+                query={GET_DIVISIONS}
+                name="getDivisions"
+                variables={{ clientId: data.selectedClient.id, sessionToken: user.sessionToken }}
+              >
+                {({ data, fetchMore }) => (
+                  <>
+                    <ControlRow>
+                      <Checkbox>Show Inactive</Checkbox>
+                      <Button
+                        text="+ New Division"
+                        onClick={this.toggleForm}
+                        style={{ whiteSpace: 'nowrap', width: '9em' }}
+                      />
+                    </ControlRow>
+                    <DivisionTable divisions={data} fetchMore={fetchMore} />
+                    <Modal open={addDivision} handleClose={this.toggleForm} size="tall">
+                      <AddDivision onClose={this.toggleForm} fetchMore={fetchMore} user={user} />
+                    </Modal>
+                  </>
+                )}
+              </Query>
             )}
           </Query>
         )}
-      </Query>
+      </UserContext.Consumer>
     );
   }
 }

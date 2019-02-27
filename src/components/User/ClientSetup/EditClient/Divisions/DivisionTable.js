@@ -33,7 +33,7 @@ class DivisionTable extends Component {
                 </CustomTableCell>
                 <CustomTableCell align="left">{division.divisionName}</CustomTableCell>
                 <CustomTableCell align="right">
-                  <EditDivision division={division} />
+                  <EditDivision division={division} fetchMore={this.props.fetchMore} />
                 </CustomTableCell>
               </TableRow>
             ))

@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const GET_DIVISIONS = gql`
   query($sessionToken: String!, $clientId: Int!) {
-    getDivisions(sessionToken: $sessionToken) {
+    getDivisions(sessionToken: $sessionToken, clientId: $clientId) {
       statusCode
       body {
         apimessage

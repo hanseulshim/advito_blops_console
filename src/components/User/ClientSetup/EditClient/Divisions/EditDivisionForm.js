@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Icon from 'components/common/Icon';
-import Select from 'react-select';
+import Toggle from 'react-toggle';
 import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
 
@@ -20,18 +20,16 @@ import '../../../Styles/toggle.css';
 //Query
 import { UPDATE_DIVISION } from 'components/graphql/query/division';
 
-const status = [{ label: 'Active', value: 1 }, { label: 'Air Inactive', value: 2 }];
-
 class EditDivisionForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       divisionName: '',
       divisionNameFull: '',
-      divisionStatus: '',
+      isActive: '',
       divisionTag: '',
-      divisionGcn: '',
-      notes: '',
+      gcn: '',
+      description: '',
       gcnLock: true,
       saveModal: false,
       errorMessage: '',
@@ -43,12 +41,7 @@ class EditDivisionForm extends Component {
     const state = {};
     Object.keys(division).forEach(key => {
       if (division[key]) {
-        if (key === 'divisionStatus') {
-          const value = status.filter(v => v.value === division[key])[0];
-          state[key] = value;
-        } else {
-          state[key] = division[key];
-        }
+        state[key] = division[key];
       }
     });
     this.setState({
@@ -102,9 +95,9 @@ class EditDivisionForm extends Component {
     const {
       divisionName,
       divisionNameFull,
-      divisionStatus,
+      isActive,
       divisionTag,
-      divisionGcn,
+      gcn,
       notes,
       errorMessage,
       saveModal,
@@ -132,12 +125,7 @@ class EditDivisionForm extends Component {
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Division Status</ModalFormLabel>
-            <Select
-              options={status}
-              value={divisionStatus}
-              name="nameFirst"
-              onChange={e => this.changeInput(e, 'role')}
-            />
+            <Toggle checked={isActive} icons={false} onChange={this.toggleActive} />
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Division Tag</ModalFormLabel>
@@ -153,8 +141,8 @@ class EditDivisionForm extends Component {
               />
             </ModalFormLabel>
             <ModalFormText
-              value={divisionGcn}
-              name="divisionGcn"
+              value={gcn}
+              name="gcn"
               onChange={this.changeInput}
               disabled={this.state.gcnLock}
             />

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { withApollo } from 'react-apollo';
+
 import Icon from 'components/common/Icon';
-import Select from 'react-select';
+import Toggle from 'react-toggle';
 import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
 
@@ -18,8 +20,9 @@ import {
 import '../../../Styles/toggle.css';
 
 //Query
+import { CREATE_DIVISION } from 'components/graphql/query/division';
 
-const status = [{ label: 'Active', value: 1 }, { label: 'Air Inactive', value: 2 }];
+// const status = [{ label: 'Active', value: 'Active' }, { label: 'Inactive', value: 'Inactive' }];
 
 class AddDivision extends Component {
   constructor(props) {
@@ -27,10 +30,10 @@ class AddDivision extends Component {
     this.state = {
       divisionName: '',
       divisionNameFull: '',
-      divisionStatus: '',
+      isActive: false,
       divisionTag: '',
-      divisionGcn: '',
-      notes: '',
+      gcn: '',
+      description: '',
       gcnLock: true,
       saveModal: false,
       errorMessage: '',
@@ -51,42 +54,46 @@ class AddDivision extends Component {
 
   toggleLock = () => this.setState({ gcnLock: !this.state.gcnLock });
 
+  toggleActive = () => this.setState({ isActive: !this.state.isActive });
+
   handleSave = async () => {
-    // const payload = { ...this.state };
-    // delete payload.errorMessage;
-    // delete payload.saveModal;
-    // const { client, loggedIn, fetchMore } = this.props;
-    // payload.sessionToken = loggedIn.sessionToken;
-    // payload.clientId = loggedIn.clientId;
-    // payload.roleId = payload.role.value;
-    // const { data } = await client.mutate({
-    //   mutation: EDIT_USER,
-    //   variables: { ...payload },
-    // });
-    // if (data.editUser.statusCode !== 200) {
-    //   this.setState({ errorMessage: data.editUser.body.apimessage });
-    // }
-    // fetchMore({
-    //   variables: {
-    //     sessionToken: loggedIn.sessionToken,
-    //     clientId: loggedIn.clientId,
-    //   },
-    //   updateQuery: (prev, { fetchMoreResult }) => {
-    //     if (!fetchMoreResult) return prev;
-    //     return fetchMoreResult;
-    //   },
-    // });
-    // this.toggleSaveModal();
+    const payload = { ...this.state };
+    delete payload.errorMessage;
+    delete payload.saveModal;
+    delete payload.gcnLock;
+
+    const { client, user, fetchMore } = this.props;
+    payload.sessionToken = user.sessionToken;
+    payload.clientId = user.clientId;
+
+    const { data } = await client.mutate({
+      mutation: CREATE_DIVISION,
+      variables: { ...payload },
+    });
+    if (data.createDivision.statusCode !== 200) {
+      this.setState({ errorMessage: data.createDivision.body.apimessage });
+    }
+    fetchMore({
+      variables: {
+        sessionToken: user.sessionToken,
+        clientId: user.clientId,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+        return fetchMoreResult;
+      },
+    });
+    this.toggleSaveModal();
   };
 
   render() {
     const {
       divisionName,
       divisionNameFull,
-      divisionStatus,
+      isActive,
       divisionTag,
-      divisionGcn,
-      notes,
+      gcn,
+      description,
       errorMessage,
       saveModal,
       gcnLock,
@@ -113,16 +120,11 @@ class AddDivision extends Component {
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Division Status</ModalFormLabel>
-            <Select
-              options={status}
-              value={divisionStatus}
-              name="nameFirst"
-              onChange={e => this.changeInput(e, 'role')}
-            />
+            <Toggle checked={isActive} icons={false} onChange={this.toggleActive} />
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Division Tag</ModalFormLabel>
-            <ModalFormText value={divisionTag} name="nameLast" onChange={this.changeInput} />
+            <ModalFormText value={divisionTag} name="divisionTag" onChange={this.changeInput} />
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>
@@ -134,27 +136,27 @@ class AddDivision extends Component {
               />
             </ModalFormLabel>
             <ModalFormText
-              value={divisionGcn}
-              name="divisionGcn"
+              value={gcn}
+              name="gcn"
               onChange={this.changeInput}
               disabled={this.state.gcnLock}
             />
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Notes</ModalFormLabel>
-            <Notes value={notes} name="notes" onChange={this.changeInput} />
+            <Notes value={description} name="description" onChange={this.changeInput} />
           </ModalFormItem>
         </ModalForm>
         <Save text="Save" onClick={this.handleSave} />
-        <Modal open={saveModal} handleClose={() => this.toggleNotification()}>
+        <Modal open={saveModal} handleClose={() => this.props.onClose()}>
           <div style={{ textAlign: 'center' }}>
-            {errorMessage ? `Error: ${errorMessage}` : 'User successfully updated'}
+            {errorMessage ? `Error: ${errorMessage}` : 'Division successfully created'}
           </div>
-          <Save text="Close" onClick={() => this.toggleNotification()} />
+          <Save text="Close" onClick={() => this.props.onClose()} />
         </Modal>
       </>
     );
   }
 }
 
-export default AddDivision;
+export default withApollo(AddDivision);
