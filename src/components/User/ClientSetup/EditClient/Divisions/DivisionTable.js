@@ -25,15 +25,20 @@ class DivisionTable extends Component {
           </TableRow>
         </TableHead>
         <TableBody>
-          {this.props.data ? (
-            this.props.data.map((division, i) => (
+          {this.props.divisions.body.apidataset.length > 0 ? (
+            this.props.divisions.body.apidataset.map((division, i) => (
               <TableRow key={'division' + i}>
                 <CustomTableCell component="th" scope="row">
                   {division.gcn}
                 </CustomTableCell>
                 <CustomTableCell align="left">{division.divisionName}</CustomTableCell>
                 <CustomTableCell align="right">
-                  <EditDivision division={division} fetchMore={this.props.fetchMore} />
+                  <EditDivision
+                    division={division}
+                    fetchMore={this.props.fetchMore}
+                    user={this.props.user}
+                    selectedClient={this.props.selectedClient}
+                  />
                 </CustomTableCell>
               </TableRow>
             ))

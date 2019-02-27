@@ -62,9 +62,9 @@ class AddDivision extends Component {
     delete payload.saveModal;
     delete payload.gcnLock;
 
-    const { client, user, fetchMore } = this.props;
+    const { client, user, fetchMore, selectedClient } = this.props;
     payload.sessionToken = user.sessionToken;
-    payload.clientId = user.clientId;
+    payload.clientId = selectedClient.id;
 
     const { data } = await client.mutate({
       mutation: CREATE_DIVISION,
@@ -76,7 +76,7 @@ class AddDivision extends Component {
     fetchMore({
       variables: {
         sessionToken: user.sessionToken,
-        clientId: user.clientId,
+        clientId: selectedClient.id,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
