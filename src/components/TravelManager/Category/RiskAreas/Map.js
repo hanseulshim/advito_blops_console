@@ -20,7 +20,7 @@ class WorldMap extends Component {
     chart.projection = new am4maps.projections.Miller();
     chart.seriesContainer.draggable = true;
     chart.seriesContainer.resizable = true;
-    // chart.maxZoomLevel = 1;
+    chart.maxZoomLevel = 1;
 
     const polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
     polygonSeries.useGeodata = true;
