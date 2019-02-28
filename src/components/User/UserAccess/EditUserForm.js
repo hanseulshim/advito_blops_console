@@ -41,6 +41,7 @@ class EditUserForm extends Component {
       phone: '',
       address: '',
       role: '',
+      notifyUser: false,
     };
   }
 
