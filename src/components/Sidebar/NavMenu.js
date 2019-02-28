@@ -13,6 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 const NavItem = styled(Link)`
   color: ${props => props.theme.white};
   margin-bottom: 1em;
+  cursor: pointer;
   :hover {
     color: ${props => props.theme.white};
     text-decoration: underline;
@@ -22,6 +23,7 @@ const NavItem = styled(Link)`
 const LogOut = styled.span`
   color: ${props => props.theme.white};
   margin-bottom: 1em;
+  cursor: pointer;
   :hover {
     color: ${props => props.theme.white};
     text-decoration: underline;

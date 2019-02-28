@@ -50,7 +50,6 @@ class SideBarUserInfo extends React.Component {
                   <img src={Shayan} alt="avatar" />
                 </Link>
               </Avatar>
-
               <NavMenu />
             </TitleContainer>
             <Title>{user.displayName}</Title>
