@@ -1,4 +1,4 @@
-import defaults from './defaults';
+import defaults from './defaults'
 
 export default {
   Mutation: {
@@ -13,8 +13,18 @@ export default {
             ...savingsOpportunity,
           },
         },
-      });
-      return null;
+      })
+      return null
+    },
+    updateRiskArea: (_, { riskArea = defaults.riskArea }, { cache }) => {
+      cache.writeData({
+        data: {
+          riskArea: {
+            ...riskArea,
+          },
+        },
+      })
+      return null
     },
     updateSelectedClient: (_, { selectedClient = defaults.selectedClient }, { cache }) => {
       cache.writeData({
@@ -23,8 +33,8 @@ export default {
             ...selectedClient,
           },
         },
-      });
-      return null;
+      })
+      return null
     },
   },
-};
+}

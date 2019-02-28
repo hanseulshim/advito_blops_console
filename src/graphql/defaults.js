@@ -1,6 +1,6 @@
 export default {
   savingsOpportunity: {
-    id: null,
+    id: 1,
     title: '',
     value: '',
     secondaryValue: '',
@@ -20,4 +20,12 @@ export default {
     isActive: false,
     __typename: 'ClientData',
   },
-};
+  riskArea: {
+    id: 1,
+    title: '',
+    value: '',
+    secondaryValue: '',
+    secondaryUnit: '',
+    __typename: 'RiskArea',
+  },
+}

@@ -1,7 +1,5 @@
-import React from 'react';
-
 const ClientSetupSidebar = () => {
-  return null;
-};
+  return null
+}
 
-export default ClientSetupSidebar;
+export default ClientSetupSidebar
