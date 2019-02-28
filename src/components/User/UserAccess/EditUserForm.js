@@ -5,7 +5,17 @@ import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
 
 //Form Styles
-import { TitleRow, Close, ModalForm, ModalFormItem, ModalFormLabel, ModalFormText, ModalText, ModalSubText, Save } from '../Styles/ModalFormStyles';
+import {
+  TitleRow,
+  Close,
+  ModalForm,
+  ModalFormItem,
+  ModalFormLabel,
+  ModalFormText,
+  ModalText,
+  ModalSubText,
+  Save,
+} from '../Styles/ModalFormStyles';
 import '../Styles/toggle.css';
 
 //Query
@@ -31,6 +41,7 @@ class EditUserForm extends Component {
       phone: '',
       address: '',
       role: '',
+      notifyUser: false,
     };
   }
 
@@ -100,7 +111,7 @@ class EditUserForm extends Component {
         if (!fetchMoreResult) return prev;
         return fetchMoreResult;
       },
-    })
+    });
 
     this.toggleNotification();
   };
@@ -154,18 +165,6 @@ class EditUserForm extends Component {
             <Select options={roles} value={role} onChange={e => this.changeInput(e, 'role')} />
           </ModalFormItem>
         </ModalForm>
-        <ModalText>
-          {`Passwords must be a minimum of eight (8) characters
-          and includes (3) of the following (4) criteria:
-          `}
-        </ModalText>
-        <ModalSubText>
-          {`- Lowercase character
-          - Upper case character
-          - Number
-          - Special characters (e.g.!, $, #, %)
-          `}
-        </ModalSubText>
         <Save text="Save" onClick={this.handleSave} />
         <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
           <div style={{ textAlign: 'center' }}>

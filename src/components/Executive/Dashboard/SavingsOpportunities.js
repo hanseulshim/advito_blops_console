@@ -50,7 +50,7 @@ class SavingsOpportunities extends React.Component {
           {({ data }) =>
             data.opportunities.map((opportunity, index) => (
               <Link to="/executive/savings-opportunities" key={index}>
-                <RowContainer>
+                <RowContainer first={index === 0}>
                   <Rank>{index + 1}</Rank>
                   <Row first={index === 0}>
                     <RowTitle>{opportunity.title}</RowTitle>

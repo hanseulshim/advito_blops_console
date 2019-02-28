@@ -1,37 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router';
+import { withApollo } from 'react-apollo';
+import { compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { LOGOUT } from 'components/graphql/query';
-import { ApolloConsumer } from 'react-apollo';
+import Icon from 'components/common/Icon';
 import UserContext from 'components/context/UserContext';
-
-const MenuContainer = styled.div`
-  background-color: ${props => props.theme.treePoppy};
-  display: flex;
-  flex-direction: column;
-  padding: 1em 2em;
-  color: ${props => props.theme.white};
-  position: absolute;
-  bottom: -140%;
-  right: 10%;
-  border-radius: 5%;
-  cursor: pointer;
-  -webkit-animation: fadein 1s;
-
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-`;
+import Popover from '@material-ui/core/Popover';
+import { withStyles } from '@material-ui/core/styles';
 
 const NavItem = styled(Link)`
   color: ${props => props.theme.white};
   margin-bottom: 1em;
+  cursor: pointer;
   :hover {
     color: ${props => props.theme.white};
     text-decoration: underline;
@@ -41,11 +23,29 @@ const NavItem = styled(Link)`
 const LogOut = styled.span`
   color: ${props => props.theme.white};
   margin-bottom: 1em;
+  cursor: pointer;
   :hover {
     color: ${props => props.theme.white};
     text-decoration: underline;
   }
 `;
+const MenuIcon = styled(Icon)`
+  color: ${props => props.theme.treePoppy};
+  font-size: 1.5em;
+  cursor: pointer;
+  :hover {
+    color: ${props => props.theme.jungleMist};
+  }
+`;
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#FF9E16',
+    padding: '1em 2em',
+  },
+});
 
 const NavItems = [
   {
@@ -62,34 +62,84 @@ const NavItems = [
   },
 ];
 
-const NavMenu = ({ location }) => (
-  <ApolloConsumer>
-    {client => (
+class NavMenu extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      anchorEl: null,
+    };
+  }
+
+  handleClick = event => {
+    this.setState({
+      anchorEl: event.currentTarget,
+    });
+  };
+
+  handleClose = () => {
+    this.setState({
+      anchorEl: null,
+    });
+  };
+
+  render() {
+    const { client, location, classes } = this.props;
+    const { anchorEl } = this.state;
+
+    const open = Boolean(anchorEl);
+
+    return (
       <UserContext.Consumer>
         {({ user, removeUser }) => (
-          <MenuContainer>
-            {NavItems.map((nav, index) => (
-              <NavItem key={index} to={nav.link} replace={location.pathname.includes(nav.link)}>
-                {nav.title}
-              </NavItem>
-            ))}
-            <LogOut
-              onClick={async event => {
-                event.preventDefault();
-                removeUser();
-                await client.query({
-                  query: LOGOUT,
-                  variables: { sessionToken: user.sessionToken },
-                });
+          <>
+            <MenuIcon
+              className="fas fa-cog"
+              onClick={this.handleClick}
+              aria-owns={open ? 'nav-menu' : undefined}
+              aria-haspopup="true"
+            />
+            <Popover
+              id="nav-menu"
+              open={open}
+              anchorEl={anchorEl}
+              onClose={this.handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
               }}
             >
-              Logout
-            </LogOut>
-          </MenuContainer>
+              <div className={classes.container}>
+                {NavItems.map((nav, index) => (
+                  <NavItem key={index} to={nav.link} replace={location.pathname.includes(nav.link)}>
+                    {nav.title}
+                  </NavItem>
+                ))}
+                <LogOut
+                  onClick={async event => {
+                    event.preventDefault();
+                    removeUser();
+                    await client.query({
+                      query: LOGOUT,
+                      variables: { sessionToken: user.sessionToken },
+                    });
+                  }}
+                >
+                  Logout
+                </LogOut>
+              </div>
+            </Popover>
+          </>
         )}
       </UserContext.Consumer>
-    )}
-  </ApolloConsumer>
-);
-
-export default withRouter(NavMenu);
+    );
+  }
+}
+export default compose(
+  withRouter,
+  withApollo,
+  withStyles(styles)
+)(NavMenu);

@@ -27,7 +27,7 @@ class EditDivisionForm extends Component {
     this.state = {
       divisionName: '',
       divisionNameFull: '',
-      isActive: '',
+      isActive: false,
       divisionTag: '',
       gcn: '',
       description: '',
@@ -99,7 +99,7 @@ class EditDivisionForm extends Component {
       isActive,
       divisionTag,
       gcn,
-      notes,
+      description,
       errorMessage,
       saveModal,
       gcnLock,
@@ -150,7 +150,7 @@ class EditDivisionForm extends Component {
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Notes</ModalFormLabel>
-            <Notes value={notes} name="notes" onChange={this.changeInput} />
+            <Notes value={description} name="description" onChange={this.changeInput} />
           </ModalFormItem>
         </ModalForm>
         <Save text="Save" onClick={this.handleSave} />

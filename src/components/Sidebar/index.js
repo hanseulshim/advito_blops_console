@@ -8,8 +8,9 @@ const Container = styled.div`
   background: ${props => (props.bgColor === 'white' ? props.theme.white : props.theme.alabaster)};
   border: 1px solid ${props => props.theme.grayNurse};
   padding: 2.5em 4em;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 const Sidebar = ({ children, bgColor }) => (

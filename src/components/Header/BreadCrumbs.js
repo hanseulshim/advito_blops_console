@@ -57,6 +57,14 @@ const getSubPath = subpath => {
       return 'Savings Opportunities';
     case 'risk-areas':
       return 'Risk Areas';
+    case 'general':
+      return 'General';
+    case 'divisions':
+      return 'Divisions';
+    case 'users':
+      return 'Users';
+    case 'applications':
+      return 'Applications';
     default:
       return '';
   }
@@ -66,14 +74,19 @@ const BreadCrumbs = ({ location }) => {
   const { pathname } = location;
   const subPaths = pathname.split('/');
   const renderSubPaths = subPaths.length === 3 && subPaths[2] !== 'dashboard';
+
   return (
     <Container>
       <Link replace to={'/'}>
         <BackTo>{'«'} Back to Console</BackTo>
       </Link>
       <Spacer>|</Spacer>
-      {renderSubPaths ? (
+      {renderSubPaths && !pathname.includes('client-setup') ? (
         <Link to={`/${subPaths[1]}/dashboard`}>
+          <BackTo>{getPath(subPaths[1])}</BackTo>
+        </Link>
+      ) : renderSubPaths ? (
+        <Link to={`/client-setup`}>
           <BackTo>{getPath(subPaths[1])}</BackTo>
         </Link>
       ) : (
