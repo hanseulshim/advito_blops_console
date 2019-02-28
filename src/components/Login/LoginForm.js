@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import UserContext from 'components/context/UserContext';
 import Modal from 'components/common/Modal';
 import ForgotPassword from './ForgotPassword';
+import LoginFail from './LoginFail';
 
 const FormContainer = styled.div`
   margin-top: 1em;
@@ -55,6 +56,8 @@ class LoginForm extends Component {
     username: '',
     pwd: '',
     forgotPassword: false,
+    loginFail: false,
+    errorMessage: '',
   };
   updateUsername = event => {
     this.setState({ username: event.target.value });
@@ -63,13 +66,13 @@ class LoginForm extends Component {
     this.setState({ pwd: event.target.value });
   };
 
-  toggleModal = () => {
+  toggleModal = key => {
     this.setState({
-      forgotPassword: !this.state.forgotPassword,
+      [key]: !this.state[key],
     });
   };
   render() {
-    const { username, pwd, forgotPassword } = this.state;
+    const { username, pwd, forgotPassword, loginFail, errorMessage } = this.state;
     return (
       <UserContext.Consumer>
         {({ authenticated, setUser }) =>
@@ -88,6 +91,11 @@ class LoginForm extends Component {
                         if (data.login.statusCode === 200) {
                           const user = data.login.body.apidataset;
                           setUser(user);
+                        } else {
+                          this.setState({
+                            errorMessage: data.login.body.apimessage,
+                          });
+                          this.toggleModal('loginFail');
                         }
                       }}
                     >
@@ -107,11 +115,22 @@ class LoginForm extends Component {
                       />
                       <SubmitContainer>
                         <Submit type="submit" value="Login" />
-                        <Forgot onClick={this.toggleModal}>Forgot Password?</Forgot>
+                        <Forgot onClick={() => this.toggleModal('forgotPassword')}>
+                          Forgot Password?
+                        </Forgot>
                       </SubmitContainer>
                     </Form>
-                    <Modal open={forgotPassword} handleClose={() => this.toggleModal}>
-                      <ForgotPassword handleClose={this.toggleModal} />
+                    <Modal
+                      open={forgotPassword}
+                      handleClose={() => this.toggleModal('forgotPassword')}
+                    >
+                      <ForgotPassword handleClose={() => this.toggleModal('forgotPassword')} />
+                    </Modal>
+                    <Modal open={loginFail} handleClose={() => this.toggleModal('loginFail')}>
+                      <LoginFail
+                        handleClose={() => this.toggleModal('loginFail')}
+                        errorMessage={errorMessage}
+                      />
                     </Modal>
                   </FormContainer>
                 </div>
