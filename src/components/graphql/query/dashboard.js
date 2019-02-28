@@ -160,8 +160,13 @@ export const SAVINGS_OPPORTUNITIES_EXECUTIVE = gql`
 `
 
 export const RISK_AREAS_TRAVEL = gql`
-  query($clientId: Int!, $sessionToken: String!) {
-    riskAreasTravel(clientId: $clientId, sessionToken: $sessionToken, limit: 3) {
+  query($clientId: Int!, $sessionToken: String!, $limit: Int, $cursor: Int) {
+    riskAreasTravel(
+      clientId: $clientId
+      sessionToken: $sessionToken
+      limit: $limit
+      cursor: $cursor
+    ) {
       statusCode
       body {
         apidataset {
@@ -170,8 +175,12 @@ export const RISK_AREAS_TRAVEL = gql`
           totalRiskAreas
           hasNext
           riskAreas {
+            id
             title
             value
+            secondaryValue
+            unit
+            secondaryUnit
           }
         }
       }

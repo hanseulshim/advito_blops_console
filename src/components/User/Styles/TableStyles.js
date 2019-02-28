@@ -1,8 +1,5 @@
-import React from 'react';
-//ReactTable imports...
-
-import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
+import TableCell from '@material-ui/core/TableCell'
+import { withStyles } from '@material-ui/core/styles'
 
 export const CustomTableHeader = withStyles(() => ({
   head: {
@@ -10,7 +7,7 @@ export const CustomTableHeader = withStyles(() => ({
     color: '#000000',
     fontSize: '1em',
   },
-}))(TableCell);
+}))(TableCell)
 
 export const CustomTableCell = withStyles(() => ({
   body: {
@@ -20,4 +17,4 @@ export const CustomTableCell = withStyles(() => ({
     fontSize: '1em',
     lineHeight: '20px',
   },
-}))(TableCell);
+}))(TableCell)

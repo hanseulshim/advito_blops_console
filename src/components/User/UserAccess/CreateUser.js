@@ -1,15 +1,24 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import Toggle from 'react-toggle';
-import Select from 'react-select';
-import { SectionTitle } from 'components/common/Typography';
-import Modal from 'components/common/Modal';
+import React, { Component } from 'react'
+import Toggle from 'react-toggle'
+import Select from 'react-select'
+import { SectionTitle } from 'components/common/Typography'
+import Modal from 'components/common/Modal'
 
 //Query
-import { CREATE_USER } from 'components/graphql/query/user';
+import { CREATE_USER } from 'components/graphql/query/user'
 
-import { TitleRow, Close, ModalForm, ModalFormItem, ModalFormLabel, ModalFormText, ModalText, ModalSubText, Save } from '../Styles/ModalFormStyles';
-import '../Styles/toggle.css';
+import {
+  TitleRow,
+  Close,
+  ModalForm,
+  ModalFormItem,
+  ModalFormLabel,
+  ModalFormText,
+  ModalText,
+  ModalSubText,
+  Save,
+} from '../Styles/ModalFormStyles'
+import '../Styles/toggle.css'
 
 const roles = [
   { label: 'Hotel System', value: 1 },
@@ -18,11 +27,11 @@ const roles = [
   { label: 'Administrator', value: 4 },
   { label: 'General', value: 5 },
   { label: 'Reports', value: 6 },
-];
+]
 
 class CreateUser extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       username: '',
       isEnabled: true,
@@ -35,49 +44,49 @@ class CreateUser extends Component {
       confirmPwd: '',
       errorMessage: '',
       notifyUser: false,
-    };
+    }
   }
 
   changeInput = (e, name) => {
     if (e.label) {
-      this.setState({ [name]: e });
+      this.setState({ [name]: e })
     } else {
       this.setState({
         [e.target.name]: e.target.value,
-      });
+      })
     }
-  };
+  }
 
   toggleNotification = () => {
     this.setState(prevState => ({
       notifyUser: !prevState.notifyUser,
-    }));
-  };
+    }))
+  }
 
   handleToggle = () => {
     this.setState(prevState => ({
       isEnabled: !prevState.active,
-    }));
-  };
+    }))
+  }
 
   handleSave = async () => {
-    const payload = { ...this.state };
-    delete payload.errorMessage;
-    delete payload.notifyUser;
-    const { client, user } = this.props;
-    payload.sessionToken = user.sessionToken;
-    payload.clientId = user.clientId;
-    payload.roleId = payload.role.value;
+    const payload = { ...this.state }
+    delete payload.errorMessage
+    delete payload.notifyUser
+    const { client, user } = this.props
+    payload.sessionToken = user.sessionToken
+    payload.clientId = user.clientId
+    payload.roleId = payload.role.value
     const { data } = await client.mutate({
       mutation: CREATE_USER,
       variables: { ...payload },
-    });
+    })
 
     if (data.createUser.statusCode !== 200) {
-      this.setState({ errorMessage: data.createUser.body.apimessage });
+      this.setState({ errorMessage: data.createUser.body.apimessage })
     }
-    this.toggleNotification();
-  };
+    this.toggleNotification()
+  }
 
   render() {
     const {
@@ -92,8 +101,8 @@ class CreateUser extends Component {
       confirmPwd,
       errorMessage,
       notifyUser,
-    } = this.state;
-    const { onClose } = this.props;
+    } = this.state
+    const { onClose } = this.props
     return (
       <>
         <TitleRow>
@@ -165,8 +174,8 @@ class CreateUser extends Component {
           <Save text="Close" onClick={() => this.toggleNotification()} />
         </Modal>
       </>
-    );
+    )
   }
 }
 
-export default CreateUser;
+export default CreateUser

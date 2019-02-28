@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const GET_SAVINGS_OPPORTUNITY = gql`
   {
@@ -10,7 +10,18 @@ export const GET_SAVINGS_OPPORTUNITY = gql`
       secondaryUnit
     }
   }
-`;
+`
+export const GET_RISK_AREA = gql`
+  {
+    riskArea @client {
+      id
+      title
+      value
+      secondaryValue
+      secondaryUnit
+    }
+  }
+`
 export const GET_SELECTED_CLIENT = gql`
   {
     selectedClient @client {
@@ -27,4 +38,4 @@ export const GET_SELECTED_CLIENT = gql`
       __typename
     }
   }
-`;
+`
