@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import Button from 'components/common/Button'
-import Toggle from 'react-toggle'
-import Select from 'react-select'
-import { SectionTitle } from 'components/common/Typography'
-import Modal from 'components/common/Modal'
-import { withApollo } from 'react-apollo'
+import React, { Component } from 'react';
+import Button from 'components/common/Button';
+import Toggle from 'react-toggle';
+import Select from 'react-select';
+import { SectionTitle } from 'components/common/Typography';
+import Modal from 'components/common/Modal';
+import { withApollo } from 'react-apollo';
 
 //GraphQl Mutation
-import { CREATE_CLIENT } from 'components/graphql/query/client'
+import { CREATE_CLIENT } from 'components/graphql/query/client';
 
 //Form Styles
 import {
@@ -21,8 +21,8 @@ import {
   ModalSubText,
   Save,
   Notes,
-} from '../../../Styles/ModalFormStyles'
-import '../../../Styles/toggle.css'
+} from '../../../Styles/ModalFormStyles';
+import '../../../Styles/toggle.css';
 
 const industries = [
   { label: 'Information Technology', value: 'Information Technology' },
@@ -30,18 +30,18 @@ const industries = [
   { label: 'Software Development', value: 'Software Development' },
   { label: 'Education', value: 'Education' },
   { label: 'Public Service', value: 'Public Service' },
-]
+];
 
-const currencies = [{ label: 'US Dollar', value: 'Dollar' }, { label: 'Euro', value: 'Euro' }]
+const currencies = [{ label: 'US Dollar', value: 'Dollar' }, { label: 'Euro', value: 'Euro' }];
 
 const distanceUnits = [
   { label: 'Miles', value: 'Miles' },
   { label: 'Kilometers', value: 'Kilometers' },
-]
+];
 
 class AddClient extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       clientName: '',
       clientNameFull: '',
@@ -56,64 +56,64 @@ class AddClient extends Component {
       description: '',
       errorMessage: '',
       notifyUser: false,
-    }
+    };
   }
 
   changeInput = (e, name) => {
     if (e.label) {
-      this.setState({ [name]: e })
+      this.setState({ [name]: e });
     } else {
       this.setState({
         [e.target.name]: e.target.value,
-      })
+      });
     }
-  }
+  };
 
-  toggleActive = () => this.setState({ isActive: !this.state.isActive })
+  toggleActive = () => this.setState({ isActive: !this.state.isActive });
 
   toggleModal = () => {
-    if (!this.state.errorMessage && this.state.notifyUser) this.props.onClose()
-    else this.setState({ notifyUser: !this.state.notifyUser })
-  }
+    if (!this.state.errorMessage && this.state.notifyUser) this.props.onClose();
+    else this.setState({ notifyUser: !this.state.notifyUser });
+  };
 
   handleSave = async () => {
-    const payload = { ...this.state }
-    delete payload.errorMessage
-    delete payload.notifyUser
+    const payload = { ...this.state };
+    delete payload.errorMessage;
+    delete payload.notifyUser;
 
-    const { client, user, fetchMore } = this.props
-    payload.sessionToken = user.sessionToken
+    const { client, user, fetchMore } = this.props;
+    payload.sessionToken = user.sessionToken;
 
-    payload.industry = payload.industry.value
-    payload.defaultCurrencyCode = payload.defaultCurrencyCode.value
-    payload.defaultDistanceUnits = payload.defaultDistanceUnits.value
+    payload.industry = payload.industry.value;
+    payload.defaultCurrencyCode = payload.defaultCurrencyCode.value;
+    payload.defaultDistanceUnits = payload.defaultDistanceUnits.value;
 
     const { data } = await client.mutate({
       mutation: CREATE_CLIENT,
       variables: { ...payload },
-    })
+    });
     if (data.createClient.statusCode !== 200) {
       this.setState({
         errorMessage: data.createClient.body.apimessage,
-      })
-      this.toggleModal()
+      });
+      this.toggleModal();
     } else {
       this.setState({
         errorMessage: '',
-      })
-      this.toggleModal()
+      });
+      this.toggleModal();
 
       fetchMore({
         variables: {
           sessionToken: user.sessionToken,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return prev
-          return fetchMoreResult
+          if (!fetchMoreResult) return prev;
+          return fetchMoreResult;
         },
-      })
+      });
     }
-  }
+  };
 
   render() {
     const {
@@ -129,8 +129,8 @@ class AddClient extends Component {
       description,
       notifyUser,
       errorMessage,
-    } = this.state
-    const { onClose } = this.props
+    } = this.state;
+    const { onClose } = this.props;
     return (
       <>
         <TitleRow>
@@ -208,18 +208,7 @@ class AddClient extends Component {
             <Notes value={description} name="description" onChange={this.changeInput} />
           </ModalFormItem>
         </ModalForm>
-        <ModalText>
-          {`Passwords must be a minimum of eight (8) characters
-                    and includes (3) of the following (4) criteria:
-                    `}
-        </ModalText>
-        <ModalSubText>
-          {`- Lowercase character
-                    - Upper case character
-                    - Number
-                    - Special characters (e.g.!, $, #, %)
-                    `}
-        </ModalSubText>
+
         <Save text="Save" onClick={this.handleSave} />
         <Modal open={notifyUser} handleClose={() => this.toggleModal()}>
           <div style={{ textAlign: 'center' }}>
@@ -228,8 +217,8 @@ class AddClient extends Component {
           <Save text="Close" onClick={() => this.toggleModal()} />
         </Modal>
       </>
-    )
+    );
   }
 }
 
-export default withApollo(AddClient)
+export default withApollo(AddClient);

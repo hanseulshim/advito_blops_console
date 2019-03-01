@@ -126,7 +126,11 @@ class LoginForm extends Component {
                     >
                       <ForgotPassword handleClose={() => this.toggleModal('forgotPassword')} />
                     </Modal>
-                    <Modal open={loginFail} handleClose={() => this.toggleModal('loginFail')}>
+                    <Modal
+                      open={loginFail}
+                      handleClose={() => this.toggleModal('loginFail')}
+                      size="medium"
+                    >
                       <LoginFail
                         handleClose={() => this.toggleModal('loginFail')}
                         errorMessage={errorMessage}
