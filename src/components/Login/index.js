@@ -23,7 +23,6 @@ const Logo = styled.img`
 
 const Title = styled.div`
   font-size: 3em;
-  width: 50%;
   text-align: center;
   margin-top: 2.5em;
   color: ${props => props.theme.alabaster};
