@@ -17,8 +17,6 @@ import {
   ModalFormItem,
   ModalFormLabel,
   ModalFormText,
-  ModalText,
-  ModalSubText,
   Save,
   Notes,
 } from '../../../Styles/ModalFormStyles';
