@@ -12,8 +12,6 @@ import {
   ModalFormItem,
   ModalFormLabel,
   ModalFormText,
-  ModalText,
-  ModalSubText,
   Save,
 } from '../Styles/ModalFormStyles';
 import '../Styles/toggle.css';
