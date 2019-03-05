@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import Toggle from 'react-toggle'
-import Select from 'react-select'
-import { SectionTitle } from 'components/common/Typography'
-import Modal from 'components/common/Modal'
+import React, { Component } from 'react';
+import Toggle from 'react-toggle';
+import Select from 'react-select';
+import { SectionTitle } from 'components/common/Typography';
+import Modal from 'components/common/Modal';
 
 //Query
-import { CREATE_USER } from 'components/graphql/query/user'
+import { CREATE_USER } from 'components/graphql/query/user';
 
 import {
   TitleRow,
@@ -17,8 +17,8 @@ import {
   ModalText,
   ModalSubText,
   Save,
-} from '../Styles/ModalFormStyles'
-import '../Styles/toggle.css'
+} from '../Styles/ModalFormStyles';
+import '../Styles/toggle.css';
 
 const roles = [
   { label: 'Hotel System', value: 1 },
@@ -27,11 +27,11 @@ const roles = [
   { label: 'Administrator', value: 4 },
   { label: 'General', value: 5 },
   { label: 'Reports', value: 6 },
-]
+];
 
 class CreateUser extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       username: '',
       isEnabled: true,
@@ -44,49 +44,49 @@ class CreateUser extends Component {
       confirmPwd: '',
       errorMessage: '',
       notifyUser: false,
-    }
+    };
   }
 
   changeInput = (e, name) => {
     if (e.label) {
-      this.setState({ [name]: e })
+      this.setState({ [name]: e });
     } else {
       this.setState({
         [e.target.name]: e.target.value,
-      })
+      });
     }
-  }
+  };
 
   toggleNotification = () => {
     this.setState(prevState => ({
       notifyUser: !prevState.notifyUser,
-    }))
-  }
+    }));
+  };
 
   handleToggle = () => {
     this.setState(prevState => ({
       isEnabled: !prevState.active,
-    }))
-  }
+    }));
+  };
 
   handleSave = async () => {
-    const payload = { ...this.state }
-    delete payload.errorMessage
-    delete payload.notifyUser
-    const { client, user } = this.props
-    payload.sessionToken = user.sessionToken
-    payload.clientId = user.clientId
-    payload.roleId = payload.role.value
+    const payload = { ...this.state };
+    delete payload.errorMessage;
+    delete payload.notifyUser;
+    const { client, user } = this.props;
+    payload.sessionToken = user.sessionToken;
+    payload.clientId = user.clientId;
+    payload.roleId = payload.role.value;
     const { data } = await client.mutate({
       mutation: CREATE_USER,
       variables: { ...payload },
-    })
+    });
 
     if (data.createUser.statusCode !== 200) {
-      this.setState({ errorMessage: data.createUser.body.apimessage })
+      this.setState({ errorMessage: data.createUser.body.apimessage });
     }
-    this.toggleNotification()
-  }
+    this.toggleNotification();
+  };
 
   render() {
     const {
@@ -101,10 +101,10 @@ class CreateUser extends Component {
       confirmPwd,
       errorMessage,
       notifyUser,
-    } = this.state
-    const { onClose } = this.props
+    } = this.state;
+    const { onClose } = this.props;
     return (
-      <>
+      <form>
         <TitleRow>
           <SectionTitle>Create User</SectionTitle>
           <Close className="fas fa-times" onClick={onClose} />
@@ -112,7 +112,7 @@ class CreateUser extends Component {
         <ModalForm>
           <ModalFormItem>
             <ModalFormLabel>User Name *</ModalFormLabel>
-            <ModalFormText value={username} name="username" onChange={this.changeInput} />
+            <ModalFormText value={username} name="username" onChange={this.changeInput} required />
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Account Active</ModalFormLabel>
@@ -122,11 +122,16 @@ class CreateUser extends Component {
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>First Name *</ModalFormLabel>
-            <ModalFormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
+            <ModalFormText
+              value={nameFirst}
+              name="nameFirst"
+              onChange={this.changeInput}
+              required
+            />
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Last Name *</ModalFormLabel>
-            <ModalFormText value={nameLast} name="nameLast" onChange={this.changeInput} />
+            <ModalFormText value={nameLast} name="nameLast" onChange={this.changeInput} required />
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Phone</ModalFormLabel>
@@ -138,11 +143,22 @@ class CreateUser extends Component {
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Role*</ModalFormLabel>
-            <Select options={roles} value={role} onChange={e => this.changeInput(e, 'role')} />
+            <Select
+              options={roles}
+              value={role}
+              onChange={e => this.changeInput(e, 'role')}
+              required
+            />
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Password *</ModalFormLabel>
-            <ModalFormText value={pwd} type="password" name="pwd" onChange={this.changeInput} />
+            <ModalFormText
+              value={pwd}
+              type="password"
+              name="pwd"
+              onChange={this.changeInput}
+              required
+            />
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Confirm Password *</ModalFormLabel>
@@ -151,6 +167,7 @@ class CreateUser extends Component {
               type="password"
               name="confirmPwd"
               onChange={this.changeInput}
+              required
             />
           </ModalFormItem>
         </ModalForm>
@@ -166,16 +183,16 @@ class CreateUser extends Component {
           - Special characters (e.g.!, $, #, %)
           `}
         </ModalSubText>
-        <Save text="Save" onClick={this.handleSave} />
+        <Save text="Save" type="submit" onClick={this.handleSave} />
         <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
           <div style={{ textAlign: 'center' }}>
             {errorMessage ? `Error: ${errorMessage}` : 'User successfully updated'}
           </div>
           <Save text="Close" onClick={() => this.toggleNotification()} />
         </Modal>
-      </>
-    )
+      </form>
+    );
   }
 }
 
-export default CreateUser
+export default CreateUser;
