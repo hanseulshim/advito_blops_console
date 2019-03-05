@@ -12,10 +12,11 @@ const ChartContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   height: 400px;
+  margin-top: 2.5em;
 `;
 
 const CommentaryContainer = styled.div`
-  margin-top: 2em;
+  margin-top: 2.5em;
 `;
 const Commentary = styled.div`
   font-weight: 500;

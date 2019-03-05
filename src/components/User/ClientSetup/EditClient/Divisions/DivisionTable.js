@@ -43,7 +43,11 @@ class DivisionTable extends Component {
               </TableRow>
             ))
           ) : (
-            <p>No divisions yet!</p>
+            <TableRow>
+              <CustomTableCell>No Divisions yet!</CustomTableCell>
+              <CustomTableCell />
+              <CustomTableCell />
+            </TableRow>
           )}
         </TableBody>
       </Table>

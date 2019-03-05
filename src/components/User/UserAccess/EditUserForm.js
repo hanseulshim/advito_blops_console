@@ -13,8 +13,6 @@ import {
   ModalFormItem,
   ModalFormLabel,
   ModalFormText,
-  ModalText,
-  ModalSubText,
   Save,
 } from '../Styles/ModalFormStyles';
 import '../Styles/toggle.css';
@@ -155,18 +153,6 @@ class EditUserForm extends Component {
             <Select options={roles} value={role} onChange={e => this.changeInput(e, 'role')} />
           </ModalFormItem>
         </ModalForm>
-        <ModalText>
-          {`Passwords must be a minimum of eight (8) characters
-          and includes (3) of the following (4) criteria:
-          `}
-        </ModalText>
-        <ModalSubText>
-          {`- Lowercase character
-          - Upper case character
-          - Number
-          - Special characters (e.g.!, $, #, %)
-          `}
-        </ModalSubText>
         <Save text="Save" onClick={this.handleSave} />
         <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
           <div style={{ textAlign: 'center' }}>

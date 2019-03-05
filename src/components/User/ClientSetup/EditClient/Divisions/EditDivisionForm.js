@@ -27,7 +27,7 @@ class EditDivisionForm extends Component {
     this.state = {
       divisionName: '',
       divisionNameFull: '',
-      isActive: '',
+      isActive: false,
       divisionTag: '',
       gcn: '',
       description: '',
@@ -62,6 +62,8 @@ class EditDivisionForm extends Component {
 
   toggleSaveModal = () => this.setState({ saveModal: !this.state.saveModal });
 
+  toggleActive = () => this.setState({ isActive: !this.state.isActive });
+
   toggleLock = () => this.setState({ gcnLock: !this.state.gcnLock });
 
   handleSave = async () => {
@@ -94,7 +96,7 @@ class EditDivisionForm extends Component {
       isActive,
       divisionTag,
       gcn,
-      notes,
+      description,
       errorMessage,
       saveModal,
       gcnLock,
@@ -125,7 +127,7 @@ class EditDivisionForm extends Component {
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Division Tag</ModalFormLabel>
-            <ModalFormText value={divisionTag} name="nameLast" onChange={this.changeInput} />
+            <ModalFormText value={divisionTag} name="divisionTag" onChange={this.changeInput} />
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>
@@ -145,13 +147,13 @@ class EditDivisionForm extends Component {
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Notes</ModalFormLabel>
-            <Notes value={notes} name="notes" onChange={this.changeInput} />
+            <Notes value={description} name="description" onChange={this.changeInput} />
           </ModalFormItem>
         </ModalForm>
         <Save text="Save" onClick={this.handleSave} />
-        <Modal open={saveModal} handleClose={() => handleClose()}>
+        <Modal open={saveModal} handleClose={() => handleClose()} size="medium">
           <div style={{ textAlign: 'center' }}>
-            {errorMessage ? `Error: ${errorMessage}` : 'User successfully updated'}
+            {errorMessage ? `Error: ${errorMessage}` : 'Division successfully updated'}
           </div>
           <Save text="Close" onClick={() => handleClose()} />
         </Modal>

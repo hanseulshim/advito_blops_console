@@ -17,8 +17,6 @@ import {
   ModalFormItem,
   ModalFormLabel,
   ModalFormText,
-  ModalText,
-  ModalSubText,
   Save,
   Notes,
 } from '../../../Styles/ModalFormStyles';
@@ -196,18 +194,7 @@ class AddClient extends Component {
             <Notes value={description} name="description" onChange={this.changeInput} />
           </ModalFormItem>
         </ModalForm>
-        <ModalText>
-          {`Passwords must be a minimum of eight (8) characters
-                    and includes (3) of the following (4) criteria:
-                    `}
-        </ModalText>
-        <ModalSubText>
-          {`- Lowercase character
-                    - Upper case character
-                    - Number
-                    - Special characters (e.g.!, $, #, %)
-                    `}
-        </ModalSubText>
+
         <Save text="Save" onClick={this.handleSave} />
         <Modal open={notifyUser} handleClose={() => this.toggleModal()}>
           <div style={{ textAlign: 'center' }}>

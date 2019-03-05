@@ -13,7 +13,7 @@ const styles = theme => ({
     top: '50%',
     left: '40%',
     borderRadius: '10px',
-    maxHeight: '750px',
+    maxHeight: '600px',
     overflow: 'scroll',
   },
   BackdropProps: {

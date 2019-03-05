@@ -55,6 +55,8 @@ class LoginForm extends Component {
     username: '',
     pwd: '',
     forgotPassword: false,
+    loginFail: false,
+    errorMessage: '',
   };
   updateUsername = event => {
     this.setState({ username: event.target.value });
@@ -63,9 +65,9 @@ class LoginForm extends Component {
     this.setState({ pwd: event.target.value });
   };
 
-  toggleModal = () => {
+  toggleModal = key => {
     this.setState({
-      forgotPassword: !this.state.forgotPassword,
+      [key]: !this.state[key],
     });
   };
   render() {

@@ -143,7 +143,7 @@ class AddDivision extends Component {
           </ModalFormItem>
         </ModalForm>
         <Save text="Save" onClick={this.handleSave} />
-        <Modal open={saveModal} handleClose={() => this.props.onClose()}>
+        <Modal open={saveModal} handleClose={() => this.props.onClose()} size="medium">
           <div style={{ textAlign: 'center' }}>
             {errorMessage ? `Error: ${errorMessage}` : 'Division successfully created'}
           </div>

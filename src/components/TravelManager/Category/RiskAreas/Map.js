@@ -68,6 +68,7 @@ class WorldMap extends Component {
     const dropShadow = new am4core.DropShadowFilter();
     dropShadow.opacity = 0;
     imageSeries.tooltip.background.filters.push(dropShadow);
+    imageSeries.tooltip.dx = 200;
     imageSeriesTemplate.adapter.add('tooltipHTML', (_, context) => {
       const data = context.dataItem.dataContext;
       const hover = data.hover;

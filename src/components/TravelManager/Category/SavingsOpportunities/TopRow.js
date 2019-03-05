@@ -16,6 +16,7 @@ const RowContainer = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  margin-right: 2.5em;
 `;
 
 const ArrowButton = styled.i`
@@ -52,7 +53,7 @@ const RowTitle = styled.div`
   margin-bottom: 0.5em;
   height: 2em;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const ShowDetails = styled.div`
