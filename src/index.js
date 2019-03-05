@@ -36,7 +36,11 @@ const client = new ApolloClient({
   onError: ({ graphQLErrors }) => {
     if (graphQLErrors) {
       graphQLErrors.forEach(({ extensions, message }) => {
-        if (extensions.code === 'UNAUTHENTICATED' || message === 'No session found') {
+        if (
+          extensions.code === 'UNAUTHENTICATED' ||
+          message === 'No session found' ||
+          message === 'Session expired'
+        ) {
           localStorage.removeItem('advito-blops-user');
           window.location.reload();
         }
