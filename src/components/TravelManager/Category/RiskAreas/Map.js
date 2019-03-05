@@ -71,7 +71,6 @@ class WorldMap extends Component {
     imageSeriesTemplate.adapter.add('tooltipHTML', (_, context) => {
       const data = context.dataItem.dataContext;
       const hover = data.hover;
-      console.log(hover);
       return `<div style="padding: 5px;">
       <div style="margin-top:5px;"><strong>${data.title}: ${numeral(data.percent).format(
         '#.%'
