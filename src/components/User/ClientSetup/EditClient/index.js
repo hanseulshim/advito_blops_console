@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
 import Navigation from './Navigation';
-
+import { GET_SELECTED_CLIENT } from 'graphql/queries';
 import { withApollo } from 'react-apollo';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'react-apollo';
 
 //route components
 import General from './General';
@@ -22,7 +24,17 @@ class EditClient extends React.Component {
     this.state = {};
   }
 
-  componentDidMount() {}
+  async componentDidMount() {
+    const { client } = this.props;
+
+    const { data } = await client.query({
+      query: GET_SELECTED_CLIENT,
+    });
+
+    if (!data.selectedClient.clientName) {
+      this.props.history.push('/client-setup');
+    }
+  }
 
   render() {
     return (
@@ -41,4 +53,7 @@ class EditClient extends React.Component {
   }
 }
 
-export default withApollo(EditClient);
+export default compose(
+  withApollo,
+  withRouter
+)(EditClient);
