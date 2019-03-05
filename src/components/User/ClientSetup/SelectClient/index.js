@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import ClientTable from './ClientTable';
 
-import GraphQL from 'components/graphql';
-import UserContext from 'components/context/UserContext';
+import { Query } from 'react-apollo';
 
 //project imports
 import Checkbox from 'components/common/Checkbox';
@@ -40,28 +39,26 @@ class SelectClient extends Component {
   render() {
     const { addClientOpen } = this.state;
     return (
-      <GraphQL query={GET_CLIENTS} name="getClients">
-        {({ data, fetchMore }) => (
-          <UserContext.Consumer>
-            {({ user, removeUser }) => (
-              <>
-                <ControlRow>
-                  <Checkbox>Show Inactive</Checkbox>
-                  <Button
-                    text="+ New Client"
-                    onClick={this.toggleForm}
-                    style={{ whiteSpace: 'nowrap', width: '9em' }}
-                  />
-                </ControlRow>
-                <ClientTable clients={data} fetchMore={fetchMore} />
-                <Modal open={addClientOpen} handleClose={this.toggleForm} size="tall">
-                  <AddClient onClose={this.toggleForm} user={user} fetchMore={fetchMore} />
-                </Modal>
-              </>
-            )}
-          </UserContext.Consumer>
-        )}
-      </GraphQL>
+      <Query query={GET_CLIENTS}>
+        {({ data: { clientList }, fetchMore, loading }) =>
+          loading ? null : (
+            <>
+              <ControlRow>
+                <Checkbox>Show Inactive</Checkbox>
+                <Button
+                  text="+ New Client"
+                  onClick={this.toggleForm}
+                  style={{ whiteSpace: 'nowrap', width: '9em' }}
+                />
+              </ControlRow>
+              <ClientTable clients={clientList} fetchMore={fetchMore} />
+              <Modal open={addClientOpen} handleClose={this.toggleForm} size="tall">
+                <AddClient onClose={this.toggleForm} fetchMore={fetchMore} />
+              </Modal>
+            </>
+          )
+        }
+      </Query>
     );
   }
 }

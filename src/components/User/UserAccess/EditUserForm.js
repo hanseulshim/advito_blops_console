@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Toggle from 'react-toggle';
 import Select from 'react-select';
+import { withApollo } from 'react-apollo';
 import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
 
@@ -12,8 +13,6 @@ import {
   ModalFormItem,
   ModalFormLabel,
   ModalFormText,
-  ModalText,
-  ModalSubText,
   Save,
 } from '../Styles/ModalFormStyles';
 import '../Styles/toggle.css';
@@ -89,24 +88,13 @@ class EditUserForm extends Component {
     const payload = { ...this.state };
     delete payload.errorMessage;
     delete payload.notifyUser;
-    const { client, loggedIn, fetchMore } = this.props;
-    payload.sessionToken = loggedIn.sessionToken;
-    payload.clientId = loggedIn.clientId;
+    const { client, fetchMore } = this.props;
     payload.roleId = payload.role.value;
-    const { data } = await client.mutate({
+    await client.mutate({
       mutation: EDIT_USER,
       variables: { ...payload },
     });
-
-    if (data.editUser.statusCode !== 200) {
-      this.setState({ errorMessage: data.editUser.body.apimessage });
-    }
-
     fetchMore({
-      variables: {
-        sessionToken: loggedIn.sessionToken,
-        clientId: loggedIn.clientId,
-      },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
         return fetchMoreResult;
@@ -177,4 +165,4 @@ class EditUserForm extends Component {
   }
 }
 
-export default EditUserForm;
+export default withApollo(EditUserForm);

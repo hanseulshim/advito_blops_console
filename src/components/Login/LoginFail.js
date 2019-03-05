@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { SectionTitle } from 'components/common/Typography';
-import TextInput from 'components/common/TextInput';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
 

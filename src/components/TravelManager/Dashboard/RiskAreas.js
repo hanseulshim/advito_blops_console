@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { SectionTitle, Value, Unit } from 'components/common/Typography'
-import GraphQL from 'components/graphql'
-import { withApollo } from 'react-apollo'
-import { RISK_AREAS_TRAVEL } from 'components/graphql/query'
-import { UPDATE_RISK_AREA } from 'graphql/mutations'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { SectionTitle, Value, Unit } from 'components/common/Typography';
+import { Query } from 'react-apollo';
+import { withApollo } from 'react-apollo';
+import { RISK_AREA_FEED_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
+import { UPDATE_RISK_AREA } from 'graphql/mutations';
 import {
   Container,
   TitleContainer,
@@ -13,46 +13,48 @@ import {
   Row,
   RowTitle,
   RightIcon,
-} from './SavingsRiskStyle'
+} from './SavingsRiskStyle';
 
 class RiskAreas extends Component {
-  state = {}
+  state = {};
   updateRiskArea = riskArea => {
     this.props.client.mutate({
       mutation: UPDATE_RISK_AREA,
       variables: {
         riskArea,
       },
-    })
-  }
+    });
+  };
   render() {
     return (
       <Container>
         <TitleContainer>
           <SectionTitle>top 3 risk areas</SectionTitle>
         </TitleContainer>
-        <GraphQL query={RISK_AREAS_TRAVEL} variables={{ limit: 3 }} name="riskAreasTravel">
-          {({ data }) =>
-            data.riskAreas.map((riskArea, index) => (
-              <RowContainer key={index}>
-                <Rank>{riskArea.id}</Rank>
-                <Row first={riskArea.id === 1}>
-                  <RowTitle>{riskArea.title}</RowTitle>
-                  <Value>
-                    {riskArea.value} {riskArea.secondaryValue && `/${riskArea.secondaryValue}`}{' '}
-                    <Unit>{riskArea.secondaryUnit}</Unit>
-                  </Value>
-                </Row>
-                <Link to="/travel/risk-areas" onClick={() => this.updateRiskArea(riskArea)}>
-                  <RightIcon className="fas fa-angle-right" />
-                </Link>
-              </RowContainer>
-            ))
+        <Query query={RISK_AREA_FEED_TRAVEL} variables={{ limit: 3 }}>
+          {({ data: { riskAreaFeedTravel }, loading }) =>
+            loading
+              ? null
+              : riskAreaFeedTravel.riskAreaList.map((riskArea, index) => (
+                  <RowContainer key={index}>
+                    <Rank>{riskArea.id}</Rank>
+                    <Row first={riskArea.id === 1}>
+                      <RowTitle>{riskArea.title}</RowTitle>
+                      <Value>
+                        {riskArea.value} {riskArea.secondaryValue && `/${riskArea.secondaryValue}`}{' '}
+                        <Unit>{riskArea.secondaryUnit}</Unit>
+                      </Value>
+                    </Row>
+                    <Link to="/travel/risk-areas" onClick={() => this.updateRiskArea(riskArea)}>
+                      <RightIcon className="fas fa-angle-right" />
+                    </Link>
+                  </RowContainer>
+                ))
           }
-        </GraphQL>
+        </Query>
       </Container>
-    )
+    );
   }
 }
 
-export default withApollo(RiskAreas)
+export default withApollo(RiskAreas);

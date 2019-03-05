@@ -99,18 +99,13 @@ class UpdatePassword extends Component {
       this.setState({ errorMessage: 'Password cannot be empty' }, () => this.toggleModal());
     } else {
       const payload = { ...this.state };
-      const { client, user } = this.props;
+      const { client } = this.props;
       delete payload.open;
       delete payload.errorMessage;
-      payload.clientId = user.clientId;
-      payload.sessionToken = user.sessionToken;
-      const { data } = await client.mutate({
+      await client.mutate({
         mutation: UPDATE_PASSWORD,
         variables: { ...payload },
       });
-      if (data.updatePassword.statusCode !== 200) {
-        this.setState({ errorMessage: data.updatePassword.body.apimessage });
-      }
       this.toggleModal();
     }
   };

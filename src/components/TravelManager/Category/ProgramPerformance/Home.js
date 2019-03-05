@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import GraphQL from 'components/graphql';
-import { PROGRAM_PERFORMANCE_TRAVEL, NO_CHANGE_SINCE } from 'components/graphql/query';
+import { Query } from 'react-apollo';
+import { PROGRAM_PERFORMANCE_LIST_TRAVEL } from 'components/graphql/query/travelManager/programPerformance';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
 import { Title, Value } from 'components/common/Typography';
@@ -78,31 +78,31 @@ const Home = () => (
       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
       non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </div>
-    <GraphQL query={PROGRAM_PERFORMANCE_TRAVEL} name="programPerformanceTravel">
-      {({ data }) => (
-        <PerformanceContainer>
-          {data.map((performance, index) => (
-            <Performance key={index}>
-              <div style={{ textAlign: 'center' }}>
-                <TitleSpaced>{performance.title}</TitleSpaced>
-                <ValueSpaced>
-                  {performance.value} <Unit>{performance.unit}</Unit>
-                </ValueSpaced>
-              </div>
-              <LineChart index={index} />
-            </Performance>
-          ))}
-        </PerformanceContainer>
-      )}
-    </GraphQL>
-    <GraphQL query={NO_CHANGE_SINCE} name="noChangeSince">
-      {({ data }) => (
-        <NoChangeSince>
-          <LeafIcon className="fas fa-leaf" />
-          <span>No change since {data}</span>
-        </NoChangeSince>
-      )}
-    </GraphQL>
+    <Query query={PROGRAM_PERFORMANCE_LIST_TRAVEL}>
+      {({ data: { programPerformanceListTravel, noChangeSince }, loading }) =>
+        loading ? null : (
+          <>
+            <PerformanceContainer>
+              {programPerformanceListTravel.map((performance, index) => (
+                <Performance key={index}>
+                  <div style={{ textAlign: 'center' }}>
+                    <TitleSpaced>{performance.title}</TitleSpaced>
+                    <ValueSpaced>
+                      {performance.value} <Unit>{performance.unit}</Unit>
+                    </ValueSpaced>
+                  </div>
+                  <LineChart index={index} />
+                </Performance>
+              ))}
+            </PerformanceContainer>
+            <NoChangeSince>
+              <LeafIcon className="fas fa-leaf" />
+              <span>No change since {noChangeSince}</span>
+            </NoChangeSince>
+          </>
+        )
+      }
+    </Query>
     <StoryContainer>
       <Story>
         <div>

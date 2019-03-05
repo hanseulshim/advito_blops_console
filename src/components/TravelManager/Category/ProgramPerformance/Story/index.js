@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { ApolloConsumer } from 'react-apollo';
+import { withApollo } from 'react-apollo';
 import styled from 'styled-components';
 import Loader from 'components/common/Loader';
-import UserContext from 'components/context/UserContext';
 import { AIR_STORY_QUERIES, HOTEL_STORY_QUERIES } from 'components/graphql/query';
 import ChartContainer from './ChartContainer';
 import Donut from './Donut';
@@ -42,21 +41,13 @@ class Story extends Component {
         data: await client.query({
           query: v.query,
           variables: {
-            clientId: this.props.user.clientId,
-            sessionToken: this.props.user.sessionToken,
             title: v.title,
           },
         }),
         returnVariable: v.returnVariable,
       }))
     );
-    const data = dataArray.map(item => {
-      const dataItem = item.data.data[item.returnVariable];
-      if (dataItem.statusCode !== 200) {
-        this.props.removeUser();
-      }
-      return dataItem.body.apidataset;
-    });
+    const data = dataArray.map(item => item.data.data[item.returnVariable]);
     if (!this.isCancelled) this.setState({ data });
   }
 
@@ -120,16 +111,4 @@ class Story extends Component {
   }
 }
 
-const StoryWrapper = ({ view }) => (
-  <ApolloConsumer>
-    {client => (
-      <UserContext.Consumer>
-        {({ user, removeUser }) => (
-          <Story client={client} view={view} user={user} removeUser={removeUser} />
-        )}
-      </UserContext.Consumer>
-    )}
-  </ApolloConsumer>
-);
-
-export default StoryWrapper;
+export default withApollo(Story);

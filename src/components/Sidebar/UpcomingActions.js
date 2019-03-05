@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'components/common/Button';
-import GraphQL from 'components/graphql';
-import { UPCOMING_ACTIONS } from 'components/graphql/query';
+import { Query } from 'react-apollo';
+import { UPCOMING_ACTION_LIST } from 'components/graphql/query/portal';
 import { SectionTitle, Title } from 'components/common/Typography';
 import {
   Container,
@@ -26,17 +26,17 @@ const createIconRows = data =>
   ));
 
 const UpcomingActions = () => (
-  <GraphQL query={UPCOMING_ACTIONS} name="upcomingActions">
-    {({ data }) => (
+  <Query query={UPCOMING_ACTION_LIST}>
+    {({ data: { upcomingActionList }, loading }) => (
       <Container>
         <TitleContainer>
           <SectionTitle>Upcoming Actions</SectionTitle>
           <Button text="view all" />
         </TitleContainer>
-        {createIconRows(data)}
+        {loading ? null : createIconRows(upcomingActionList)}
       </Container>
     )}
-  </GraphQL>
+  </Query>
 );
 
 export default UpcomingActions;

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import GraphQL from 'components/graphql';
-import { NET_SPEND_ANALYSIS_TRAVEL } from 'components/graphql/query';
+import { Query } from 'react-apollo';
+import { NET_SPEND_ANALYSIS_LIST_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
 import Button from 'components/common/Button';
 import Checkbox from 'components/common/Checkbox';
 import { SectionTitle } from 'components/common/Typography';
@@ -31,9 +31,11 @@ const NetSpendAnalysis = () => (
       </Link>
     </TitleContainer>
     <Checkbox>Year to date</Checkbox>
-    <GraphQL query={NET_SPEND_ANALYSIS_TRAVEL} name="netSpendAnalysisTravel">
-      {({ data }) => <LineChart data={data} />}
-    </GraphQL>
+    <Query query={NET_SPEND_ANALYSIS_LIST_TRAVEL}>
+      {({ data: { netSpendAnalysisListTravel }, loading }) =>
+        loading ? null : <LineChart data={netSpendAnalysisListTravel} />
+      }
+    </Query>
   </Container>
 );
 
