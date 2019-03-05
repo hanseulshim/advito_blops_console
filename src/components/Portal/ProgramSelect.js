@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import GraphQL from 'components/graphql';
-import { PROGRAM_SELECT } from 'components/graphql/query';
+import { Query } from 'react-apollo';
+import { PRODUCT_LIST } from 'components/graphql/query/portal';
 import { Link } from 'react-router-dom';
 import { SectionTitle } from 'components/common/Typography';
 
@@ -55,46 +55,48 @@ const Image = styled.img`
   margin-right: 0.5em;
 `;
 
-const getLink = subView =>
-  subView.domo ? (
-    <a href={subView.link} target="blank">
-      <Image src={require(`assets/icons/${subView.icon}`)} alt="product icon" />
+const getLink = option =>
+  option.domo ? (
+    <a href={option.link} target="blank">
+      <Image src={require(`assets/icons/${option.icon}`)} alt="product icon" />
     </a>
   ) : (
-    <Link to={`${subView.link}`}>
-      <Image src={require(`assets/icons/${subView.icon}`)} alt="product icon" />
+    <Link to={`${option.link}`}>
+      <Image src={require(`assets/icons/${option.icon}`)} alt="product icon" />
     </Link>
   );
 
-const generateList = view =>
-  view.list.map((subView, index) => (
+const generateList = product =>
+  product.optionList.map((option, index) => (
     <List key={index}>
-      {view.disabled ? (
-        <Image src={require(`assets/icons/${subView.icon}`)} alt="product icon" />
+      {product.disabled ? (
+        <Image src={require(`assets/icons/${option.icon}`)} alt="product icon" />
       ) : (
-        getLink(subView)
+        getLink(option)
       )}
-      <span>{subView.title}</span>
+      <span>{option.title}</span>
     </List>
   ));
 
 const ProgramSelect = () => (
   <Container>
-    <GraphQL query={PROGRAM_SELECT} name="viewData">
-      {({ data }) =>
-        data.map((view, index) => (
-          <View key={index} first={index === 0} last={index === data.length - 1}>
-            <IconContainer disabled={view.disabled}>
-              <ViewIcon>
-                <Image src={require(`assets/products/${view.icon}`)} alt="icon" />
-              </ViewIcon>
-              <SectionTitleFlex>{view.title}</SectionTitleFlex>
-            </IconContainer>
-            <ListContainer>{generateList(view)}</ListContainer>
-          </View>
-        ))
+    <Query query={PRODUCT_LIST}>
+      {({ data: { productList }, loading }) =>
+        loading
+          ? null
+          : productList.map((product, index) => (
+              <View key={index} first={index === 0} last={index === productList.length - 1}>
+                <IconContainer disabled={product.disabled}>
+                  <ViewIcon>
+                    <Image src={require(`assets/products/${product.icon}`)} alt="icon" />
+                  </ViewIcon>
+                  <SectionTitleFlex>{product.title}</SectionTitleFlex>
+                </IconContainer>
+                <ListContainer>{generateList(product)}</ListContainer>
+              </View>
+            ))
       }
-    </GraphQL>
+    </Query>
   </Container>
 );
 

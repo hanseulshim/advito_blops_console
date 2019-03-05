@@ -79,38 +79,26 @@ class AddClient extends Component {
     delete payload.errorMessage;
     delete payload.notifyUser;
 
-    const { client, user, fetchMore } = this.props;
-    payload.sessionToken = user.sessionToken;
-
+    const { client, fetchMore } = this.props;
     payload.industry = payload.industry.value;
     payload.defaultCurrencyCode = payload.defaultCurrencyCode.value;
     payload.defaultDistanceUnits = payload.defaultDistanceUnits.value;
 
-    const { data } = await client.mutate({
+    await client.mutate({
       mutation: CREATE_CLIENT,
       variables: { ...payload },
     });
-    if (data.createClient.statusCode !== 200) {
-      this.setState({
-        errorMessage: data.createClient.body.apimessage,
-      });
-      this.toggleModal();
-    } else {
-      this.setState({
-        errorMessage: '',
-      });
-      this.toggleModal();
+    this.setState({
+      errorMessage: '',
+    });
+    this.toggleModal();
 
-      fetchMore({
-        variables: {
-          sessionToken: user.sessionToken,
-        },
-        updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return prev;
-          return fetchMoreResult;
-        },
-      });
-    }
+    fetchMore({
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+        return fetchMoreResult;
+      },
+    });
   };
 
   render() {

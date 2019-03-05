@@ -1,22 +1,17 @@
 import React from 'react';
 import GeneralForm from './GeneralForm';
-import UserContext from 'components/context/UserContext';
 import { Query } from 'react-apollo';
 import { GET_SELECTED_CLIENT } from 'graphql/queries';
 
-const General = ({ selectedClient }) => {
+const General = () => {
   return (
-    <UserContext.Consumer>
-      {({ user, removeUser }) => (
-        <Query query={GET_SELECTED_CLIENT}>
-          {({ data }) => (
-            <>
-              <GeneralForm user={user} selectedClient={data.selectedClient} />
-            </>
-          )}
-        </Query>
+    <Query query={GET_SELECTED_CLIENT}>
+      {({ data: { selectedClient } }) => (
+        <>
+          <GeneralForm selectedClient={selectedClient} />
+        </>
       )}
-    </UserContext.Consumer>
+    </Query>
   );
 };
 

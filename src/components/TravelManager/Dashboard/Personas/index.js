@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import GraphQL from 'components/graphql';
-import { PERSONAS } from 'components/graphql/query';
+import { Query } from 'react-apollo';
+import { PERSONA_LIST } from 'components/graphql/query/travelManager/dashboard';
 import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
 
@@ -50,38 +50,40 @@ const ChartRow = styled.div`
 `;
 
 const Personas = () => (
-  <GraphQL query={PERSONAS} name="personaList">
-    {({ data }) => (
-      <Link to="/travel/personas">
-        <PersonaContainer>
-          <Description>
-            <TitleRow>
-              <SectionTitle>Personas</SectionTitle>
-            </TitleRow>
-            <ValueRow>
-              <div>Average Total Trip Cost</div>
-            </ValueRow>
-            <ChartRow>
-              <div>Program share</div>
-            </ChartRow>
-          </Description>
-          {data.map((persona, index) => (
-            <Persona key={index} first={index === 0}>
-              <TitleRow>
-                <TitleTransform>{persona.title}</TitleTransform>
-              </TitleRow>
-              <ValueRow>
-                <ValueSized>{persona.value}</ValueSized>
-              </ValueRow>
-              <ChartRow>
-                <CircleChart percent={persona.programShare} />
-              </ChartRow>
-            </Persona>
-          ))}
-        </PersonaContainer>
-      </Link>
-    )}
-  </GraphQL>
+  <Link to="/travel/personas">
+    <PersonaContainer>
+      <Description>
+        <TitleRow>
+          <SectionTitle>Personas</SectionTitle>
+        </TitleRow>
+        <ValueRow>
+          <div>Average Total Trip Cost</div>
+        </ValueRow>
+        <ChartRow>
+          <div>Program share</div>
+        </ChartRow>
+      </Description>
+      <Query query={PERSONA_LIST}>
+        {({ data: { personaList }, loading }) =>
+          loading
+            ? null
+            : personaList.map((persona, index) => (
+                <Persona key={index} first={index === 0}>
+                  <TitleRow>
+                    <TitleTransform>{persona.title}</TitleTransform>
+                  </TitleRow>
+                  <ValueRow>
+                    <ValueSized>{persona.value}</ValueSized>
+                  </ValueRow>
+                  <ChartRow>
+                    <CircleChart percent={persona.programShare} />
+                  </ChartRow>
+                </Persona>
+              ))
+        }
+      </Query>
+    </PersonaContainer>
+  </Link>
 );
 
 export default Personas;

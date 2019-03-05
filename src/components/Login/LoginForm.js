@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { ApolloConsumer } from 'react-apollo';
+import { withApollo } from 'react-apollo';
 import { LOGIN } from 'components/graphql/query';
 import styled from 'styled-components';
 import UserContext from 'components/context/UserContext';
 import Modal from 'components/common/Modal';
 import ForgotPassword from './ForgotPassword';
-import LoginFail from './LoginFail';
 
 const FormContainer = styled.div`
   margin-top: 1em;
@@ -72,74 +71,53 @@ class LoginForm extends Component {
     });
   };
   render() {
-    const { username, pwd, forgotPassword, loginFail, errorMessage } = this.state;
+    const { username, pwd, forgotPassword } = this.state;
     return (
       <UserContext.Consumer>
         {({ authenticated, setUser }) =>
           !authenticated ? (
-            <ApolloConsumer>
-              {client => (
-                <div>
-                  <FormContainer>
-                    <Form
-                      onSubmit={async event => {
-                        event.preventDefault();
-                        const { data } = await client.query({
-                          query: LOGIN,
-                          variables: { username, pwd },
-                        });
-                        if (data.login.statusCode === 200) {
-                          const user = data.login.body.apidataset;
-                          setUser(user);
-                        } else {
-                          this.setState({
-                            errorMessage: data.login.body.apimessage,
-                          });
-                          this.toggleModal('loginFail');
-                        }
-                      }}
-                    >
-                      <FormText
-                        placeholder="Login"
-                        type="text"
-                        value={username}
-                        name="username"
-                        onChange={this.updateUsername}
-                      />
-                      <FormText
-                        placeholder="Password"
-                        type="password"
-                        value={pwd}
-                        name="password"
-                        onChange={this.updatePassword}
-                      />
-                      <SubmitContainer>
-                        <Submit type="submit" value="Login" />
-                        <Forgot onClick={() => this.toggleModal('forgotPassword')}>
-                          Forgot Password?
-                        </Forgot>
-                      </SubmitContainer>
-                    </Form>
-                    <Modal
-                      open={forgotPassword}
-                      handleClose={() => this.toggleModal('forgotPassword')}
-                    >
-                      <ForgotPassword handleClose={() => this.toggleModal('forgotPassword')} />
-                    </Modal>
-                    <Modal
-                      open={loginFail}
-                      handleClose={() => this.toggleModal('loginFail')}
-                      size="medium"
-                    >
-                      <LoginFail
-                        handleClose={() => this.toggleModal('loginFail')}
-                        errorMessage={errorMessage}
-                      />
-                    </Modal>
-                  </FormContainer>
-                </div>
-              )}
-            </ApolloConsumer>
+            <div>
+              <FormContainer>
+                <Form
+                  onSubmit={async event => {
+                    event.preventDefault();
+                    try {
+                      const {
+                        data: { login },
+                      } = await this.props.client.query({
+                        query: LOGIN,
+                        variables: { username, pwd },
+                      });
+                      setUser(login);
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  }}
+                >
+                  <FormText
+                    placeholder="Login"
+                    type="text"
+                    value={username}
+                    name="username"
+                    onChange={this.updateUsername}
+                  />
+                  <FormText
+                    placeholder="Password"
+                    type="password"
+                    value={pwd}
+                    name="password"
+                    onChange={this.updatePassword}
+                  />
+                  <SubmitContainer>
+                    <Submit type="submit" value="Login" />
+                    <Forgot onClick={this.toggleModal}>Forgot Password?</Forgot>
+                  </SubmitContainer>
+                </Form>
+                <Modal open={forgotPassword} handleClose={() => this.toggleModal}>
+                  <ForgotPassword handleClose={this.toggleModal} />
+                </Modal>
+              </FormContainer>
+            </div>
           ) : (
             <Redirect to={'/'} />
           )
@@ -149,4 +127,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default withApollo(LoginForm);

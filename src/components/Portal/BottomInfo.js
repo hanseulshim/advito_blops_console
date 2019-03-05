@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import GraphQL from 'components/graphql';
-import { BOTTOM_INFO } from 'components/graphql/query';
+import { Query } from 'react-apollo';
+import { PRODUCT_EVENT_LIST } from 'components/graphql/query/portal';
 import { Title } from 'components/common/Typography';
 import Button from 'components/common/Button';
 
@@ -35,24 +35,26 @@ const Description = styled.span`
 
 const BottomInfo = () => (
   <Container>
-    <GraphQL query={BOTTOM_INFO} name="infoData">
-      {({ data }) =>
-        data.map((info, index) => (
-          <Info key={index}>
-            <Image
-              src={require(`assets/icons/${info.icon}`)}
-              alt="bottom-icon"
-              disabled={info.disabled}
-            />
-            <TextContainer>
-              <Title>{info.title}</Title>
-              <Description>{info.description}</Description>
-              {info.button && <Button spaceTop text={info.button} />}
-            </TextContainer>
-          </Info>
-        ))
+    <Query query={PRODUCT_EVENT_LIST}>
+      {({ data: { productEventList }, loading }) =>
+        loading
+          ? null
+          : productEventList.map((event, index) => (
+              <Info key={index}>
+                <Image
+                  src={require(`assets/icons/${event.icon}`)}
+                  alt="bottom-icon"
+                  disabled={event.disabled}
+                />
+                <TextContainer>
+                  <Title>{event.title}</Title>
+                  <Description>{event.description}</Description>
+                  {event.button && <Button spaceTop text={event.button} />}
+                </TextContainer>
+              </Info>
+            ))
       }
-    </GraphQL>
+    </Query>
   </Container>
 );
 

@@ -1,30 +1,22 @@
 import gql from 'graphql-tag';
 
 export const GET_DIVISIONS = gql`
-  query($sessionToken: String!, $clientId: Int!) {
-    getDivisions(sessionToken: $sessionToken, clientId: $clientId) {
-      statusCode
-      body {
-        apimessage
-        apicode
-        apidataset {
-          id
-          clientId
-          divisionName
-          divisionNameFull
-          divisionTag
-          gcn
-          isActive
-          description
-        }
-      }
+  query($clientId: Int!) {
+    divisionList(clientId: $clientId) {
+      id
+      clientId
+      divisionName
+      divisionNameFull
+      divisionTag
+      gcn
+      isActive
+      description
     }
   }
 `;
 
 export const UPDATE_DIVISION = gql`
   mutation updateDivision(
-    $sessionToken: String!
     $clientDivisionId: Int!
     $divisionName: String!
     $divisionNameFull: String
@@ -34,7 +26,6 @@ export const UPDATE_DIVISION = gql`
     $description: String
   ) {
     updateDivision(
-      sessionToken: $sessionToken
       clientDivisionId: $clientDivisionId
       divisionName: $divisionName
       divisionNameFull: $divisionNameFull
@@ -42,19 +33,12 @@ export const UPDATE_DIVISION = gql`
       divisionTag: $divisionTag
       gcn: $gcn
       description: $description
-    ) {
-      statusCode
-      body {
-        apimessage
-        apidataset
-      }
-    }
+    )
   }
 `;
 
 export const CREATE_DIVISION = gql`
   mutation createDivision(
-    $sessionToken: String!
     $clientId: Int!
     $divisionName: String!
     $divisionNameFull: String
@@ -64,7 +48,6 @@ export const CREATE_DIVISION = gql`
     $description: String
   ) {
     createDivision(
-      sessionToken: $sessionToken
       clientId: $clientId
       divisionName: $divisionName
       divisionNameFull: $divisionNameFull
@@ -72,12 +55,6 @@ export const CREATE_DIVISION = gql`
       divisionTag: $divisionTag
       gcn: $gcn
       description: $description
-    ) {
-      statusCode
-      body {
-        apimessage
-        apidataset
-      }
-    }
+    )
   }
 `;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SectionTitle, Value } from 'components/common/Typography';
-import GraphQL from 'components/graphql';
+import { Query } from 'react-apollo';
 import Button from 'components/common/Button';
-import { SAVINGS_OPPORTUNITIES_EXECUTIVE } from 'components/graphql/query';
+import { SAVINGS_OPPORTUNITY_FEED_EXECUTIVE } from 'components/graphql/query/executive/dashboard';
 import {
   Container,
   TitleContainer,
@@ -42,40 +42,38 @@ class SavingsOpportunities extends React.Component {
             <Button text="View Less" style={{ marginLeft: '5%' }} onClick={e => this.setLimit(3)} />
           )}
         </TitleContainer>
-        <GraphQL
-          query={SAVINGS_OPPORTUNITIES_EXECUTIVE}
-          variables={{ limit }}
-          name="opportunitiesExecutive"
-        >
-          {({ data }) =>
-            data.opportunities.map((opportunity, index) => (
-              <Link to="/executive/savings-opportunities" key={index}>
-                <RowContainer first={index === 0}>
-                  <Rank>{index + 1}</Rank>
-                  <Row first={index === 0}>
-                    <RowTitle>{opportunity.title}</RowTitle>
-                    <Value>
-                      {opportunity.value} <Unit>{opportunity.unit}</Unit>
-                      {opportunity.secondaryValue && ` / ${opportunity.secondaryValue}`}{' '}
-                      <Unit>{opportunity.secondaryUnit}</Unit>
-                    </Value>
-                  </Row>
-                  <RightIcon className="fas fa-angle-right" />
-                  {opportunity.divisions.map((division, index) => (
-                    <Metric key={index}>
-                      <Value>
-                        {division.value} <Unit>{division.unit}</Unit>
-                        {division.secondaryValue && ` / ${division.secondaryValue}`}{' '}
-                        <Unit>{division.secondaryUnit}</Unit>
-                      </Value>
-                      <Title>{division.title}</Title>
-                    </Metric>
-                  ))}
-                </RowContainer>
-              </Link>
-            ))
+        <Query query={SAVINGS_OPPORTUNITY_FEED_EXECUTIVE} variables={{ limit }}>
+          {({ data: { savingsOpportunityFeedExecutive }, loading }) =>
+            loading
+              ? null
+              : savingsOpportunityFeedExecutive.savingsOpportunityList.map((opportunity, index) => (
+                  <Link to="/executive/savings-opportunities" key={index}>
+                    <RowContainer>
+                      <Rank>{index + 1}</Rank>
+                      <Row first={index === 0}>
+                        <RowTitle>{opportunity.title}</RowTitle>
+                        <Value>
+                          {opportunity.value} <Unit>{opportunity.unit}</Unit>
+                          {opportunity.secondaryValue && ` / ${opportunity.secondaryValue}`}{' '}
+                          <Unit>{opportunity.secondaryUnit}</Unit>
+                        </Value>
+                      </Row>
+                      <RightIcon className="fas fa-angle-right" />
+                      {opportunity.divisionList.map((division, index) => (
+                        <Metric key={index}>
+                          <Value>
+                            {division.value} <Unit>{division.unit}</Unit>
+                            {division.secondaryValue && ` / ${division.secondaryValue}`}{' '}
+                            <Unit>{division.secondaryUnit}</Unit>
+                          </Value>
+                          <Title>{division.title}</Title>
+                        </Metric>
+                      ))}
+                    </RowContainer>
+                  </Link>
+                ))
           }
-        </GraphQL>
+        </Query>
       </Container>
     );
   }

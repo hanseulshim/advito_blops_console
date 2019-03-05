@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import GraphQL from 'components/graphql';
-import { MARKETS } from 'components/graphql/query';
+import { Query } from 'react-apollo';
+import { MARKET_LIST } from 'components/graphql/query/executive/dashboard';
 import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
 import Select from 'react-select';
@@ -85,44 +85,46 @@ class Markets extends Component {
     const { sort } = this.state;
     let sortVar = sort.value === 'Performance' ? 'value' : 'programShare';
     return (
-      <GraphQL query={MARKETS} name="marketList">
-        {({ data }) => (
-          <MarketContainer>
-            <Description>
-              <TitleRow>
-                <Link to="/executive/markets">
-                  <SectionTitle>Markets</SectionTitle>
-                </Link>
-              </TitleRow>
-              <Select value={sort} onChange={this.onSelect} options={options} />
-              <ValueRow>
-                <div>
-                  Side by side comparison of business areas providing an overview of their Total
-                  Program Performance and their Program Share based on volume.
-                </div>
-              </ValueRow>
-            </Description>
-            {data
-              .sort((a, b) => {
-                return b[sortVar] - a[sortVar];
-              })
-              .map((market, index) => (
-                <Market key={index} first={index === 0}>
-                  <TitleRow>
-                    <TitleTransform>{market.title}</TitleTransform>
-                  </TitleRow>
-                  <ValueRow>
-                    <ValueSized>{market.value}</ValueSized>
-                  </ValueRow>
-                  <ChartRow>
-                    <CircleChart percent={market.programShare} />
-                    <ChartLabel>Program Share</ChartLabel>
-                  </ChartRow>
-                </Market>
-              ))}
-          </MarketContainer>
-        )}
-      </GraphQL>
+      <Query query={MARKET_LIST}>
+        {({ data: { marketList }, loading }) =>
+          loading ? null : (
+            <MarketContainer>
+              <Description>
+                <TitleRow>
+                  <Link to="/executive/markets">
+                    <SectionTitle>Markets</SectionTitle>
+                  </Link>
+                </TitleRow>
+                <Select value={sort} onChange={this.onSelect} options={options} />
+                <ValueRow>
+                  <div>
+                    Side by side comparison of business areas providing an overview of their Total
+                    Program Performance and their Program Share based on volume.
+                  </div>
+                </ValueRow>
+              </Description>
+              {marketList
+                .sort((a, b) => {
+                  return b[sortVar] - a[sortVar];
+                })
+                .map((market, index) => (
+                  <Market key={index} first={index === 0}>
+                    <TitleRow>
+                      <TitleTransform>{market.title}</TitleTransform>
+                    </TitleRow>
+                    <ValueRow>
+                      <ValueSized>{market.value}</ValueSized>
+                    </ValueRow>
+                    <ChartRow>
+                      <CircleChart percent={market.programShare} />
+                      <ChartLabel>Program Share</ChartLabel>
+                    </ChartRow>
+                  </Market>
+                ))}
+            </MarketContainer>
+          )
+        }
+      </Query>
     );
   }
 }

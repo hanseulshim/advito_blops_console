@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'components/common/Button';
-import GraphQL from 'components/graphql';
-import { ACTIVE_ALERTS } from 'components/graphql/query';
+import { Query } from 'react-apollo';
+import { ACTIVE_ALERT_LIST } from 'components/graphql/query/portal';
 import { SectionTitle } from 'components/common/Typography';
 import {
   Container,
@@ -22,17 +22,17 @@ const createIconRows = data =>
   ));
 
 const ActiveAlerts = () => (
-  <GraphQL query={ACTIVE_ALERTS} name="activeAlerts">
-    {({ data }) => (
+  <Query query={ACTIVE_ALERT_LIST}>
+    {({ data: { activeAlertList }, loading }) => (
       <Container>
         <TitleContainer>
           <SectionTitle>Active Alerts</SectionTitle>
           <Button text="view all" />
         </TitleContainer>
-        {createIconRows(data)}
+        {loading ? null : createIconRows(activeAlertList)}
       </Container>
     )}
-  </GraphQL>
+  </Query>
 );
 
 export default ActiveAlerts;

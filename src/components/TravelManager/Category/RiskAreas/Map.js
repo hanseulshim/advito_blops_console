@@ -18,8 +18,8 @@ class WorldMap extends Component {
     const chart = am4core.create(this.refs.riskAreaMap, am4maps.MapChart);
     chart.geodata = am4geodataWorldLow;
     chart.projection = new am4maps.projections.Miller();
-    chart.seriesContainer.draggable = true;
-    chart.seriesContainer.resizable = true;
+    chart.seriesContainer.draggable = false;
+    chart.seriesContainer.resizable = false;
     chart.maxZoomLevel = 1;
 
     const polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
@@ -69,13 +69,6 @@ class WorldMap extends Component {
     dropShadow.opacity = 0;
     imageSeries.tooltip.background.filters.push(dropShadow);
     imageSeries.tooltip.dx = 200;
-    // circle.adapter.add('tooltipHTML', (_, context) => {
-    //   return `
-    //   <div style="padding: 5px;">
-    //   test
-    //   </div>
-    //   `
-    // })
     imageSeriesTemplate.adapter.add('tooltipHTML', (_, context) => {
       const data = context.dataItem.dataContext;
       const hover = data.hover;
@@ -84,7 +77,7 @@ class WorldMap extends Component {
         '#.%'
       )} | ${numeral(data.value).format('$0.a')}</strong></div>
       <table style="margin: 1em 0">
-      ${hover.fields
+      ${hover.fieldList
         .map(
           data =>
             `<tr>

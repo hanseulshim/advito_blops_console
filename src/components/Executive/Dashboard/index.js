@@ -10,7 +10,6 @@ const Row = styled.div`
   display: flex;
 `;
 
-
 const Dashboard = () => (
   <>
     <Row>

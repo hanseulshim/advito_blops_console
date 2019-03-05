@@ -19,7 +19,7 @@ class EditDivision extends React.Component {
     });
   };
   render() {
-    const { division, fetchMore, user, selectedClient } = this.props;
+    const { division, fetchMore, selectedClient } = this.props;
     const { formOpen } = this.state;
     return (
       <>
@@ -34,7 +34,6 @@ class EditDivision extends React.Component {
             onClose={this.toggleForm}
             fetchMore={fetchMore}
             handleClose={this.toggleForm}
-            user={user}
             selectedClient={selectedClient}
           />
         </Modal>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SectionTitle, Value } from 'components/common/Typography';
-import GraphQL from 'components/graphql';
+import { Query } from 'react-apollo';
 import Button from 'components/common/Button';
-import { RISK_AREAS_EXECUTIVE } from 'components/graphql/query';
+import { RISK_AREA_FEED_EXECUTIVE } from 'components/graphql/query/executive/dashboard';
 import {
   Container,
   TitleContainer,
@@ -43,36 +43,38 @@ class RiskAreas extends React.Component {
             <Button text="View Less" style={{ marginLeft: '5%' }} onClick={e => this.setLimit(3)} />
           )}
         </TitleContainer>
-        <GraphQL query={RISK_AREAS_EXECUTIVE} name="riskAreasExecutive" variables={{ limit }}>
-          {({ data }) =>
-            data.riskAreas.map((riskArea, index) => (
-              <Link to="/executive/risk-areas" key={index}>
-                <RowContainer first={index === 0}>
-                  <Rank>{index + 1}</Rank>
-                  <Row first={index === 0}>
-                    <RowTitle>{riskArea.title}</RowTitle>
-                    <Value>
-                      {riskArea.value} <Unit>{riskArea.unit}</Unit>
-                      {riskArea.secondaryValue && ` / ${riskArea.secondaryValue}`}{' '}
-                      <Unit>{riskArea.secondaryUnit}</Unit>
-                    </Value>
-                  </Row>
-                  <RightIcon className="fas fa-angle-right" />
-                  {riskArea.divisions.map((division, index) => (
-                    <Metric key={index}>
-                      <Value>
-                        {division.value} <Unit>{division.unit}</Unit>
-                        {division.secondaryValue && ` / ${division.secondaryValue}`}{' '}
-                        <Unit>{division.secondaryUnit}</Unit>
-                      </Value>
-                      <Title>{division.title}</Title>
-                    </Metric>
-                  ))}
-                </RowContainer>
-              </Link>
-            ))
+        <Query query={RISK_AREA_FEED_EXECUTIVE} variables={{ limit }}>
+          {({ data: { riskAreaFeedExecutive }, loading }) =>
+            loading
+              ? null
+              : riskAreaFeedExecutive.riskAreaList.map((riskArea, index) => (
+                  <Link to="/executive/risk-areas" key={index}>
+                    <RowContainer>
+                      <Rank>{index + 1}</Rank>
+                      <Row first={index === 0}>
+                        <RowTitle>{riskArea.title}</RowTitle>
+                        <Value>
+                          {riskArea.value} <Unit>{riskArea.unit}</Unit>
+                          {riskArea.secondaryValue && ` / ${riskArea.secondaryValue}`}{' '}
+                          <Unit>{riskArea.secondaryUnit}</Unit>
+                        </Value>
+                      </Row>
+                      <RightIcon className="fas fa-angle-right" />
+                      {riskArea.divisionList.map((division, index) => (
+                        <Metric key={index}>
+                          <Value>
+                            {division.value} <Unit>{division.unit}</Unit>
+                            {division.secondaryValue && ` / ${division.secondaryValue}`}{' '}
+                            <Unit>{division.secondaryUnit}</Unit>
+                          </Value>
+                          <Title>{division.title}</Title>
+                        </Metric>
+                      ))}
+                    </RowContainer>
+                  </Link>
+                ))
           }
-        </GraphQL>
+        </Query>
       </Container>
     );
   }
