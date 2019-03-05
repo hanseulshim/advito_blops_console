@@ -1,22 +1,22 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
-import GraphQL from 'components/graphql'
-import { withApollo } from 'react-apollo'
-import { Value, Unit } from 'components/common/Typography'
-import { SAVINGS_OPPORTUNITIES_TRAVEL } from 'components/graphql/query'
-import { UPDATE_SAVINGS_OPPORTUNITY } from 'graphql/mutations'
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { Query } from 'react-apollo';
+import { withApollo } from 'react-apollo';
+import { Value, Unit } from 'components/common/Typography';
+import { SAVINGS_OPPORTUNITY_FEED_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
+import { UPDATE_SAVINGS_OPPORTUNITY } from 'graphql/mutations';
 
 const MetricRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 const RowContainer = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-`
+`;
 
 const ArrowButton = styled.i`
   color: ${props => props.theme.treePoppy};
@@ -24,7 +24,7 @@ const ArrowButton = styled.i`
   cursor: pointer;
   margin-right: ${props => props.previous && '1em'};
   margin-left: ${props => props.next && '1em'};
-`
+`;
 
 const Rank = styled.div`
   color: ${props => (props.matched ? props.theme.white : props.theme.easternWind)};
@@ -41,19 +41,19 @@ const Rank = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const Row = styled.div`
   padding: 1em 0;
   flex: 1;
-`
+`;
 
 const RowTitle = styled.div`
   margin-bottom: 0.5em;
   height: 2em;
   display: flex;
   align-items: center;
-`
+`;
 
 const ShowDetails = styled.div`
   color: ${props => props.theme.treePoppy};
@@ -63,85 +63,83 @@ const ShowDetails = styled.div`
   &:hover {
     text-decoration: underline;
   }
-`
+`;
 
-const limit = 3
+const limit = 3;
 
 class TopRow extends Component {
-  state = {}
+  state = {};
   updateSavingsOpportunity = opportunity => {
     this.props.client.mutate({
       mutation: UPDATE_SAVINGS_OPPORTUNITY,
       variables: {
         savingsOpportunity: opportunity,
       },
-    })
-  }
+    });
+  };
   render() {
-    const { id } = this.props
+    const { id } = this.props;
     return (
-      <GraphQL
-        query={SAVINGS_OPPORTUNITIES_TRAVEL}
-        variables={{ limit }}
-        name="opportunitiesTravel"
-      >
-        {({ data: { cursor, prevCursor, hasNext, opportunities }, fetchMore }) => (
-          <MetricRow>
-            {cursor !== limit && (
-              <ArrowButton
-                className="fas fa-chevron-left"
-                previous
-                onClick={() =>
-                  fetchMore({
-                    variables: {
-                      cursor: prevCursor,
-                    },
-                    updateQuery: (prev, { fetchMoreResult }) => {
-                      if (!fetchMoreResult) return prev
-                      return fetchMoreResult
-                    },
-                  })
-                }
-              />
-            )}
-            {opportunities.map((opportunity, index) => (
-              <RowContainer key={index}>
-                <Rank matched={id === opportunity.id}>{opportunity.id}</Rank>
-                <Row>
-                  <RowTitle>{opportunity.title}</RowTitle>
-                  <Value>
-                    {opportunity.value}{' '}
-                    {opportunity.secondaryValue && `/${opportunity.secondaryValue}`}{' '}
-                    <Unit>{opportunity.secondaryUnit}</Unit>
-                  </Value>
-                  <ShowDetails onClick={() => this.updateSavingsOpportunity(opportunity)}>
-                    show details »
-                  </ShowDetails>
-                </Row>
-              </RowContainer>
-            ))}
-            {hasNext && (
-              <ArrowButton
-                className="fas fa-chevron-right"
-                next
-                onClick={() =>
-                  fetchMore({
-                    variables: {
-                      cursor: cursor,
-                    },
-                    updateQuery: (prev, { fetchMoreResult }) => {
-                      if (!fetchMoreResult) return prev
-                      return fetchMoreResult
-                    },
-                  })
-                }
-              />
-            )}
-          </MetricRow>
-        )}
-      </GraphQL>
-    )
+      <Query query={SAVINGS_OPPORTUNITY_FEED_TRAVEL} variables={{ limit }}>
+        {({ data: { savingsOpportunityFeedTravel }, loading, fetchMore }) =>
+          loading ? null : (
+            <MetricRow>
+              {savingsOpportunityFeedTravel.cursor !== limit && (
+                <ArrowButton
+                  className="fas fa-chevron-left"
+                  previous
+                  onClick={() =>
+                    fetchMore({
+                      variables: {
+                        cursor: savingsOpportunityFeedTravel.prevCursor,
+                      },
+                      updateQuery: (prev, { fetchMoreResult }) => {
+                        if (!fetchMoreResult) return prev;
+                        return fetchMoreResult;
+                      },
+                    })
+                  }
+                />
+              )}
+              {savingsOpportunityFeedTravel.savingsOpportunityList.map((opportunity, index) => (
+                <RowContainer key={index}>
+                  <Rank matched={id === opportunity.id}>{opportunity.id}</Rank>
+                  <Row>
+                    <RowTitle>{opportunity.title}</RowTitle>
+                    <Value>
+                      {opportunity.value}{' '}
+                      {opportunity.secondaryValue && `/${opportunity.secondaryValue}`}{' '}
+                      <Unit>{opportunity.secondaryUnit}</Unit>
+                    </Value>
+                    <ShowDetails onClick={() => this.updateSavingsOpportunity(opportunity)}>
+                      show details »
+                    </ShowDetails>
+                  </Row>
+                </RowContainer>
+              ))}
+              {savingsOpportunityFeedTravel.hasNext && (
+                <ArrowButton
+                  className="fas fa-chevron-right"
+                  next
+                  onClick={() =>
+                    fetchMore({
+                      variables: {
+                        cursor: savingsOpportunityFeedTravel.cursor,
+                      },
+                      updateQuery: (prev, { fetchMoreResult }) => {
+                        if (!fetchMoreResult) return prev;
+                        return fetchMoreResult;
+                      },
+                    })
+                  }
+                />
+              )}
+            </MetricRow>
+          )
+        }
+      </Query>
+    );
   }
 }
 
-export default withApollo(TopRow)
+export default withApollo(TopRow);

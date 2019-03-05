@@ -1,22 +1,22 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
-import GraphQL from 'components/graphql'
-import { withApollo } from 'react-apollo'
-import { Value, Unit } from 'components/common/Typography'
-import { RISK_AREAS_TRAVEL } from 'components/graphql/query'
-import { UPDATE_RISK_AREA } from 'graphql/mutations'
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { Query } from 'react-apollo';
+import { withApollo } from 'react-apollo';
+import { Value, Unit } from 'components/common/Typography';
+import { RISK_AREA_FEED_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
+import { UPDATE_RISK_AREA } from 'graphql/mutations';
 
 const MetricRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 const RowContainer = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-`
+`;
 
 const ArrowButton = styled.i`
   color: ${props => props.theme.treePoppy};
@@ -24,7 +24,7 @@ const ArrowButton = styled.i`
   cursor: pointer;
   margin-right: ${props => props.previous && '1em'};
   margin-left: ${props => props.next && '1em'};
-`
+`;
 
 const Rank = styled.div`
   color: ${props => (props.matched ? props.theme.white : props.theme.easternWind)};
@@ -41,19 +41,19 @@ const Rank = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const Row = styled.div`
   padding: 1em 0;
   flex: 1;
-`
+`;
 
 const RowTitle = styled.div`
   margin-bottom: 0.5em;
   height: 2em;
   display: flex;
   align-items: center;
-`
+`;
 
 const ShowDetails = styled.div`
   color: ${props => props.theme.treePoppy};
@@ -63,80 +63,82 @@ const ShowDetails = styled.div`
   &:hover {
     text-decoration: underline;
   }
-`
+`;
 
-const limit = 3
+const limit = 3;
 
 class TopRow extends Component {
-  state = {}
+  state = {};
   updateRiskArea = riskArea => {
     this.props.client.mutate({
       mutation: UPDATE_RISK_AREA,
       variables: {
         riskArea: riskArea,
       },
-    })
-  }
+    });
+  };
   render() {
-    const { id } = this.props
+    const { id } = this.props;
     return (
-      <GraphQL query={RISK_AREAS_TRAVEL} variables={{ limit }} name="riskAreasTravel">
-        {({ data: { cursor, prevCursor, hasNext, riskAreas }, fetchMore }) => (
-          <MetricRow>
-            {cursor !== limit && (
-              <ArrowButton
-                className="fas fa-chevron-left"
-                previous
-                onClick={() =>
-                  fetchMore({
-                    variables: {
-                      cursor: prevCursor,
-                    },
-                    updateQuery: (prev, { fetchMoreResult }) => {
-                      if (!fetchMoreResult) return prev
-                      return fetchMoreResult
-                    },
-                  })
-                }
-              />
-            )}
-            {riskAreas.map((riskArea, index) => (
-              <RowContainer key={index}>
-                <Rank matched={id === riskArea.id}>{riskArea.id}</Rank>
-                <Row>
-                  <RowTitle>{riskArea.title}</RowTitle>
-                  <Value>
-                    {riskArea.value} {riskArea.secondaryValue && `/${riskArea.secondaryValue}`}{' '}
-                    <Unit>{riskArea.secondaryUnit}</Unit>
-                  </Value>
-                  <ShowDetails onClick={() => this.updateRiskArea(riskArea)}>
-                    show details »
-                  </ShowDetails>
-                </Row>
-              </RowContainer>
-            ))}
-            {hasNext && (
-              <ArrowButton
-                className="fas fa-chevron-right"
-                next
-                onClick={() =>
-                  fetchMore({
-                    variables: {
-                      cursor: cursor,
-                    },
-                    updateQuery: (prev, { fetchMoreResult }) => {
-                      if (!fetchMoreResult) return prev
-                      return fetchMoreResult
-                    },
-                  })
-                }
-              />
-            )}
-          </MetricRow>
-        )}
-      </GraphQL>
-    )
+      <Query query={RISK_AREA_FEED_TRAVEL} variables={{ limit }}>
+        {({ data: { riskAreaFeedTravel }, loading, fetchMore }) =>
+          loading ? null : (
+            <MetricRow>
+              {riskAreaFeedTravel.cursor !== limit && (
+                <ArrowButton
+                  className="fas fa-chevron-left"
+                  previous
+                  onClick={() =>
+                    fetchMore({
+                      variables: {
+                        cursor: riskAreaFeedTravel.prevCursor,
+                      },
+                      updateQuery: (prev, { fetchMoreResult }) => {
+                        if (!fetchMoreResult) return prev;
+                        return fetchMoreResult;
+                      },
+                    })
+                  }
+                />
+              )}
+              {riskAreaFeedTravel.riskAreaList.map((riskArea, index) => (
+                <RowContainer key={index}>
+                  <Rank matched={id === riskArea.id}>{riskArea.id}</Rank>
+                  <Row>
+                    <RowTitle>{riskArea.title}</RowTitle>
+                    <Value>
+                      {riskArea.value} {riskArea.secondaryValue && `/${riskArea.secondaryValue}`}{' '}
+                      <Unit>{riskArea.secondaryUnit}</Unit>
+                    </Value>
+                    <ShowDetails onClick={() => this.updateRiskArea(riskArea)}>
+                      show details »
+                    </ShowDetails>
+                  </Row>
+                </RowContainer>
+              ))}
+              {riskAreaFeedTravel.hasNext && (
+                <ArrowButton
+                  className="fas fa-chevron-right"
+                  next
+                  onClick={() =>
+                    fetchMore({
+                      variables: {
+                        cursor: riskAreaFeedTravel.cursor,
+                      },
+                      updateQuery: (prev, { fetchMoreResult }) => {
+                        if (!fetchMoreResult) return prev;
+                        return fetchMoreResult;
+                      },
+                    })
+                  }
+                />
+              )}
+            </MetricRow>
+          )
+        }
+      </Query>
+    );
   }
 }
 
-export default withApollo(TopRow)
+export default withApollo(TopRow);

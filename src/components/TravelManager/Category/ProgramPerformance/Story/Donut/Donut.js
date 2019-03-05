@@ -128,7 +128,9 @@ class Donut extends Component {
   changeSeries = async e => {
     if (e.target.dataItem.nextLevel) {
       const selected = e.target.dataItem.nextLevel;
-      const { data } = await this.props.client.query({
+      const {
+        data: { donut },
+      } = await this.props.client.query({
         query: DONUT,
         variables: {
           clientId: this.props.user.clientId,
@@ -136,37 +138,26 @@ class Donut extends Component {
           title: selected,
         },
       });
-      if (data.donut.statusCode !== 200) {
-        this.props.removeUser();
-      } else {
-        const {
-          title,
-          summary,
-          donutData,
-          colors,
-          label,
-          context,
-          total,
-          last,
-        } = data.donut.body.apidataset;
-        this.props.updateInfo(title, summary);
+      const { title, summary, donutData, colors, label, context, total, last } = donut;
+      this.props.updateInfo(title, summary);
 
-        this.chart.series.clear();
-        this.chart.seriesContainer.disposeChildren();
-        const chartLevel = this.state.chartLevel.slice();
-        chartLevel.push({ label, context, total });
-        this.setState({
-          chartLevel,
-        });
-        this.createChart(donutData, colors, label, total, last);
-      }
+      this.chart.series.clear();
+      this.chart.seriesContainer.disposeChildren();
+      const chartLevel = this.state.chartLevel.slice();
+      chartLevel.push({ label, context, total });
+      this.setState({
+        chartLevel,
+      });
+      this.createChart(donutData, colors, label, total, last);
     }
   };
 
   removeLevel = async (context, index) => {
     this.chart.series.clear();
     this.chart.seriesContainer.disposeChildren();
-    const { data } = await this.props.client.query({
+    const {
+      data: { donut },
+    } = await this.props.client.query({
       query: DONUT,
       variables: {
         clientId: this.props.user.clientId,
@@ -174,20 +165,16 @@ class Donut extends Component {
         title: context,
       },
     });
-    if (data.donut.statusCode !== 200) {
-      this.props.removeUser();
-    } else {
-      const { title, summary, donutData, colors, label, total, last } = data.donut.body.apidataset;
-      this.props.updateInfo(title, summary);
+    const { title, summary, donutData, colors, label, total, last } = donut;
+    this.props.updateInfo(title, summary);
 
-      this.chart.series.clear();
-      this.chart.seriesContainer.disposeChildren();
-      const chartLevel = this.state.chartLevel.slice(0, index + 1);
-      this.setState({
-        chartLevel,
-      });
-      this.createChart(donutData, colors, label, total, last);
-    }
+    this.chart.series.clear();
+    this.chart.seriesContainer.disposeChildren();
+    const chartLevel = this.state.chartLevel.slice(0, index + 1);
+    this.setState({
+      chartLevel,
+    });
+    this.createChart(donutData, colors, label, total, last);
   };
 
   createBreadcrumbs = (crumb, index) => (

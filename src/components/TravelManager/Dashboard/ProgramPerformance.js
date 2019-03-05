@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import GraphQL from 'components/graphql';
-import { PROGRAM_PERFORMANCE_TRAVEL } from 'components/graphql/query';
+import { Query } from 'react-apollo';
+import { PROGRAM_PERFORMANCE_LIST_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
 import Button from 'components/common/Button';
 import { SectionTitle } from 'components/common/Typography';
 
@@ -50,20 +50,22 @@ const ProgramPerformance = () => (
         <Button spaceLeft text="view more" />
       </Link>
     </SectionContainer>
-    <GraphQL query={PROGRAM_PERFORMANCE_TRAVEL} name="programPerformanceTravel">
-      {({ data }) => (
+    <Query query={PROGRAM_PERFORMANCE_LIST_TRAVEL}>
+      {({ data: { programPerformanceListTravel }, loading }) => (
         <>
-          {data.map(performance => (
-            <Performance key={performance.title}>
-              <Title>{performance.title}</Title>
-              <Value>
-                {performance.value} <Unit>{performance.unit}</Unit>
-              </Value>
-            </Performance>
-          ))}
+          {loading
+            ? null
+            : programPerformanceListTravel.map(performance => (
+                <Performance key={performance.title}>
+                  <Title>{performance.title}</Title>
+                  <Value>
+                    {performance.value} <Unit>{performance.unit}</Unit>
+                  </Value>
+                </Performance>
+              ))}
         </>
       )}
-    </GraphQL>
+    </Query>
   </Container>
 );
 

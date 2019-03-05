@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import GraphQL from 'components/graphql';
-import { PROGRAM_PERFORMANCE_EXECUTIVE } from 'components/graphql/query';
+import { Query } from 'react-apollo';
+import { PROGRAM_PERFORMANCE_EXECUTIVE } from 'components/graphql/query/executive/dashboard';
 import Button from 'components/common/Button';
 import { SectionTitle } from 'components/common/Typography';
 import Icon from 'components/common/Icon';
@@ -56,22 +56,24 @@ const ProgramPerformance = () => (
         <Button spaceLeft text="view more" />
       </Link>
     </SectionContainer>
-    <GraphQL query={PROGRAM_PERFORMANCE_EXECUTIVE} name="programPerformanceExecutive">
-      {({ data }) => (
-        <>
-          <Performance>
-            <Row>
-              <Score>{data.value}</Score>
-              <OutOf>/8.7</OutOf>
-            </Row>
-            <Changes>
-              <Icon className="fas fa-leaf" style={{ marginRight: '5px' }} />
-              <span>No changes since July 30</span>
-            </Changes>
-          </Performance>
-        </>
-      )}
-    </GraphQL>
+    <Query query={PROGRAM_PERFORMANCE_EXECUTIVE}>
+      {({ data: { programPerformanceExecutive }, loading }) =>
+        loading ? null : (
+          <>
+            <Performance>
+              <Row>
+                <Score>{programPerformanceExecutive.value}</Score>
+                <OutOf>/8.7</OutOf>
+              </Row>
+              <Changes>
+                <Icon className="fas fa-leaf" style={{ marginRight: '5px' }} />
+                <span>No changes since July 30</span>
+              </Changes>
+            </Performance>
+          </>
+        )
+      }
+    </Query>
   </Container>
 );
 

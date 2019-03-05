@@ -1,128 +1,107 @@
 import gql from 'graphql-tag';
 
 const AIR_MAP = gql`
-  query($clientId: Int!, $sessionToken: String!, $title: String!) {
-    airMap(clientId: $clientId, sessionToken: $sessionToken, title: $title) {
-      statusCode
-      body {
-        apicode
-        apimessage
-        apidataset {
-          title
-          summary
-          kpis {
-            title
-            value
-            delta
-            percent
-            change
-            type
-            icon
-          }
-          barchart {
-            title
-            type
-            data {
-              category
-              value
-              change
-              delta
-              percent
-            }
-          }
-          locations {
-            thickness
-            height
-            opacity
-            coords {
-              latitude
-              longitude
-            }
-            origin
-            destination
-          }
+  query($title: String!) {
+    airMap(title: $title) {
+      title
+      summary
+      kpis {
+        title
+        value
+        delta
+        percent
+        change
+        type
+        icon
+      }
+      barchart {
+        title
+        type
+        data {
+          category
+          value
+          change
+          delta
+          percent
         }
+      }
+      locations {
+        thickness
+        height
+        opacity
+        coords {
+          latitude
+          longitude
+        }
+        origin
+        destination
       }
     }
   }
 `;
 
 const HOTEL_MAP = gql`
-  query($clientId: Int!, $sessionToken: String!, $title: String!) {
-    hotelMap(clientId: $clientId, sessionToken: $sessionToken, title: $title) {
-      statusCode
-      body {
-        apicode
-        apimessage
-        apidataset {
-          title
-          summary
-          kpis {
-            title
-            value
-            delta
-            percent
-            change
-            type
-            icon
-          }
-          barchart {
-            title
-            type
-            data {
-              category
-              value
-              change
-              delta
-              percent
-            }
-          }
-          locations {
-            title
-            radius
-            latitude
-            longitude
-          }
+  query($title: String!) {
+    hotelMap(title: $title) {
+      title
+      summary
+      kpis {
+        title
+        value
+        delta
+        percent
+        change
+        type
+        icon
+      }
+      barchart {
+        title
+        type
+        data {
+          category
+          value
+          change
+          delta
+          percent
         }
+      }
+      locations {
+        title
+        radius
+        latitude
+        longitude
       }
     }
   }
 `;
 
 const VISUAL = gql`
-  query($clientId: Int!, $sessionToken: String!, $title: String!) {
-    visual(clientId: $clientId, sessionToken: $sessionToken, title: $title) {
-      statusCode
-      body {
-        apicode
-        apimessage
-        apidataset {
-          title
-          summary
-          categories {
-            title
-            type
-            total
-            icon
-            subCategories {
-              name
-              value
-              delta
-              percent
-              color
-            }
-          }
-          barchart {
-            title
-            type
-            data {
-              category
-              change
-              value
-              delta
-              percent
-            }
-          }
+  query($title: String!) {
+    visual(title: $title) {
+      title
+      summary
+      categories {
+        title
+        type
+        total
+        icon
+        subCategories {
+          name
+          value
+          delta
+          percent
+          color
+        }
+      }
+      barchart {
+        title
+        type
+        data {
+          category
+          change
+          value
+          delta
+          percent
         }
       }
     }
@@ -130,31 +109,24 @@ const VISUAL = gql`
 `;
 
 export const DONUT = gql`
-  query($clientId: Int!, $sessionToken: String!, $title: String!) {
-    donut(clientId: $clientId, sessionToken: $sessionToken, title: $title) {
-      statusCode
-      body {
-        apicode
-        apimessage
-        apidataset {
+  query($title: String!) {
+    donut(title: $title) {
+      title
+      last
+      summary
+      label
+      context
+      total
+      colors
+      donutData {
+        category
+        value
+        nextLevel
+        tooltip {
           title
-          last
-          summary
-          label
-          context
-          total
-          colors
-          donutData {
-            category
+          tooltipData {
+            name
             value
-            nextLevel
-            tooltip {
-              title
-              tooltipData {
-                name
-                value
-              }
-            }
           }
         }
       }

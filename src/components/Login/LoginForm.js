@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { ApolloConsumer } from 'react-apollo';
+import { withApollo } from 'react-apollo';
 import { LOGIN } from 'components/graphql/query';
 import styled from 'styled-components';
 import UserContext from 'components/context/UserContext';
@@ -74,49 +74,48 @@ class LoginForm extends Component {
       <UserContext.Consumer>
         {({ authenticated, setUser }) =>
           !authenticated ? (
-            <ApolloConsumer>
-              {client => (
-                <div>
-                  <FormContainer>
-                    <Form
-                      onSubmit={async event => {
-                        event.preventDefault();
-                        const { data } = await client.query({
-                          query: LOGIN,
-                          variables: { username, pwd },
-                        });
-                        if (data.login.statusCode === 200) {
-                          const user = data.login.body.apidataset;
-                          setUser(user);
-                        }
-                      }}
-                    >
-                      <FormText
-                        placeholder="Login"
-                        type="text"
-                        value={username}
-                        name="username"
-                        onChange={this.updateUsername}
-                      />
-                      <FormText
-                        placeholder="Password"
-                        type="password"
-                        value={pwd}
-                        name="password"
-                        onChange={this.updatePassword}
-                      />
-                      <SubmitContainer>
-                        <Submit type="submit" value="Login" />
-                        <Forgot onClick={this.toggleModal}>Forgot Password?</Forgot>
-                      </SubmitContainer>
-                    </Form>
-                    <Modal open={forgotPassword} handleClose={() => this.toggleModal}>
-                      <ForgotPassword handleClose={this.toggleModal} />
-                    </Modal>
-                  </FormContainer>
-                </div>
-              )}
-            </ApolloConsumer>
+            <div>
+              <FormContainer>
+                <Form
+                  onSubmit={async event => {
+                    event.preventDefault();
+                    try {
+                      const {
+                        data: { login },
+                      } = await this.props.client.query({
+                        query: LOGIN,
+                        variables: { username, pwd },
+                      });
+                      setUser(login);
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  }}
+                >
+                  <FormText
+                    placeholder="Login"
+                    type="text"
+                    value={username}
+                    name="username"
+                    onChange={this.updateUsername}
+                  />
+                  <FormText
+                    placeholder="Password"
+                    type="password"
+                    value={pwd}
+                    name="password"
+                    onChange={this.updatePassword}
+                  />
+                  <SubmitContainer>
+                    <Submit type="submit" value="Login" />
+                    <Forgot onClick={this.toggleModal}>Forgot Password?</Forgot>
+                  </SubmitContainer>
+                </Form>
+                <Modal open={forgotPassword} handleClose={() => this.toggleModal}>
+                  <ForgotPassword handleClose={this.toggleModal} />
+                </Modal>
+              </FormContainer>
+            </div>
           ) : (
             <Redirect to={'/'} />
           )
@@ -126,4 +125,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default withApollo(LoginForm);

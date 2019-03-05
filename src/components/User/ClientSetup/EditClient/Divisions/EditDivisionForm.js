@@ -68,20 +68,15 @@ class EditDivisionForm extends Component {
     const payload = { ...this.state };
     delete payload.errorMessage;
     delete payload.saveModal;
-    const { user, client, fetchMore, division, selectedClient } = this.props;
-    payload.sessionToken = user.sessionToken;
+    const { client, fetchMore, division, selectedClient } = this.props;
     payload.clientDivisionId = division.id;
 
-    const { data } = await client.mutate({
+    await client.mutate({
       mutation: UPDATE_DIVISION,
       variables: { ...payload },
     });
-    if (data.updateDivision.statusCode !== 200) {
-      this.setState({ errorMessage: data.updateDivision.body.apimessage });
-    }
     fetchMore({
       variables: {
-        sessionToken: user.sessionToken,
         clientId: selectedClient.id,
       },
       updateQuery: (prev, { fetchMoreResult }) => {

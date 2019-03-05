@@ -15,6 +15,7 @@ class DivisionTable extends Component {
   }
 
   render() {
+    const { divisionList } = this.props;
     return (
       <Table>
         <TableHead>
@@ -25,8 +26,8 @@ class DivisionTable extends Component {
           </TableRow>
         </TableHead>
         <TableBody>
-          {this.props.divisions.body.apidataset.length > 0 ? (
-            this.props.divisions.body.apidataset.map((division, i) => (
+          {divisionList.length > 0 ? (
+            divisionList.map((division, i) => (
               <TableRow key={'division' + i}>
                 <CustomTableCell component="th" scope="row">
                   {division.gcn}
@@ -36,7 +37,6 @@ class DivisionTable extends Component {
                   <EditDivision
                     division={division}
                     fetchMore={this.props.fetchMore}
-                    user={this.props.user}
                     selectedClient={this.props.selectedClient}
                   />
                 </CustomTableCell>

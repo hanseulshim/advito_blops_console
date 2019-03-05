@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { GET_SELECTED_CLIENT } from 'graphql/queries';
 import { GET_DIVISIONS } from 'components/graphql/query/division';
 import { Query } from 'react-apollo';
-import UserContext from 'components/context/UserContext';
 
 //project imports
 
@@ -38,19 +37,15 @@ class Divisions extends React.Component {
     const { addDivision } = this.state;
 
     return (
-      <UserContext.Consumer>
-        {({ user, removeUser }) => (
-          <Query query={GET_SELECTED_CLIENT}>
-            {({ data: { selectedClient } }) => (
-              <Query
-                query={GET_DIVISIONS}
-                name="getDivisions"
-                variables={{ clientId: selectedClient.id, sessionToken: user.sessionToken }}
-              >
-                {({ loading, error, data: { getDivisions }, fetchMore }) => {
-                  if (loading) return <Loader />;
-                  if (error) return `Error!`;
-                  return (
+      <Query query={GET_SELECTED_CLIENT}>
+        {({ data: { selectedClient } }) =>
+          !selectedClient.id ? null : (
+            <Query query={GET_DIVISIONS} variables={{ clientId: selectedClient.id }}>
+              {({ loading, error, data: { divisionList }, fetchMore }) => {
+                if (loading) return <Loader />;
+                if (error) return `Error!`;
+                return (
+                  divisionList.length && (
                     <>
                       <ControlRow>
                         <Checkbox>Show Inactive</Checkbox>
@@ -61,27 +56,25 @@ class Divisions extends React.Component {
                         />
                       </ControlRow>
                       <DivisionTable
-                        divisions={getDivisions}
+                        divisionList={divisionList}
                         fetchMore={fetchMore}
-                        user={user}
                         selectedClient={selectedClient}
                       />
                       <Modal open={addDivision} handleClose={this.toggleForm} size="tall">
                         <AddDivision
                           onClose={this.toggleForm}
                           fetchMore={fetchMore}
-                          user={user}
                           selectedClient={selectedClient}
                         />
                       </Modal>
                     </>
-                  );
-                }}
-              </Query>
-            )}
-          </Query>
-        )}
-      </UserContext.Consumer>
+                  )
+                );
+              }}
+            </Query>
+          )
+        }
+      </Query>
     );
   }
 }
