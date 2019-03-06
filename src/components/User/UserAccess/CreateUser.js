@@ -167,7 +167,7 @@ class CreateUser extends Component {
             <Save text="Save" onClick={() => this.handleSave(user)} />
             <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
               <div style={{ textAlign: 'center' }}>
-                {errorMessage ? `Error: ${errorMessage}` : 'User successfully updated'}
+                {errorMessage ? `Error: ${errorMessage}` : 'User successfully created'}
               </div>
               <Save text="Close" onClick={() => this.toggleNotification()} />
             </Modal>
