@@ -9,6 +9,7 @@ import Checkbox from 'components/common/Checkbox';
 import Button from 'components/common/Button';
 import Modal from 'components/common/Modal';
 import AddClient from './AddClient/AddClient';
+import Loader from 'components/common/Loader';
 
 //graphql Query
 import { GET_CLIENTS } from 'components/graphql/query/client';
@@ -41,7 +42,7 @@ class SelectClient extends Component {
     return (
       <Query query={GET_CLIENTS}>
         {({ data: { clientList }, fetchMore, loading }) =>
-          loading ? null : (
+          loading ? <Loader /> : (
             <>
               <ControlRow>
                 <Checkbox>Show Inactive</Checkbox>

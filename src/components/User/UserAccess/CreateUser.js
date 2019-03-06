@@ -3,7 +3,7 @@ import Toggle from 'react-toggle';
 import Select from 'react-select';
 import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
-import { withApollo } from 'react-apollo';
+
 //Query
 import { CREATE_USER } from 'components/graphql/query/user';
 import UserContext from 'components/context/UserContext';
@@ -208,4 +208,4 @@ class CreateUser extends Component {
   }
 }
 
-export default withApollo(CreateUser);
+export default CreateUser;
