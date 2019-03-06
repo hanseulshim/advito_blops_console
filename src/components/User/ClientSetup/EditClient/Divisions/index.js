@@ -45,30 +45,30 @@ class Divisions extends React.Component {
                 if (loading) return <Loader />;
                 if (error) return `Error!`;
                 return (
-                  divisionList.length && (
-                    <>
-                      <ControlRow>
-                        <Checkbox>Show Inactive</Checkbox>
-                        <Button
-                          text="+ New Division"
-                          onClick={this.toggleForm}
-                          style={{ whiteSpace: 'nowrap', width: '9em' }}
-                        />
-                      </ControlRow>
-                      <DivisionTable
-                        divisionList={divisionList}
+
+                  <>
+                    <ControlRow>
+                      <Checkbox>Show Inactive</Checkbox>
+                      <Button
+                        text="+ New Division"
+                        onClick={this.toggleForm}
+                        style={{ whiteSpace: 'nowrap', width: '9em' }}
+                      />
+                    </ControlRow>
+                    <DivisionTable
+                      divisionList={divisionList}
+                      fetchMore={fetchMore}
+                      selectedClient={selectedClient}
+                    />
+                    <Modal open={addDivision} handleClose={this.toggleForm} size="tall">
+                      <AddDivision
+                        onClose={this.toggleForm}
                         fetchMore={fetchMore}
                         selectedClient={selectedClient}
                       />
-                      <Modal open={addDivision} handleClose={this.toggleForm} size="tall">
-                        <AddDivision
-                          onClose={this.toggleForm}
-                          fetchMore={fetchMore}
-                          selectedClient={selectedClient}
-                        />
-                      </Modal>
-                    </>
-                  )
+                    </Modal>
+                  </>
+
                 );
               }}
             </Query>

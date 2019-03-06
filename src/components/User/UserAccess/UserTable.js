@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Query } from 'react-apollo';
 import { USER_LIST } from 'components/graphql/query/user';
+import Loader from 'components/common/Loader';
 
 //ReactTable imports...
 import Table from '@material-ui/core/Table';
@@ -13,11 +14,11 @@ import { CustomTableHeader, CustomTableCell } from '../Styles/TableStyles';
 //project imports
 import EditUser from './EditUser';
 
-const UserTable = () => {
+const UserTable = ({ showInactive }) => {
   return (
     <Query query={USER_LIST}>
       {({ data: { userList }, fetchMore, loading }) =>
-        loading ? null : (
+        loading ? <Loader /> : (
           <Table>
             <TableHead>
               <TableRow>
@@ -28,7 +29,7 @@ const UserTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {userList.map((user, i) => (
+              {!showInactive ? userList.filter(user => user.isEnabled).map((user, i) => (
                 <TableRow key={'user' + i}>
                   <CustomTableCell component="th" scope="row">
                     {`${user.nameFirst} ${user.nameLast}`}
@@ -39,7 +40,20 @@ const UserTable = () => {
                     <EditUser user={user} fetchMore={fetchMore} />
                   </CustomTableCell>
                 </TableRow>
-              ))}
+              )) :
+                userList.map((user, i) => (
+                  <TableRow key={'user' + i}>
+                    <CustomTableCell component="th" scope="row">
+                      {`${user.nameFirst} ${user.nameLast}`}
+                    </CustomTableCell>
+                    <CustomTableCell align="left">{user.username}</CustomTableCell>
+                    <CustomTableCell align="left">{user.role}</CustomTableCell>
+                    <CustomTableCell align="left">
+                      <EditUser user={user} fetchMore={fetchMore} />
+                    </CustomTableCell>
+                  </TableRow>
+                ))
+              }
             </TableBody>
           </Table>
         )
