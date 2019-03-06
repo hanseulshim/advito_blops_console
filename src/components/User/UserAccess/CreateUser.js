@@ -7,6 +7,9 @@ import { withApollo } from 'react-apollo';
 //Query
 import { CREATE_USER } from 'components/graphql/query/user';
 import UserContext from 'components/context/UserContext';
+import { USER_LIST } from 'components/graphql/query/user';
+//Mutation
+import { Mutation } from 'react-apollo'
 
 import {
   TitleRow,
@@ -43,7 +46,7 @@ class CreateUser extends Component {
       role: '',
       pwd: '',
       confirmPwd: '',
-      errorMessage: '',
+      message: '',
       notifyUser: false,
     };
   }
@@ -58,30 +61,17 @@ class CreateUser extends Component {
     }
   };
 
-  toggleNotification = () => {
-    this.setState(prevState => ({
-      notifyUser: !prevState.notifyUser,
-    }));
+  toggleNotification = (message) => {
+    this.setState({
+      notifyUser: !this.state.notifyUser,
+      message
+    });
   };
 
   handleToggle = () => {
     this.setState(prevState => ({
       isEnabled: !prevState.active,
     }));
-  };
-
-  handleSave = async user => {
-    const payload = { ...this.state };
-    delete payload.errorMessage;
-    delete payload.notifyUser;
-    const { client } = this.props;
-    payload.roleId = payload.role.value;
-    payload.clientId = user.clientId;
-    await client.mutate({
-      mutation: CREATE_USER,
-      variables: { ...payload },
-    });
-    this.toggleNotification();
   };
 
   render() {
@@ -95,7 +85,7 @@ class CreateUser extends Component {
       role,
       pwd,
       confirmPwd,
-      errorMessage,
+      message,
       notifyUser,
     } = this.state;
     const { onClose } = this.props;
@@ -164,12 +154,52 @@ class CreateUser extends Component {
           - Special characters (e.g.!, $, #, %)
           `}
             </ModalSubText>
-            <Save text="Save" onClick={() => this.handleSave(user)} />
+            <Mutation
+              mutation={CREATE_USER}
+              update={(cache, { data: { createUser } }) => {
+                const { userList } = cache.readQuery({ query: USER_LIST });
+                const newUser = { ...this.state }
+                delete newUser.message;
+                delete newUser.notifyUser;
+                newUser.role = newUser.role.value;
+                userList.push(newUser)
+                cache.writeQuery({
+                  query: USER_LIST,
+                  data: userList,
+                });
+              }}
+              onCompleted={() => {
+                this.toggleNotification('User successfully created')
+              }}
+              onError={() => {
+                this.toggleNotification('Error creating User.')
+              }}
+            >
+              {createUser =>
+                <Save text="Save" onClick={(e) => {
+                  e.preventDefault();
+                  createUser({
+                    variables: {
+                      clientId: user.clientId,
+                      username,
+                      isEnabled,
+                      nameFirst,
+                      nameLast,
+                      phone,
+                      address,
+                      roleId: role.value,
+                      pwd,
+                      confirmPwd
+                    }
+                  })
+                }} />
+              }
+            </Mutation>
             <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
               <div style={{ textAlign: 'center' }}>
-                {errorMessage ? `Error: ${errorMessage}` : 'User successfully created'}
+                {message}
               </div>
-              <Save text="Close" onClick={() => this.toggleNotification()} />
+              <Save text="Close" onClick={() => onClose()} />
             </Modal>
           </>
         )}

@@ -4,7 +4,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { HashRouter } from 'react-router-dom';
 import * as am4core from '@amcharts/amcharts4/core';
-
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import defaults from './graphql/defaults';
@@ -19,6 +18,7 @@ const client = new ApolloClient({
   // uri: 'https://90nseke0l0.execute-api.us-east-2.amazonaws.com/alpha/graphql',
   uri: 'https://x162060eb4.execute-api.us-east-2.amazonaws.com/dev/graphql',
   // uri: 'http://localhost:8080/graphql',
+
   clientState: {
     defaults,
     resolvers,
