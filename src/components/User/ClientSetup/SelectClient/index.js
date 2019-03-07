@@ -28,6 +28,7 @@ class SelectClient extends Component {
     super(props);
     this.state = {
       addClientOpen: false,
+      showInactive: false,
     };
   }
 
@@ -37,24 +38,34 @@ class SelectClient extends Component {
     });
   };
 
+  toggleInactiveClients = () => {
+    this.setState({
+      showInactive: !this.state.showInactive,
+    });
+  };
+
   render() {
-    const { addClientOpen } = this.state;
+    const { addClientOpen, showInactive } = this.state;
     return (
       <Query query={GET_CLIENTS}>
         {({ data: { clientList }, fetchMore, loading }) =>
-          loading ? <Loader /> : (
+          loading ? (
+            <Loader />
+          ) : (
             <>
               <ControlRow>
-                <Checkbox>Show Inactive</Checkbox>
+                <Checkbox checked={showInactive} onChange={this.toggleInactiveClients}>
+                  Show Inactive
+                </Checkbox>
                 <Button
                   text="+ New Client"
                   onClick={this.toggleForm}
                   style={{ whiteSpace: 'nowrap', width: '9em' }}
                 />
               </ControlRow>
-              <ClientTable clients={clientList} fetchMore={fetchMore} />
+              <ClientTable clients={clientList} showInactive={showInactive} />
               <Modal open={addClientOpen} handleClose={this.toggleForm} size="tall">
-                <AddClient onClose={this.toggleForm} fetchMore={fetchMore} />
+                <AddClient onClose={this.toggleForm} />
               </Modal>
             </>
           )
