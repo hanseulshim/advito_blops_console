@@ -28,13 +28,20 @@ class Divisions extends React.Component {
     super(props);
     this.state = {
       addDivision: false,
+      showInactive: false,
     };
   }
 
   toggleForm = () => this.setState({ addDivision: !this.state.addDivision });
 
+  toggleInactiveUsers = () => {
+    this.setState({
+      showInactive: !this.state.showInactive,
+    });
+  };
+
   render() {
-    const { addDivision } = this.state;
+    const { addDivision, showInactive } = this.state;
 
     return (
       <Query query={GET_SELECTED_CLIENT}>
@@ -47,14 +54,20 @@ class Divisions extends React.Component {
                 return (
                   <>
                     <ControlRow>
-                      <Checkbox>Show Inactive</Checkbox>
+                      <Checkbox checked={showInactive} onChange={this.toggleInactiveUsers}>
+                        Show Inactive
+                      </Checkbox>
                       <Button
                         text="+ New Division"
                         onClick={this.toggleForm}
                         style={{ whiteSpace: 'nowrap', width: '9em' }}
                       />
                     </ControlRow>
-                    <DivisionTable divisionList={divisionList} selectedClient={selectedClient} />
+                    <DivisionTable
+                      divisionList={divisionList}
+                      selectedClient={selectedClient}
+                      showInactive={showInactive}
+                    />
                     <Modal open={addDivision} handleClose={this.toggleForm} size="tall">
                       <AddDivision onClose={this.toggleForm} selectedClient={selectedClient} />
                     </Modal>

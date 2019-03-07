@@ -15,7 +15,7 @@ class DivisionTable extends Component {
   }
 
   render() {
-    const { divisionList } = this.props;
+    const { divisionList, showInactive } = this.props;
     return (
       <Table>
         <TableHead>
@@ -27,21 +27,23 @@ class DivisionTable extends Component {
         </TableHead>
         <TableBody>
           {divisionList.length > 0 ? (
-            divisionList.map((division, i) => (
-              <TableRow key={'division' + i}>
-                <CustomTableCell component="th" scope="row">
-                  {division.gcn}
-                </CustomTableCell>
-                <CustomTableCell align="left">{division.divisionName}</CustomTableCell>
-                <CustomTableCell align="right">
-                  <EditDivision
-                    division={division}
-                    fetchMore={this.props.fetchMore}
-                    selectedClient={this.props.selectedClient}
-                  />
-                </CustomTableCell>
-              </TableRow>
-            ))
+            (showInactive ? divisionList : divisionList.filter(division => division.isActive)).map(
+              (division, i) => (
+                <TableRow key={'division' + i}>
+                  <CustomTableCell component="th" scope="row">
+                    {division.gcn}
+                  </CustomTableCell>
+                  <CustomTableCell align="left">{division.divisionName}</CustomTableCell>
+                  <CustomTableCell align="right">
+                    <EditDivision
+                      division={division}
+                      fetchMore={this.props.fetchMore}
+                      selectedClient={this.props.selectedClient}
+                    />
+                  </CustomTableCell>
+                </TableRow>
+              )
+            )
           ) : (
             <TableRow>
               <CustomTableCell>No Divisions yet!</CustomTableCell>
