@@ -17,20 +17,22 @@ import EditUser from './EditUser';
 const UserTable = ({ showInactive }) => {
   return (
     <Query query={USER_LIST}>
-      {({ data: { userList }, fetchMore, loading }) =>
-        loading ? <Loader /> :
-          (
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <CustomTableHeader>UserName</CustomTableHeader>
-                  <CustomTableHeader>Email</CustomTableHeader>
-                  <CustomTableHeader>UserType</CustomTableHeader>
-                  <CustomTableHeader>Edit</CustomTableHeader>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {!showInactive ? userList.filter(user => user.isEnabled).map((user, i) => (
+      {({ data: { userList }, loading }) =>
+        loading ? (
+          <Loader />
+        ) : (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <CustomTableHeader>UserName</CustomTableHeader>
+                <CustomTableHeader>Email</CustomTableHeader>
+                <CustomTableHeader>UserType</CustomTableHeader>
+                <CustomTableHeader>Edit</CustomTableHeader>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {(showInactive ? userList : userList.filter(user => user.isEnabled)).map(
+                (user, i) => (
                   <TableRow key={'user' + i}>
                     <CustomTableCell component="th" scope="row">
                       {`${user.nameFirst} ${user.nameLast}`}
@@ -38,26 +40,14 @@ const UserTable = ({ showInactive }) => {
                     <CustomTableCell align="left">{user.username}</CustomTableCell>
                     <CustomTableCell align="left">{user.role}</CustomTableCell>
                     <CustomTableCell align="left">
-                      <EditUser user={user} fetchMore={fetchMore} />
+                      <EditUser user={user} />
                     </CustomTableCell>
                   </TableRow>
-                )) :
-                  userList.map((user, i) => (
-                    <TableRow key={'user' + i}>
-                      <CustomTableCell component="th" scope="row">
-                        {`${user.nameFirst} ${user.nameLast}`}
-                      </CustomTableCell>
-                      <CustomTableCell align="left">{user.username}</CustomTableCell>
-                      <CustomTableCell align="left">{user.role}</CustomTableCell>
-                      <CustomTableCell align="left">
-                        <EditUser user={user} fetchMore={fetchMore} />
-                      </CustomTableCell>
-                    </TableRow>
-                  ))
-                }
-              </TableBody>
-            </Table>
-          )
+                )
+              )}
+            </TableBody>
+          </Table>
+        )
       }
     </Query>
   );

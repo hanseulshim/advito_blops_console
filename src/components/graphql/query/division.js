@@ -17,7 +17,7 @@ export const GET_DIVISIONS = gql`
 
 export const UPDATE_DIVISION = gql`
   mutation updateDivision(
-    $clientDivisionId: Int!
+    $id: Int!
     $divisionName: String!
     $divisionNameFull: String
     $isActive: Boolean!
@@ -26,14 +26,22 @@ export const UPDATE_DIVISION = gql`
     $description: String
   ) {
     updateDivision(
-      clientDivisionId: $clientDivisionId
+      id: $id
       divisionName: $divisionName
       divisionNameFull: $divisionNameFull
       isActive: $isActive
       divisionTag: $divisionTag
       gcn: $gcn
       description: $description
-    )
+    ) {
+      id
+      divisionName
+      divisionNameFull
+      isActive
+      divisionTag
+      gcn
+      description
+    }
   }
 `;
 

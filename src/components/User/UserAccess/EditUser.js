@@ -17,7 +17,7 @@ class EditUser extends React.Component {
     });
   };
   render() {
-    const { user, fetchMore } = this.props;
+    const { user } = this.props;
     const { formOpen } = this.state;
     return (
       <>
@@ -27,7 +27,7 @@ class EditUser extends React.Component {
           onClick={this.toggleForm}
         />
         <Modal open={formOpen} handleClose={this.toggleForm} size="tall">
-          <EditUserForm user={user} onClose={this.toggleForm} fetchMore={fetchMore} />
+          <EditUserForm user={user} onClose={this.toggleForm} />
         </Modal>
       </>
     );

@@ -41,11 +41,10 @@ class Divisions extends React.Component {
         {({ data: { selectedClient } }) =>
           !selectedClient.id ? null : (
             <Query query={GET_DIVISIONS} variables={{ clientId: selectedClient.id }}>
-              {({ loading, error, data: { divisionList }, fetchMore }) => {
+              {({ loading, error, data: { divisionList } }) => {
                 if (loading) return <Loader />;
                 if (error) return `Error!`;
                 return (
-
                   <>
                     <ControlRow>
                       <Checkbox>Show Inactive</Checkbox>
@@ -55,20 +54,11 @@ class Divisions extends React.Component {
                         style={{ whiteSpace: 'nowrap', width: '9em' }}
                       />
                     </ControlRow>
-                    <DivisionTable
-                      divisionList={divisionList}
-                      fetchMore={fetchMore}
-                      selectedClient={selectedClient}
-                    />
+                    <DivisionTable divisionList={divisionList} selectedClient={selectedClient} />
                     <Modal open={addDivision} handleClose={this.toggleForm} size="tall">
-                      <AddDivision
-                        onClose={this.toggleForm}
-                        fetchMore={fetchMore}
-                        selectedClient={selectedClient}
-                      />
+                      <AddDivision onClose={this.toggleForm} selectedClient={selectedClient} />
                     </Modal>
                   </>
-
                 );
               }}
             </Query>
