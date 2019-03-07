@@ -4,6 +4,7 @@ import { SectionTitle, Value } from 'components/common/Typography';
 import { Query } from 'react-apollo';
 import Button from 'components/common/Button';
 import { SAVINGS_OPPORTUNITY_FEED_EXECUTIVE } from 'components/graphql/query/executive/dashboard';
+import Loader from 'components/common/Loader';
 import {
   Container,
   TitleContainer,
@@ -44,34 +45,36 @@ class SavingsOpportunities extends React.Component {
         </TitleContainer>
         <Query query={SAVINGS_OPPORTUNITY_FEED_EXECUTIVE} variables={{ limit }}>
           {({ data: { savingsOpportunityFeedExecutive }, loading }) =>
-            loading
-              ? null
-              : savingsOpportunityFeedExecutive.savingsOpportunityList.map((opportunity, index) => (
-                  <Link to="/executive/savings-opportunities" key={index}>
-                    <RowContainer>
-                      <Rank>{index + 1}</Rank>
-                      <Row first={index === 0}>
-                        <RowTitle>{opportunity.title}</RowTitle>
+            loading ? (
+              <Loader />
+            ) : (
+              savingsOpportunityFeedExecutive.savingsOpportunityList.map((opportunity, index) => (
+                <Link to="/executive/savings-opportunities" key={index}>
+                  <RowContainer>
+                    <Rank>{index + 1}</Rank>
+                    <Row first={index === 0}>
+                      <RowTitle>{opportunity.title}</RowTitle>
+                      <Value>
+                        {opportunity.value} <Unit>{opportunity.unit}</Unit>
+                        {opportunity.secondaryValue && ` / ${opportunity.secondaryValue}`}{' '}
+                        <Unit>{opportunity.secondaryUnit}</Unit>
+                      </Value>
+                    </Row>
+                    <RightIcon className="fas fa-angle-right" />
+                    {opportunity.divisionList.map((division, index) => (
+                      <Metric key={index}>
                         <Value>
-                          {opportunity.value} <Unit>{opportunity.unit}</Unit>
-                          {opportunity.secondaryValue && ` / ${opportunity.secondaryValue}`}{' '}
-                          <Unit>{opportunity.secondaryUnit}</Unit>
+                          {division.value} <Unit>{division.unit}</Unit>
+                          {division.secondaryValue && ` / ${division.secondaryValue}`}{' '}
+                          <Unit>{division.secondaryUnit}</Unit>
                         </Value>
-                      </Row>
-                      <RightIcon className="fas fa-angle-right" />
-                      {opportunity.divisionList.map((division, index) => (
-                        <Metric key={index}>
-                          <Value>
-                            {division.value} <Unit>{division.unit}</Unit>
-                            {division.secondaryValue && ` / ${division.secondaryValue}`}{' '}
-                            <Unit>{division.secondaryUnit}</Unit>
-                          </Value>
-                          <Title>{division.title}</Title>
-                        </Metric>
-                      ))}
-                    </RowContainer>
-                  </Link>
-                ))
+                        <Title>{division.title}</Title>
+                      </Metric>
+                    ))}
+                  </RowContainer>
+                </Link>
+              ))
+            )
           }
         </Query>
       </Container>

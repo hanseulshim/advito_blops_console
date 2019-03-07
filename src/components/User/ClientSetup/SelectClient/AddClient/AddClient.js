@@ -4,10 +4,12 @@ import Toggle from 'react-toggle';
 import Select from 'react-select';
 import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
-import { withApollo } from 'react-apollo';
+
 
 //GraphQl Mutation
+import { Mutation } from 'react-apollo';
 import { CREATE_CLIENT } from 'components/graphql/query/client';
+import { GET_CLIENTS } from 'components/graphql/query/client';
 
 //Form Styles
 import {
@@ -52,7 +54,7 @@ class AddClient extends Component {
       defaultDistanceUnits: '',
       logoPath: '',
       description: '',
-      errorMessage: '',
+      message: '',
       notifyUser: false,
     };
   }
@@ -69,35 +71,10 @@ class AddClient extends Component {
 
   toggleActive = () => this.setState({ isActive: !this.state.isActive });
 
-  toggleModal = () => {
-    if (!this.state.errorMessage && this.state.notifyUser) this.props.onClose();
-    else this.setState({ notifyUser: !this.state.notifyUser });
-  };
-
-  handleSave = async () => {
-    const payload = { ...this.state };
-    delete payload.errorMessage;
-    delete payload.notifyUser;
-
-    const { client, fetchMore } = this.props;
-    payload.industry = payload.industry.value;
-    payload.defaultCurrencyCode = payload.defaultCurrencyCode.value;
-    payload.defaultDistanceUnits = payload.defaultDistanceUnits.value;
-
-    await client.mutate({
-      mutation: CREATE_CLIENT,
-      variables: { ...payload },
-    });
+  toggleNotification = (message) => {
     this.setState({
-      errorMessage: '',
-    });
-    this.toggleModal();
-
-    fetchMore({
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
-        return fetchMoreResult;
-      },
+      notifyUser: !this.state.notifyUser,
+      message
     });
   };
 
@@ -110,11 +87,12 @@ class AddClient extends Component {
       clientTag,
       isActive,
       industry,
+      logoPath,
       defaultCurrencyCode,
       defaultDistanceUnits,
       description,
       notifyUser,
-      errorMessage,
+      message,
     } = this.state;
     const { onClose } = this.props;
     return (
@@ -194,17 +172,60 @@ class AddClient extends Component {
             <Notes value={description} name="description" onChange={this.changeInput} />
           </ModalFormItem>
         </ModalForm>
+        <Mutation
+          mutation={CREATE_CLIENT}
+          update={(cache, { data: { createClient } }) => {
+            const { clientList } = cache.readQuery({ query: GET_CLIENTS });
+            const newClient = { ...this.state }
+            delete newClient.message;
+            delete newClient.notifyUser;
+            newClient.industry = newClient.industry.value;
+            newClient.defaultCurrencyCode = newClient.defaultCurrencyCode.value;
+            newClient.defaultDistanceUnits = newClient.defaultDistanceUnits.value;
+            clientList.push(newClient)
 
-        <Save text="Save" onClick={this.handleSave} />
-        <Modal open={notifyUser} handleClose={() => this.toggleModal()}>
+            cache.writeQuery({
+              query: GET_CLIENTS,
+              data: clientList,
+            });
+          }}
+          onCompleted={() => {
+            this.toggleNotification('Client successfully created')
+          }}
+          onError={() => {
+            this.toggleNotification('Error creating Client.')
+          }}
+        >
+          {createClient =>
+            <Save text="Save" onClick={(e) => {
+              e.preventDefault();
+              createClient({
+                variables: {
+                  clientName,
+                  clientNameFull,
+                  gcn,
+                  lanyonClientCode,
+                  clientTag,
+                  isActive,
+                  industry: industry.value,
+                  defaultCurrencyCode: defaultCurrencyCode.value,
+                  defaultDistanceUnits: defaultDistanceUnits.value,
+                  description,
+                  logoPath
+                }
+              })
+            }} />
+          }
+        </Mutation>
+        <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
           <div style={{ textAlign: 'center' }}>
-            {errorMessage ? `Error: ${errorMessage}` : 'Client successfully created.'}
+            {message}
           </div>
-          <Save text="Close" onClick={() => this.toggleModal()} />
+          <Save text="Close" onClick={() => onClose()} />
         </Modal>
       </>
     );
   }
 }
 
-export default withApollo(AddClient);
+export default AddClient;

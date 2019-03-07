@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from 'components/common/Button';
+import Loader from 'components/common/Loader';
 import { Query } from 'react-apollo';
 import { UPCOMING_ACTION_LIST } from 'components/graphql/query/portal';
 import { SectionTitle, Title } from 'components/common/Typography';
@@ -27,15 +28,19 @@ const createIconRows = data =>
 
 const UpcomingActions = () => (
   <Query query={UPCOMING_ACTION_LIST}>
-    {({ data: { upcomingActionList }, loading }) => (
-      <Container>
-        <TitleContainer>
-          <SectionTitle>Upcoming Actions</SectionTitle>
-          <Button text="view all" />
-        </TitleContainer>
-        {loading ? null : createIconRows(upcomingActionList)}
-      </Container>
-    )}
+    {({ data: { upcomingActionList }, loading }) =>
+      loading ? (
+        <Loader />
+      ) : (
+        <Container>
+          <TitleContainer>
+            <SectionTitle>Upcoming Actions</SectionTitle>
+            <Button text="view all" />
+          </TitleContainer>
+          {loading ? null : createIconRows(upcomingActionList)}
+        </Container>
+      )
+    }
   </Query>
 );
 

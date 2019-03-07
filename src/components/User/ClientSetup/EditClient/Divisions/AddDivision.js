@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withApollo } from 'react-apollo';
 
 import Icon from 'components/common/Icon';
 import Toggle from 'react-toggle';
@@ -20,7 +19,9 @@ import {
 import '../../../Styles/toggle.css';
 
 //Query
+import { Mutation } from 'react-apollo';
 import { CREATE_DIVISION } from 'components/graphql/query/division';
+import { GET_DIVISIONS } from 'components/graphql/query/division';
 
 // const status = [{ label: 'Active', value: 'Active' }, { label: 'Inactive', value: 'Inactive' }];
 
@@ -35,8 +36,8 @@ class AddDivision extends Component {
       gcn: '',
       description: '',
       gcnLock: true,
-      saveModal: false,
-      errorMessage: '',
+      notifyUser: false,
+      message: '',
     };
   }
 
@@ -50,36 +51,16 @@ class AddDivision extends Component {
     }
   };
 
-  toggleSaveModal = () => this.setState({ saveModal: !this.state.saveModal });
+  toggleNotification = message => {
+    this.setState({
+      notifyUser: !this.state.notifyUser,
+      message,
+    });
+  };
 
   toggleLock = () => this.setState({ gcnLock: !this.state.gcnLock });
 
   toggleActive = () => this.setState({ isActive: !this.state.isActive });
-
-  handleSave = async () => {
-    const payload = { ...this.state };
-    delete payload.errorMessage;
-    delete payload.saveModal;
-    delete payload.gcnLock;
-
-    const { client, fetchMore, selectedClient } = this.props;
-    payload.clientId = selectedClient.id;
-
-    await client.mutate({
-      mutation: CREATE_DIVISION,
-      variables: { ...payload },
-    });
-    fetchMore({
-      variables: {
-        clientId: selectedClient.id,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
-        return fetchMoreResult;
-      },
-    });
-    this.toggleSaveModal();
-  };
 
   render() {
     const {
@@ -89,11 +70,11 @@ class AddDivision extends Component {
       divisionTag,
       gcn,
       description,
-      errorMessage,
-      saveModal,
+      message,
+      notifyUser,
       gcnLock,
     } = this.state;
-    const { onClose } = this.props;
+    const { onClose, selectedClient } = this.props;
     return (
       <>
         <TitleRow>
@@ -142,16 +123,59 @@ class AddDivision extends Component {
             <Notes value={description} name="description" onChange={this.changeInput} />
           </ModalFormItem>
         </ModalForm>
-        <Save text="Save" onClick={this.handleSave} />
-        <Modal open={saveModal} handleClose={() => this.props.onClose()} size="medium">
-          <div style={{ textAlign: 'center' }}>
-            {errorMessage ? `Error: ${errorMessage}` : 'Division successfully created'}
-          </div>
-          <Save text="Close" onClick={() => this.props.onClose()} />
+        <Mutation
+          mutation={CREATE_DIVISION}
+          update={(cache, { data: { createDivision } }) => {
+            const { divisionList } = cache.readQuery({
+              query: GET_DIVISIONS,
+              variables: { clientId: selectedClient.id },
+            });
+
+            const newDivision = { ...this.state };
+            delete newDivision.message;
+            delete newDivision.notifyUser;
+            delete newDivision.gcnLock;
+            newDivision.clientId = selectedClient.id;
+            divisionList.push(newDivision);
+            cache.writeQuery({
+              query: GET_DIVISIONS,
+              data: divisionList,
+            });
+          }}
+          onCompleted={() => {
+            this.toggleNotification('Division successfully created');
+          }}
+          onError={() => {
+            this.toggleNotification('Error creating Division.');
+          }}
+        >
+          {createDivision => (
+            <Save
+              text="Save"
+              onClick={e => {
+                e.preventDefault();
+                createDivision({
+                  variables: {
+                    clientId: selectedClient.id,
+                    divisionName,
+                    divisionNameFull,
+                    isActive,
+                    divisionTag,
+                    gcn,
+                    description,
+                  },
+                });
+              }}
+            />
+          )}
+        </Mutation>
+        <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
+          <div style={{ textAlign: 'center' }}>{message}</div>
+          <Save text="Close" onClick={() => onClose()} />
         </Modal>
       </>
     );
   }
 }
 
-export default withApollo(AddDivision);
+export default AddDivision;

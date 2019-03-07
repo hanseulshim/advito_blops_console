@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Toggle from 'react-toggle';
 import Select from 'react-select';
-import { withApollo } from 'react-apollo';
 import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
+import { Mutation } from 'react-apollo';
 
 //Form Styles
 import {
@@ -41,6 +41,7 @@ class EditUserForm extends Component {
       address: '',
       role: '',
       notifyUser: false,
+      message: '',
     };
   }
 
@@ -72,36 +73,17 @@ class EditUserForm extends Component {
     }
   };
 
-  toggleNotification = () => {
-    this.setState(prevState => ({
-      notifyUser: !prevState.notifyUser,
-    }));
+  toggleNotification = message => {
+    this.setState({
+      notifyUser: !this.state.notifyUser,
+      message,
+    });
   };
 
   handleToggle = () => {
     this.setState({
       isEnabled: !this.state.isEnabled,
     });
-  };
-
-  handleSave = async () => {
-    const payload = { ...this.state };
-    delete payload.errorMessage;
-    delete payload.notifyUser;
-    const { client, fetchMore } = this.props;
-    payload.roleId = payload.role.value;
-    await client.mutate({
-      mutation: EDIT_USER,
-      variables: { ...payload },
-    });
-    fetchMore({
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
-        return fetchMoreResult;
-      },
-    });
-
-    this.toggleNotification();
   };
 
   render() {
@@ -113,10 +95,12 @@ class EditUserForm extends Component {
       phone,
       address,
       role,
-      errorMessage,
+      id,
+      message,
       notifyUser,
     } = this.state;
     const { onClose } = this.props;
+
     return (
       <>
         <TitleRow>
@@ -153,16 +137,44 @@ class EditUserForm extends Component {
             <Select options={roles} value={role} onChange={e => this.changeInput(e, 'role')} />
           </ModalFormItem>
         </ModalForm>
-        <Save text="Save" onClick={this.handleSave} />
+        <Mutation
+          mutation={EDIT_USER}
+          key={id}
+          onCompleted={() => {
+            this.toggleNotification('User successfully modified');
+          }}
+          onError={() => {
+            this.toggleNotification('Error modifiying User.');
+          }}
+        >
+          {editUser => (
+            <Save
+              text="Save"
+              onClick={e => {
+                e.preventDefault();
+                editUser({
+                  variables: {
+                    id,
+                    username,
+                    isEnabled,
+                    nameFirst,
+                    nameLast,
+                    phone,
+                    address,
+                    roleId: role.value,
+                  },
+                });
+              }}
+            />
+          )}
+        </Mutation>
         <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
-          <div style={{ textAlign: 'center' }}>
-            {errorMessage ? `Error: ${errorMessage}` : 'User successfully updated'}
-          </div>
-          <Save text="Close" onClick={() => this.toggleNotification()} />
+          <div style={{ textAlign: 'center' }}>{message}</div>
+          <Save text="Close" onClick={() => onClose()} />
         </Modal>
       </>
     );
   }
 }
 
-export default withApollo(EditUserForm);
+export default EditUserForm;

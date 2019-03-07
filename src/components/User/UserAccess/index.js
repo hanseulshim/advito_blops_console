@@ -29,6 +29,7 @@ class UserAccess extends Component {
     super(props);
     this.state = {
       modalOpen: false,
+      showInactive: false
     };
   }
 
@@ -37,15 +38,21 @@ class UserAccess extends Component {
       modalOpen: !prevState.modalOpen,
     }));
   };
+
+  toggleInactiveUsers = () => {
+    this.setState({
+      showInactive: !this.state.showInactive
+    })
+  }
   render() {
-    const { modalOpen } = this.state;
+    const { modalOpen, showInactive } = this.state;
     return (
       <Container>
         <ControlRow>
-          <Checkbox>Show Inactive</Checkbox>
+          <Checkbox checked={showInactive} onChange={this.toggleInactiveUsers}>Show Inactive</Checkbox>
           <Button text="+ New User" onClick={this.toggleModal} />
         </ControlRow>
-        <UserTable />
+        <UserTable showInactive={showInactive} />
         <Modal open={modalOpen} onClose={this.toggleModal} size="tall">
           <CreateUser open={modalOpen} onClose={this.toggleModal} />
         </Modal>

@@ -30,7 +30,7 @@ export const USER_PROFILE_OVERVIEW = gql`
 export const USER_LIST = gql`
   query {
     userList {
-      userId
+      id
       username
       isEnabled
       nameFirst
@@ -101,7 +101,7 @@ export const CREATE_USER = gql`
 
 export const EDIT_USER = gql`
   mutation EditUser(
-    $userId: Int!
+    $id: Int!
     $username: String!
     $isEnabled: Boolean!
     $nameFirst: String!
@@ -111,7 +111,7 @@ export const EDIT_USER = gql`
     $roleId: Int!
   ) {
     editUser(
-      userId: $userId
+      id: $id
       username: $username
       isEnabled: $isEnabled
       nameFirst: $nameFirst
@@ -119,6 +119,15 @@ export const EDIT_USER = gql`
       phone: $phone
       address: $address
       roleId: $roleId
-    )
+    ) {
+      id
+      username
+      isEnabled
+      nameFirst
+      nameLast
+      phone
+      address
+      roleId
+    }
   }
 `;

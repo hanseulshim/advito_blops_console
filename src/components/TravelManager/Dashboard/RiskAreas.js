@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import { withApollo } from 'react-apollo';
 import { RISK_AREA_FEED_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
 import { UPDATE_RISK_AREA } from 'graphql/mutations';
+import Loader from 'components/common/Loader';
 import {
   Container,
   TitleContainer,
@@ -33,23 +34,25 @@ class RiskAreas extends Component {
         </TitleContainer>
         <Query query={RISK_AREA_FEED_TRAVEL} variables={{ limit: 3 }}>
           {({ data: { riskAreaFeedTravel }, loading }) =>
-            loading
-              ? null
-              : riskAreaFeedTravel.riskAreaList.map((riskArea, index) => (
-                  <RowContainer key={index}>
-                    <Rank>{riskArea.id}</Rank>
-                    <Row first={riskArea.id === 1}>
-                      <RowTitle>{riskArea.title}</RowTitle>
-                      <Value>
-                        {riskArea.value} {riskArea.secondaryValue && `/${riskArea.secondaryValue}`}{' '}
-                        <Unit>{riskArea.secondaryUnit}</Unit>
-                      </Value>
-                    </Row>
-                    <Link to="/travel/risk-areas" onClick={() => this.updateRiskArea(riskArea)}>
-                      <RightIcon className="fas fa-angle-right" />
-                    </Link>
-                  </RowContainer>
-                ))
+            loading ? (
+              <Loader />
+            ) : (
+              riskAreaFeedTravel.riskAreaList.map((riskArea, index) => (
+                <RowContainer key={index}>
+                  <Rank>{riskArea.id}</Rank>
+                  <Row first={riskArea.id === 1}>
+                    <RowTitle>{riskArea.title}</RowTitle>
+                    <Value>
+                      {riskArea.value} {riskArea.secondaryValue && `/${riskArea.secondaryValue}`}{' '}
+                      <Unit>{riskArea.secondaryUnit}</Unit>
+                    </Value>
+                  </Row>
+                  <Link to="/travel/risk-areas" onClick={() => this.updateRiskArea(riskArea)}>
+                    <RightIcon className="fas fa-angle-right" />
+                  </Link>
+                </RowContainer>
+              ))
+            )
           }
         </Query>
       </Container>

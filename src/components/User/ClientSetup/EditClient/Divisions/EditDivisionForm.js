@@ -3,7 +3,6 @@ import Icon from 'components/common/Icon';
 import Toggle from 'react-toggle';
 import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
-import { withApollo } from 'react-apollo';
 
 //Form Styles
 import {
@@ -18,7 +17,8 @@ import {
 } from '../../../Styles/ModalFormStyles';
 import '../../../Styles/toggle.css';
 
-//Query
+//Mutation
+import { Mutation } from 'react-apollo';
 import { UPDATE_DIVISION } from 'components/graphql/query/division';
 
 class EditDivisionForm extends Component {
@@ -32,8 +32,8 @@ class EditDivisionForm extends Component {
       gcn: '',
       description: '',
       gcnLock: true,
-      saveModal: false,
-      errorMessage: '',
+      notifyUser: false,
+      message: '',
     };
   }
 
@@ -60,34 +60,16 @@ class EditDivisionForm extends Component {
     }
   };
 
-  toggleSaveModal = () => this.setState({ saveModal: !this.state.saveModal });
+  toggleNotification = message => {
+    this.setState({
+      notifyUser: !this.state.notifyUser,
+      message,
+    });
+  };
 
   toggleActive = () => this.setState({ isActive: !this.state.isActive });
 
   toggleLock = () => this.setState({ gcnLock: !this.state.gcnLock });
-
-  handleSave = async () => {
-    const payload = { ...this.state };
-    delete payload.errorMessage;
-    delete payload.saveModal;
-    const { client, fetchMore, division, selectedClient } = this.props;
-    payload.clientDivisionId = division.id;
-
-    await client.mutate({
-      mutation: UPDATE_DIVISION,
-      variables: { ...payload },
-    });
-    fetchMore({
-      variables: {
-        clientId: selectedClient.id,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
-        return fetchMoreResult;
-      },
-    });
-    this.toggleSaveModal();
-  };
 
   render() {
     const {
@@ -97,9 +79,10 @@ class EditDivisionForm extends Component {
       divisionTag,
       gcn,
       description,
-      errorMessage,
-      saveModal,
+      message,
+      notifyUser,
       gcnLock,
+      id,
     } = this.state;
     const { handleClose } = this.props;
     return (
@@ -150,11 +133,38 @@ class EditDivisionForm extends Component {
             <Notes value={description} name="description" onChange={this.changeInput} />
           </ModalFormItem>
         </ModalForm>
-        <Save text="Save" onClick={this.handleSave} />
-        <Modal open={saveModal} handleClose={() => handleClose()} size="medium">
-          <div style={{ textAlign: 'center' }}>
-            {errorMessage ? `Error: ${errorMessage}` : 'Division successfully updated'}
-          </div>
+        <Mutation
+          mutation={UPDATE_DIVISION}
+          key={id}
+          onCompleted={() => {
+            this.toggleNotification('Division successfully modified');
+          }}
+          onError={() => {
+            this.toggleNotification('Error modifiying Division.');
+          }}
+        >
+          {updateDivision => (
+            <Save
+              text="Save"
+              onClick={e => {
+                e.preventDefault();
+                updateDivision({
+                  variables: {
+                    id,
+                    divisionName,
+                    divisionNameFull,
+                    isActive,
+                    divisionTag,
+                    gcn,
+                    description,
+                  },
+                });
+              }}
+            />
+          )}
+        </Mutation>
+        <Modal open={notifyUser} handleClose={() => handleClose()} size="medium">
+          {message}
           <Save text="Close" onClick={() => handleClose()} />
         </Modal>
       </>
@@ -162,4 +172,4 @@ class EditDivisionForm extends Component {
   }
 }
 
-export default withApollo(EditDivisionForm);
+export default EditDivisionForm;

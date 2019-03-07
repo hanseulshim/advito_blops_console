@@ -9,7 +9,7 @@ import ClientSetup from './ClientSetup';
 import ClientSetupSidebar from './ClientSetup/ClientSetupSidebar';
 
 import UserAcess from './UserAccess';
-
+import UserAccessSidebar from './UserAccess/UserAccessSidebar';
 import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
 
@@ -18,18 +18,20 @@ const Container = styled.div`
   margin: auto;
   display: flex;
   position: relative;
-  height: 100%;
+  min-height:100%;
   background-color: ${props => props.theme.white};
 `;
 
 const MainContainer = styled.div`
   flex: 3;
   padding: 0em 3em;
-  overflow: auto;
+  padding-bottom:3em;
+  
 `;
 
 const SidebarDyanmic = styled.div`
   margin-top: 15%;
+  
 `;
 
 class User extends Component {
@@ -42,6 +44,7 @@ class User extends Component {
             <SidebarDyanmic>
               <Route path={'/user-profile'} component={ProfileSidebar} />
               <Route path={'/client-setup'} component={ClientSetupSidebar} />
+              <Route path={`/user-access`} component={UserAccessSidebar} />
             </SidebarDyanmic>
           </Switch>
         </Sidebar>

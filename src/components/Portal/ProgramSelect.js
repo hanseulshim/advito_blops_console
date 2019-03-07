@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import { PRODUCT_LIST } from 'components/graphql/query/portal';
 import { Link } from 'react-router-dom';
+import Loader from 'components/common/Loader';
 import { SectionTitle } from 'components/common/Typography';
 
 const Container = styled.div`
@@ -82,19 +83,21 @@ const ProgramSelect = () => (
   <Container>
     <Query query={PRODUCT_LIST}>
       {({ data: { productList }, loading }) =>
-        loading
-          ? null
-          : productList.map((product, index) => (
-              <View key={index} first={index === 0} last={index === productList.length - 1}>
-                <IconContainer disabled={product.disabled}>
-                  <ViewIcon>
-                    <Image src={require(`assets/products/${product.icon}`)} alt="icon" />
-                  </ViewIcon>
-                  <SectionTitleFlex>{product.title}</SectionTitleFlex>
-                </IconContainer>
-                <ListContainer>{generateList(product)}</ListContainer>
-              </View>
-            ))
+        loading ? (
+          <Loader />
+        ) : (
+          productList.map((product, index) => (
+            <View key={index} first={index === 0} last={index === productList.length - 1}>
+              <IconContainer disabled={product.disabled}>
+                <ViewIcon>
+                  <Image src={require(`assets/products/${product.icon}`)} alt="icon" />
+                </ViewIcon>
+                <SectionTitleFlex>{product.title}</SectionTitleFlex>
+              </IconContainer>
+              <ListContainer>{generateList(product)}</ListContainer>
+            </View>
+          ))
+        )
       }
     </Query>
   </Container>
