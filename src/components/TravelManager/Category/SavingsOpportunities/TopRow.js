@@ -5,6 +5,7 @@ import { withApollo } from 'react-apollo';
 import { Value, Unit } from 'components/common/Typography';
 import { SAVINGS_OPPORTUNITY_FEED_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
 import { UPDATE_SAVINGS_OPPORTUNITY } from 'graphql/mutations';
+import Loader from 'components/common/Loader';
 
 const MetricRow = styled.div`
   display: flex;
@@ -83,7 +84,9 @@ class TopRow extends Component {
     return (
       <Query query={SAVINGS_OPPORTUNITY_FEED_TRAVEL} variables={{ limit }}>
         {({ data: { savingsOpportunityFeedTravel }, loading, fetchMore }) =>
-          loading ? null : (
+          loading ? (
+            <Loader />
+          ) : (
             <MetricRow>
               {savingsOpportunityFeedTravel.cursor !== limit && (
                 <ArrowButton

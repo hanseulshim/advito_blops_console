@@ -4,6 +4,7 @@ import { SectionTitle, Value, Unit } from 'components/common/Typography';
 import { Query, withApollo } from 'react-apollo';
 import { SAVINGS_OPPORTUNITY_FEED_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
 import { UPDATE_SAVINGS_OPPORTUNITY } from 'graphql/mutations';
+import Loader from 'components/common/Loader';
 import {
   Container,
   TitleContainer,
@@ -32,27 +33,29 @@ class SavingsOpportunities extends Component {
         </TitleContainer>
         <Query query={SAVINGS_OPPORTUNITY_FEED_TRAVEL} variables={{ limit: 3 }}>
           {({ data: { savingsOpportunityFeedTravel }, loading }) =>
-            loading
-              ? null
-              : savingsOpportunityFeedTravel.savingsOpportunityList.map((opportunity, index) => (
-                  <RowContainer key={index}>
-                    <Rank>{opportunity.id}</Rank>
-                    <Row first={opportunity.id === 1}>
-                      <RowTitle>{opportunity.title}</RowTitle>
-                      <Value>
-                        {opportunity.value}{' '}
-                        {opportunity.secondaryValue && `/${opportunity.secondaryValue}`}{' '}
-                        <Unit>{opportunity.secondaryUnit}</Unit>
-                      </Value>
-                    </Row>
-                    <Link
-                      to="/travel/savings-opportunities"
-                      onClick={() => this.updateSavingsOpportunity(opportunity)}
-                    >
-                      <RightIcon className="fas fa-angle-right" />
-                    </Link>
-                  </RowContainer>
-                ))
+            loading ? (
+              <Loader />
+            ) : (
+              savingsOpportunityFeedTravel.savingsOpportunityList.map((opportunity, index) => (
+                <RowContainer key={index}>
+                  <Rank>{opportunity.id}</Rank>
+                  <Row first={opportunity.id === 1}>
+                    <RowTitle>{opportunity.title}</RowTitle>
+                    <Value>
+                      {opportunity.value}{' '}
+                      {opportunity.secondaryValue && `/${opportunity.secondaryValue}`}{' '}
+                      <Unit>{opportunity.secondaryUnit}</Unit>
+                    </Value>
+                  </Row>
+                  <Link
+                    to="/travel/savings-opportunities"
+                    onClick={() => this.updateSavingsOpportunity(opportunity)}
+                  >
+                    <RightIcon className="fas fa-angle-right" />
+                  </Link>
+                </RowContainer>
+              ))
+            )
           }
         </Query>
       </Container>

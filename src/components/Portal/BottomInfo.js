@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import { PRODUCT_EVENT_LIST } from 'components/graphql/query/portal';
 import { Title } from 'components/common/Typography';
 import Button from 'components/common/Button';
+import Loader from 'components/common/Loader';
 
 const Container = styled.div`
   padding: 0 2em;
@@ -37,22 +38,24 @@ const BottomInfo = () => (
   <Container>
     <Query query={PRODUCT_EVENT_LIST}>
       {({ data: { productEventList }, loading }) =>
-        loading
-          ? null
-          : productEventList.map((event, index) => (
-              <Info key={index}>
-                <Image
-                  src={require(`assets/icons/${event.icon}`)}
-                  alt="bottom-icon"
-                  disabled={event.disabled}
-                />
-                <TextContainer>
-                  <Title>{event.title}</Title>
-                  <Description>{event.description}</Description>
-                  {event.button && <Button spaceTop text={event.button} />}
-                </TextContainer>
-              </Info>
-            ))
+        loading ? (
+          <Loader />
+        ) : (
+          productEventList.map((event, index) => (
+            <Info key={index}>
+              <Image
+                src={require(`assets/icons/${event.icon}`)}
+                alt="bottom-icon"
+                disabled={event.disabled}
+              />
+              <TextContainer>
+                <Title>{event.title}</Title>
+                <Description>{event.description}</Description>
+                {event.button && <Button spaceTop text={event.button} />}
+              </TextContainer>
+            </Info>
+          ))
+        )
       }
     </Query>
   </Container>

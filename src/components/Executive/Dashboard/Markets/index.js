@@ -6,6 +6,7 @@ import { MARKET_LIST } from 'components/graphql/query/executive/dashboard';
 import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
 import Select from 'react-select';
+import Loader from 'components/common/Loader';
 
 const MarketContainer = styled.div`
   display: flex;
@@ -87,7 +88,9 @@ class Markets extends Component {
     return (
       <Query query={MARKET_LIST}>
         {({ data: { marketList }, loading }) =>
-          loading ? null : (
+          loading ? (
+            <Loader />
+          ) : (
             <MarketContainer>
               <Description>
                 <TitleRow>

@@ -8,6 +8,7 @@ import Button from 'components/common/Button';
 import { Title, Value } from 'components/common/Typography';
 import LineChart from './LineChart';
 import airAlert from 'assets/sidebar/air.png';
+import Loader from 'components/common/Loader';
 import hotelAlert from 'assets/sidebar/hotel.png';
 
 const PerformanceContainer = styled.div`
@@ -80,7 +81,9 @@ const Home = () => (
     </div>
     <Query query={PROGRAM_PERFORMANCE_LIST_TRAVEL}>
       {({ data: { programPerformanceListTravel, noChangeSince }, loading }) =>
-        loading ? null : (
+        loading ? (
+          <Loader />
+        ) : (
           <>
             <PerformanceContainer>
               {programPerformanceListTravel.map((performance, index) => (

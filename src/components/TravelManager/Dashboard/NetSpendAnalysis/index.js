@@ -6,6 +6,7 @@ import { NET_SPEND_ANALYSIS_LIST_TRAVEL } from 'components/graphql/query/travelM
 import Button from 'components/common/Button';
 import Checkbox from 'components/common/Checkbox';
 import { SectionTitle } from 'components/common/Typography';
+import Loader from 'components/common/Loader';
 import LineChart from './LineChart';
 
 const Container = styled.div`
@@ -33,7 +34,7 @@ const NetSpendAnalysis = () => (
     <Checkbox>Year to date</Checkbox>
     <Query query={NET_SPEND_ANALYSIS_LIST_TRAVEL}>
       {({ data: { netSpendAnalysisListTravel }, loading }) =>
-        loading ? null : <LineChart data={netSpendAnalysisListTravel} />
+        loading ? <Loader /> : <LineChart data={netSpendAnalysisListTravel} />
       }
     </Query>
   </Container>

@@ -6,6 +6,7 @@ import { PROGRAM_PERFORMANCE_EXECUTIVE } from 'components/graphql/query/executiv
 import Button from 'components/common/Button';
 import { SectionTitle } from 'components/common/Typography';
 import Icon from 'components/common/Icon';
+import Loader from 'components/common/Loader';
 
 const Container = styled.div`
   flex: 1;
@@ -58,7 +59,9 @@ const ProgramPerformance = () => (
     </SectionContainer>
     <Query query={PROGRAM_PERFORMANCE_EXECUTIVE}>
       {({ data: { programPerformanceExecutive }, loading }) =>
-        loading ? null : (
+        loading ? (
+          <Loader />
+        ) : (
           <>
             <Performance>
               <Row>

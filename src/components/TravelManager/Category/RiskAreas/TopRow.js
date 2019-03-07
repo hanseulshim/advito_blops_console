@@ -5,6 +5,7 @@ import { withApollo } from 'react-apollo';
 import { Value, Unit } from 'components/common/Typography';
 import { RISK_AREA_FEED_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
 import { UPDATE_RISK_AREA } from 'graphql/mutations';
+import Loader from 'components/common/Loader';
 
 const MetricRow = styled.div`
   display: flex;
@@ -84,7 +85,9 @@ class TopRow extends Component {
     return (
       <Query query={RISK_AREA_FEED_TRAVEL} variables={{ limit }}>
         {({ data: { riskAreaFeedTravel }, loading, fetchMore }) =>
-          loading ? null : (
+          loading ? (
+            <Loader />
+          ) : (
             <MetricRow>
               {riskAreaFeedTravel.cursor !== limit && (
                 <ArrowButton

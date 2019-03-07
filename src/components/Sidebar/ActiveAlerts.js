@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from 'components/common/Button';
+import Loader from 'components/common/Loader';
 import { Query } from 'react-apollo';
 import { ACTIVE_ALERT_LIST } from 'components/graphql/query/portal';
 import { SectionTitle } from 'components/common/Typography';
@@ -23,15 +24,19 @@ const createIconRows = data =>
 
 const ActiveAlerts = () => (
   <Query query={ACTIVE_ALERT_LIST}>
-    {({ data: { activeAlertList }, loading }) => (
-      <Container>
-        <TitleContainer>
-          <SectionTitle>Active Alerts</SectionTitle>
-          <Button text="view all" />
-        </TitleContainer>
-        {loading ? null : createIconRows(activeAlertList)}
-      </Container>
-    )}
+    {({ data: { activeAlertList }, loading }) =>
+      loading ? (
+        <Loader />
+      ) : (
+        <Container>
+          <TitleContainer>
+            <SectionTitle>Active Alerts</SectionTitle>
+            <Button text="view all" />
+          </TitleContainer>
+          {loading ? null : createIconRows(activeAlertList)}
+        </Container>
+      )
+    }
   </Query>
 );
 

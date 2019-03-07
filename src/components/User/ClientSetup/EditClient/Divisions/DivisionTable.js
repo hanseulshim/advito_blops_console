@@ -35,11 +35,7 @@ class DivisionTable extends Component {
                   </CustomTableCell>
                   <CustomTableCell align="left">{division.divisionName}</CustomTableCell>
                   <CustomTableCell align="right">
-                    <EditDivision
-                      division={division}
-                      fetchMore={this.props.fetchMore}
-                      selectedClient={this.props.selectedClient}
-                    />
+                    <EditDivision division={division} selectedClient={this.props.selectedClient} />
                   </CustomTableCell>
                 </TableRow>
               )

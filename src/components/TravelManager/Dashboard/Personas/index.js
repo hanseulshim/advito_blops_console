@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import { PERSONA_LIST } from 'components/graphql/query/travelManager/dashboard';
 import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
+import Loader from 'components/common/Loader';
 
 const PersonaContainer = styled.div`
   display: flex;
@@ -65,21 +66,23 @@ const Personas = () => (
       </Description>
       <Query query={PERSONA_LIST}>
         {({ data: { personaList }, loading }) =>
-          loading
-            ? null
-            : personaList.map((persona, index) => (
-                <Persona key={index} first={index === 0}>
-                  <TitleRow>
-                    <TitleTransform>{persona.title}</TitleTransform>
-                  </TitleRow>
-                  <ValueRow>
-                    <ValueSized>{persona.value}</ValueSized>
-                  </ValueRow>
-                  <ChartRow>
-                    <CircleChart percent={persona.programShare} />
-                  </ChartRow>
-                </Persona>
-              ))
+          loading ? (
+            <Loader />
+          ) : (
+            personaList.map((persona, index) => (
+              <Persona key={index} first={index === 0}>
+                <TitleRow>
+                  <TitleTransform>{persona.title}</TitleTransform>
+                </TitleRow>
+                <ValueRow>
+                  <ValueSized>{persona.value}</ValueSized>
+                </ValueRow>
+                <ChartRow>
+                  <CircleChart percent={persona.programShare} />
+                </ChartRow>
+              </Persona>
+            ))
+          )
         }
       </Query>
     </PersonaContainer>

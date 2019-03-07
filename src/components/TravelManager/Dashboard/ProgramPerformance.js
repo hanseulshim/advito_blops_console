@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import { PROGRAM_PERFORMANCE_LIST_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
 import Button from 'components/common/Button';
 import { SectionTitle } from 'components/common/Typography';
+import Loader from 'components/common/Loader';
 
 const Container = styled.div`
   flex: 1;
@@ -53,16 +54,18 @@ const ProgramPerformance = () => (
     <Query query={PROGRAM_PERFORMANCE_LIST_TRAVEL}>
       {({ data: { programPerformanceListTravel }, loading }) => (
         <>
-          {loading
-            ? null
-            : programPerformanceListTravel.map(performance => (
-                <Performance key={performance.title}>
-                  <Title>{performance.title}</Title>
-                  <Value>
-                    {performance.value} <Unit>{performance.unit}</Unit>
-                  </Value>
-                </Performance>
-              ))}
+          {loading ? (
+            <Loader />
+          ) : (
+            programPerformanceListTravel.map(performance => (
+              <Performance key={performance.title}>
+                <Title>{performance.title}</Title>
+                <Value>
+                  {performance.value} <Unit>{performance.unit}</Unit>
+                </Value>
+              </Performance>
+            ))
+          )}
         </>
       )}
     </Query>
