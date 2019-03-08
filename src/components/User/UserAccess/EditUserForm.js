@@ -18,7 +18,7 @@ import {
 import '../Styles/toggle.css';
 
 //Query
-import { EDIT_USER } from 'components/graphql/query/user';
+import { EDIT_USER } from 'components/graphql/query';
 
 const roles = [
   { label: 'Hotel System', value: 1 },

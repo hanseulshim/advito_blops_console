@@ -8,8 +8,7 @@ import Modal from 'components/common/Modal';
 
 //GraphQl Mutation
 import { Mutation } from 'react-apollo';
-import { CREATE_CLIENT } from 'components/graphql/query/client';
-import { GET_CLIENTS } from 'components/graphql/query/client';
+import { CREATE_CLIENT, GET_CLIENTS } from 'components/graphql/query';
 
 //Form Styles
 import {

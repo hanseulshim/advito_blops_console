@@ -6,7 +6,7 @@ import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
 import Modal from 'components/common/Modal';
 
-import { UPDATE_PASSWORD } from 'components/graphql/query/user';
+import { UPDATE_PASSWORD } from 'components/graphql/query';
 
 const TitleRow = styled.div`
   display: flex;

@@ -12,7 +12,7 @@ import AddClient from './AddClient/AddClient';
 import Loader from 'components/common/Loader';
 
 //graphql Query
-import { GET_CLIENTS } from 'components/graphql/query/client';
+import { GET_CLIENTS } from 'components/graphql/query';
 
 const ControlRow = styled.div`
   display: flex;

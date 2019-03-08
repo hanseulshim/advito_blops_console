@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import { withApollo } from 'react-apollo';
 import { Value, Unit } from 'components/common/Typography';
-import { RISK_AREA_FEED_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
+import { RISK_AREA_FEED_TRAVEL } from 'components/graphql/query';
 import { UPDATE_RISK_AREA } from 'graphql/mutations';
 import Loader from 'components/common/Loader';
 

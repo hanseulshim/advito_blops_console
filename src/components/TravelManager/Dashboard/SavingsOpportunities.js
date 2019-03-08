@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { SectionTitle, Value, Unit } from 'components/common/Typography';
 import { Query, withApollo } from 'react-apollo';
-import { SAVINGS_OPPORTUNITY_FEED_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
+import { SAVINGS_OPPORTUNITY_FEED_TRAVEL } from 'components/graphql/query';
 import { UPDATE_SAVINGS_OPPORTUNITY } from 'graphql/mutations';
 import Loader from 'components/common/Loader';
 import {

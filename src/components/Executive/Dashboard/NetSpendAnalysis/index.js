@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
-import { NET_SPEND_ANALYSIS_LIST_EXECUTIVE } from 'components/graphql/query/executive/dashboard';
+import { NET_SPEND_ANALYSIS_LIST_EXECUTIVE } from 'components/graphql/query';
 import { Link } from 'react-router-dom';
 import Button from 'components/common/Button';
 import Checkbox from 'components/common/Checkbox';
