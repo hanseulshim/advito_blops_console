@@ -3,9 +3,10 @@ import { Redirect } from 'react-router-dom';
 import { withApollo } from 'react-apollo';
 import { LOGIN } from 'components/graphql/query';
 import styled from 'styled-components';
-import UserContext from 'components/context/UserContext';
 import Modal from 'components/common/Modal';
 import ForgotPassword from './ForgotPassword';
+import { compose } from 'react-apollo';
+import { withUserContext } from 'components/context';
 
 const FormContainer = styled.div`
   margin-top: 1em;
@@ -72,59 +73,59 @@ class LoginForm extends Component {
   };
   render() {
     const { username, pwd, forgotPassword } = this.state;
-    return (
-      <UserContext.Consumer>
-        {({ authenticated, setUser }) =>
-          !authenticated ? (
-            <div>
-              <FormContainer>
-                <Form
-                  onSubmit={async event => {
-                    event.preventDefault();
-                    try {
-                      const {
-                        data: { login },
-                      } = await this.props.client.query({
-                        query: LOGIN,
-                        variables: { username, pwd },
-                      });
-                      setUser(login);
-                    } catch (error) {
-                      console.log(error);
-                    }
-                  }}
-                >
-                  <FormText
-                    placeholder="Login"
-                    type="text"
-                    value={username}
-                    name="username"
-                    onChange={this.updateUsername}
-                  />
-                  <FormText
-                    placeholder="Password"
-                    type="password"
-                    value={pwd}
-                    name="password"
-                    onChange={this.updatePassword}
-                  />
-                  <SubmitContainer>
-                    <Submit type="submit" value="Login" />
-                    <Forgot onClick={this.toggleModal}>Forgot Password?</Forgot>
-                  </SubmitContainer>
-                </Form>
-                <Modal open={forgotPassword} handleClose={() => this.toggleModal}>
-                  <ForgotPassword handleClose={this.toggleModal} />
-                </Modal>
-              </FormContainer>
-            </div>
-          ) : (
-            <Redirect to={'/'} />
-          )
-        }
-      </UserContext.Consumer>
+    const {
+      context: { authenticated, setUser },
+    } = this.props;
+    return !authenticated ? (
+      <div>
+        <FormContainer>
+          <Form
+            onSubmit={async event => {
+              event.preventDefault();
+              try {
+                const {
+                  data: { login },
+                } = await this.props.client.query({
+                  query: LOGIN,
+                  variables: { username, pwd },
+                });
+                setUser(login);
+              } catch (error) {
+                console.log(error);
+              }
+            }}
+          >
+            <FormText
+              placeholder="Login"
+              type="text"
+              value={username}
+              name="username"
+              onChange={this.updateUsername}
+            />
+            <FormText
+              placeholder="Password"
+              type="password"
+              value={pwd}
+              name="password"
+              onChange={this.updatePassword}
+            />
+            <SubmitContainer>
+              <Submit type="submit" value="Login" />
+              <Forgot onClick={this.toggleModal}>Forgot Password?</Forgot>
+            </SubmitContainer>
+          </Form>
+          <Modal open={forgotPassword} handleClose={() => this.toggleModal}>
+            <ForgotPassword handleClose={this.toggleModal} />
+          </Modal>
+        </FormContainer>
+      </div>
+    ) : (
+      <Redirect to={'/'} />
     );
   }
 }
 
-export default withApollo(LoginForm);
+export default compose(
+  withApollo,
+  withUserContext
+)(LoginForm);

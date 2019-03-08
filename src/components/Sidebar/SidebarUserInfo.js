@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Title } from 'components/common/Typography';
 import { Link } from 'react-router-dom';
-import UserContext from 'components/context/UserContext';
+import { withUserContext } from 'components/context';
 import Shayan from 'assets/shayan.jpeg';
 import NavMenu from './NavMenu';
 
@@ -40,24 +40,23 @@ class SideBarUserInfo extends React.Component {
   }
 
   render() {
+    const {
+      context: { user },
+    } = this.props;
     return (
-      <UserContext.Consumer>
-        {({ user }) => (
-          <Container>
-            <TitleContainer>
-              <Avatar>
-                <Link to="/user-profile" replace>
-                  <img src={Shayan} alt="avatar" />
-                </Link>
-              </Avatar>
-              <NavMenu />
-            </TitleContainer>
-            <Title>{user.displayName}</Title>
-          </Container>
-        )}
-      </UserContext.Consumer>
+      <Container>
+        <TitleContainer>
+          <Avatar>
+            <Link to="/user-profile" replace>
+              <img src={Shayan} alt="avatar" />
+            </Link>
+          </Avatar>
+          <NavMenu />
+        </TitleContainer>
+        <Title>{user.displayName}</Title>
+      </Container>
     );
   }
 }
 
-export default SideBarUserInfo;
+export default withUserContext(SideBarUserInfo);
