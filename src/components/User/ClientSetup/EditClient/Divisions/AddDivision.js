@@ -20,7 +20,8 @@ import '../../../Styles/toggle.css';
 
 //Query
 import { Mutation } from 'react-apollo';
-import { CREATE_DIVISION, GET_DIVISIONS } from 'components/graphql/query';
+import { GET_DIVISIONS } from 'components/graphql/query';
+import { CREATE_DIVISION } from 'components/graphql/mutation';
 
 class AddDivision extends Component {
   constructor(props) {

@@ -9,7 +9,8 @@ import Modal from 'components/common/Modal';
 import Loader from 'components/common/Loader';
 import UpdatePassword from './UpdatePassword';
 
-import { USER_PROFILE, UPDATE_USER_PROFILE } from 'components/graphql/query';
+import { USER_PROFILE } from 'components/graphql/query';
+import { UPDATE_USER_PROFILE } from 'components/graphql/mutation';
 import {
   FormContainer,
   Form,

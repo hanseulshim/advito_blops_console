@@ -10,7 +10,8 @@ import Toggle from 'react-toggle';
 import { withApollo } from 'react-apollo';
 
 //GraphQl Mutation
-import { UPDATE_CLIENT, GET_CLIENTS } from 'components/graphql/query';
+import { GET_CLIENTS } from 'components/graphql/query';
+import { UPDATE_CLIENT } from 'components/graphql/mutation';
 
 import {
   FormContainer,

@@ -5,10 +5,11 @@ import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
 
 //Query
-import { CREATE_USER, USER_LIST } from 'components/graphql/query';
+import { USER_LIST } from 'components/graphql/query';
 import { withUserContext } from 'components/context';
 //Mutation
 import { Mutation } from 'react-apollo';
+import { CREATE_USER } from 'components/graphql/mutation';
 
 import {
   TitleRow,

@@ -19,7 +19,7 @@ import '../../../Styles/toggle.css';
 
 //Mutation
 import { Mutation } from 'react-apollo';
-import { UPDATE_DIVISION } from 'components/graphql/query';
+import { UPDATE_DIVISION } from 'components/graphql/mutation';
 
 class EditDivisionForm extends Component {
   constructor(props) {

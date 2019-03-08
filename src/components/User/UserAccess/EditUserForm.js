@@ -17,8 +17,7 @@ import {
 } from '../Styles/ModalFormStyles';
 import '../Styles/toggle.css';
 
-//Query
-import { EDIT_USER } from 'components/graphql/query';
+import { EDIT_USER } from 'components/graphql/mutation';
 
 const roles = [
   { label: 'Hotel System', value: 1 },
