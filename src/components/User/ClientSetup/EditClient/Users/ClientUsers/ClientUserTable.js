@@ -30,7 +30,7 @@ class ClientUserTable extends Component {
 
   createUserList = userList => {
     const { showInactive, search } = this.props;
-    const filteredList = [...userList];
+    let filteredList = [...userList];
 
     if (search) {
       const filtered = userList.filter(user => {
@@ -38,10 +38,10 @@ class ClientUserTable extends Component {
         return email.includes(search);
       });
 
-      return filtered;
+      filteredList = [...filtered];
     }
 
-    return userList;
+    return filteredList;
   };
 
   render() {

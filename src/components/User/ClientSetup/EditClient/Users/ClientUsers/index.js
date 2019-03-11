@@ -86,7 +86,7 @@ class ClientUsers extends Component {
                   style={{ whiteSpace: 'nowrap', width: '9em' }}
                 />
               </ControlRow>
-              <ClientUserTable clients={clientList} showInactive={showInactive} />
+              <ClientUserTable clients={clientList} showInactive={showInactive} search={search} />
               <Modal open={addClientUserOpen} handleClose={this.toggleForm} size="tall">
                 <AddClientUser onClose={this.toggleForm} />
               </Modal>
