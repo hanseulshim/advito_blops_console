@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-import { ApolloConsumer } from 'react-apollo';
-import UserContext from 'components/context/UserContext';
+import { withApollo } from 'react-apollo';
 import styled from 'styled-components';
 import { DONUT } from 'components/graphql/query';
 import { metricFormat } from 'components/common/helper';
@@ -133,8 +132,6 @@ class Donut extends Component {
       } = await this.props.client.query({
         query: DONUT,
         variables: {
-          clientId: this.props.user.clientId,
-          sessionToken: this.props.user.sessionToken,
           title: selected,
         },
       });
@@ -160,8 +157,6 @@ class Donut extends Component {
     } = await this.props.client.query({
       query: DONUT,
       variables: {
-        clientId: this.props.user.clientId,
-        sessionToken: this.props.user.sessionToken,
         title: context,
       },
     });
@@ -200,16 +195,4 @@ class Donut extends Component {
   }
 }
 
-const DonutWrapper = props => (
-  <ApolloConsumer>
-    {client => (
-      <UserContext.Consumer>
-        {({ user, removeUser }) => (
-          <Donut client={client} user={user} removeUser={removeUser} {...props} />
-        )}
-      </UserContext.Consumer>
-    )}
-  </ApolloConsumer>
-);
-
-export default DonutWrapper;
+export default withApollo(Donut);

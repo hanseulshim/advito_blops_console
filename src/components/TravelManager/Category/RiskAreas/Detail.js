@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import Map from './Map';
-import { GET_RISK_AREA_DETAIL } from 'components/graphql/query/travelManager/riskArea';
+import { GET_RISK_AREA_DETAIL } from 'components/graphql/query';
 
 const ChartContainerRow = styled.div`
   display: flex;

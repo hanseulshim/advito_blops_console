@@ -12,7 +12,7 @@ import AddClient from './AddClient/AddClient';
 import Loader from 'components/common/Loader';
 
 //graphql Query
-import { GET_CLIENTS } from 'components/graphql/query/client';
+import { GET_CLIENTS } from 'components/graphql/query';
 
 const ControlRow = styled.div`
   display: flex;
@@ -28,6 +28,7 @@ class SelectClient extends Component {
     super(props);
     this.state = {
       addClientOpen: false,
+      showInactive: false,
     };
   }
 
@@ -37,8 +38,14 @@ class SelectClient extends Component {
     });
   };
 
+  toggleInactiveClients = () => {
+    this.setState({
+      showInactive: !this.state.showInactive,
+    });
+  };
+
   render() {
-    const { addClientOpen } = this.state;
+    const { addClientOpen, showInactive } = this.state;
     return (
       <Query query={GET_CLIENTS}>
         {({ data: { clientList }, loading }) =>
@@ -47,14 +54,16 @@ class SelectClient extends Component {
           ) : (
             <>
               <ControlRow>
-                <Checkbox>Show Inactive</Checkbox>
+                <Checkbox checked={showInactive} onChange={this.toggleInactiveClients}>
+                  Show Inactive
+                </Checkbox>
                 <Button
                   text="+ New Client"
                   onClick={this.toggleForm}
                   style={{ whiteSpace: 'nowrap', width: '9em' }}
                 />
               </ControlRow>
-              <ClientTable clients={clientList} />
+              <ClientTable clients={clientList} showInactive={showInactive} />
               <Modal open={addClientOpen} handleClose={this.toggleForm} size="tall">
                 <AddClient onClose={this.toggleForm} />
               </Modal>

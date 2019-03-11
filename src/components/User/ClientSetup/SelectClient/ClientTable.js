@@ -1,21 +1,21 @@
-import React, { Component } from 'react'
-import { withApollo } from 'react-apollo'
-import Icon from 'components/common/Icon'
-import { withRouter } from 'react-router-dom'
-import { compose } from 'react-apollo'
+import React, { Component } from 'react';
+import { withApollo } from 'react-apollo';
+import Icon from 'components/common/Icon';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'react-apollo';
 
 //ReactTable imports...
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import { CustomTableHeader, CustomTableCell } from '../../Styles/TableStyles'
-import { UPDATE_SELECTED_CLIENT } from 'graphql/mutations'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import { CustomTableHeader, CustomTableCell } from '../../Styles/TableStyles';
+import { UPDATE_SELECTED_CLIENT } from 'graphql/mutations';
 
 class ClientTable extends Component {
   constructor(props) {
-    super(props)
-    this.state = {}
+    super(props);
+    this.state = {};
   }
 
   updateSelectedClient = async client => {
@@ -24,12 +24,12 @@ class ClientTable extends Component {
       variables: {
         selectedClient: client,
       },
-    })
-    this.props.history.push('/client-setup/general')
-  }
+    });
+    this.props.history.push('/client-setup/general');
+  };
 
   render() {
-    const { clients } = this.props
+    const { clients, showInactive } = this.props;
     return (
       <Table>
         <TableHead>
@@ -41,7 +41,7 @@ class ClientTable extends Component {
           </TableRow>
         </TableHead>
         <TableBody>
-          {clients.map((client, i) => (
+          {(showInactive ? clients : clients.filter(client => client.isActive)).map((client, i) => (
             <TableRow key={'client' + i}>
               <CustomTableCell component="th" scope="row">
                 {client.gcn}
@@ -59,11 +59,11 @@ class ClientTable extends Component {
           ))}
         </TableBody>
       </Table>
-    )
+    );
   }
 }
 
 export default compose(
   withRouter,
   withApollo
-)(ClientTable)
+)(ClientTable);

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Query } from 'react-apollo';
-import { USER_LIST } from 'components/graphql/query/user';
+import { USER_LIST } from 'components/graphql/query';
 import Loader from 'components/common/Loader';
 
 //ReactTable imports...

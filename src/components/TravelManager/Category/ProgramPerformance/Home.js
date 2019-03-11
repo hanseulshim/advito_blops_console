@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
-import { PROGRAM_PERFORMANCE_LIST_TRAVEL } from 'components/graphql/query/travelManager/programPerformance';
+import { PROGRAM_PERFORMANCE_LIST_TRAVEL } from 'components/graphql/query';
 import Icon from 'components/common/Icon';
 import Button from 'components/common/Button';
 import { Title, Value } from 'components/common/Typography';

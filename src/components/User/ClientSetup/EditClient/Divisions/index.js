@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { GET_SELECTED_CLIENT } from 'graphql/queries';
-import { GET_DIVISIONS } from 'components/graphql/query/division';
+import { GET_DIVISIONS } from 'components/graphql/query';
 import { Query } from 'react-apollo';
 
 //project imports

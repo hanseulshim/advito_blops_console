@@ -6,7 +6,7 @@ import { compose } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { LOGOUT } from 'components/graphql/query';
 import Icon from 'components/common/Icon';
-import UserContext from 'components/context/UserContext';
+import { withUserContext } from 'components/context';
 import Popover from '@material-ui/core/Popover';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -83,63 +83,64 @@ class NavMenu extends React.Component {
   };
 
   render() {
-    const { client, location, classes } = this.props;
+    const {
+      client,
+      location,
+      classes,
+      context: { removeUser },
+    } = this.props;
     const { anchorEl } = this.state;
 
     const open = Boolean(anchorEl);
 
     return (
-      <UserContext.Consumer>
-        {({ user, removeUser }) => (
-          <>
-            <MenuIcon
-              className="fas fa-cog"
-              onClick={this.handleClick}
-              aria-owns={open ? 'nav-menu' : undefined}
-              aria-haspopup="true"
-            />
-            <Popover
-              id="nav-menu"
-              open={open}
-              anchorEl={anchorEl}
-              onClose={this.handleClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
+      <>
+        <MenuIcon
+          className="fas fa-cog"
+          onClick={this.handleClick}
+          aria-owns={open ? 'nav-menu' : undefined}
+          aria-haspopup="true"
+        />
+        <Popover
+          id="nav-menu"
+          open={open}
+          anchorEl={anchorEl}
+          onClose={this.handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+        >
+          <div className={classes.container}>
+            {NavItems.map((nav, index) => (
+              <NavItem key={index} to={nav.link} replace={location.pathname.includes(nav.link)}>
+                {nav.title}
+              </NavItem>
+            ))}
+            <LogOut
+              onClick={async event => {
+                event.preventDefault();
+                removeUser();
+                await client.query({
+                  query: LOGOUT,
+                });
               }}
             >
-              <div className={classes.container}>
-                {NavItems.map((nav, index) => (
-                  <NavItem key={index} to={nav.link} replace={location.pathname.includes(nav.link)}>
-                    {nav.title}
-                  </NavItem>
-                ))}
-                <LogOut
-                  onClick={async event => {
-                    event.preventDefault();
-                    removeUser();
-                    await client.query({
-                      query: LOGOUT,
-                      variables: { sessionToken: user.sessionToken },
-                    });
-                  }}
-                >
-                  Logout
-                </LogOut>
-              </div>
-            </Popover>
-          </>
-        )}
-      </UserContext.Consumer>
+              Logout
+            </LogOut>
+          </div>
+        </Popover>
+      </>
     );
   }
 }
 export default compose(
   withRouter,
   withApollo,
+  withUserContext,
   withStyles(styles)
 )(NavMenu);

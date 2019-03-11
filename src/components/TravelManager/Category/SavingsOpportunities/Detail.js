@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import PieChart from './PieChart';
-import { GET_SAVINGS_OPPORTUNITY_DETAIL } from 'components/graphql/query/travelManager/savingsOpportunity';
+import { GET_SAVINGS_OPPORTUNITY_DETAIL } from 'components/graphql/query';
 
 const ChartContainerRow = styled.div`
   display: flex;

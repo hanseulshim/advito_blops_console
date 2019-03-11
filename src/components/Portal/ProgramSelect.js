@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
-import { PRODUCT_LIST } from 'components/graphql/query/portal';
+import { PRODUCT_LIST } from 'components/graphql/query';
 import { Link } from 'react-router-dom';
 import Loader from 'components/common/Loader';
 import { SectionTitle } from 'components/common/Typography';

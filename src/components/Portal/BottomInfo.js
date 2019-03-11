@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
-import { PRODUCT_EVENT_LIST } from 'components/graphql/query/portal';
+import { PRODUCT_EVENT_LIST } from 'components/graphql/query';
 import { Title } from 'components/common/Typography';
 import Button from 'components/common/Button';
 import Loader from 'components/common/Loader';
