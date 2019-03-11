@@ -13,7 +13,7 @@ const Users = () => {
   return (
     <UserContainer>
       <ClientUsers />
-      <ClientMembers />
+      <ClientUsers />
     </UserContainer>
   );
 };
