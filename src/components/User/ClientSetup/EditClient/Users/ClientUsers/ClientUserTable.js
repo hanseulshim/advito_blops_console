@@ -35,8 +35,8 @@ class ClientUserTable extends Component {
     if (search) {
       const filtered = userList.filter(user => {
         let email = user.username.toLowerCase();
-        let username = user.nameFirst.toLowerCase() + user.nameLast.toLowerCase();
-        return email.includes(search) || username.includes(search);
+        let username = `${user.nameFirst.toLowerCase()} ${user.nameLast.toLowerCase()}`;
+        return email.includes(search.toLowerCase()) || username.includes(search.toLowerCase());
       });
 
       filteredList = [...filtered];
