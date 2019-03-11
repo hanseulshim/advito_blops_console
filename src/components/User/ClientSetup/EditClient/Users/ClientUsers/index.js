@@ -72,7 +72,7 @@ class ClientUsers extends Component {
             <div style={{ flex: 1 }}>
               <SectionTitle>Client Users</SectionTitle>
               <ControlRow>
-                <Checkbox checked={showInactive} onChange={this.toggleInactiveClients}>
+                <Checkbox checked={showInactive} onChange={this.toggleInactiveClientUsers}>
                   Show Inactive
                 </Checkbox>
                 <SearchUsers

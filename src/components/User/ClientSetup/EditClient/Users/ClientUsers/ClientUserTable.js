@@ -29,7 +29,7 @@ class ClientUserTable extends Component {
   }
 
   createUserList = userList => {
-    const { showInactive, search } = this.props;
+    const { search } = this.props;
     let filteredList = [...userList];
 
     if (search) {
@@ -45,6 +45,7 @@ class ClientUserTable extends Component {
   };
 
   render() {
+    const { showInactive } = this.props;
     return (
       <Query query={USER_LIST}>
         {({ data: { userList }, loading }) =>
@@ -63,7 +64,10 @@ class ClientUserTable extends Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {this.createUserList(userList).map((user, i) => (
+                {(showInactive
+                  ? this.createUserList(userList)
+                  : this.createUserList(userList).filter(user => user.isEnabled)
+                ).map((user, i) => (
                   <TableRow key={'user' + i}>
                     <CustomTableCell component="th" scope="row">
                       {`${user.nameFirst} ${user.nameLast}`}
