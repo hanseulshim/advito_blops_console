@@ -41,8 +41,10 @@ class SelectClient extends Component {
     const { addClientOpen } = this.state;
     return (
       <Query query={GET_CLIENTS}>
-        {({ data: { clientList }, fetchMore, loading }) =>
-          loading ? <Loader /> : (
+        {({ data: { clientList }, loading }) =>
+          loading ? (
+            <Loader />
+          ) : (
             <>
               <ControlRow>
                 <Checkbox>Show Inactive</Checkbox>
@@ -52,9 +54,9 @@ class SelectClient extends Component {
                   style={{ whiteSpace: 'nowrap', width: '9em' }}
                 />
               </ControlRow>
-              <ClientTable clients={clientList} fetchMore={fetchMore} />
+              <ClientTable clients={clientList} />
               <Modal open={addClientOpen} handleClose={this.toggleForm} size="tall">
-                <AddClient onClose={this.toggleForm} fetchMore={fetchMore} />
+                <AddClient onClose={this.toggleForm} />
               </Modal>
             </>
           )
