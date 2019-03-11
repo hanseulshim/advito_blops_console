@@ -20,10 +20,8 @@ import '../../../Styles/toggle.css';
 
 //Query
 import { Mutation } from 'react-apollo';
-import { CREATE_DIVISION } from 'components/graphql/query/division';
-import { GET_DIVISIONS } from 'components/graphql/query/division';
-
-// const status = [{ label: 'Active', value: 'Active' }, { label: 'Inactive', value: 'Inactive' }];
+import { GET_DIVISIONS } from 'components/graphql/query';
+import { CREATE_DIVISION } from 'components/graphql/mutation';
 
 class AddDivision extends Component {
   constructor(props) {

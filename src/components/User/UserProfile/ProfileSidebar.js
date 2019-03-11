@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
-import { USER_PROFILE_OVERVIEW } from 'components/graphql/query/user';
+import { USER_PROFILE_OVERVIEW } from 'components/graphql/query';
 import { SectionTitle, Unit } from 'components/common/Typography';
 
 const Container = styled.div`

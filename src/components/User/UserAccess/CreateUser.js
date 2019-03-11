@@ -5,11 +5,11 @@ import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
 
 //Query
-import { CREATE_USER } from 'components/graphql/query/user';
-import UserContext from 'components/context/UserContext';
-import { USER_LIST } from 'components/graphql/query/user';
+import { USER_LIST } from 'components/graphql/query';
+import { withUserContext } from 'components/context';
 //Mutation
-import { Mutation } from 'react-apollo'
+import { Mutation } from 'react-apollo';
+import { CREATE_USER } from 'components/graphql/mutation';
 
 import {
   TitleRow,
@@ -61,10 +61,10 @@ class CreateUser extends Component {
     }
   };
 
-  toggleNotification = (message) => {
+  toggleNotification = message => {
     this.setState({
       notifyUser: !this.state.notifyUser,
-      message
+      message,
     });
   };
 
@@ -88,124 +88,124 @@ class CreateUser extends Component {
       message,
       notifyUser,
     } = this.state;
-    const { onClose } = this.props;
+    const {
+      onClose,
+      context: { user },
+    } = this.props;
     return (
-      <UserContext.Consumer>
-        {({ user }) => (
-          <>
-            <TitleRow>
-              <SectionTitle>Create User</SectionTitle>
-              <Close className="fas fa-times" onClick={onClose} />
-            </TitleRow>
-            <ModalForm>
-              <ModalFormItem>
-                <ModalFormLabel>User Name *</ModalFormLabel>
-                <ModalFormText value={username} name="username" onChange={this.changeInput} />
-              </ModalFormItem>
-              <ModalFormItem>
-                <ModalFormLabel>Account Active</ModalFormLabel>
-                <ModalFormLabel>
-                  <Toggle defaultChecked={isEnabled} icons={false} onChange={this.handleToggle} />
-                </ModalFormLabel>
-              </ModalFormItem>
-              <ModalFormItem>
-                <ModalFormLabel>First Name *</ModalFormLabel>
-                <ModalFormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
-              </ModalFormItem>
-              <ModalFormItem>
-                <ModalFormLabel>Last Name *</ModalFormLabel>
-                <ModalFormText value={nameLast} name="nameLast" onChange={this.changeInput} />
-              </ModalFormItem>
-              <ModalFormItem>
-                <ModalFormLabel>Phone</ModalFormLabel>
-                <ModalFormText value={phone} name="phone" onChange={this.changeInput} />
-              </ModalFormItem>
-              <ModalFormItem>
-                <ModalFormLabel>Address</ModalFormLabel>
-                <ModalFormText value={address} name="address" onChange={this.changeInput} />
-              </ModalFormItem>
-              <ModalFormItem>
-                <ModalFormLabel>Role*</ModalFormLabel>
-                <Select options={roles} value={role} onChange={e => this.changeInput(e, 'role')} />
-              </ModalFormItem>
-              <ModalFormItem>
-                <ModalFormLabel>Password *</ModalFormLabel>
-                <ModalFormText value={pwd} type="password" name="pwd" onChange={this.changeInput} />
-              </ModalFormItem>
-              <ModalFormItem>
-                <ModalFormLabel>Confirm Password *</ModalFormLabel>
-                <ModalFormText
-                  value={confirmPwd}
-                  type="password"
-                  name="confirmPwd"
-                  onChange={this.changeInput}
-                />
-              </ModalFormItem>
-            </ModalForm>
-            <ModalText>
-              {`Passwords must be a minimum of eight (8) characters
+      <>
+        <TitleRow>
+          <SectionTitle>Create User</SectionTitle>
+          <Close className="fas fa-times" onClick={onClose} />
+        </TitleRow>
+        <ModalForm>
+          <ModalFormItem>
+            <ModalFormLabel>User Name *</ModalFormLabel>
+            <ModalFormText value={username} name="username" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Account Active</ModalFormLabel>
+            <ModalFormLabel>
+              <Toggle defaultChecked={isEnabled} icons={false} onChange={this.handleToggle} />
+            </ModalFormLabel>
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>First Name *</ModalFormLabel>
+            <ModalFormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Last Name *</ModalFormLabel>
+            <ModalFormText value={nameLast} name="nameLast" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Phone</ModalFormLabel>
+            <ModalFormText value={phone} name="phone" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Address</ModalFormLabel>
+            <ModalFormText value={address} name="address" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Role*</ModalFormLabel>
+            <Select options={roles} value={role} onChange={e => this.changeInput(e, 'role')} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Password *</ModalFormLabel>
+            <ModalFormText value={pwd} type="password" name="pwd" onChange={this.changeInput} />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Confirm Password *</ModalFormLabel>
+            <ModalFormText
+              value={confirmPwd}
+              type="password"
+              name="confirmPwd"
+              onChange={this.changeInput}
+            />
+          </ModalFormItem>
+        </ModalForm>
+        <ModalText>
+          {`Passwords must be a minimum of eight (8) characters
           and includes (3) of the following (4) criteria:
           `}
-            </ModalText>
-            <ModalSubText>
-              {`- Lowercase character
+        </ModalText>
+        <ModalSubText>
+          {`- Lowercase character
           - Upper case character
           - Number
           - Special characters (e.g.!, $, #, %)
           `}
-            </ModalSubText>
-            <Mutation
-              mutation={CREATE_USER}
-              update={(cache, { data: { createUser } }) => {
-                const { userList } = cache.readQuery({ query: USER_LIST });
-                const newUser = { ...this.state }
-                delete newUser.message;
-                delete newUser.notifyUser;
-                newUser.role = newUser.role.value;
-                userList.push(newUser)
-                cache.writeQuery({
-                  query: USER_LIST,
-                  data: userList,
+        </ModalSubText>
+        <Mutation
+          mutation={CREATE_USER}
+          update={(cache, { data: { createUser } }) => {
+            const { userList } = cache.readQuery({ query: USER_LIST });
+            const newUser = { ...this.state };
+            delete newUser.message;
+            delete newUser.notifyUser;
+            newUser.role = newUser.role.value;
+            userList.push(newUser);
+            cache.writeQuery({
+              query: USER_LIST,
+              data: userList,
+            });
+          }}
+          onCompleted={() => {
+            this.toggleNotification('User successfully created');
+          }}
+          onError={() => {
+            this.toggleNotification('Error creating User.');
+          }}
+        >
+          {createUser => (
+            <Save
+              text="Save"
+              onClick={e => {
+                e.preventDefault();
+                createUser({
+                  variables: {
+                    clientId: user.clientId,
+                    username,
+                    isEnabled,
+                    nameFirst,
+                    nameLast,
+                    phone,
+                    address,
+                    roleId: role.value,
+                    pwd,
+                    confirmPwd,
+                  },
                 });
               }}
-              onCompleted={() => {
-                this.toggleNotification('User successfully created')
-              }}
-              onError={() => {
-                this.toggleNotification('Error creating User.')
-              }}
-            >
-              {createUser =>
-                <Save text="Save" onClick={(e) => {
-                  e.preventDefault();
-                  createUser({
-                    variables: {
-                      clientId: user.clientId,
-                      username,
-                      isEnabled,
-                      nameFirst,
-                      nameLast,
-                      phone,
-                      address,
-                      roleId: role.value,
-                      pwd,
-                      confirmPwd
-                    }
-                  })
-                }} />
-              }
-            </Mutation>
-            <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
-              <div style={{ textAlign: 'center' }}>
-                {message}
-              </div>
-              <Save text="Close" onClick={() => onClose()} />
-            </Modal>
-          </>
-        )}
-      </UserContext.Consumer>
+            />
+          )}
+        </Mutation>
+        <Modal open={notifyUser} handleClose={() => this.toggleNotification()}>
+          <div style={{ textAlign: 'center' }}>{message}</div>
+          <Save text="Close" onClick={() => onClose()} />
+        </Modal>
+      </>
     );
   }
 }
 
-export default CreateUser;
+export default withUserContext(CreateUser);

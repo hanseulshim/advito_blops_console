@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { SectionTitle, Value } from 'components/common/Typography';
 import { Query } from 'react-apollo';
 import Button from 'components/common/Button';
-import { RISK_AREA_FEED_EXECUTIVE } from 'components/graphql/query/executive/dashboard';
+import { RISK_AREA_FEED_EXECUTIVE } from 'components/graphql/query';
 import Loader from 'components/common/Loader';
 import {
   Container,

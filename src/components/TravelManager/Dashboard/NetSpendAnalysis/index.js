@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { NET_SPEND_ANALYSIS_LIST_TRAVEL } from 'components/graphql/query/travelManager/dashboard';
+import { NET_SPEND_ANALYSIS_LIST_TRAVEL } from 'components/graphql/query';
 import Button from 'components/common/Button';
 import Checkbox from 'components/common/Checkbox';
 import { SectionTitle } from 'components/common/Typography';

@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'components/common/Button';
 import Loader from 'components/common/Loader';
 import { Query } from 'react-apollo';
-import { ACTIVE_ALERT_LIST } from 'components/graphql/query/portal';
+import { ACTIVE_ALERT_LIST } from 'components/graphql/query';
 import { SectionTitle } from 'components/common/Typography';
 import {
   Container,

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { MARKET_LIST } from 'components/graphql/query/executive/dashboard';
+import { MARKET_LIST } from 'components/graphql/query';
 import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
 import Select from 'react-select';

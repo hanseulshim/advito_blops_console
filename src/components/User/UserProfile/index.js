@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Shayan from 'assets/shayan.jpeg';
 import Button from 'components/common/Button';
-import { withApollo } from 'react-apollo';
-import UserContext from 'components/context/UserContext';
+import { withApollo, compose } from 'react-apollo';
+import { withUserContext } from 'components/context';
 import Checkbox from 'components/common/Checkbox';
 import Modal from 'components/common/Modal';
 import Loader from 'components/common/Loader';
 import UpdatePassword from './UpdatePassword';
 
-import { USER_PROFILE, UPDATE_USER_PROFILE } from 'components/graphql/query/user';
+import { USER_PROFILE } from 'components/graphql/query';
+import { UPDATE_USER_PROFILE } from 'components/graphql/mutation';
 import {
   FormContainer,
   Form,
@@ -161,91 +162,90 @@ class UserProfile extends Component {
       openPassword,
       errorMessage,
     } = this.state;
-    const { client } = this.props;
+    const {
+      client,
+      context: { user, setUser },
+    } = this.props;
 
     return this.loading ? (
       <Loader />
     ) : (
-      <UserContext.Consumer>
-        {({ user, setUser }) => (
-          <>
-            <FormContainer>
-              <Form>
-                <Avatar>
-                  <img src={Shayan} alt="Avatar" />
-                  <div>
-                    <Button text="Change" />
-                  </div>
-                </Avatar>
-                <FormItem>
-                  <FormLabel>Username/Email</FormLabel>
-                  <FormText value={username} name="username" onChange={this.changeInput} />
-                </FormItem>
-                <FormItem>
-                  <FormLabel>Date/Time Format</FormLabel>
-                  <Dropdown
-                    options={dateTimeOptions}
-                    value={dateFormatDefault}
-                    onChange={e => this.changeInput(e, 'dateFormatDefault')}
-                  />
-                </FormItem>
-              </Form>
-              <Form>
-                <FormItem>
-                  <FormLabel>First Name</FormLabel>
-                  <FormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
-                </FormItem>
-                <FormItem>
-                  <FormLabel>Last Name</FormLabel>
-                  <FormText value={nameLast} name="nameLast" onChange={this.changeInput} />
-                </FormItem>
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <div style={{ width: '100%', display: 'flex', alignItems: 'flex-end' }}>
-                    <Password disabled type="password" value="**************" />
-                    <ChangePassword
-                      text="Change"
-                      onClick={() => this.toggleModal('openPassword')}
-                    />
-                  </div>
-                </FormItem>
-                <FormItem>
-                  <FormLabel>Time Zone</FormLabel>
-                  <Dropdown
-                    options={timeZones}
-                    value={timezoneDefault}
-                    onChange={e => this.changeInput(e, 'timezoneDefault')}
-                  />
-                </FormItem>
-              </Form>
-            </FormContainer>
-            <Checkbox style={{ display: 'block' }} onChange={this.toggleEmail}>
-              Receive email notifications
-              <Settings text="Settings" />
-            </Checkbox>
-            <Save text="Save" onClick={() => this.saveUser(setUser, user)} />
-            <Modal open={openSave} handleClose={() => this.toggleModal('openSave')}>
-              <div style={{ textAlign: 'center' }}>
-                {errorMessage ? `Error: ${errorMessage}` : 'User information successfully updated'}
+      <>
+        <FormContainer>
+          <Form>
+            <Avatar>
+              <img src={Shayan} alt="Avatar" />
+              <div>
+                <Button text="Change" />
               </div>
-              <Save text="Close" onClick={() => this.toggleModal('openSave')} />
-            </Modal>
-            <Modal
-              open={openPassword}
-              handleClose={() => this.toggleModal('openPassword')}
-              size="medium"
-            >
-              <UpdatePassword
-                user={user}
-                client={client}
-                handleClose={() => this.toggleModal('openPassword')}
+            </Avatar>
+            <FormItem>
+              <FormLabel>Username/Email</FormLabel>
+              <FormText value={username} name="username" onChange={this.changeInput} />
+            </FormItem>
+            <FormItem>
+              <FormLabel>Date/Time Format</FormLabel>
+              <Dropdown
+                options={dateTimeOptions}
+                value={dateFormatDefault}
+                onChange={e => this.changeInput(e, 'dateFormatDefault')}
               />
-            </Modal>
-          </>
-        )}
-      </UserContext.Consumer>
+            </FormItem>
+          </Form>
+          <Form>
+            <FormItem>
+              <FormLabel>First Name</FormLabel>
+              <FormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
+            </FormItem>
+            <FormItem>
+              <FormLabel>Last Name</FormLabel>
+              <FormText value={nameLast} name="nameLast" onChange={this.changeInput} />
+            </FormItem>
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <div style={{ width: '100%', display: 'flex', alignItems: 'flex-end' }}>
+                <Password disabled type="password" value="**************" />
+                <ChangePassword text="Change" onClick={() => this.toggleModal('openPassword')} />
+              </div>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Time Zone</FormLabel>
+              <Dropdown
+                options={timeZones}
+                value={timezoneDefault}
+                onChange={e => this.changeInput(e, 'timezoneDefault')}
+              />
+            </FormItem>
+          </Form>
+        </FormContainer>
+        <Checkbox style={{ display: 'block' }} onChange={this.toggleEmail}>
+          Receive email notifications
+          <Settings text="Settings" />
+        </Checkbox>
+        <Save text="Save" onClick={() => this.saveUser(setUser, user)} />
+        <Modal open={openSave} handleClose={() => this.toggleModal('openSave')}>
+          <div style={{ textAlign: 'center' }}>
+            {errorMessage ? `Error: ${errorMessage}` : 'User information successfully updated'}
+          </div>
+          <Save text="Close" onClick={() => this.toggleModal('openSave')} />
+        </Modal>
+        <Modal
+          open={openPassword}
+          handleClose={() => this.toggleModal('openPassword')}
+          size="medium"
+        >
+          <UpdatePassword
+            user={user}
+            client={client}
+            handleClose={() => this.toggleModal('openPassword')}
+          />
+        </Modal>
+      </>
     );
   }
 }
 
-export default withApollo(UserProfile);
+export default compose(
+  withApollo,
+  withUserContext
+)(UserProfile);

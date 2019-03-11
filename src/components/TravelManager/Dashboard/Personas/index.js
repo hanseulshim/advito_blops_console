@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { PERSONA_LIST } from 'components/graphql/query/travelManager/dashboard';
+import { PERSONA_LIST } from 'components/graphql/query';
 import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
 import Loader from 'components/common/Loader';
