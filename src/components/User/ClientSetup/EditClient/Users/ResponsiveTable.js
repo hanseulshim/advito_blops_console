@@ -6,6 +6,8 @@ export const CustomTableHeader = withStyles(() => ({
     backgroundColor: '#dee1df',
     color: '#000000',
     fontSize: '1em',
+    paddingLeft: '.5em',
+    paddingRight: '2em',
   },
 }))(TableCell);
 
@@ -16,6 +18,8 @@ export const CustomTableCell = withStyles(() => ({
     fontWeight: 300,
     fontSize: '1em',
     lineHeight: '20px',
+    paddingLeft: '.5em',
+    paddingRight: '2em',
   },
 }))(TableCell);
 

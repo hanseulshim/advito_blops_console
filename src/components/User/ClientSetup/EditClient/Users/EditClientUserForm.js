@@ -14,8 +14,8 @@ import {
   ModalFormLabel,
   ModalFormText,
   Save,
-} from '../../../../Styles/ModalFormStyles';
-import '../../../../Styles/toggle.css';
+} from '../../../Styles/ModalFormStyles';
+import '../../../Styles/toggle.css';
 
 import { EDIT_USER } from 'components/graphql/mutation';
 

@@ -21,8 +21,8 @@ import {
   ModalText,
   ModalSubText,
   Save,
-} from '../../../../Styles/ModalFormStyles';
-import '../../../../Styles/toggle.css';
+} from '../../../Styles/ModalFormStyles';
+import '../../../Styles/toggle.css';
 
 const roles = [
   { label: 'Hotel System', value: 1 },

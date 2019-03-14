@@ -1,8 +1,7 @@
 import React from 'react';
-import ClientUsers from './ClientUsers';
-import ClientMembers from './ClientMembers';
 
 import styled from 'styled-components';
+import ClientList from './ClientList';
 
 const UserContainer = styled.div`
   display: flex;
@@ -12,10 +11,52 @@ const UserContainer = styled.div`
 const Users = () => {
   return (
     <UserContainer>
-      <ClientUsers />
-      <ClientUsers />
+      <ClientList rows={clientUserRows} type="User" title="Client Users" />
+      <ClientList rows={clientMemberRows} type="Member" title="Client Members" />
     </UserContainer>
   );
 };
 
 export default Users;
+
+const clientUserRows = [
+  {
+    title: 'User Name',
+    data: ['nameLast', 'nameFirst'],
+  },
+  {
+    title: 'Email',
+    data: 'username',
+  },
+  {
+    title: 'Role',
+    data: 'role',
+  },
+  {
+    title: 'Division',
+    data: 'division',
+  },
+  {
+    title: 'Persona',
+    data: 'persona',
+  },
+];
+
+const clientMemberRows = [
+  {
+    title: 'Member Name',
+    data: ['nameLast', 'nameFirst'],
+  },
+  {
+    title: 'Division',
+    data: 'division',
+  },
+  {
+    title: 'Persona',
+    data: 'persona',
+  },
+  {
+    title: 'Location',
+    data: 'location',
+  },
+];

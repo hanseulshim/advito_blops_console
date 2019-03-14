@@ -23,7 +23,7 @@ class EditClientUser extends React.Component {
       <>
         <Icon
           className="fas fa-pencil-alt"
-          style={{ fontSize: '1em', cursor: 'pointer' }}
+          style={{ fontSize: '1em', cursor: 'pointer', marginLeft: '1em' }}
           onClick={this.toggleForm}
         />
         <Modal open={formOpen} handleClose={this.toggleForm} size="tall">
