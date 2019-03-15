@@ -6,7 +6,8 @@ import ClientTable from './ClientTable';
 import Checkbox from 'components/common/Checkbox';
 import Button from 'components/common/Button';
 import Modal from 'components/common/Modal';
-import AddClientUser from './AddUser';
+import AddClientUserForm from './AddUser/AddClientUserForm';
+import AddClientMemberForm from './AddUser/AddClientMemberForm';
 import { SectionTitle } from 'components/common/Typography';
 
 const ControlRow = styled.div`
@@ -78,7 +79,11 @@ class ClientList extends Component {
         </ControlRow>
         <ClientTable showInactive={showInactive} search={search} rows={rows} />
         <Modal open={addClientUserOpen} handleClose={this.toggleForm} size="tall">
-          <AddClientUser onClose={this.toggleForm} />
+          {type === 'user' ? (
+            <AddClientUserForm onClose={this.toggleForm} />
+          ) : (
+            <AddClientMemberForm onClose={this.toggleForm} />
+          )}
         </Modal>
       </div>
     );

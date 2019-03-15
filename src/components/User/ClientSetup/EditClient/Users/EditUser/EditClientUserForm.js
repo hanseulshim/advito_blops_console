@@ -3,14 +3,9 @@ import Toggle from 'react-toggle';
 import Select from 'react-select';
 import { SectionTitle } from 'components/common/Typography';
 import Modal from 'components/common/Modal';
-
-//Query
-import { USER_LIST } from 'components/graphql/query';
-import { withUserContext } from 'components/context';
-//Mutation
 import { Mutation } from 'react-apollo';
-import { CREATE_USER } from 'components/graphql/mutation';
 
+//Form Styles
 import {
   TitleRow,
   Close,
@@ -18,11 +13,11 @@ import {
   ModalFormItem,
   ModalFormLabel,
   ModalFormText,
-  ModalText,
-  ModalSubText,
   Save,
-} from '../../../Styles/ModalFormStyles';
-import '../../../Styles/toggle.css';
+} from '../../../../Styles/ModalFormStyles';
+import '../../../../Styles/toggle.css';
+
+import { EDIT_USER } from 'components/graphql/mutation';
 
 const roles = [
   { label: 'Hotel System', value: 1 },
@@ -33,22 +28,38 @@ const roles = [
   { label: 'Reports', value: 6 },
 ];
 
-class AddClientUser extends Component {
+class EditClientUserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      isEnabled: true,
+      isEnabled: false,
       nameFirst: '',
       nameLast: '',
       phone: '',
       address: '',
       role: '',
-      pwd: '',
-      confirmPwd: '',
-      message: '',
       notifyUser: false,
+      message: '',
     };
+  }
+
+  componentDidMount() {
+    const { user } = this.props;
+    const state = {};
+    Object.keys(user).forEach(key => {
+      if (user[key]) {
+        if (key === 'roleId') {
+          const value = roles.filter(v => v.value === user[key])[0];
+          state['role'] = value;
+        } else {
+          state[key] = user[key];
+        }
+      }
+    });
+    this.setState({
+      ...state,
+    });
   }
 
   changeInput = (e, name) => {
@@ -69,9 +80,9 @@ class AddClientUser extends Component {
   };
 
   handleToggle = () => {
-    this.setState(prevState => ({
-      isEnabled: !prevState.active,
-    }));
+    this.setState({
+      isEnabled: !this.state.isEnabled,
+    });
   };
 
   render() {
@@ -83,19 +94,16 @@ class AddClientUser extends Component {
       phone,
       address,
       role,
-      pwd,
-      confirmPwd,
+      id,
       message,
       notifyUser,
     } = this.state;
-    const {
-      onClose,
-      context: { user },
-    } = this.props;
+    const { onClose } = this.props;
+
     return (
       <>
         <TitleRow>
-          <SectionTitle>Create User</SectionTitle>
+          <SectionTitle>Edit User</SectionTitle>
           <Close className="fas fa-times" onClick={onClose} />
         </TitleRow>
         <ModalForm>
@@ -105,9 +113,7 @@ class AddClientUser extends Component {
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Account Active</ModalFormLabel>
-            <ModalFormLabel>
-              <Toggle defaultChecked={isEnabled} icons={false} onChange={this.handleToggle} />
-            </ModalFormLabel>
+            <Toggle checked={isEnabled} icons={false} onChange={this.handleToggle} />
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>First Name *</ModalFormLabel>
@@ -129,61 +135,25 @@ class AddClientUser extends Component {
             <ModalFormLabel>Role*</ModalFormLabel>
             <Select options={roles} value={role} onChange={e => this.changeInput(e, 'role')} />
           </ModalFormItem>
-          <ModalFormItem>
-            <ModalFormLabel>Password *</ModalFormLabel>
-            <ModalFormText value={pwd} type="password" name="pwd" onChange={this.changeInput} />
-          </ModalFormItem>
-          <ModalFormItem>
-            <ModalFormLabel>Confirm Password *</ModalFormLabel>
-            <ModalFormText
-              value={confirmPwd}
-              type="password"
-              name="confirmPwd"
-              onChange={this.changeInput}
-            />
-          </ModalFormItem>
         </ModalForm>
-        <ModalText>
-          {`Passwords must be a minimum of eight (8) characters
-          and includes (3) of the following (4) criteria:
-          `}
-        </ModalText>
-        <ModalSubText>
-          {`- Lowercase character
-          - Upper case character
-          - Number
-          - Special characters (e.g.!, $, #, %)
-          `}
-        </ModalSubText>
         <Mutation
-          mutation={CREATE_USER}
-          update={(cache, { data: { createUser } }) => {
-            const { userList } = cache.readQuery({ query: USER_LIST });
-            const newUser = { ...this.state };
-            delete newUser.message;
-            delete newUser.notifyUser;
-            newUser.role = newUser.role.value;
-            userList.push(newUser);
-            cache.writeQuery({
-              query: USER_LIST,
-              data: userList,
-            });
-          }}
+          mutation={EDIT_USER}
+          key={id}
           onCompleted={() => {
-            this.toggleNotification('User successfully created');
+            this.toggleNotification('User successfully modified');
           }}
           onError={() => {
-            this.toggleNotification('Error creating User.');
+            this.toggleNotification('Error modifiying User.');
           }}
         >
-          {createUser => (
+          {editUser => (
             <Save
               text="Save"
               onClick={e => {
                 e.preventDefault();
-                createUser({
+                editUser({
                   variables: {
-                    clientId: user.clientId,
+                    id,
                     username,
                     isEnabled,
                     nameFirst,
@@ -191,8 +161,6 @@ class AddClientUser extends Component {
                     phone,
                     address,
                     roleId: role.value,
-                    pwd,
-                    confirmPwd,
                   },
                 });
               }}
@@ -208,4 +176,4 @@ class AddClientUser extends Component {
   }
 }
 
-export default withUserContext(AddClientUser);
+export default EditClientUserForm;

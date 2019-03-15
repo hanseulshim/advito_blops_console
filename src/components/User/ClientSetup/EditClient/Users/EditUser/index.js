@@ -2,8 +2,9 @@ import React from 'react';
 import Modal from 'components/common/Modal';
 import Icon from 'components/common/Icon';
 import EditClientUserForm from './EditClientUserForm';
+import EditClientMemberForm from './EditClientMemberForm';
 
-class EditClientUser extends React.Component {
+class EditUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +18,7 @@ class EditClientUser extends React.Component {
     });
   };
   render() {
-    const { user } = this.props;
+    const { user, type } = this.props;
     const { formOpen } = this.state;
     return (
       <>
@@ -27,11 +28,15 @@ class EditClientUser extends React.Component {
           onClick={this.toggleForm}
         />
         <Modal open={formOpen} handleClose={this.toggleForm} size="tall">
-          <EditClientUserForm user={user} onClose={this.toggleForm} />
+          {type === 'User' ? (
+            <EditClientUserForm user={user} onClose={this.toggleForm} />
+          ) : (
+            <EditClientMemberForm user={user} onClose={this.toggleForm} />
+          )}
         </Modal>
       </>
     );
   }
 }
 
-export default EditClientUser;
+export default EditUser;
