@@ -72,7 +72,7 @@ class ClientList extends Component {
             value={search}
           />
           <Button
-            text={`New ${type}`}
+            text={`+ New ${type}`}
             onClick={this.toggleForm}
             style={{ whiteSpace: 'nowrap', width: '9em' }}
           />
