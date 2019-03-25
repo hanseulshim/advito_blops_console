@@ -17,22 +17,26 @@ const Container = styled.div`
 
 const Logo = styled.img`
   margin: 2em 0 0 3em;
-  width: 15%;
+  width: 10%;
   align-self: flex-start;
 `;
 
 const Title = styled.div`
-  font-size: 3em;
+  font-size: 4em;
   text-align: center;
   margin-top: 2.5em;
-  color: ${props => props.theme.alabaster};
+  color: ${props => props.theme.white};
   font-weight: 100;
+
+  line-height: 1.25em;
 `;
 
 const Login = () => (
   <Container>
     <Logo src={advito_logo} alt="advito logo" />
-    <Title>Welcome to the Advito Console</Title>
+    <Title>
+      Welcome to the <br /> Advito Console
+    </Title>
     <LoginForm />
     <Footer />
   </Container>

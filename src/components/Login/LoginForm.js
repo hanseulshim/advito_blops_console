@@ -5,6 +5,7 @@ import { LOGIN } from 'components/graphql/query';
 import styled from 'styled-components';
 import Modal from 'components/common/Modal';
 import ForgotPassword from './ForgotPassword';
+import LoginFail from './LoginFail';
 import { compose } from 'react-apollo';
 import { withUserContext } from 'components/context';
 
@@ -57,7 +58,6 @@ class LoginForm extends Component {
     pwd: '',
     forgotPassword: false,
     loginFail: false,
-    errorMessage: '',
   };
   updateUsername = event => {
     this.setState({ username: event.target.value });
@@ -72,7 +72,7 @@ class LoginForm extends Component {
     });
   };
   render() {
-    const { username, pwd, forgotPassword } = this.state;
+    const { username, pwd, forgotPassword, loginFail } = this.state;
     const {
       context: { authenticated, setUser },
     } = this.props;
@@ -91,7 +91,7 @@ class LoginForm extends Component {
                 });
                 setUser(login);
               } catch (error) {
-                console.log(error);
+                this.setState({ loginFail: true });
               }
             }}
           >
@@ -111,11 +111,14 @@ class LoginForm extends Component {
             />
             <SubmitContainer>
               <Submit type="submit" value="Login" />
-              <Forgot onClick={this.toggleModal}>Forgot Password?</Forgot>
+              <Forgot onClick={() => this.toggleModal('forgotPassword')}>Forgot Password?</Forgot>
             </SubmitContainer>
           </Form>
-          <Modal open={forgotPassword} handleClose={() => this.toggleModal}>
-            <ForgotPassword handleClose={this.toggleModal} />
+          <Modal open={forgotPassword}>
+            <ForgotPassword handleClose={() => this.toggleModal('forgotPassword')} />
+          </Modal>
+          <Modal open={loginFail}>
+            <LoginFail handleClose={() => this.toggleModal('loginFail')} />
           </Modal>
         </FormContainer>
       </div>
