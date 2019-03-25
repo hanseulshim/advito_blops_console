@@ -15,7 +15,48 @@ import { UPDATE_SELECTED_CLIENT } from 'graphql/mutations';
 class ClientTable extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      order: 'asc',
+      orderBy: 'clientName',
+    };
+  }
+
+  componentWillMount() {
+    const { clients } = this.props;
+    this.setState({ clients });
+  }
+
+  handleSort = property => {
+    const orderBy = property;
+    let order = 'desc';
+
+    if (this.state.orderBy === property && this.state.order === 'desc') {
+      order = 'asc';
+    }
+
+    this.setState({
+      order,
+      orderBy,
+    });
+  };
+
+  sortTable(key) {
+    const { clients } = this.state;
+    let sorted = [...clients];
+
+    sorted = sorted.sort((a, b) => {
+      if (a[key] < b[key]) {
+        return -1;
+      }
+      if (a[key] > b[key]) {
+        return 1;
+      }
+      return 0;
+    });
+
+    this.setState({
+      clients: sorted,
+    });
   }
 
   updateSelectedClient = async client => {
@@ -29,15 +70,20 @@ class ClientTable extends Component {
   };
 
   render() {
-    const { clients, showInactive } = this.props;
+    const { showInactive } = this.props;
+    const { clients } = this.state;
     return (
       <Table>
         <TableHead>
           <TableRow>
             <CustomTableHeader>GCN</CustomTableHeader>
-            <CustomTableHeader>Client Name</CustomTableHeader>
-            <CustomTableHeader>Industry</CustomTableHeader>
-            <CustomTableHeader>Edit</CustomTableHeader>
+            <CustomTableHeader>
+              Client Name <i className="fas fa-sort" onClick={() => this.sortTable('clientName')} />
+            </CustomTableHeader>
+            <CustomTableHeader>
+              Industry <i className="fas fa-sort" onClick={() => this.sortTable('industry')} />
+            </CustomTableHeader>
+            <CustomTableHeader align="center">Edit</CustomTableHeader>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -48,7 +94,7 @@ class ClientTable extends Component {
               </CustomTableCell>
               <CustomTableCell align="left">{client.clientName}</CustomTableCell>
               <CustomTableCell align="left">{client.industry}</CustomTableCell>
-              <CustomTableCell align="left">
+              <CustomTableCell align="center">
                 <Icon
                   className="fas fa-pencil-alt"
                   style={{ fontSize: '1em', cursor: 'pointer' }}
