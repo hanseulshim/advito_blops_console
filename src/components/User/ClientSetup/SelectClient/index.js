@@ -46,6 +46,7 @@ class SelectClient extends Component {
 
   render() {
     const { addClientOpen, showInactive } = this.state;
+
     return (
       <Query query={GET_CLIENTS}>
         {({ data: { clientList }, loading }) =>

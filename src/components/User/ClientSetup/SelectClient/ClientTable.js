@@ -3,6 +3,7 @@ import { withApollo } from 'react-apollo';
 import Icon from 'components/common/Icon';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'react-apollo';
+import { withSort } from '../../WithSort';
 
 //ReactTable imports...
 import Table from '@material-ui/core/Table';
@@ -15,50 +16,12 @@ import { UPDATE_SELECTED_CLIENT } from 'graphql/mutations';
 class ClientTable extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      ascending: true,
-      orderBy: 'clientName',
-    };
+    this.state = {};
   }
 
   componentWillMount() {
     const { clients } = this.props;
     this.setState({ clients });
-  }
-
-  sortTable(key) {
-    const { clients, ascending } = this.state;
-    let sorted = [...clients];
-
-    this.setState({
-      ascending: !this.state.ascending,
-    });
-
-    if (ascending) {
-      sorted = sorted.sort((a, b) => {
-        if (a[key] < b[key]) {
-          return -1;
-        }
-        if (a[key] > b[key]) {
-          return 1;
-        }
-        return 0;
-      });
-    } else {
-      sorted = sorted.sort((a, b) => {
-        if (a[key] < b[key]) {
-          return 1;
-        }
-        if (a[key] > b[key]) {
-          return -1;
-        }
-        return 0;
-      });
-    }
-
-    this.setState({
-      clients: sorted,
-    });
   }
 
   updateSelectedClient = async client => {
@@ -71,6 +34,15 @@ class ClientTable extends Component {
     this.props.history.push('/client-setup/general');
   };
 
+  sortTable(key) {
+    const { clients } = this.state;
+    const sorted = this.props.sort(clients, key);
+
+    this.setState({
+      clients: sorted,
+    });
+  }
+
   render() {
     const { showInactive } = this.props;
     const { clients } = this.state;
@@ -80,10 +52,20 @@ class ClientTable extends Component {
           <TableRow>
             <CustomTableHeader>GCN</CustomTableHeader>
             <CustomTableHeader>
-              Client Name <i className="fas fa-sort" onClick={() => this.sortTable('clientName')} />
+              Client Name{' '}
+              <i
+                className="fas fa-sort"
+                style={{ cursor: 'pointer' }}
+                onClick={() => this.sortTable('clientName')}
+              />
             </CustomTableHeader>
             <CustomTableHeader>
-              Industry <i className="fas fa-sort" onClick={() => this.sortTable('industry')} />
+              Industry{' '}
+              <i
+                className="fas fa-sort"
+                style={{ cursor: 'pointer' }}
+                onClick={() => this.sortTable('industry')}
+              />
             </CustomTableHeader>
             <CustomTableHeader align="center">Edit</CustomTableHeader>
           </TableRow>
@@ -113,5 +95,6 @@ class ClientTable extends Component {
 
 export default compose(
   withRouter,
-  withApollo
+  withApollo,
+  withSort
 )(ClientTable);

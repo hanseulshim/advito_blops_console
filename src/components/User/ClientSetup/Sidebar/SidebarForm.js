@@ -93,7 +93,7 @@ class SidebarForm extends Component {
             disabled={this.state.locked}
           />
         </FormItem>
-        {!this.state.locked && <Button text="Save" />}
+        <Button text="Save" style={{ visibility: !this.state.locked ? '' : 'hidden' }} />
       </FormContainer>
     );
   }
