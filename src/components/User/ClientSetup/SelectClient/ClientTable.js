@@ -16,7 +16,7 @@ class ClientTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      order: 'asc',
+      ascending: true,
       orderBy: 'clientName',
     };
   }
@@ -26,33 +26,35 @@ class ClientTable extends Component {
     this.setState({ clients });
   }
 
-  handleSort = property => {
-    const orderBy = property;
-    let order = 'desc';
-
-    if (this.state.orderBy === property && this.state.order === 'desc') {
-      order = 'asc';
-    }
-
-    this.setState({
-      order,
-      orderBy,
-    });
-  };
-
   sortTable(key) {
-    const { clients } = this.state;
+    const { clients, ascending } = this.state;
     let sorted = [...clients];
 
-    sorted = sorted.sort((a, b) => {
-      if (a[key] < b[key]) {
-        return -1;
-      }
-      if (a[key] > b[key]) {
-        return 1;
-      }
-      return 0;
+    this.setState({
+      ascending: !this.state.ascending,
     });
+
+    if (ascending) {
+      sorted = sorted.sort((a, b) => {
+        if (a[key] < b[key]) {
+          return -1;
+        }
+        if (a[key] > b[key]) {
+          return 1;
+        }
+        return 0;
+      });
+    } else {
+      sorted = sorted.sort((a, b) => {
+        if (a[key] < b[key]) {
+          return 1;
+        }
+        if (a[key] > b[key]) {
+          return -1;
+        }
+        return 0;
+      });
+    }
 
     this.setState({
       clients: sorted,
