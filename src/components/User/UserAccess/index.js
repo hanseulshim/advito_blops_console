@@ -6,6 +6,10 @@ import UserTable from './UserTable';
 import CreateUser from './CreateUser';
 import Modal from 'components/common/Modal';
 
+import { Query } from 'react-apollo';
+import { USER_LIST } from 'components/graphql/query';
+import Loader from 'components/common/Loader';
+
 //mock data for table
 
 const Container = styled.div`
@@ -47,16 +51,24 @@ class UserAccess extends Component {
   render() {
     const { modalOpen, showInactive } = this.state;
     return (
-      <Container>
-        <ControlRow>
-          <Checkbox checked={showInactive} onChange={this.toggleInactiveUsers}>Show Inactive</Checkbox>
-          <Button text="+ New User" onClick={this.toggleModal} />
-        </ControlRow>
-        <UserTable showInactive={showInactive} />
-        <Modal open={modalOpen} onClose={this.toggleModal} size="tall">
-          <CreateUser open={modalOpen} onClose={this.toggleModal} />
-        </Modal>
-      </Container>
+      <Query query={USER_LIST}>
+        {({ data: { userList }, loading }) =>
+          loading ? (
+            <Loader />
+          ) : (
+              <Container>
+                <ControlRow>
+                  <Checkbox checked={showInactive} onChange={this.toggleInactiveUsers}>Show Inactive</Checkbox>
+                  <Button text="+ New User" onClick={this.toggleModal} />
+                </ControlRow>
+                <UserTable showInactive={showInactive} users={userList} />
+                <Modal open={modalOpen} onClose={this.toggleModal} size="tall">
+                  <CreateUser open={modalOpen} onClose={this.toggleModal} />
+                </Modal>
+              </Container>
+            )
+        }
+      </Query>
     );
   }
 }
