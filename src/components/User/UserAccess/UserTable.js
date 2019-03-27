@@ -30,35 +30,35 @@ const UserTable = ({ showInactive }) => {
         loading ? (
           <Loader />
         ) : (
-          <Table>
-            <TableHead>
-              <TableRow>
-                <CustomTableHeader>UserName</CustomTableHeader>
-                <CustomTableHeader>Email</CustomTableHeader>
-                <CustomTableHeader>UserType</CustomTableHeader>
-                <CustomTableHeader>Edit</CustomTableHeader>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {(showInactive ? userList : userList.filter(user => user.isEnabled)).map(
-                (user, i) => (
-                  <TableRow key={'user' + i}>
-                    <CustomTableCell component="th" scope="row">
-                      {`${user.nameFirst} ${user.nameLast}`}
-                    </CustomTableCell>
-                    <CustomTableCell align="left">{user.username}</CustomTableCell>
-                    <CustomTableCell align="left">
-                      {roles.filter(v => v.value === user.roleId)[0].label}
-                    </CustomTableCell>
-                    <CustomTableCell align="left">
-                      <EditUser user={user} />
-                    </CustomTableCell>
-                  </TableRow>
-                )
-              )}
-            </TableBody>
-          </Table>
-        )
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <CustomTableHeader>UserName</CustomTableHeader>
+                  <CustomTableHeader>Email</CustomTableHeader>
+                  <CustomTableHeader>UserType</CustomTableHeader>
+                  <CustomTableHeader>Edit</CustomTableHeader>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {(showInactive ? userList : userList.filter(user => user.isEnabled)).map(
+                  (user, i) => (
+                    <TableRow key={'user' + i}>
+                      <CustomTableCell component="th" scope="row">
+                        {`${user.nameFirst} ${user.nameLast}`}
+                      </CustomTableCell>
+                      <CustomTableCell align="left">{user.username}</CustomTableCell>
+                      <CustomTableCell align="left">
+                        {user.role}
+                      </CustomTableCell>
+                      <CustomTableCell align="left">
+                        <EditUser user={user} />
+                      </CustomTableCell>
+                    </TableRow>
+                  )
+                )}
+              </TableBody>
+            </Table>
+          )
       }
     </Query>
   );
