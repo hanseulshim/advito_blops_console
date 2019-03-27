@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 //project imports
 import { CustomTableHeader, CustomTableCell, styles } from './ResponsiveTable';
+import { withSort } from '../../../WithSort';
 
 //ReactTable imports...
 import Table from '@material-ui/core/Table';
@@ -16,8 +17,25 @@ class ClientUsers extends Component {
     this.state = {};
   }
 
+  componentWillMount() {
+    const { users } = this.props;
+    this.setState({
+      users
+    })
+  }
+
+  sortTable(key) {
+    const { users } = this.state;
+    const sorted = this.props.sort(users, key);
+
+    this.setState({
+      users: sorted,
+    });
+  }
+
   filterUsers = () => {
-    const { search, showInactive, users } = this.props;
+    const { search, showInactive } = this.props;
+    const { users } = this.state;
 
     let userCopy = [...users];
     userCopy = showInactive ? [...userCopy] : (userCopy = userCopy.filter(user => user.isEnabled));
@@ -35,7 +53,7 @@ class ClientUsers extends Component {
   };
 
   render() {
-    const { users } = this.props;
+    const { users } = this.state;
     return (
       <div style={{ maxHeight: '400px', overflow: 'auto' }}>
         <Table style={{ tableLayout: 'auto' }}>
@@ -68,7 +86,13 @@ class ClientUsers extends Component {
               this.filterUsers().map((user, i) => (
                 <TableRow key={'user' + i} style={user.isEnabled ? null : styles.inactive}>
                   <CustomTableCell component="th" scope="row">
-                    {user.last} + {', '} + {user.first}
+                    {user.nameLast}, {user.nameFirst}
+                  </CustomTableCell>
+                  <CustomTableCell component="th" scope="row">
+                    {user.username}
+                  </CustomTableCell>
+                  <CustomTableCell component="th" scope="row">
+                    {user.role}
                   </CustomTableCell>
                   <CustomTableCell component="th" scope="row">
                     <EditClientUser user={user} />
@@ -76,8 +100,8 @@ class ClientUsers extends Component {
                 </TableRow>
               ))
             ) : (
-              <p>No Client Users</p>
-            )}
+                <p>No Client Users</p>
+              )}
           </TableBody>
         </Table>
       </div>
@@ -85,4 +109,4 @@ class ClientUsers extends Component {
   }
 }
 
-export default ClientUsers;
+export default withSort(ClientUsers);
