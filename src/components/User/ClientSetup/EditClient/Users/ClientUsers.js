@@ -42,8 +42,8 @@ class ClientUsers extends Component {
 
     if (search) {
       const filtered = userCopy.filter(user => {
-        let email = user.username.toLowerCase();
-        let username = `${user.nameFirst.toLowerCase()} ${user.nameLast.toLowerCase()}`;
+        const email = user.username.toLowerCase();
+        const username = `${user.nameFirst.toLowerCase()} ${user.nameLast.toLowerCase()}`;
         return email.includes(search.toLowerCase()) || username.includes(search.toLowerCase());
       });
       userCopy = [...filtered];
@@ -93,6 +93,12 @@ class ClientUsers extends Component {
                   </CustomTableCell>
                   <CustomTableCell component="th" scope="row">
                     {user.role}
+                  </CustomTableCell>
+                  <CustomTableCell component="th" scope="row">
+                    {user.division || "undefined"}
+                  </CustomTableCell>
+                  <CustomTableCell component="th" scope="row">
+                    {user.persona || "undefined"}
                   </CustomTableCell>
                   <CustomTableCell component="th" scope="row">
                     <EditClientUser user={user} />
