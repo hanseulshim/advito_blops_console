@@ -12,7 +12,7 @@ const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   flex: 1;
-  height: 25em;
+  height: 20em;
   padding: 1.5em;
   align-items: center;
   position: relative;

@@ -7,7 +7,7 @@ import Button from 'components/common/Button';
 // import Modal from 'components/common/Modal';
 
 import { Query } from 'react-apollo';
-import { USER_LIST } from 'components/graphql/query';
+import { GET_CLIENT_APPLICATIONS } from 'components/graphql/query';
 import Loader from 'components/common/Loader';
 
 //mock data for table
@@ -51,8 +51,8 @@ class Applications extends Component {
   render() {
     const { modalOpen, showInactive } = this.state;
     return (
-      <Query query={USER_LIST}>
-        {({ data: { userList }, loading }) =>
+      <Query query={GET_CLIENT_APPLICATIONS}>
+        {({ data: { applicationList }, loading }) =>
           loading ? (
             <Loader />
           ) : (
@@ -63,6 +63,7 @@ class Applications extends Component {
                 </Checkbox>
                 <Button text="+ New User" onClick={this.toggleModal} />
               </ControlRow>
+              {console.log(applicationList)}
               {/* <UserTable showInactive={showInactive} users={userList} />
                                 <Modal open={modalOpen} onClose={this.toggleModal} size="tall">
                                     <CreateUser open={modalOpen} onClose={this.toggleModal} />
