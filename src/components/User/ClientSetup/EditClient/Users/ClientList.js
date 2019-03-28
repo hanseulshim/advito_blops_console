@@ -69,35 +69,40 @@ class ClientList extends Component {
           loading ? (
             <Loader />
           ) : (
-              <div style={{ flex: 1, marginBottom: '2em' }}>
-                <SectionTitle>{title}</SectionTitle>
-                <ControlRow>
-                  <Checkbox checked={showInactive} onChange={this.toggleInactiveClientUsers}>
-                    Show Inactive
+            <div style={{ flex: 1, marginBottom: '2em' }}>
+              <SectionTitle>{title}</SectionTitle>
+              <ControlRow>
+                <Checkbox checked={showInactive} onChange={this.toggleInactiveClientUsers}>
+                  Show Inactive
                 </Checkbox>
-                  <SearchUsers
-                    placeholder="Search Users"
-                    onChange={e => this.setState({ search: e.target.value })}
-                    value={search}
-                  />
-                  <Button
-                    text={`+ New ${type}`}
-                    onClick={this.toggleForm}
-                    style={{ whiteSpace: 'nowrap', width: '9em' }}
-                  />
-                </ControlRow>
-                {type === 'user' ? (
+                <SearchUsers
+                  placeholder="Search Users"
+                  onChange={e => this.setState({ search: e.target.value })}
+                  value={search}
+                />
+                <Button
+                  text={`+ New ${type}`}
+                  onClick={this.toggleForm}
+                  style={{ whiteSpace: 'nowrap', width: '9em' }}
+                />
+              </ControlRow>
+              {type === 'user' ? (
+                <>
                   <ClientUsers showInactive={showInactive} search={search} users={userList} />
-                ) : <ClientMembers showInactive={showInactive} search={search} users={userList} />}
-                <Modal open={addClientUserOpen} handleClose={this.toggleForm} size="tall">
-                  {type === 'user' ? (
+                  <Modal open={addClientUserOpen} handleClose={this.toggleForm} size="tall">
                     <AddClientUserForm onClose={this.toggleForm} />
-                  ) : (
-                      <AddClientMemberForm onClose={this.toggleForm} />
-                    )}
-                </Modal>
-              </div>
-            )
+                  </Modal>
+                </>
+              ) : (
+                <>
+                  <ClientMembers showInactive={showInactive} search={search} users={userList} />
+                  <Modal open={addClientUserOpen} handleClose={this.toggleForm} size="tall">
+                    <AddClientMemberForm onClose={this.toggleForm} />
+                  </Modal>
+                </>
+              )}
+            </div>
+          )
         }
       </Query>
     );

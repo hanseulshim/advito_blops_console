@@ -51,7 +51,7 @@ const divisions = [
   { label: 'Division 6', value: 6 },
 ];
 
-class AddClientUser extends Component {
+class AddClientMemberForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -119,7 +119,7 @@ class AddClientUser extends Component {
     return (
       <>
         <TitleRow>
-          <SectionTitle>New Client User</SectionTitle>
+          <SectionTitle>New Client Member</SectionTitle>
           <Close className="fas fa-times" onClick={onClose} />
         </TitleRow>
         <ModalForm>
@@ -253,4 +253,4 @@ class AddClientUser extends Component {
   }
 }
 
-export default withUserContext(AddClientUser);
+export default withUserContext(AddClientMemberForm);

@@ -33,6 +33,24 @@ const roles = [
   { label: 'Reports', value: 6 },
 ];
 
+const personas = [
+  { label: 'Persona 1', value: 1 },
+  { label: 'Persona 2', value: 2 },
+  { label: 'Persona 3', value: 3 },
+  { label: 'Persona 4', value: 4 },
+  { label: 'Persona 5', value: 5 },
+  { label: 'Persona 6', value: 6 },
+];
+
+const divisions = [
+  { label: 'Division 1', value: 1 },
+  { label: 'Division 2', value: 2 },
+  { label: 'Division 3', value: 3 },
+  { label: 'Division 4', value: 4 },
+  { label: 'Division 5', value: 5 },
+  { label: 'Division 6', value: 6 },
+];
+
 class AddClientUser extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +61,8 @@ class AddClientUser extends Component {
       nameLast: '',
       phone: '',
       address: '',
+      division: '',
+      persona: '',
       role: '',
       pwd: '',
       confirmPwd: '',
@@ -52,7 +72,9 @@ class AddClientUser extends Component {
   }
 
   changeInput = (e, name) => {
-    if (e.label) {
+    if (Array.isArray(e)) {
+      console.log(e);
+    } else if (e.label) {
       this.setState({ [name]: e });
     } else {
       this.setState({
@@ -82,6 +104,8 @@ class AddClientUser extends Component {
       nameLast,
       phone,
       address,
+      division,
+      persona,
       role,
       pwd,
       confirmPwd,
@@ -95,7 +119,7 @@ class AddClientUser extends Component {
     return (
       <>
         <TitleRow>
-          <SectionTitle>Create User</SectionTitle>
+          <SectionTitle>New Client User</SectionTitle>
           <Close className="fas fa-times" onClick={onClose} />
         </TitleRow>
         <ModalForm>
@@ -126,8 +150,29 @@ class AddClientUser extends Component {
             <ModalFormText value={address} name="address" onChange={this.changeInput} />
           </ModalFormItem>
           <ModalFormItem>
-            <ModalFormLabel>Role*</ModalFormLabel>
-            <Select options={roles} value={role} onChange={e => this.changeInput(e, 'role')} />
+            <ModalFormLabel>Division *</ModalFormLabel>
+            <Select
+              options={divisions}
+              value={division}
+              onChange={e => this.changeInput(e, 'division')}
+            />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Persona *</ModalFormLabel>
+            <Select
+              options={personas}
+              value={persona}
+              onChange={e => this.changeInput(e, 'persona')}
+            />
+          </ModalFormItem>
+          <ModalFormItem>
+            <ModalFormLabel>Role *</ModalFormLabel>
+            <Select
+              options={roles}
+              value={role}
+              onChange={e => this.changeInput(e, 'role')}
+              isMulti
+            />
           </ModalFormItem>
           <ModalFormItem>
             <ModalFormLabel>Password *</ModalFormLabel>
