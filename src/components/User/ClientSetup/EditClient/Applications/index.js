@@ -7,8 +7,10 @@ import Button from 'components/common/Button';
 // import Modal from 'components/common/Modal';
 
 import { Query } from 'react-apollo';
+import { GET_SELECTED_CLIENT } from 'graphql/queries';
 import { GET_CLIENT_APPLICATIONS } from 'components/graphql/query';
 import Loader from 'components/common/Loader';
+import ApplicationsTable from './ApplicationsTable';
 
 //mock data for table
 
@@ -51,24 +53,30 @@ class Applications extends Component {
   render() {
     const { modalOpen, showInactive } = this.state;
     return (
-      <Query query={GET_CLIENT_APPLICATIONS}>
-        {({ data: { applicationList }, loading }) =>
-          loading ? (
-            <Loader />
-          ) : (
-            <Container>
-              <ControlRow>
-                <Checkbox checked={showInactive} onChange={this.toggleInactiveUsers}>
-                  Show Inactive
-                </Checkbox>
-                <Button text="+ New User" onClick={this.toggleModal} />
-              </ControlRow>
-              {console.log(applicationList)}
-              {/* <UserTable showInactive={showInactive} users={userList} />
-                                <Modal open={modalOpen} onClose={this.toggleModal} size="tall">
-                                    <CreateUser open={modalOpen} onClose={this.toggleModal} />
-                                </Modal> */}
-            </Container>
+      <Query query={GET_SELECTED_CLIENT}>
+        {({ data: { selectedClient } }) =>
+          !selectedClient.id ? null : (
+            <Query query={GET_CLIENT_APPLICATIONS} variables={{ clientId: selectedClient.id }}>
+              {({ data: { client }, loading }) =>
+                loading ? (
+                  <Loader />
+                ) : (
+                  <Container>
+                    <ControlRow>
+                      <Checkbox checked={showInactive} onChange={this.toggleInactiveUsers}>
+                        Show Inactive
+                      </Checkbox>
+                      <Button text="+ New Application" onClick={this.toggleModal} />
+                    </ControlRow>
+                    {console.log(client)}
+                    <ApplicationsTable showInactive={showInactive} applications={client} />
+                    {/* <Modal open={modalOpen} onClose={this.toggleModal} size="tall">
+                      <CreateUser open={modalOpen} onClose={this.toggleModal} />
+                    </Modal> */}
+                  </Container>
+                )
+              }
+            </Query>
           )
         }
       </Query>
