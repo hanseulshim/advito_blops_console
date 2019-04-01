@@ -13,7 +13,7 @@ const Checkbox = props => {
   const { children, ...style } = props;
   return (
     <Container {...style}>
-      <input type="checkbox" />
+      <input type="checkbox" name={props.name} />
       {children}
     </Container>
   );

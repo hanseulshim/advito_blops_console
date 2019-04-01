@@ -3,14 +3,16 @@ import styled from 'styled-components';
 import Checkbox from 'components/common/Checkbox';
 import Button from 'components/common/Button';
 // import UserTable from './UserTable';
-// import CreateUser from './CreateUser';
-// import Modal from 'components/common/Modal';
+
+import Modal from 'components/common/Modal';
 
 import { Query } from 'react-apollo';
 import { GET_SELECTED_CLIENT } from 'graphql/queries';
 import { GET_CLIENT_APPLICATIONS } from 'components/graphql/query';
+import { GET_ALL_APPLICATIONS } from 'components/graphql/query';
 import Loader from 'components/common/Loader';
 import ApplicationsTable from './ApplicationsTable';
+import CreateApplication from './CreateApplication';
 
 //mock data for table
 
@@ -27,7 +29,7 @@ const ControlRow = styled.div`
   flex: 1;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5%;
+  margin-bottom: 2.5%;
 `;
 
 class Applications extends Component {
@@ -68,11 +70,22 @@ class Applications extends Component {
                       </Checkbox>
                       <Button text="+ New Application" onClick={this.toggleModal} />
                     </ControlRow>
-                    {console.log(client)}
                     <ApplicationsTable showInactive={showInactive} applications={client} />
-                    {/* <Modal open={modalOpen} onClose={this.toggleModal} size="tall">
-                      <CreateUser open={modalOpen} onClose={this.toggleModal} />
-                    </Modal> */}
+                    <Modal open={modalOpen} onClose={this.toggleModal} size="tall">
+                      <Query query={GET_ALL_APPLICATIONS}>
+                        {({ data: { noClient }, loading }) =>
+                          loading ? (
+                            <Loader />
+                          ) : (
+                            <CreateApplication
+                              open={modalOpen}
+                              onClose={this.toggleModal}
+                              applications={noClient}
+                            />
+                          )
+                        }
+                      </Query>
+                    </Modal>
                   </Container>
                 )
               }
