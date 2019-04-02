@@ -11,7 +11,7 @@ const ButtonStyled = styled.button`
   color: ${props => props.theme.treePoppy};
   border-radius: 10px;
   padding: 0.5em 0.8em;
-  width: 8em;
+  min-width: 8em;
   cursor: pointer;
   margin-left: ${props => (props.spaceLeft ? '0.5em' : '')};
   margin-top: ${props => (props.spaceTop ? '0.5em' : '')};

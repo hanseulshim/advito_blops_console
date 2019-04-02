@@ -31,6 +31,7 @@ const Tag = styled.div`
   display: flex;
   flex: ${props => (props.hotel ? '0 33%' : '0 50%')};
   margin-bottom: 0.5em;
+  align-items: center;
 `;
 
 const ColorBadge = styled.div`

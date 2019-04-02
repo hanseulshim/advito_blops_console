@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withSort } from '../../../WithSort';
 
 //ReactTable imports...
 import Table from '@material-ui/core/Table';
@@ -14,14 +15,36 @@ class DivisionTable extends Component {
     this.state = {};
   }
 
+  componentWillMount() {
+    const { divisionList } = this.props;
+    this.setState({ divisionList });
+  }
+
+  sortTable(key) {
+    const { divisionList } = this.state;
+    const sorted = this.props.sort(divisionList, key);
+
+    this.setState({
+      divisionList: sorted,
+    });
+  }
+
   render() {
-    const { divisionList, showInactive } = this.props;
+    const { showInactive } = this.props;
+    const { divisionList } = this.state;
     return (
       <Table>
         <TableHead>
           <TableRow>
             <CustomTableHeader>GCN</CustomTableHeader>
-            <CustomTableHeader align="left">Division Name</CustomTableHeader>
+            <CustomTableHeader align="left">
+              Division Name{' '}
+              <i
+                className="fas fa-sort"
+                style={{ cursor: 'pointer' }}
+                onClick={() => this.sortTable('divisionName')}
+              />
+            </CustomTableHeader>
             <CustomTableHeader align="right">Edit</CustomTableHeader>
           </TableRow>
         </TableHead>
@@ -53,4 +76,4 @@ class DivisionTable extends Component {
   }
 }
 
-export default DivisionTable;
+export default withSort(DivisionTable);

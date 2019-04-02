@@ -37,14 +37,13 @@ class LoginFail extends Component {
     this.state = {};
   }
   render() {
-    const { handleClose, errorMessage } = this.props;
+    const { handleClose } = this.props;
     return (
       <>
         <TitleRow>
           <SectionTitle>Login Failed.</SectionTitle>
-          <Close className="fas fa-times" onClick={handleClose} />
         </TitleRow>
-        <p>{errorMessage}</p>
+        <p>Login Failed. Please try again.</p>
         <Exit text="Close" onClick={handleClose} />
       </>
     );

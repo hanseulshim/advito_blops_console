@@ -16,11 +16,11 @@ const Link = styled.a`
 const Footer = () => (
   <Container>
     <Link href="https://www.advito.com/legal/" target="_blank">
-      Terms of Services
+      Terms of Service
     </Link>
     {' and '}
     <Link href="https://www.advito.com/privacy-policy/" target="_blank">
-      Private Policy
+      Privacy Policy
     </Link>
   </Container>
 );
