@@ -10,6 +10,7 @@ import LineChart from './LineChart';
 import airAlert from 'assets/sidebar/air.png';
 import hotelAlert from 'assets/sidebar/hotel.png';
 import Loader from 'components/common/Loader';
+import { withFilterContext } from 'components/context';
 
 const PerformanceContainer = styled.div`
   display: flex;
@@ -70,7 +71,7 @@ const StoryTitle = styled.div`
   margin: 0 0.5em;
 `;
 
-const Home = () => (
+const Home = ({ context: { filterId } }) => (
   <div>
     <div>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -79,7 +80,7 @@ const Home = () => (
       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
       non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </div>
-    <Query query={PROGRAM_PERFORMANCE_LIST_TRAVEL}>
+    <Query query={PROGRAM_PERFORMANCE_LIST_TRAVEL} variables={{ filterId }}>
       {({ data: { programPerformanceListTravel, noChangeSince }, loading }) =>
         loading ? (
           <Loader />
@@ -129,4 +130,4 @@ const Home = () => (
   </div>
 );
 
-export default Home;
+export default withFilterContext(Home);

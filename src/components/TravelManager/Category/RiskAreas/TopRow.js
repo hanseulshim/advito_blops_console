@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Query } from 'react-apollo';
-import { withApollo } from 'react-apollo';
+import { Query, withApollo, compose } from 'react-apollo';
 import { Value, Unit } from 'components/common/Typography';
 import { RISK_AREA_FEED_TRAVEL } from 'components/graphql/query';
 import { UPDATE_RISK_AREA } from 'graphql/mutations';
 import Loader from 'components/common/Loader';
+import { withFilterContext } from 'components/context';
 
 const MetricRow = styled.div`
   display: flex;
@@ -81,9 +81,16 @@ class TopRow extends Component {
     });
   };
   render() {
-    const { id } = this.props;
+    const {
+      id,
+      context: { filterId },
+    } = this.props;
     return (
-      <Query query={RISK_AREA_FEED_TRAVEL} variables={{ limit }}>
+      <Query
+        query={RISK_AREA_FEED_TRAVEL}
+        variables={{ limit, filterId }}
+        fetchPolicy="cache-and-network"
+      >
         {({ data: { riskAreaFeedTravel }, loading, fetchMore }) =>
           loading ? (
             <Loader />
@@ -146,4 +153,7 @@ class TopRow extends Component {
   }
 }
 
-export default withApollo(TopRow);
+export default compose(
+  withFilterContext,
+  withApollo
+)(TopRow);
