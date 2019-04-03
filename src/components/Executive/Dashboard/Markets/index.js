@@ -7,6 +7,7 @@ import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
 import Select from 'react-select';
 import Loader from 'components/common/Loader';
+import { withFilterContext } from 'components/context';
 
 const MarketContainer = styled.div`
   display: flex;
@@ -84,9 +85,12 @@ class Markets extends Component {
 
   render() {
     const { sort } = this.state;
-    let sortVar = sort.value === 'Performance' ? 'value' : 'programShare';
+    const {
+      context: { filterId },
+    } = this.props;
+    const sortVar = sort.value === 'Performance' ? 'value' : 'programShare';
     return (
-      <Query query={MARKET_LIST}>
+      <Query query={MARKET_LIST} variables={{ filterId }}>
         {({ data: { marketList }, loading }) =>
           loading ? (
             <Loader />
@@ -132,4 +136,4 @@ class Markets extends Component {
   }
 }
 
-export default Markets;
+export default withFilterContext(Markets);

@@ -1,16 +1,16 @@
 import gql from 'graphql-tag';
 
 export const PROGRAM_PERFORMANCE_EXECUTIVE = gql`
-  query {
-    programPerformanceExecutive {
+  query($filterId: Int) {
+    programPerformanceExecutive(filterId: $filterId) {
       value
     }
   }
 `;
 
 export const NET_SPEND_ANALYSIS_LIST_EXECUTIVE = gql`
-  query {
-    netSpendAnalysisListExecutive {
+  query($filterId: Int) {
+    netSpendAnalysisListExecutive(filterId: $filterId) {
       date
       value
     }
@@ -18,8 +18,8 @@ export const NET_SPEND_ANALYSIS_LIST_EXECUTIVE = gql`
 `;
 
 export const MARKET_LIST = gql`
-  query {
-    marketList {
+  query($filterId: Int) {
+    marketList(filterId: $filterId) {
       title
       value
       programShare
@@ -28,8 +28,8 @@ export const MARKET_LIST = gql`
 `;
 
 export const SAVINGS_OPPORTUNITY_FEED_EXECUTIVE = gql`
-  query($limit: Int, $cursor: Int) {
-    savingsOpportunityFeedExecutive(limit: $limit, cursor: $cursor) {
+  query($limit: Int, $cursor: Int, $filterId: Int) {
+    savingsOpportunityFeedExecutive(limit: $limit, cursor: $cursor, filterId: $filterId) {
       prevCursor
       cursor
       totalSavingsOpportunities
@@ -54,8 +54,8 @@ export const SAVINGS_OPPORTUNITY_FEED_EXECUTIVE = gql`
 `;
 
 export const RISK_AREA_FEED_EXECUTIVE = gql`
-  query($limit: Int, $cursor: Int) {
-    riskAreaFeedExecutive(limit: $limit, cursor: $cursor) {
+  query($limit: Int, $cursor: Int, $filterId: Int) {
+    riskAreaFeedExecutive(limit: $limit, cursor: $cursor, filterId: $filterId) {
       prevCursor
       cursor
       totalRiskAreas

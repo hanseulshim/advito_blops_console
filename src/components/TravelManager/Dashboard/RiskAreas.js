@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { SectionTitle, Value, Unit } from 'components/common/Typography';
-import { Query } from 'react-apollo';
-import { withApollo } from 'react-apollo';
+import { Query, withApollo, compose } from 'react-apollo';
 import { RISK_AREA_FEED_TRAVEL } from 'components/graphql/query';
 import { UPDATE_RISK_AREA } from 'graphql/mutations';
 import Loader from 'components/common/Loader';
+import { withFilterContext } from 'components/context';
 import {
   Container,
   TitleContainer,
@@ -27,12 +27,19 @@ class RiskAreas extends Component {
     });
   };
   render() {
+    const {
+      context: { filterId },
+    } = this.props;
     return (
       <Container>
         <TitleContainer>
           <SectionTitle>top 3 risk areas</SectionTitle>
         </TitleContainer>
-        <Query query={RISK_AREA_FEED_TRAVEL} variables={{ limit: 3 }}>
+        <Query
+          query={RISK_AREA_FEED_TRAVEL}
+          variables={{ limit: 3, filterId }}
+          fetchPolicy="cache-and-network"
+        >
           {({ data: { riskAreaFeedTravel }, loading }) =>
             loading ? (
               <Loader />
@@ -60,4 +67,7 @@ class RiskAreas extends Component {
   }
 }
 
-export default withApollo(RiskAreas);
+export default compose(
+  withApollo,
+  withFilterContext
+)(RiskAreas);

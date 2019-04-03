@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import Button from 'components/common/Button';
 import { SAVINGS_OPPORTUNITY_FEED_EXECUTIVE } from 'components/graphql/query';
 import Loader from 'components/common/Loader';
+import { withFilterContext } from 'components/context';
 import {
   Container,
   TitleContainer,
@@ -33,6 +34,9 @@ class SavingsOpportunities extends React.Component {
   };
   render() {
     const { limit } = this.state;
+    const {
+      context: { filterId },
+    } = this.props;
     return (
       <Container>
         <TitleContainer>
@@ -43,7 +47,11 @@ class SavingsOpportunities extends React.Component {
             <Button text="View Less" style={{ marginLeft: '5%' }} onClick={e => this.setLimit(3)} />
           )}
         </TitleContainer>
-        <Query query={SAVINGS_OPPORTUNITY_FEED_EXECUTIVE} variables={{ limit }}>
+        <Query
+          query={SAVINGS_OPPORTUNITY_FEED_EXECUTIVE}
+          variables={{ limit, filterId }}
+          fetchPolicy="cache-and-network"
+        >
           {({ data: { savingsOpportunityFeedExecutive }, loading }) =>
             loading ? (
               <Loader />
@@ -82,4 +90,4 @@ class SavingsOpportunities extends React.Component {
   }
 }
 
-export default SavingsOpportunities;
+export default withFilterContext(SavingsOpportunities);
