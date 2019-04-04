@@ -3,7 +3,7 @@
   "prettier.singleQuote": true,
   "prettier.printWidth": 100,
   "workbench.colorCustomizations": {
-    "titleBar.activeBackground": "#FF2C70",
-    "titleBar.inactiveBackground": "#FF2C70CC"
+    "titleBar.activeBackground": "#392cf0",
+    "titleBar.inactiveBackground": "#392cf0"
   }
 }
