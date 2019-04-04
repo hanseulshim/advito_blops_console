@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import { GET_NET_SPEND_DETAIL } from 'components/graphql/query';
 import Loader from 'components/common/Loader';
+import TopRow from './TopRow';
 
 const Container = styled.div`
-  display: flex;
+  /* display: flex;
   flex: 1;
-  flex-direction: column;
+  flex-direction: column; */
 `;
 
 class NetSpendAnalysis extends Component {
@@ -15,14 +16,13 @@ class NetSpendAnalysis extends Component {
   render() {
     return (
       <Query query={GET_NET_SPEND_DETAIL}>
-        {({ data, loading }) =>
+        {({ data: { netSpendDetail }, loading }) =>
           loading ? (
             <Loader />
           ) : (
             <Container>
-              {console.log(data)}
-              {/* <TopRow id={riskArea.id} />
-              <Detail id={riskArea.id} /> */}
+              {console.log(netSpendDetail)}
+              <TopRow spendCategories={netSpendDetail.spendCategories} />
             </Container>
           )
         }
