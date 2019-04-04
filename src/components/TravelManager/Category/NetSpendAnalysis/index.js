@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import { GET_NET_SPEND_DETAIL } from 'components/graphql/query';
 import Loader from 'components/common/Loader';
 import TopRow from './TopRow';
+import LineGraph from './LineGraph';
 
 const Container = styled.div`
   /* display: flex;
@@ -23,6 +24,10 @@ class NetSpendAnalysis extends Component {
             <Container>
               {console.log(netSpendDetail)}
               <TopRow spendCategories={netSpendDetail.spendCategories} />
+              <LineGraph
+                projected={netSpendDetail.projectedSpend}
+                actual={netSpendDetail.actualSpend}
+              />
             </Container>
           )
         }
