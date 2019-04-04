@@ -1,10 +1,11 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
-import styled from 'styled-components'
-import Navigation from './Navigation'
-import ProgramPerformance from './ProgramPerformance'
-import SavingsOpportunities from './SavingsOpportunities'
-import RiskAreas from './RiskAreas'
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import styled from 'styled-components';
+import Navigation from './Navigation';
+import ProgramPerformance from './ProgramPerformance';
+import SavingsOpportunities from './SavingsOpportunities';
+import RiskAreas from './RiskAreas';
+import NetSpendAnalysis from './NetSpendAnalysis';
 
 const Container = styled.div`
   padding: 4em;
@@ -14,7 +15,7 @@ const Container = styled.div`
   border-left: ${props => `1px solid ${props.theme.grayNurse}`};
   border-right: ${props => `1px solid ${props.theme.grayNurse}`};
   border-bottom: ${props => `1px solid ${props.theme.grayNurse}`};
-`
+`;
 
 const Category = () => {
   return (
@@ -25,10 +26,11 @@ const Category = () => {
           <Route path={`/travel/program-performance`} component={ProgramPerformance} />
           <Route path={`/travel/savings-opportunities`} component={SavingsOpportunities} />
           <Route path={`/travel/risk-areas`} component={RiskAreas} />
+          <Route path={`/travel/net-spend-analysis`} component={NetSpendAnalysis} />
         </Switch>
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default Category
+export default Category;
