@@ -7,6 +7,7 @@ import Button from 'components/common/Button';
 import { SectionTitle } from 'components/common/Typography';
 import Icon from 'components/common/Icon';
 import Loader from 'components/common/Loader';
+import { withFilterContext } from 'components/context';
 
 const Container = styled.div`
   flex: 1;
@@ -49,7 +50,7 @@ const Changes = styled.p`
   margin-top: 2em;
 `;
 
-const ProgramPerformance = () => (
+const ProgramPerformance = ({ context: { filterId } }) => (
   <Container>
     <SectionContainer>
       <SectionTitle>program performance</SectionTitle>
@@ -57,7 +58,7 @@ const ProgramPerformance = () => (
         <Button spaceLeft text="view more" />
       </Link>
     </SectionContainer>
-    <Query query={PROGRAM_PERFORMANCE_EXECUTIVE}>
+    <Query query={PROGRAM_PERFORMANCE_EXECUTIVE} variables={{ filterId }}>
       {({ data: { programPerformanceExecutive }, loading }) =>
         loading ? (
           <Loader />
@@ -80,4 +81,4 @@ const ProgramPerformance = () => (
   </Container>
 );
 
-export default ProgramPerformance;
+export default withFilterContext(ProgramPerformance);

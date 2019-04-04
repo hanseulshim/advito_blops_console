@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import Button from 'components/common/Button';
 import { RISK_AREA_FEED_EXECUTIVE } from 'components/graphql/query';
 import Loader from 'components/common/Loader';
+import { withFilterContext } from 'components/context';
 import {
   Container,
   TitleContainer,
@@ -33,7 +34,9 @@ class RiskAreas extends React.Component {
   };
   render() {
     const { limit } = this.state;
-
+    const {
+      context: { filterId },
+    } = this.props;
     return (
       <Container>
         <TitleContainer>
@@ -44,7 +47,11 @@ class RiskAreas extends React.Component {
             <Button text="View Less" style={{ marginLeft: '5%' }} onClick={e => this.setLimit(3)} />
           )}
         </TitleContainer>
-        <Query query={RISK_AREA_FEED_EXECUTIVE} variables={{ limit }}>
+        <Query
+          query={RISK_AREA_FEED_EXECUTIVE}
+          variables={{ limit, filterId }}
+          fetchPolicy="cache-and-network"
+        >
           {({ data: { riskAreaFeedExecutive }, loading }) =>
             loading ? (
               <Loader />
@@ -83,4 +90,4 @@ class RiskAreas extends React.Component {
   }
 }
 
-export default RiskAreas;
+export default withFilterContext(RiskAreas);

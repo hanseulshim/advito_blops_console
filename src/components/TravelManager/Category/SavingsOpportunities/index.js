@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import { GET_SAVINGS_OPPORTUNITY } from 'graphql/queries';
@@ -12,24 +12,19 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-class SavingsOpportunities extends Component {
-  state = {};
-  render() {
-    return (
-      <Query query={GET_SAVINGS_OPPORTUNITY}>
-        {({ data: { savingsOpportunity }, loading }) =>
-          loading ? (
-            <Loader />
-          ) : (
-            <Container>
-              <TopRow id={savingsOpportunity.id} />
-              <Detail id={savingsOpportunity.id} />
-            </Container>
-          )
-        }
-      </Query>
-    );
-  }
-}
+const SavingsOpportunities = () => (
+  <Query query={GET_SAVINGS_OPPORTUNITY}>
+    {({ data: { savingsOpportunity }, loading }) =>
+      loading ? (
+        <Loader />
+      ) : (
+        <Container>
+          <TopRow id={savingsOpportunity.id} />
+          <Detail id={savingsOpportunity.id} />
+        </Container>
+      )
+    }
+  </Query>
+);
 
 export default SavingsOpportunities;
