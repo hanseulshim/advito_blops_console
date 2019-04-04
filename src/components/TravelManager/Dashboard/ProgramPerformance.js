@@ -6,6 +6,7 @@ import { PROGRAM_PERFORMANCE_LIST_TRAVEL } from 'components/graphql/query';
 import Button from 'components/common/Button';
 import { SectionTitle } from 'components/common/Typography';
 import Loader from 'components/common/Loader';
+import { withFilterContext } from 'components/context';
 
 const Container = styled.div`
   flex: 1;
@@ -43,7 +44,7 @@ const Unit = styled.span`
   font-size: 1rem;
 `;
 
-const ProgramPerformance = () => (
+const ProgramPerformance = ({ context: { filterId } }) => (
   <Container>
     <SectionContainer>
       <SectionTitle>program performance</SectionTitle>
@@ -51,7 +52,7 @@ const ProgramPerformance = () => (
         <Button spaceLeft text="view more" />
       </Link>
     </SectionContainer>
-    <Query query={PROGRAM_PERFORMANCE_LIST_TRAVEL}>
+    <Query query={PROGRAM_PERFORMANCE_LIST_TRAVEL} variables={{ filterId }}>
       {({ data: { programPerformanceListTravel }, loading }) => (
         <>
           {loading ? (
@@ -72,4 +73,4 @@ const ProgramPerformance = () => (
   </Container>
 );
 
-export default ProgramPerformance;
+export default withFilterContext(ProgramPerformance);

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { SectionTitle, Value, Unit } from 'components/common/Typography';
-import { Query, withApollo } from 'react-apollo';
+import { Query, withApollo, compose } from 'react-apollo';
 import { SAVINGS_OPPORTUNITY_FEED_TRAVEL } from 'components/graphql/query';
 import { UPDATE_SAVINGS_OPPORTUNITY } from 'graphql/mutations';
 import Loader from 'components/common/Loader';
+import { withFilterContext } from 'components/context';
 import {
   Container,
   TitleContainer,
@@ -26,12 +27,19 @@ class SavingsOpportunities extends Component {
     });
   };
   render() {
+    const {
+      context: { filterId },
+    } = this.props;
     return (
       <Container>
         <TitleContainer>
           <SectionTitle>top 3 savings opportunities</SectionTitle>
         </TitleContainer>
-        <Query query={SAVINGS_OPPORTUNITY_FEED_TRAVEL} variables={{ limit: 3 }}>
+        <Query
+          query={SAVINGS_OPPORTUNITY_FEED_TRAVEL}
+          variables={{ limit: 3, filterId }}
+          fetchPolicy="cache-and-network"
+        >
           {({ data: { savingsOpportunityFeedTravel }, loading }) =>
             loading ? (
               <Loader />
@@ -63,4 +71,7 @@ class SavingsOpportunities extends Component {
   }
 }
 
-export default withApollo(SavingsOpportunities);
+export default compose(
+  withApollo,
+  withFilterContext
+)(SavingsOpportunities);

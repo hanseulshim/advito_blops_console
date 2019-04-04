@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const PROGRAM_PERFORMANCE_LIST_TRAVEL = gql`
-  query {
-    programPerformanceListTravel {
+  query($filterId: Int) {
+    programPerformanceListTravel(filterId: $filterId) {
       title
       value
       unit
@@ -11,8 +11,8 @@ export const PROGRAM_PERFORMANCE_LIST_TRAVEL = gql`
 `;
 
 export const NET_SPEND_ANALYSIS_LIST_TRAVEL = gql`
-  query {
-    netSpendAnalysisListTravel {
+  query($filterId: Int) {
+    netSpendAnalysisListTravel(filterId: $filterId) {
       date
       value
     }
@@ -20,8 +20,8 @@ export const NET_SPEND_ANALYSIS_LIST_TRAVEL = gql`
 `;
 
 export const PERSONA_LIST = gql`
-  query {
-    personaList {
+  query($filterId: Int) {
+    personaList(filterId: $filterId) {
       title
       value
       programShare
@@ -30,8 +30,8 @@ export const PERSONA_LIST = gql`
 `;
 
 export const SAVINGS_OPPORTUNITY_FEED_TRAVEL = gql`
-  query($limit: Int, $cursor: Int) {
-    savingsOpportunityFeedTravel(limit: $limit, cursor: $cursor) {
+  query($limit: Int, $cursor: Int, $filterId: Int) {
+    savingsOpportunityFeedTravel(limit: $limit, cursor: $cursor, filterId: $filterId) {
       prevCursor
       cursor
       totalSavingsOpportunities
@@ -49,8 +49,8 @@ export const SAVINGS_OPPORTUNITY_FEED_TRAVEL = gql`
 `;
 
 export const RISK_AREA_FEED_TRAVEL = gql`
-  query($limit: Int, $cursor: Int) {
-    riskAreaFeedTravel(limit: $limit, cursor: $cursor) {
+  query($limit: Int, $cursor: Int, $filterId: Int) {
+    riskAreaFeedTravel(limit: $limit, cursor: $cursor, filterId: $filterId) {
       prevCursor
       cursor
       totalRiskAreas

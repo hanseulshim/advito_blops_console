@@ -7,6 +7,7 @@ import Button from 'components/common/Button';
 import Checkbox from 'components/common/Checkbox';
 import { SectionTitle } from 'components/common/Typography';
 import LineChart from './LineChart';
+import { withFilterContext } from 'components/context';
 
 const Container = styled.div`
   flex: 1;
@@ -22,7 +23,7 @@ const TitleContainer = styled.div`
   margin-bottom: 0.5em;
 `;
 
-const NetSpendAnalysis = () => (
+const NetSpendAnalysis = ({ context: { filterId } }) => (
   <Container>
     <TitleContainer>
       <SectionTitle>Net Spend Analysis</SectionTitle>
@@ -31,7 +32,7 @@ const NetSpendAnalysis = () => (
       </Link>
     </TitleContainer>
     <Checkbox>Year to date</Checkbox>
-    <Query query={NET_SPEND_ANALYSIS_LIST_EXECUTIVE}>
+    <Query query={NET_SPEND_ANALYSIS_LIST_EXECUTIVE} variables={{ filterId }}>
       {({ data: { netSpendAnalysisListExecutive }, loading }) =>
         loading ? null : <LineChart data={netSpendAnalysisListExecutive} />
       }
@@ -39,4 +40,4 @@ const NetSpendAnalysis = () => (
   </Container>
 );
 
-export default NetSpendAnalysis;
+export default withFilterContext(NetSpendAnalysis);
