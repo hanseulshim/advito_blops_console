@@ -3,6 +3,12 @@ import styled from 'styled-components';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 
+const Chart = styled.div`
+  display: flex;
+  flex: 2;
+  margin-top: 4em;
+`;
+
 class LineGraph extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +45,7 @@ class LineGraph extends React.Component {
   }
 
   render() {
-    return <div ref="spendGraph" />;
+    return <Chart ref="spendGraph" />;
   }
 }
 

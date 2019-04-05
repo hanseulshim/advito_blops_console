@@ -4,7 +4,8 @@ import { Title } from 'components/common/Typography';
 
 const Container = styled.div`
   display: flex;
-  flex: 1;
+
+  align-items: center;
 `;
 
 const CategoryContainer = styled.div`

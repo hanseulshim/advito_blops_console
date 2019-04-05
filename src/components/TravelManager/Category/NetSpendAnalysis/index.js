@@ -5,11 +5,12 @@ import { GET_NET_SPEND_DETAIL } from 'components/graphql/query';
 import Loader from 'components/common/Loader';
 import TopRow from './TopRow';
 import LineGraph from './LineGraph';
+import Summary from './Summary';
 
 const Container = styled.div`
-  /* display: flex;
+  display: flex;
   flex: 1;
-  flex-direction: column; */
+  flex-direction: column;
 `;
 
 class NetSpendAnalysis extends Component {
@@ -25,6 +26,7 @@ class NetSpendAnalysis extends Component {
               {console.log(netSpendDetail)}
               <TopRow spendCategories={netSpendDetail.spendCategories} />
               <LineGraph data={netSpendDetail.spend} />
+              <Summary summary={netSpendDetail.summary} />
             </Container>
           )
         }
