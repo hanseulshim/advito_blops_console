@@ -24,10 +24,7 @@ class NetSpendAnalysis extends Component {
             <Container>
               {console.log(netSpendDetail)}
               <TopRow spendCategories={netSpendDetail.spendCategories} />
-              <LineGraph
-                projected={netSpendDetail.projectedSpend}
-                actual={netSpendDetail.actualSpend}
-              />
+              <LineGraph data={netSpendDetail.spend} />
             </Container>
           )
         }

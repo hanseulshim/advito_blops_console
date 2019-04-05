@@ -9,13 +9,33 @@ class LineGraph extends React.Component {
     this.state = {};
   }
   componentDidMount() {
-    const { projected, actual } = this.props;
+    const { data } = this.props;
     const chart = am4core.create(this.refs.spendGraph, am4charts.XYChart);
 
-    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = 'date';
+    chart.data = data;
+
+    //Format ya Dates son
+    chart.dateFormatter.inputDateFormat = 'yyyy-MM-dd';
+
+    // X Axis : Dates
+    let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    dateAxis.dataFields.category = 'date';
+
+    //Y Axis : Spend
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.dataFields.category = 'spend';
+
+    const projectedSeries = chart.series.push(new am4charts.LineSeries());
+    projectedSeries.name = 'Projected Spend';
+    projectedSeries.dataFields.valueY = 'projSpend';
+    projectedSeries.dataFields.dateX = 'date';
+
+    const actualSeries = chart.series.push(new am4charts.LineSeries());
+    actualSeries.name = 'Actual Spend';
+    actualSeries.dataFields.valueY = 'actualSpend';
+    actualSeries.dataFields.dateX = 'date';
+
+    // const actualSeries = chart.series.push(new am4charts.LineSeries());
   }
 
   render() {

@@ -9,13 +9,10 @@ export const GET_NET_SPEND_DETAIL = gql`
         amount
         diff
       }
-      projectedSpend {
+      spend {
         date
-        spend
-      }
-      actualSpend {
-        date
-        spend
+        projSpend
+        actualSpend
       }
       summary {
         title
