@@ -7,6 +7,7 @@ const Chart = styled.div`
   display: flex;
   flex: 2;
   margin-top: 4em;
+  margin-bottom: 4em;
 `;
 
 class LineGraph extends React.Component {
