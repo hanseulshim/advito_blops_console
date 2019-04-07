@@ -41,7 +41,7 @@ const TopRow = ({ spendCategories }) => {
           <Column>
             <Title>{item.title}</Title>
             <Value>{item.amount}</Value>
-            <Diff>({item.diff})</Diff>
+            <Diff>({item.diff}%)</Diff>
           </Column>
         </CategoryContainer>
       ))}

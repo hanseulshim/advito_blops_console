@@ -31,11 +31,17 @@ class LineGraph extends React.Component {
     //Y Axis : Spend
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.dataFields.category = 'spend';
+    valueAxis.min = 0;
 
     const projectedSeries = chart.series.push(new am4charts.LineSeries());
     projectedSeries.name = 'Projected Spend';
     projectedSeries.dataFields.valueY = 'projSpend';
     projectedSeries.dataFields.dateX = 'date';
+    let bullet = projectedSeries.bullets.push(new am4charts.Bullet());
+    let circle = bullet.createChild(am4core.Circle);
+    circle.width = 10;
+    circle.height = 10;
+
 
     const actualSeries = chart.series.push(new am4charts.LineSeries());
     actualSeries.name = 'Actual Spend';
