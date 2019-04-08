@@ -13,5 +13,6 @@ export default {
   treePoppy: '#FF9E16',
   steelBlue: '#5890bf',
   tropicalBlue: '#cae4f9',
+  deepBlush: '#EB707F',
   verticalSpace: '3.5em',
 };
