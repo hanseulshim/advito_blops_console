@@ -7,13 +7,15 @@ const Chart = styled.div`
   display: flex;
   flex: 3;
   margin-top: 4em;
-  margin-bottom: 4em;
+  margin-bottom: 2em;
 `;
 
 class LineGraph extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+
+    };
   }
   componentDidMount() {
     const { data } = this.props;
@@ -31,6 +33,9 @@ class LineGraph extends React.Component {
     title.marginBottom = 25;
     title.marginLeft = 60;
     title.align = 'left';
+
+    //Chart Cursor
+    // chart.cursor = new am4charts.XYCursor();
 
     // X Axis : Dates
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
@@ -65,6 +70,37 @@ class LineGraph extends React.Component {
     actualCircle.height = 10;
     actualCircle.fill = '#FFF';
     actualSeries.stroke = '#20ABA3';
+
+    let totalSpendBudget = (1000000 + Math.floor(Math.random() * 100000))
+
+    //Tooltip #2 attempt
+    actualSeries.tooltip.getFillFromObject = false;
+    actualSeries.tooltip.label.fill = am4core.color('#000');
+    actualSeries.tooltip.background.fill = am4core.color('#FFF');
+    actualSeries.tooltip.background.stroke = am4core.color('#c9ceca');
+    actualSeries.tooltip.background.fillOpacity = 1;
+    actualSeries.tooltip.pointerOrientation = "vertical";
+    actualBullet.adapter.add('tooltipHTML', (_, context) => {
+
+      return `
+      <div style='padding:1em; '>
+    <p> {dateX} </p>
+    <div style="display:flex;">
+      <div style=" border-right:1px solid black;  margin-right:1em; padding-right:1em;" >
+        <p>$ {valueY}</p>
+        <p>Average total trip cost.</p>
+      </div>
+      <div style="margin-right:1em;">
+        <p>$ ${totalSpendBudget}</p>
+        <p>Total Spend Budget</p>
+      </div>
+    </div>
+    <p>0.27% more than projected</p>
+    </div>
+      `;
+    });
+
+
 
     //Legend
     chart.legend = new am4charts.Legend();

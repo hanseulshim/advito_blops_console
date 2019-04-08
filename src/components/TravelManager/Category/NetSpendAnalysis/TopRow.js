@@ -5,6 +5,7 @@ import { Title } from 'components/common/Typography';
 const Container = styled.div`
   display: flex;
   align-items: center;
+  margin-left:2em;
 `;
 
 const CategoryContainer = styled.div`
