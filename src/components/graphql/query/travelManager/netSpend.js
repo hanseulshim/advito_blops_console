@@ -13,6 +13,8 @@ export const GET_NET_SPEND_DETAIL = gql`
         date
         projSpend
         actualSpend
+        delta
+        color
       }
       summary {
         title

@@ -22,12 +22,12 @@ class NetSpendAnalysis extends Component {
           loading ? (
             <Loader />
           ) : (
-              <Container>
-                <TopRow spendCategories={netSpendDetail.spendCategories} />
-                <LineGraph data={netSpendDetail.spend} />
-                <Summary summary={netSpendDetail.summary} />
-              </Container>
-            )
+            <Container>
+              <TopRow spendCategories={netSpendDetail.spendCategories} />
+              <LineGraph data={netSpendDetail.spend} />
+              <Summary summary={netSpendDetail.summary} />
+            </Container>
+          )
         }
       </Query>
     );
