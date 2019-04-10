@@ -35,9 +35,9 @@ const getPath = path => {
     case 'user-profile':
       return 'User Profile';
     case 'client-setup':
-      return 'Client Setup';
+      return 'Clients';
     case 'user-access':
-      return 'User Access';
+      return 'Advito Users';
     default:
       return '';
   }
