@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
-import { GET_RISK_AREA } from 'graphql/queries';
-// import TopRow from './TopRow';
-// import Detail from './Detail';
+import { GET_TE_BREAKDOWN_DETAIL } from 'components/graphql/query';
+
 import Loader from 'components/common/Loader';
 
 const Container = styled.div`
@@ -13,9 +12,9 @@ const Container = styled.div`
 `;
 
 const TeBreakdown = () => (
-  <Query query={GET_RISK_AREA}>
-    {({ data: { riskArea }, loading }) =>
-      loading ? <Loader /> : <Container>TE Breakdown</Container>
+  <Query query={GET_TE_BREAKDOWN_DETAIL}>
+    {({ data: { teBreakdownDetail }, loading }) =>
+      loading ? <Loader /> : <Container>{console.log(teBreakdownDetail)}</Container>
     }
   </Query>
 );
