@@ -54,11 +54,11 @@ const NavItems = [
   },
   {
     link: '/client-setup',
-    title: 'Client Setup',
+    title: 'Clients',
   },
   {
     link: '/user-access',
-    title: 'User Access',
+    title: 'Advito Users',
   },
 ];
 
