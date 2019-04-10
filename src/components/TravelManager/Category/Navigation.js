@@ -18,8 +18,8 @@ const NavItems = [
     title: 'Net Spend Analysis',
   },
   {
-    link: '/travel/personas',
-    title: 'Personas',
+    link: '/travel/te-breakdown',
+    title: 'T&E Breakdown',
   },
   {
     link: '/travel/savings-opportunities',

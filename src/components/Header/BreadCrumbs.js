@@ -49,8 +49,8 @@ const getSubPath = subpath => {
       return 'Program Performance';
     case 'net-spend-analysis':
       return 'Net Spend Analysis';
-    case 'personas':
-      return 'Personas';
+    case 'te-breakdown':
+      return 'T&E Breakdown';
     case 'markets':
       return 'Markets';
     case 'savings-opportunities':
