@@ -14,10 +14,10 @@ import { getToken } from './components/graphql/helper';
 am4core.options.commercialLicense = true;
 
 const client = new ApolloClient({
-  // uri: 'https://kwsccxx9c3.execute-api.us-east-2.amazonaws.com/beta/graphql',
+//   uri: 'https://kwsccxx9c3.execute-api.us-east-2.amazonaws.com/beta/graphql',
   // uri: 'https://90nseke0l0.execute-api.us-east-2.amazonaws.com/alpha/graphql',
-  // uri: 'https://x162060eb4.execute-api.us-east-2.amazonaws.com/dev/graphql',
-  uri: 'http://localhost:8080/graphql',
+  uri: 'https://x162060eb4.execute-api.us-east-2.amazonaws.com/dev/graphql',
+//   uri: 'http://localhost:8080/graphql',
 
   clientState: {
     defaults,
