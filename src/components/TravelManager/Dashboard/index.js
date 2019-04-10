@@ -4,7 +4,7 @@ import ProgramPerformance from './ProgramPerformance';
 import NetSpendAnalysis from './NetSpendAnalysis';
 import SavingsOpportunities from './SavingsOpportunities';
 import RiskAreas from './RiskAreas';
-import TeBreakdown from '../Category/TeBreakdown';
+import TeBreakdownRow from './T&EBreakdown';
 
 const Row = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ const Dashboard = () => (
       <ProgramPerformance />
       <NetSpendAnalysis />
     </Row>
-    <TeBreakdown />
+    <TeBreakdownRow />
     <Row>
       <SavingsOpportunities />
       <RiskAreas />
