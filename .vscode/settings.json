@@ -1,9 +1,0 @@
-{
-  "prettier.trailingComma": "es5",
-  "prettier.singleQuote": true,
-  "prettier.printWidth": 100,
-  "workbench.colorCustomizations": {
-    "titleBar.activeBackground": "#053691",
-    "titleBar.inactiveBackground": "#053691"
-  }
-}
