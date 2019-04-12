@@ -5,6 +5,7 @@ import { GET_TE_BREAKDOWN_DETAIL } from 'components/graphql/query';
 import { SectionTitle, Title } from 'components/common/Typography';
 import Loader from 'components/common/Loader';
 import CircleChartTe from './CircleChartTe';
+import BarChartTe from './BarChartTe';
 
 const Container = styled.div`
   display: flex;
@@ -49,12 +50,6 @@ const Row = styled.div`
   justify-content: space-between;
 `;
 
-const Chart = styled.div`
-  background: ${props => props.theme.alabaster};
-  flex: 1;
-  margin-top: 1em;
-`;
-
 const TeBreakdown = () => (
   <Query query={GET_TE_BREAKDOWN_DETAIL}>
     {({ data: { teBreakdownDetail }, loading }) =>
@@ -71,7 +66,7 @@ const TeBreakdown = () => (
                 <p>{persona.description}</p>
               </PersonaDescription>
               <ProgramShare>
-                <span style={{ alignSelf: 'center' }}>Program Share</span>
+                <span style={{ alignSelf: 'center', marginBottom: '1em' }}>Program Share</span>
                 <CircleChartTe percent={persona.programShare * 100} />
               </ProgramShare>
               <BarChartContainer>
@@ -79,7 +74,7 @@ const TeBreakdown = () => (
                   <span>Average Total Trip Cost</span>
                   <span>{persona.totalTripCost}</span>
                 </Row>
-                <Chart />
+                <BarChartTe data={persona.data} totalTripCost={persona.totalTripCost} />
               </BarChartContainer>
               <CardContainer />
             </PersonaRowContainer>

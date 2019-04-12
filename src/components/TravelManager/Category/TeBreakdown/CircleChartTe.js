@@ -12,6 +12,7 @@ const Chart = styled.svg`
   max-height: 250px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: auto;
 `;
 
 const CircleBG = styled.path`

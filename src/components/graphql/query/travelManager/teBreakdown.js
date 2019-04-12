@@ -19,6 +19,7 @@ export const GET_TE_BREAKDOWN_DETAIL = gql`
           delta
           title
           description
+          icon
         }
       }
     }
