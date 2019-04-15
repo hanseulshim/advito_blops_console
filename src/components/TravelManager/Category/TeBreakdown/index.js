@@ -48,7 +48,13 @@ const CardContainer = styled.div`
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-left: 1em;
 `;
+
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
 
 const TeBreakdown = () => (
   <Query query={GET_TE_BREAKDOWN_DETAIL}>
@@ -58,7 +64,6 @@ const TeBreakdown = () => (
       ) : (
         <Container>
           <SectionTitle>Personas</SectionTitle>
-          {console.log(teBreakdownDetail)}
           {teBreakdownDetail.personas.map((persona, idx) => (
             <PersonaRowContainer key={'persona' + idx} first={(idx = 1)}>
               <PersonaDescription>
@@ -72,9 +77,13 @@ const TeBreakdown = () => (
               <BarChartContainer>
                 <Row>
                   <span>Average Total Trip Cost</span>
-                  <span>{persona.totalTripCost}</span>
+                  <span>{formatter.format(persona.totalTripCost).replace('.00', '')}</span>
                 </Row>
-                <BarChartTe data={persona.data} totalTripCost={persona.totalTripCost} />
+                <BarChartTe
+                  personaSpend={persona.data}
+                  totalTripCost={persona.totalTripCost}
+                  allPersonas={teBreakdownDetail}
+                />
               </BarChartContainer>
               <CardContainer />
             </PersonaRowContainer>

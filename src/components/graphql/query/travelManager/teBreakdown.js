@@ -3,10 +3,6 @@ import gql from 'graphql-tag';
 export const GET_TE_BREAKDOWN_DETAIL = gql`
   query {
     teBreakdownDetail {
-      wifiBenchmark
-      mealsBenchmark
-      travelBenchmark
-      lodgingBenchmark
       personas {
         title
         description
@@ -20,6 +16,7 @@ export const GET_TE_BREAKDOWN_DETAIL = gql`
           title
           description
           icon
+          benchmark
         }
       }
     }
