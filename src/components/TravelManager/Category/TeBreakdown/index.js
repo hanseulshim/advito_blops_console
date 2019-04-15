@@ -6,6 +6,7 @@ import { SectionTitle, Title } from 'components/common/Typography';
 import Loader from 'components/common/Loader';
 import CircleChartTe from './CircleChartTe';
 import BarChartTe from './BarChartTe';
+import SummaryCard from './SummaryCard';
 
 const Container = styled.div`
   display: flex;
@@ -85,7 +86,7 @@ const TeBreakdown = () => (
                   allPersonas={teBreakdownDetail}
                 />
               </BarChartContainer>
-              <CardContainer />
+              <SummaryCard expenses={persona.data} />
             </PersonaRowContainer>
           ))}
         </Container>
