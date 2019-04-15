@@ -15,10 +15,12 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const TitleButton = styled(SectionTitle)`
+const TitleButton = styled(Title)`
   display: inline;
-  border-right: ${props => (props.first ? '1px solid black' : '')};
+  border-right: ${props => (props.first ? '2px solid #ededed' : '')};
   cursor: pointer;
+  padding: ${props => (props.first ? '0em 1em 0em 0em' : '0em 1em')};
+  font-weight: ${props => (props.selected ? 'bold' : '')};
 `;
 
 const RowContainer = styled.div`
@@ -95,19 +97,21 @@ class TeBreakdown extends React.Component {
             <Loader />
           ) : (
             <Container>
-              <TitleButton
-                first
-                onClick={e => this.changeView('personas')}
-                selected={view === 'personas'}
-              >
-                Personas
-              </TitleButton>
-              <TitleButton
-                onClick={e => this.changeView('divisions')}
-                selected={view === 'divisions'}
-              >
-                Divisions
-              </TitleButton>
+              <div style={{ width: '25%' }}>
+                <TitleButton
+                  first
+                  onClick={e => this.changeView('personas')}
+                  selected={view === 'personas'}
+                >
+                  Personas
+                </TitleButton>
+                <TitleButton
+                  onClick={e => this.changeView('divisions')}
+                  selected={view === 'divisions'}
+                >
+                  Divisions
+                </TitleButton>
+              </div>
               {teBreakdownDetail.personas.map((persona, idx) => (
                 <RowContainer key={'persona' + idx} first={(idx = 1)}>
                   <Description>
