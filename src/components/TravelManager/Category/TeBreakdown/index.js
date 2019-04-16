@@ -66,6 +66,7 @@ class TeBreakdown extends React.Component {
     super(props);
     this.state = {
       view: '',
+      hoverCard: {},
     };
   }
 
@@ -88,10 +89,14 @@ class TeBreakdown extends React.Component {
     });
   }
 
+  onIconHover = expense => {
+    console.log(expense);
+  };
+
   render() {
     const { view } = this.state;
     return (
-      <Query query={GET_TE_BREAKDOWN_DETAIL}>
+      <Query query={GET_TE_BREAKDOWN_DETAIL} variables={{ view }}>
         {({ data: { teBreakdownDetail }, loading }) =>
           loading ? (
             <Loader />
@@ -112,28 +117,29 @@ class TeBreakdown extends React.Component {
                   Divisions
                 </TitleButton>
               </div>
-              {teBreakdownDetail.personas.map((persona, idx) => (
-                <RowContainer key={'persona' + idx} first={(idx = 1)}>
+              {teBreakdownDetail.map((metric, idx) => (
+                <RowContainer key={'metric' + idx} first={(idx = 1)}>
                   <Description>
-                    <Title>{persona.title}</Title>
-                    <p>{persona.description}</p>
+                    <Title>{metric.title}</Title>
+                    <p>{metric.description}</p>
                   </Description>
                   <ProgramShare>
                     <span style={{ alignSelf: 'center', marginBottom: '1em' }}>Program Share</span>
-                    <CircleChartTe percent={persona.programShare * 100} />
+                    <CircleChartTe percent={metric.programShare * 100} />
                   </ProgramShare>
                   <BarChartContainer>
                     <Row>
                       <span>Average Total Trip Cost</span>
-                      <span>{formatter.format(persona.totalTripCost).replace('.00', '')}</span>
+                      <span>{formatter.format(metric.totalTripCost).replace('.00', '')}</span>
                     </Row>
                     <BarChartTe
-                      personaSpend={persona.data}
-                      totalTripCost={persona.totalTripCost}
-                      allPersonas={teBreakdownDetail}
+                      metricSpend={metric.data}
+                      totalTripCost={metric.totalTripCost}
+                      allMetrics={teBreakdownDetail}
+                      onIconHover={this.onIconHover}
                     />
                   </BarChartContainer>
-                  <SummaryCard expenses={persona.data} />
+                  <SummaryCard expenses={metric.data} />
                 </RowContainer>
               ))}
             </Container>

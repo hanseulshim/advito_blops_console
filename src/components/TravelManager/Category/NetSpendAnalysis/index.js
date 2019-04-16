@@ -25,7 +25,7 @@ class NetSpendAnalysis extends Component {
             <Container>
               <TopRow spendCategories={netSpendDetail.spendCategories} />
               <LineGraph data={netSpendDetail.spend} />
-              <Summary summary={netSpendDetail.summary} />
+              {/* <Summary summary={netSpendDetail.summary} /> */}
             </Container>
           )
         }

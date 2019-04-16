@@ -77,9 +77,9 @@ const Delta = styled.div`
   left: ${({ left }) => left}%;
 `;
 
-const BarChartTe = ({ personaSpend, allPersonas, totalTripCost }) => {
-  const maxTripCost = Math.max(...allPersonas.personas.map(persona => persona.totalTripCost));
-  const allTripCosts = allPersonas.personas.map(persona => persona.totalTripCost);
+const BarChartTe = ({ metricSpend, allMetrics, totalTripCost, onIconHover }) => {
+  const maxTripCost = Math.max(...allMetrics.map(metric => metric.totalTripCost));
+  const allTripCosts = allMetrics.map(metric => metric.totalTripCost);
   const averageTripCost =
     allTripCosts.reduce((total, amount) => total + amount) / allTripCosts.length;
 
@@ -87,10 +87,13 @@ const BarChartTe = ({ personaSpend, allPersonas, totalTripCost }) => {
 
   return (
     <Container>
-      {personaSpend.map((expense, idx) => (
+      {metricSpend.map((expense, idx) => (
         <Row key={'expense' + idx}>
           <Icon>
-            <Image src={require(`assets/story/${expense.icon}`)} />
+            <Image
+              src={require(`assets/story/${expense.icon}`)}
+              onMouseOver={this.props.onIconHover(expense)}
+            />
           </Icon>
           <BarContainer>
             <BarBackground width={(totalTripCost / maxTripCost) * 100} />
