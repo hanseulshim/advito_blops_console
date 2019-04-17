@@ -68,7 +68,7 @@ class PieChart extends Component {
     const dropShadow = new am4core.DropShadowFilter();
     dropShadow.opacity = 0;
     pieSeries.tooltip.background.filters.push(dropShadow);
-    pieSeries.tooltip.dx = 200;
+    pieSeries.tooltip.dx = 100;
 
     pieSeries.slices.template.adapter.add('tooltipHTML', (_, context) => {
       const opportunity = context.dataItem.dataContext;
@@ -78,30 +78,31 @@ class PieChart extends Component {
       <div style="margin-top:5px;"><strong>${opportunity.title}: ${numeral(
         opportunity.value
       ).format('$0.a')}</strong></div>
-      <table style="margin: 1em 0">
+      <table style="margin: 1em 0;">
       ${hover.fields
         .map(
           data =>
-            `<tr>
+            `<tr style="maxWidth: 200px";>
           <td>${data.name}:</td>
           <td>${data.value}</td>
         </tr>`
         )
         .join('')}
       </table>
-      <div><strong>Commentary</strong></div>
-      <table>
-      ${hover.comments
-        .map(
-          comment =>
-            `<tr>
-          <td>• ${comment}</td>
-        </tr>`
-        )
-        .join('')}
-      </table>
-      </div>
       `;
+
+      // <div><strong>Commentary</strong></div>
+      // <table>
+      // ${hover.comments
+      //   .map(
+      //     comment =>
+      //       `<tr>
+      //     <td>• ${comment}</td>
+      //   </tr>`
+      //   )
+      //   .join('')}
+      // </table>
+      // </div>
     });
 
     this.chart = chart;

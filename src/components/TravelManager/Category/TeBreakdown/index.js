@@ -6,7 +6,6 @@ import { SectionTitle, Title } from 'components/common/Typography';
 import Loader from 'components/common/Loader';
 import CircleChartTe from './CircleChartTe';
 import BarChartTe from './BarChartTe';
-import SummaryCard from './SummaryCard';
 import { withRouter } from 'react-router-dom';
 
 const Container = styled.div`
@@ -28,45 +27,33 @@ const RowContainer = styled.div`
   display: flex;
   margin-top: ${props => (props.first ? '5em' : '2em')};
   flex-grow: 0;
+  align-items: flex-start;
 `;
 
 const Description = styled.div`
   flex: 1;
   margin-bottom: 1em;
-  margin-right: 1em;
 `;
 
 const ProgramShare = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-right: 1em;
 `;
 
 const BarChartContainer = styled.div`
-  flex: 2;
+  flex: 3;
   display: flex;
   flex-direction: column;
   margin-right: 2em;
 `;
-
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-left: 1em;
-`;
-
-const formatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-});
 
 class TeBreakdown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: '',
-      hoverCard: {},
+      hoverCard: null,
     };
   }
 
@@ -88,10 +75,6 @@ class TeBreakdown extends React.Component {
       view: key,
     });
   }
-
-  onIconHover = expense => {
-    console.log(expense);
-  };
 
   render() {
     const { view } = this.state;
@@ -128,18 +111,12 @@ class TeBreakdown extends React.Component {
                     <CircleChartTe percent={metric.programShare * 100} />
                   </ProgramShare>
                   <BarChartContainer>
-                    <Row>
-                      <span>Average Total Trip Cost</span>
-                      <span>{formatter.format(metric.totalTripCost).replace('.00', '')}</span>
-                    </Row>
                     <BarChartTe
                       metricSpend={metric.data}
                       totalTripCost={metric.totalTripCost}
                       allMetrics={teBreakdownDetail}
-                      onIconHover={this.onIconHover}
                     />
                   </BarChartContainer>
-                  <SummaryCard expenses={metric.data} />
                 </RowContainer>
               ))}
             </Container>

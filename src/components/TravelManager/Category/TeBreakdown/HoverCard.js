@@ -1,11 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import Icon from 'components/common/Icon';
 
 const RowContainer = styled.div`
-  display: flex;
-  flex: 1;
+  flex: 2;
   background: ${props => props.theme.alabaster};
-  padding: 2em;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  flex: 1;
 `;
 
 const Image = styled.img`
@@ -16,15 +26,36 @@ const Image = styled.img`
 const Row = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 1em;
+`;
+
+const Value = styled.span`
+  font-size: 2em;
+`;
+
+const Delta = styled.div`
+  padding: 1em 2em;
+  background-color: ${props =>
+    props.spentTooMuch ? props.theme.deepBlush : props.theme.tradewind};
+  border-radius: 0.5em;
 `;
 
 const HoverCard = ({ expense }) => {
   return (
     <RowContainer>
-      <Row>
-        <Image src={require(`assets/story/${expense.icon}`)} />
-        <span>{expense.name}</span>
-      </Row>
+      <Column>
+        <Row>
+          <Image src={require(`assets/story/${expense.icon}`)} />
+          <span>{expense.name.toUpperCase()}</span>
+        </Row>
+        <Value>$ {expense.value}</Value>
+      </Column>
+      <Delta spentTooMuch={expense.value > expense.benchmark}>
+        ${Math.abs(expense.value - expense.benchmark)}
+        <Icon
+          className={expense.value > expense.benchmark ? 'fas fa-arrow-up' : 'fas fa-arrow-down'}
+        />
+      </Delta>
     </RowContainer>
   );
 };

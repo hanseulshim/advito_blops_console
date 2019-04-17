@@ -1,19 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
-import { max } from 'moment';
+import SummaryCard from './SummaryCard';
+import HoverCard from './HoverCard';
 
 const Container = styled.div`
-  flex: 1;
+  display: flex;
+`;
+const ChartContainer = styled.div`
+  flex: 3;
   display: flex;
   flex-direction: column;
-  margin-top: 1em;
   position: relative;
+  margin-right: 2em;
 `;
 
 const Row = styled.div`
   display: flex;
-  /* margin-bottom: 1%; */
   height: 2em;
+`;
+
+const CostRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-left: 1em;
 `;
 
 const Icon = styled.div`
@@ -78,47 +87,85 @@ const Delta = styled.div`
   left: ${({ left }) => left}%;
 `;
 
-const BarChartTe = ({ metricSpend, allMetrics, totalTripCost, onIconHover }) => {
-  const maxTripCost = Math.max(...allMetrics.map(metric => metric.totalTripCost));
-  const allTripCosts = allMetrics.map(metric => metric.totalTripCost);
-  const averageTripCost =
-    allTripCosts.reduce((total, amount) => total + amount) / allTripCosts.length;
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});
 
-  const showDelta = totalTripCost / maxTripCost > averageTripCost / maxTripCost;
+class BarChartTe extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hoverCard: null,
+    };
+  }
 
-  return (
-    <Container>
-      {metricSpend.map((expense, idx) => (
-        <Row key={'expense' + idx}>
-          <Icon>
-            <Image
-              src={require(`assets/story/${expense.icon}`)}
-              onMouseOver={e => onIconHover(expense)}
-              onMouseOut={e => onIconHover(expense)}
-            />
-          </Icon>
-          <BarContainer>
-            <BarBackground width={(totalTripCost / maxTripCost) * 100} />
-            <AverageSpend width={(averageTripCost / maxTripCost) * 100} />
-            <Spend
-              width={Math.floor((expense.value / maxTripCost) * 100)}
-              spentTooMuch={expense.value > expense.benchmark}
-            />
-            <Benchmark
-              width={Math.floor((expense.benchmark / maxTripCost) * 100)}
-              spentTooMuch={expense.value > expense.benchmark}
-            />
-            {showDelta && (
-              <Delta
-                width={(totalTripCost / maxTripCost) * 100 - (averageTripCost / maxTripCost) * 100}
-                left={(averageTripCost / maxTripCost) * 100}
-              />
-            )}
-          </BarContainer>
-        </Row>
-      ))}
-    </Container>
-  );
-};
+  onIconHover = expense => {
+    this.setState({
+      hoverCard: expense,
+    });
+  };
+
+  clearHover = e => {
+    this.setState({
+      hoverCard: null,
+    });
+  };
+
+  render() {
+    const { metricSpend, allMetrics, totalTripCost } = this.props;
+    const { hoverCard } = this.state;
+
+    const maxTripCost = Math.max(...allMetrics.map(metric => metric.totalTripCost));
+    const allTripCosts = allMetrics.map(metric => metric.totalTripCost);
+    const averageTripCost =
+      allTripCosts.reduce((total, amount) => total + amount) / allTripCosts.length;
+
+    const showDelta = totalTripCost / maxTripCost > averageTripCost / maxTripCost;
+    return (
+      <Container>
+        <ChartContainer>
+          <CostRow>
+            <span>Average Total Trip Cost</span>
+            <span>{formatter.format(totalTripCost).replace('.00', '')}</span>
+          </CostRow>
+          {metricSpend.map((expense, idx) => (
+            <Row key={'expense' + idx}>
+              <Icon>
+                <Image
+                  src={require(`assets/story/${expense.icon}`)}
+                  onMouseOver={e => this.onIconHover(expense)}
+                  onMouseOut={e => this.clearHover(e)}
+                />
+              </Icon>
+              <BarContainer>
+                <BarBackground width={(totalTripCost / maxTripCost) * 100} />
+                <AverageSpend width={(averageTripCost / maxTripCost) * 100} />
+                <Spend
+                  width={Math.floor((expense.value / maxTripCost) * 100)}
+                  spentTooMuch={expense.value > expense.benchmark}
+                />
+                <Benchmark
+                  width={Math.floor((expense.benchmark / maxTripCost) * 100)}
+                  spentTooMuch={expense.value > expense.benchmark}
+                />
+                {showDelta && (
+                  <Delta
+                    width={
+                      (totalTripCost / maxTripCost) * 100 - (averageTripCost / maxTripCost) * 100
+                    }
+                    left={(averageTripCost / maxTripCost) * 100}
+                  />
+                )}
+              </BarContainer>
+            </Row>
+          ))}
+        </ChartContainer>
+
+        {!hoverCard ? <SummaryCard expenses={metricSpend} /> : <HoverCard expense={hoverCard} />}
+      </Container>
+    );
+  }
+}
 
 export default BarChartTe;

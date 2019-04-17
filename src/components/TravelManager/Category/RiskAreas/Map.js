@@ -77,7 +77,7 @@ class WorldMap extends Component {
         '#.%'
       )} | ${numeral(data.value).format('$0.a')}</strong></div>
       <table style="margin: 1em 0">
-      ${hover.fields
+      ${hover.fieldList
         .map(
           data =>
             `<tr>
@@ -87,19 +87,19 @@ class WorldMap extends Component {
         )
         .join('')}
       </table>
-      <div><strong>Commentary</strong></div>
-      <table>
-      ${hover.comments
-        .map(
-          comment =>
-            `<tr>
-          <td>• ${comment}</td>
-        </tr>`
-        )
-        .join('')}
-      </table>
-      </div>
       `;
+      // <div><strong>Commentary</strong></div>
+      // <table>
+      //${hover.comments
+      //   .map(
+      //     comment =>
+      //       `<tr>
+      //     <td>• ${comment}</td>
+      //   </tr>`
+      //   )
+      //   .join('')}
+      // </table>
+      // </div>
     });
 
     imageSeriesTemplate.tooltipHTML = '';

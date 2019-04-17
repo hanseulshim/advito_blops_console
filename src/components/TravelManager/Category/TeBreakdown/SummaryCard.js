@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import Icon from 'components/common/Icon';
 
 const CardContainer = styled.div`
-  flex: 1;
+  flex: 2;
   background: ${props => props.theme.alabaster};
-  padding: 2em;
+  padding: 1em;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1em;

@@ -25,12 +25,12 @@ const Detail = ({ id }) => {
             <ChartContainerRow>
               <Map data={riskAreaDetail.locationList} />
             </ChartContainerRow>
-            <CommentaryContainer>
+            {/* <CommentaryContainer>
               <Commentary>Commentary</Commentary>
               {riskAreaDetail.comments.map(comment => (
                 <div key={comment}>• {comment}</div>
               ))}
-            </CommentaryContainer>
+            </CommentaryContainer> */}
           </>
         )
       }
