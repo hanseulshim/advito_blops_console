@@ -25,6 +25,7 @@ const Icon = styled.div`
 
 const Image = styled.img`
   width: 25px;
+  cursor: pointer;
 `;
 
 const BarContainer = styled.div`
@@ -92,7 +93,8 @@ const BarChartTe = ({ metricSpend, allMetrics, totalTripCost, onIconHover }) => 
           <Icon>
             <Image
               src={require(`assets/story/${expense.icon}`)}
-              onMouseOver={this.props.onIconHover(expense)}
+              onMouseOver={e => onIconHover(expense)}
+              onMouseOut={e => onIconHover(expense)}
             />
           </Icon>
           <BarContainer>

@@ -77,7 +77,7 @@ class WorldMap extends Component {
         '#.%'
       )} | ${numeral(data.value).format('$0.a')}</strong></div>
       <table style="margin: 1em 0">
-      ${hover.fieldList
+      ${hover.fields
         .map(
           data =>
             `<tr>
