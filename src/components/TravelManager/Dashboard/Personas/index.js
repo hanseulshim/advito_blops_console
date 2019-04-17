@@ -6,6 +6,7 @@ import { PERSONA_LIST } from 'components/graphql/query';
 import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
 import Loader from 'components/common/Loader';
+import { withFilterContext } from 'components/context';
 
 const PersonaContainer = styled.div`
   display: flex;
@@ -50,7 +51,7 @@ const ChartRow = styled.div`
   line-height: 6em;
 `;
 
-const Personas = () => (
+const Personas = ({ context: { filterId } }) => (
   <Link to="/travel/personas">
     <PersonaContainer>
       <Description>
@@ -64,7 +65,7 @@ const Personas = () => (
           <div>Program share</div>
         </ChartRow>
       </Description>
-      <Query query={PERSONA_LIST}>
+      <Query query={PERSONA_LIST} variables={{ filterId }}>
         {({ data: { personaList }, loading }) =>
           loading ? (
             <Loader />
@@ -89,4 +90,4 @@ const Personas = () => (
   </Link>
 );
 
-export default Personas;
+export default withFilterContext(Personas);

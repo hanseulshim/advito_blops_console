@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import { GET_RISK_AREA } from 'graphql/queries';
@@ -12,24 +12,19 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-class RiskAreas extends Component {
-  state = {};
-  render() {
-    return (
-      <Query query={GET_RISK_AREA}>
-        {({ data: { riskArea }, loading }) =>
-          loading ? (
-            <Loader />
-          ) : (
-            <Container>
-              <TopRow id={riskArea.id} />
-              <Detail id={riskArea.id} />
-            </Container>
-          )
-        }
-      </Query>
-    );
-  }
-}
+const RiskAreas = () => (
+  <Query query={GET_RISK_AREA}>
+    {({ data: { riskArea }, loading }) =>
+      loading ? (
+        <Loader />
+      ) : (
+        <Container>
+          <TopRow id={riskArea.id} />
+          <Detail id={riskArea.id} />
+        </Container>
+      )
+    }
+  </Query>
+);
 
 export default RiskAreas;
