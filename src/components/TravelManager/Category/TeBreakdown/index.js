@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Query } from 'react-apollo';
+import { Query, compose } from 'react-apollo';
 import { GET_TE_BREAKDOWN_DETAIL } from 'components/graphql/query';
 import { SectionTitle, Title } from 'components/common/Typography';
 import Loader from 'components/common/Loader';
 import CircleChartTe from './CircleChartTe';
 import BarChartTe from './BarChartTe';
 import { withRouter } from 'react-router-dom';
+import { withFilterContext } from 'components/context';
 
 const Container = styled.div`
   display: flex;
@@ -78,8 +79,11 @@ class TeBreakdown extends React.Component {
 
   render() {
     const { view } = this.state;
+    const {
+      context: { filterId },
+    } = this.props;
     return (
-      <Query query={GET_TE_BREAKDOWN_DETAIL} variables={{ view }}>
+      <Query query={GET_TE_BREAKDOWN_DETAIL} variables={{ view, filterId }}>
         {({ data: { teBreakdownDetail }, loading }) =>
           loading ? (
             <Loader />
@@ -127,4 +131,7 @@ class TeBreakdown extends React.Component {
   }
 }
 
-export default withRouter(TeBreakdown);
+export default compose(
+  withRouter,
+  withFilterContext
+)(TeBreakdown);

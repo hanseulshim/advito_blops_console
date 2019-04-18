@@ -6,6 +6,7 @@ import Loader from 'components/common/Loader';
 import TopRow from './TopRow';
 import LineGraph from './LineGraph';
 import Summary from './Summary';
+import { withFilterContext } from 'components/context';
 
 const Container = styled.div`
   display: flex;
@@ -16,8 +17,9 @@ const Container = styled.div`
 class NetSpendAnalysis extends Component {
   state = {};
   render() {
+    const { filterId } = this.props.context;
     return (
-      <Query query={GET_NET_SPEND_DETAIL}>
+      <Query query={GET_NET_SPEND_DETAIL} variables={{ filterId }}>
         {({ data: { netSpendDetail }, loading }) =>
           loading ? (
             <Loader />
@@ -34,4 +36,4 @@ class NetSpendAnalysis extends Component {
   }
 }
 
-export default NetSpendAnalysis;
+export default withFilterContext(NetSpendAnalysis);
