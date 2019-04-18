@@ -15,6 +15,7 @@ export const NET_SPEND_ANALYSIS_LIST_TRAVEL = gql`
     netSpendAnalysisListTravel(filterId: $filterId) {
       date
       value
+      projValue
     }
   }
 `;

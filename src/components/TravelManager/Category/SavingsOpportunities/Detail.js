@@ -36,12 +36,12 @@ const Detail = ({ id }) => {
                 </ChartContainer>
               ))}
             </ChartContainerRow>
-            <CommentaryContainer>
+            {/* <CommentaryContainer>
               <Commentary>Commentary</Commentary>
               {savingsOpportunityDetail.comments.map(comment => (
                 <div key={comment}>• {comment}</div>
               ))}
-            </CommentaryContainer>
+            </CommentaryContainer> */}
           </>
         )
       }

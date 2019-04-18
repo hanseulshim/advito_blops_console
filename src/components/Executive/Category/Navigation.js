@@ -18,8 +18,8 @@ const NavItems = [
     title: 'Net Spend Analysis',
   },
   {
-    link: '/executive/markets',
-    title: 'Markets',
+    link: '/executive/te-breakdown',
+    title: 'T&E Breakdown',
   },
   {
     link: '/executive/savings-opportunities',

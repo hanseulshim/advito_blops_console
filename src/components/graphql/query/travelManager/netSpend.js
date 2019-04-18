@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const GET_NET_SPEND_DETAIL = gql`
-  query {
-    netSpendDetail {
+  query($filterId: Int) {
+    netSpendDetail(filterId: $filterId) {
       spendCategories {
         title
         icon

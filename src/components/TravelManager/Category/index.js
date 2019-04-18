@@ -5,6 +5,7 @@ import Navigation from './Navigation';
 import ProgramPerformance from './ProgramPerformance';
 import SavingsOpportunities from './SavingsOpportunities';
 import RiskAreas from './RiskAreas';
+import TeBreakdown from './TeBreakdown';
 import NetSpendAnalysis from './NetSpendAnalysis';
 
 const Container = styled.div`
@@ -26,6 +27,7 @@ const Category = () => {
           <Route path={`/travel/program-performance`} component={ProgramPerformance} />
           <Route path={`/travel/savings-opportunities`} component={SavingsOpportunities} />
           <Route path={`/travel/risk-areas`} component={RiskAreas} />
+          <Route path={`/travel/te-breakdown`} component={TeBreakdown} />
           <Route path={`/travel/net-spend-analysis`} component={NetSpendAnalysis} />
         </Switch>
       </Container>

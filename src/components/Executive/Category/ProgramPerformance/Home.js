@@ -15,7 +15,7 @@ import { withFilterContext } from 'components/context';
 const PerformanceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 2em 4em;
+  margin: 4em 4em;
 `;
 
 const Performance = styled.div`
@@ -23,6 +23,7 @@ const Performance = styled.div`
   flex-direction: column;
   flex: 1;
   align-items: center;
+  margin-right: 2em;
 `;
 
 const TitleSpaced = styled(Title)`
@@ -32,6 +33,7 @@ const TitleSpaced = styled(Title)`
 
 const ValueSpaced = styled(Value)`
   flex: 2;
+  font-size: 2em;
 `;
 
 const Unit = styled.span`
@@ -43,7 +45,6 @@ const NoChangeSince = styled.div`
   justify-content: center;
   font-style: italic;
   width: 100%;
-  margin-top: 2em;
 `;
 
 const LeafIcon = styled(Icon)`
@@ -72,8 +73,8 @@ const StoryTitle = styled.div`
 `;
 
 const Home = ({ context: { filterId } }) => (
-  <div>
-    <div>
+  <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ margin: '0em 2em' }}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in

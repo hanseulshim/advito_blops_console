@@ -111,7 +111,22 @@ class LineGraph extends React.Component {
     // const actualSeries = chart.series.push(new am4charts.LineSeries());
   }
 
+  componentWillUnmount() {
+    if (this.chart) {
+      this.chart.dispose();
+    }
+  }
+
+  updateChart(data) {
+    this.chart.data = data;
+    this.chart.invalidateData();
+  }
+
   render() {
+    const { data } = this.props;
+    if (this.chart) {
+      this.updateChart(data);
+    }
     return <Chart ref="spendGraph" />;
   }
 }

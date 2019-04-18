@@ -25,6 +25,16 @@ class LineChart extends Component {
     series.strokeWidth = 2;
     series.minBulletDistance = 15;
 
+    // Create projected series
+    const projSeries = chart.series.push(new am4charts.LineSeries());
+    projSeries.name = 'Proj. Spend';
+    projSeries.dataFields.valueY = 'projValue';
+    projSeries.dataFields.dateX = 'date';
+    projSeries.tooltipText = '{value}';
+    projSeries.strokeWidth = 1;
+    projSeries.strokeDasharray = 6;
+    projSeries.stroke = '#666666';
+
     // Drop-shaped tooltips
     series.tooltip.background.cornerRadius = 20;
     series.tooltip.background.strokeOpacity = 0;

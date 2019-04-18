@@ -87,19 +87,19 @@ class WorldMap extends Component {
         )
         .join('')}
       </table>
-      <div><strong>Commentary</strong></div>
-      <table>
-      ${hover.comments
-        .map(
-          comment =>
-            `<tr>
-          <td>• ${comment}</td>
-        </tr>`
-        )
-        .join('')}
-      </table>
-      </div>
       `;
+      // <div><strong>Commentary</strong></div>
+      // <table>
+      //${hover.comments
+      //   .map(
+      //     comment =>
+      //       `<tr>
+      //     <td>• ${comment}</td>
+      //   </tr>`
+      //   )
+      //   .join('')}
+      // </table>
+      // </div>
     });
 
     imageSeriesTemplate.tooltipHTML = '';

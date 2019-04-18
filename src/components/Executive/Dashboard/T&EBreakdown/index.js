@@ -51,12 +51,12 @@ const ChartRow = styled.div`
   line-height: 6em;
 `;
 
-const Personas = ({ context: { filterId } }) => (
-  <Link to="/travel/personas">
+const TeBreakdownRow = ({ context: { filterId } }) => (
+  <Link to="/executive/te-breakdown">
     <PersonaContainer>
       <Description>
         <TitleRow>
-          <SectionTitle>Personas</SectionTitle>
+          <SectionTitle>T&E Breakdown</SectionTitle>
         </TitleRow>
         <ValueRow>
           <div>Average Total Trip Cost</div>
@@ -90,4 +90,4 @@ const Personas = ({ context: { filterId } }) => (
   </Link>
 );
 
-export default withFilterContext(Personas);
+export default withFilterContext(TeBreakdownRow);
