@@ -19,11 +19,22 @@ class LineChart extends Component {
 
     // Create series
     const series = chart.series.push(new am4charts.LineSeries());
+    series.name = 'Actual Spend';
     series.dataFields.valueY = 'value';
     series.dataFields.dateX = 'date';
     series.tooltipText = '{value}';
     series.strokeWidth = 2;
     series.minBulletDistance = 15;
+
+    // Create projected series
+    const projSeries = chart.series.push(new am4charts.LineSeries());
+    projSeries.name = 'Proj. Spend';
+    projSeries.dataFields.valueY = 'projValue';
+    projSeries.dataFields.dateX = 'date';
+    projSeries.tooltipText = '{value}';
+    projSeries.strokeWidth = 1;
+    projSeries.strokeDasharray = 6;
+    projSeries.stroke = '#666666';
 
     // Drop-shaped tooltips
     series.tooltip.background.cornerRadius = 20;
@@ -40,6 +51,8 @@ class LineChart extends Component {
     bullet.circle.radius = 4;
     bullet.circle.fill = am4core.color('#fff');
     chart.data = this.props.data;
+
+    chart.legend = new am4charts.Legend();
   }
 
   componentWillUnmount() {

@@ -8,13 +8,24 @@ const RowContainer = styled.div`
   padding: 1em;
   display: flex;
   align-items: center;
+  opacity: 1;
+  animation: fade 1s linear;
+
+  @keyframes fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `;
 
 const Column = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
+  align-items: center;
   flex: 1;
 `;
 
@@ -34,10 +45,12 @@ const Value = styled.span`
 `;
 
 const Delta = styled.div`
+  align-self: center;
   padding: 1em 2em;
   background-color: ${props =>
     props.spentTooMuch ? props.theme.deepBlush : props.theme.tradewind};
   border-radius: 0.5em;
+  color: ${props => (props.spentTooMuch ? props.theme.black : props.theme.white)};
 `;
 
 const HoverCard = ({ expense }) => {

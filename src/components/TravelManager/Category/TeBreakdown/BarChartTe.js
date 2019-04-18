@@ -17,6 +17,7 @@ const ChartContainer = styled.div`
 const Row = styled.div`
   display: flex;
   height: 2em;
+  cursor: pointer;
 `;
 
 const CostRow = styled.div`
@@ -34,7 +35,6 @@ const Icon = styled.div`
 
 const Image = styled.img`
   width: 25px;
-  cursor: pointer;
 `;
 
 const BarContainer = styled.div`
@@ -77,6 +77,7 @@ const Benchmark = styled.div`
   /* border-right: ${props =>
     props.spentTooMuch ? props.theme.deepBlush : props.theme.tradewind}; */
   border-right: 3px solid rgba(0, 0, 0, .35);
+  z-index:2;
 `;
 
 const Delta = styled.div`
@@ -132,11 +133,7 @@ class BarChartTe extends React.Component {
           {metricSpend.map((expense, idx) => (
             <Row key={'expense' + idx}>
               <Icon>
-                <Image
-                  src={require(`assets/story/${expense.icon}`)}
-                  onMouseOver={e => this.onIconHover(expense)}
-                  onMouseOut={e => this.clearHover(e)}
-                />
+                <Image src={require(`assets/story/${expense.icon}`)} />
               </Icon>
               <BarContainer>
                 <BarBackground width={(totalTripCost / maxTripCost) * 100} />
@@ -148,6 +145,8 @@ class BarChartTe extends React.Component {
                 <Benchmark
                   width={Math.floor((expense.benchmark / maxTripCost) * 100)}
                   spentTooMuch={expense.value > expense.benchmark}
+                  onMouseOver={e => this.onIconHover(expense)}
+                  onMouseOut={e => this.clearHover(e)}
                 />
                 {showDelta && (
                   <Delta

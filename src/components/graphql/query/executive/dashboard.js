@@ -13,6 +13,7 @@ export const NET_SPEND_ANALYSIS_LIST_EXECUTIVE = gql`
     netSpendAnalysisListExecutive(filterId: $filterId) {
       date
       value
+      projValue
     }
   }
 `;
