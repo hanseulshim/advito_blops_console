@@ -10,7 +10,6 @@ const Container = styled.div`
   padding: 2.5em 4em;
   display: flex;
   flex-direction: column;
-  
 `;
 
 const Sidebar = ({ children, bgColor }) => (

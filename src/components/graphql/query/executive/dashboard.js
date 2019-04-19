@@ -18,9 +18,9 @@ export const NET_SPEND_ANALYSIS_LIST_EXECUTIVE = gql`
   }
 `;
 
-export const MARKET_LIST = gql`
+export const DIVISION_LIST_EXECUTIVE = gql`
   query($filterId: Int) {
-    marketList(filterId: $filterId) {
+    divisionListExecutive(filterId: $filterId) {
       title
       value
       programShare

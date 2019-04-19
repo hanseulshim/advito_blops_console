@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { PERSONA_LIST } from 'components/graphql/query';
+import { DIVISION_LIST_EXECUTIVE } from 'components/graphql/query';
 import { SectionTitle, Title } from 'components/common/Typography';
 import CircleChart from './CircleChart';
 import Loader from 'components/common/Loader';
@@ -65,21 +65,21 @@ const TeBreakdownRow = ({ context: { filterId } }) => (
           <div>Program share</div>
         </ChartRow>
       </Description>
-      <Query query={PERSONA_LIST} variables={{ filterId }}>
-        {({ data: { personaList }, loading }) =>
+      <Query query={DIVISION_LIST_EXECUTIVE} variables={{ filterId }}>
+        {({ data: { divisionListExecutive }, loading }) =>
           loading ? (
             <Loader />
           ) : (
-            personaList.map((persona, index) => (
+            divisionListExecutive.map((division, index) => (
               <Persona key={index} first={index === 0}>
                 <TitleRow>
-                  <TitleTransform>{persona.title}</TitleTransform>
+                  <TitleTransform>{division.title}</TitleTransform>
                 </TitleRow>
                 <ValueRow>
-                  <ValueSized>{persona.value}</ValueSized>
+                  <ValueSized>{division.value}</ValueSized>
                 </ValueRow>
                 <ChartRow>
-                  <CircleChart percent={persona.programShare} />
+                  <CircleChart percent={division.programShare} />
                 </ChartRow>
               </Persona>
             ))

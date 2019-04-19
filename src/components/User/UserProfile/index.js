@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Shayan from 'assets/shayan.jpeg';
+import Lexi from 'assets/lexi.png';
 import Button from 'components/common/Button';
 import { withApollo, compose } from 'react-apollo';
 import { withUserContext } from 'components/context';
@@ -174,7 +175,7 @@ class UserProfile extends Component {
         <FormContainer>
           <Form>
             <Avatar>
-              <img src={Shayan} alt="Avatar" />
+              <img src={Lexi} alt="Avatar" />
               <div>
                 <Button text="Change" />
               </div>

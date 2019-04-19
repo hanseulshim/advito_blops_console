@@ -75,11 +75,10 @@ const StoryTitle = styled.div`
 const Home = ({ context: { filterId } }) => (
   <div style={{ display: 'flex', flexDirection: 'column' }}>
     <div style={{ margin: '0em 2em' }}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      Overall, the Average Total Trip Cost, Bookings Outside of Agency and Expenses Out of Policy
+      have decreased by 3% this month; however, Air leakage and Out of Policy Premium Seats have
+      increased. If this trend continues, you can expect a financial impact of approximately $1.2
+      million this program year.
     </div>
     <Query query={PROGRAM_PERFORMANCE_LIST_TRAVEL} variables={{ filterId }}>
       {({ data: { programPerformanceListTravel, noChangeSince }, loading }) =>

@@ -24,6 +24,7 @@ const CostRow = styled.div`
   display: flex;
   justify-content: space-between;
   margin-left: 1em;
+  margin-bottom: 1em;
 `;
 
 const Icon = styled.div`
@@ -43,7 +44,7 @@ const BarContainer = styled.div`
 `;
 
 const BarBackground = styled.div`
-  background: ${props => props.theme.alabaster};
+  background: ${props => '#f3f3f3'};
   position: absolute;
   left: 0;
   height: 100%;
@@ -133,7 +134,11 @@ class BarChartTe extends React.Component {
           {metricSpend.map((expense, idx) => (
             <Row key={'expense' + idx}>
               <Icon>
-                <Image src={require(`assets/story/${expense.icon}`)} />
+                <Image
+                  src={require(`assets/story/${expense.icon}`)}
+                  onMouseOver={e => this.onIconHover(expense)}
+                  onMouseOut={e => this.clearHover(e)}
+                />
               </Icon>
               <BarContainer>
                 <BarBackground width={(totalTripCost / maxTripCost) * 100} />

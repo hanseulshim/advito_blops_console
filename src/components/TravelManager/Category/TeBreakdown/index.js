@@ -26,7 +26,7 @@ const TitleButton = styled(Title)`
 const RowContainer = styled.div`
   flex: 1;
   display: flex;
-  margin-top: ${props => (props.first ? '5em' : '2em')};
+  margin-top: ${props => (props.first ? '2em' : '2em')};
   flex-grow: 0;
   align-items: flex-start;
 `;
@@ -89,7 +89,7 @@ class TeBreakdown extends React.Component {
             <Loader />
           ) : (
             <Container>
-              <div style={{ width: '25%' }}>
+              <div style={{ width: '25%', marginBottom: '3em' }}>
                 <TitleButton
                   first
                   onClick={e => this.changeView('personas')}
