@@ -2,10 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { PROGRAM_PERFORMANCE_EXECUTIVE } from 'components/graphql/query';
+import { PROGRAM_PERFORMANCE_LIST_TRAVEL } from 'components/graphql/query';
 import Button from 'components/common/Button';
 import { SectionTitle } from 'components/common/Typography';
-import Icon from 'components/common/Icon';
 import Loader from 'components/common/Loader';
 import { withFilterContext } from 'components/context';
 
@@ -26,28 +25,23 @@ const SectionContainer = styled.div`
 
 const Performance = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100%;
   padding: 0.75em 0;
-  margin-top: 0.75em;
+  margin-top: 0.5em;
 `;
 
-const Row = styled.div``;
-
-const Score = styled.span`
-  font-size: 7em;
-  color: ${props => props.theme.easternWind};
+const Title = styled.div`
+  flex: 1 1 12%;
+  margin-right: 1em;
 `;
 
-const OutOf = styled.span`
-  font-size: 4em;
-  color: ${props => props.theme.grayNurse};
+const Value = styled.div`
+  flex: 2;
+  color: ${props => props.theme.black};
+  font-size: 1.7em;
 `;
 
-const Changes = styled.p`
-  margin-top: 2em;
+const Unit = styled.span`
+  font-size: 1rem;
 `;
 
 const ProgramPerformance = ({ context: { filterId } }) => (
@@ -58,25 +52,23 @@ const ProgramPerformance = ({ context: { filterId } }) => (
         <Button spaceLeft text="view more" />
       </Link>
     </SectionContainer>
-    <Query query={PROGRAM_PERFORMANCE_EXECUTIVE} variables={{ filterId }}>
-      {({ data: { programPerformanceExecutive }, loading }) =>
-        loading ? (
-          <Loader />
-        ) : (
-          <>
-            <Performance>
-              <Row>
-                <Score>{programPerformanceExecutive.value}</Score>
-                <OutOf>/8.7</OutOf>
-              </Row>
-              <Changes>
-                <Icon className="fas fa-leaf" style={{ marginRight: '5px' }} />
-                <span>No changes since July 30</span>
-              </Changes>
-            </Performance>
-          </>
-        )
-      }
+    <Query query={PROGRAM_PERFORMANCE_LIST_TRAVEL} variables={{ filterId }}>
+      {({ data: { programPerformanceListTravel }, loading }) => (
+        <>
+          {loading ? (
+            <Loader />
+          ) : (
+            programPerformanceListTravel.map(performance => (
+              <Performance key={performance.title}>
+                <Title>{performance.title}</Title>
+                <Value>
+                  {performance.value} <Unit>{performance.unit}</Unit>
+                </Value>
+              </Performance>
+            ))
+          )}
+        </>
+      )}
     </Query>
   </Container>
 );

@@ -24,6 +24,7 @@ const CostRow = styled.div`
   display: flex;
   justify-content: space-between;
   margin-left: 1em;
+  margin-bottom: 1em;
 `;
 
 const Icon = styled.div`

@@ -5,6 +5,7 @@ import { Title } from 'components/common/Typography';
 import { Link } from 'react-router-dom';
 import { withUserContext } from 'components/context';
 import Shayan from 'assets/shayan.jpeg';
+import Lexi from 'assets/lexi.png';
 import NavMenu from './NavMenu';
 
 const Container = styled.div`
@@ -48,7 +49,7 @@ class SideBarUserInfo extends React.Component {
         <TitleContainer>
           <Avatar>
             <Link to="/user-profile" replace>
-              <img src={Shayan} alt="avatar" />
+              <img src={Lexi} alt="avatar" />
             </Link>
           </Avatar>
           <NavMenu />
