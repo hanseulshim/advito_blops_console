@@ -76,7 +76,7 @@ const Home = ({ context: { filterId } }) => (
   <div style={{ display: 'flex', flexDirection: 'column' }}>
     <div style={{ margin: '0em 2em' }}>
       Overall, the Average Total Trip Cost, Bookings Outside of Agency and Expenses Out of Policy
-      have decreased by 3% this month; However, Air leakage and Out of Policy Premium Seats have
+      have decreased by 3% this month; however, Air leakage and Out of Policy Premium Seats have
       increased. If this trend continues, you can expect a financial impact of approximately $1.2
       million this program year.
     </div>
