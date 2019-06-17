@@ -14,7 +14,7 @@ import { getToken } from './components/graphql/helper';
 am4core.options.commercialLicense = true;
 
 const client = new ApolloClient({
-  uri: 'https://krwbn4sllb.execute-api.us-east-2.amazonaws.com/beta/graphql',
+  uri: 'https://yjy897m0cj.execute-api.us-east-2.amazonaws.com/beta/graphql',
   // uri: 'https://90nseke0l0.execute-api.us-east-2.amazonaws.com/alpha/graphql',
   // uri: 'https://x162060eb4.execute-api.us-east-2.amazonaws.com/dev/graphql',
   // uri: 'http://localhost:8080/graphql',
@@ -55,7 +55,7 @@ ReactDOM.render(
       <App />
     </HashRouter>
   </ApolloProvider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Shayan from 'assets/shayan.jpeg';
-import Lexi from 'assets/lexi.png';
 import Button from 'components/common/Button';
 import { withApollo, compose } from 'react-apollo';
 import { withUserContext } from 'components/context';
@@ -99,7 +98,9 @@ class UserProfile extends Component {
           const value = timeZones.filter(v => v.value === userProfile[key])[0];
           state[key] = value;
         } else if (key === 'dateFormatDefault') {
-          const value = dateTimeOptions.filter(v => v.value === userProfile[key])[0];
+          const value = dateTimeOptions.filter(
+            v => v.value === userProfile[key],
+          )[0];
           state[key] = value;
         } else {
           state[key] = userProfile[key];
@@ -175,14 +176,18 @@ class UserProfile extends Component {
         <FormContainer>
           <Form>
             <Avatar>
-              <img src={Lexi} alt="Avatar" />
+              <img src={Shayan} alt="Avatar" />
               <div>
                 <Button text="Change" />
               </div>
             </Avatar>
             <FormItem>
               <FormLabel>Username/Email</FormLabel>
-              <FormText value={username} name="username" onChange={this.changeInput} />
+              <FormText
+                value={username}
+                name="username"
+                onChange={this.changeInput}
+              />
             </FormItem>
             <FormItem>
               <FormLabel>Date/Time Format</FormLabel>
@@ -196,17 +201,34 @@ class UserProfile extends Component {
           <Form>
             <FormItem>
               <FormLabel>First Name</FormLabel>
-              <FormText value={nameFirst} name="nameFirst" onChange={this.changeInput} />
+              <FormText
+                value={nameFirst}
+                name="nameFirst"
+                onChange={this.changeInput}
+              />
             </FormItem>
             <FormItem>
               <FormLabel>Last Name</FormLabel>
-              <FormText value={nameLast} name="nameLast" onChange={this.changeInput} />
+              <FormText
+                value={nameLast}
+                name="nameLast"
+                onChange={this.changeInput}
+              />
             </FormItem>
             <FormItem>
               <FormLabel>Password</FormLabel>
-              <div style={{ width: '100%', display: 'flex', alignItems: 'flex-end' }}>
+              <div
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                }}
+              >
                 <Password disabled type="password" value="**************" />
-                <ChangePassword text="Change" onClick={() => this.toggleModal('openPassword')} />
+                <ChangePassword
+                  text="Change"
+                  onClick={() => this.toggleModal('openPassword')}
+                />
               </div>
             </FormItem>
             <FormItem>
@@ -226,7 +248,9 @@ class UserProfile extends Component {
         <Save text="Save" onClick={() => this.saveUser(setUser, user)} />
         <Modal open={openSave} handleClose={() => this.toggleModal('openSave')}>
           <div style={{ textAlign: 'center' }}>
-            {errorMessage ? `Error: ${errorMessage}` : 'User information successfully updated'}
+            {errorMessage
+              ? `Error: ${errorMessage}`
+              : 'User information successfully updated'}
           </div>
           <Save text="Close" onClick={() => this.toggleModal('openSave')} />
         </Modal>
@@ -248,5 +272,5 @@ class UserProfile extends Component {
 
 export default compose(
   withApollo,
-  withUserContext
+  withUserContext,
 )(UserProfile);
