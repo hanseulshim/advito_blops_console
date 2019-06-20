@@ -27,13 +27,17 @@ const RowContainer = styled.div`
   flex: 1;
   display: flex;
   margin-top: ${props => (props.first ? '2em' : '2em')};
-  flex-grow: 0;
   align-items: flex-start;
 `;
 
 const Description = styled.div`
-  flex: 1;
+  flex: 1.25;
   margin-bottom: 1em;
+`;
+
+const MetricSummary = styled.p`
+  max-height: 140px;
+  overflow: auto;
 `;
 
 const ProgramShare = styled.div`
@@ -108,10 +112,12 @@ class TeBreakdown extends React.Component {
                 <RowContainer key={'metric' + idx} first={(idx = 1)}>
                   <Description>
                     <Title>{metric.title}</Title>
-                    <p>{metric.description}</p>
+                    <MetricSummary>{metric.description}</MetricSummary>
                   </Description>
                   <ProgramShare>
-                    <span style={{ alignSelf: 'center', marginBottom: '1em' }}>Program Share</span>
+                    <span style={{ alignSelf: 'center', marginBottom: '1em' }}>
+                      Program Share
+                    </span>
                     <CircleChartTe percent={metric.programShare * 100} />
                   </ProgramShare>
                   <BarChartContainer>
@@ -133,5 +139,5 @@ class TeBreakdown extends React.Component {
 
 export default compose(
   withRouter,
-  withFilterContext
+  withFilterContext,
 )(TeBreakdown);
